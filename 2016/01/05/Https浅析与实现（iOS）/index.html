@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Https浅析与实现（iOS） | 那片树海</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Https浅析与实现（iOS）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Https浅析与实现（iOS）">
+<meta property="og:url" content="http://yoursite.com/2016/01/05/Https浅析与实现（iOS）/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="Https浅析与实现（iOS）">
+<meta property="og:updated_time" content="2016-07-18T10:20:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Https浅析与实现（iOS）">
+<meta name="twitter:description" content="Https浅析与实现（iOS）">
+  
+    <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://o84wamnts.bkt.clouddn.com/20160712-head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">树海</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">用心做一件工艺品</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/yangzq007" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/5203766440?is_all=1" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/CocoaPods/" style="font-size: 10px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 13.33px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 16.67px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 13.33px;">博客历程</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/杂谈/" style="font-size: 13.33px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 13.33px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 13.33px;">那些坑</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">树海</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://o84wamnts.bkt.clouddn.com/20160712-head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">树海</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">用心做一件工艺品</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/yangzq007" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5203766440?is_all=1" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Https浅析与实现（iOS）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/05/Https浅析与实现（iOS）/" class="article-date">
+  	<time datetime="2016-01-05T08:12:44.000Z" itemprop="datePublished">2016-01-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Https浅析与实现（iOS）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络安全/">网络安全</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着iOS9的发布以及对iOS平台的安全问题的关注度的提高，iOS安全问题慢慢被提上日程。最近了解了一下iOS9下Https的相关实现，和大家分享一下。</p>
+<h2 id="Https浅析"><a href="#Https浅析" class="headerlink" title="Https浅析"></a>Https浅析</h2><h3 id="Https和http有何异同"><a href="#Https和http有何异同" class="headerlink" title="Https和http有何异同"></a>Https和http有何异同</h3><p>https和http从数据解析和交换来说本质上没有任何区别，https可以看做经过校验和加密的http通信。也可以说在网络应用层，http+ssl/tsl形成了https。  </p>
+<a id="more"></a>
+<h3 id="Https的通信过程"><a href="#Https的通信过程" class="headerlink" title="Https的通信过程"></a>Https的通信过程</h3><ol>
+<li><p>客户端产生一个随机数，将这个随机数以及客户端支持的加密算法发送给服务器.</p>
+</li>
+<li><p>服务器接到请求，确认双方使用的加密算法并产生第二个随机数，把证书和第二个随机数发送给客户端</p>
+</li>
+<li><p>客户端接收到证书之后验证服务器的身份。无效，则取消连接。有效，则生成第三个随机数，领用证书中的公钥对第三个随机数进行加密，传输给服务器。</p>
+</li>
+<li><p>服务器接收到第三个随机数后利用服务器上的私钥进行解密，然后得到第三个随机数</p>
+</li>
+<li><p>客户端和服务器使用这个三个随机数生成的“对话秘钥”进行加密，进行后续的通信过程。</p>
+</li>
+</ol>
+<h3 id="安全性的保证："><a href="#安全性的保证：" class="headerlink" title="安全性的保证："></a>安全性的保证：</h3><p>虽然第一个和第二个随机数是明文，但是第三个随机数使用非对称加密方法进行加密，而且私钥从来没有在网络中进行传输，从理论上讲整个通信过程是安全的。</p>
+<h3 id="相关概念解释"><a href="#相关概念解释" class="headerlink" title="相关概念解释"></a>相关概念解释</h3><p>SSL/TLS看这里：</p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">SSL/TLS协议运行机制的概述</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html" target="_blank" rel="external">图解SSL/TLS协议</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150702/12384.html" target="_blank" rel="external">SSL/TLS版本相关</a></p>
+<p>数字证书：<br>该证书包含了公钥等信息，一般是由服务器发给客户端，接收方通过验证这个证书是不是由信赖的CA签发，或者与本地的证书相对比，来判断证书是否可信；假如需要双向验证，则服务器和客户端都需要发送数字证书给对方验证；</p>
+<blockquote>
+<p>数字证书是一个电子文档，其中包含了持有者的信息、公钥以及证明该证书有效的数字签名。而数字证书以及相关的公钥管理和验证等技术组成了PKI（公钥基础设施）规范体系。一般来说，数字证书是由数字证书认证机构(Certificate authority，即CA)来负责签发和管理，并承担PKI体系中公钥合法性的检验责任；数字证书的类型有很多，而HTTPS使用的是SSL证书。</p>
+<p>怎么来验证数字证书是由CA签发的，而不是第三方伪造的呢？ 在回答这个问题前，我们需要先了解CA的组织结构。首先，CA组织结构中，最顶层的就是根CA，根CA下可以授权给多个二级CA，而二级CA又可以授权多个三级CA，所以CA的组织结构是一个树结构。对于SSL证书市场来说，主要被Symantec(旗下有VeriSign和GeoTrust)、Comodo SSL、Go Daddy 和 GlobalSign 瓜分。 了解了CA的组织结构后，来看看数字证书的签发流程。</p>
+<p>数字证书的签发机构CA，在接收到申请者的资料后进行核对并确定信息的真实有效，然后就会制作一份符合X.509标准的文件。证书中的证书内容包括了持有者信息和公钥等都是由申请者提供的，而数字签名则是CA机构对证书内容进行hash加密后等到的，而这个数字签名就是我们验证证书是否是有可信CA签发的数据。</p>
+<p>接收端接到一份数字证书Cer1后，对证书的内容做Hash等到H1；然后在签发该证书的机构CA1的数字证书中找到公钥，对证书上数字签名进行解密，得到证书Cer1签名的Hash摘要H2；对比H1和H2，假如相等，则表示证书没有被篡改。但这个时候还是不知道CA是否是合法的，我们看到上图中有CA机构的数字证书，这个证书是公开的，所有人都可以获取到。而这个证书中的数字签名是上一级生成的，所以可以这样一直递归验证下去，直到根CA。根CA是自验证的，即他的数字签名是由自己的私钥来生成的。合法的根CA会被浏览器和操作系统加入到权威信任CA列表中，这样就完成了最终的验证。所以，一定要保护好自己环境（浏览器/操作系统）中根CA信任列表，信任了根CA就表示信任所有根CA下所有子级CA所签发的证书，不要随便添加根CA证书。</p>
+</blockquote>
+<h2 id="Https实现（iOS）"><a href="#Https实现（iOS）" class="headerlink" title="Https实现（iOS）"></a>Https实现（iOS）</h2><h3 id="证书准备"><a href="#证书准备" class="headerlink" title="证书准备"></a>证书准备</h3><ol>
+<li><p>创建私钥：</p>
+<p> openssl genrsa -out root/root-key.pem 1024 </p>
+</li>
+<li><p>创建证书请求：</p>
+<p> openssl req -new -out root/root-req.csr -key root/root-key.pem</p>
+</li>
+<li><p>自签署证书：</p>
+<p> openssl x509 -req -in root/root-req.csr -out root/root-cert.pem -signkey root/root-key.pem -days 3650 </p>
+</li>
+<li><p>将证书导出成浏览器支持的.p12格式：</p>
+<p> openssl pkcs12 -export -clcerts -in root/root-cert.pem -inkey root/root-key.pem -out root/root.p12</p>
+</li>
+</ol>
+<p><a href="http://blog.163.com/joe331_80/blog/static/4009382620132442210700/" target="_blank" rel="external">连接</a></p>
+<p>因为我们只需要验证一次证书，我们只需要创建一次就好了，不需要像原文那样创建那么多。我们客户端需呀的cer文件也可以由pem文件直接转换导出即可。</p>
+<h3 id="NSURLConnection实现"><a href="#NSURLConnection实现" class="headerlink" title="NSURLConnection实现"></a>NSURLConnection实现</h3><pre><code>系统默认验证流程
+// Now start the connection
+NSURL *httpsURL = [NSURL URLWithString:@&quot;https://www.google.com&quot;];
+self.connection = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:httpsURL] delegate:self];
+
+//回调
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+
+    //1)获取trust object
+    SecTrustRef trust = challenge.protectionSpace.serverTrust;
+    SecTrustResultType result;
+
+    //2)SecTrustEvaluate对trust进行验证
+    OSStatus status = SecTrustEvaluate(trust, &amp;result);
+    if (status == errSecSuccess &amp;&amp; (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified)) {
+
+        //3)验证成功，生成NSURLCredential凭证cred，告知challenge的sender使用这个凭证来继续连接
+        NSURLCredential *cred = [NSURLCredential credentialForTrust:trust];
+        [challenge.sender useCredential:cred forAuthenticationChallenge:challenge];
+
+    } else {
+
+        //5)验证失败，取消这次验证流程
+        [challenge.sender cancelAuthenticationChallenge:challenge];
+
+    }
+}
+
+自建证书验证流程
+//先导入证书
+NSString * cerPath = ...; //证书的路径
+NSData * cerData = [NSData dataWithContentsOfFile:cerPath];
+SecCertificateRef certificate = SecCertificateCreateWithData(NULL, (__bridge CFDataRef)(cerData));
+self.trustedCertificates = @[CFBridgingRelease(certificate)];
+
+//回调
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+
+    //1)获取trust object
+    SecTrustRef trust = challenge.protectionSpace.serverTrust;
+    SecTrustResultType result;
+    //注意：这里将之前导入的证书设置成下面验证的Trust Object的anchor certificate
+    SecTrustSetAnchorCertificates(trust, (__bridge CFArrayRef)self.trustedCertificates);
+
+    //2)SecTrustEvaluate会查找前面SecTrustSetAnchorCertificates设置的证书或者系统默认提供的证书，对trust进行验证
+    OSStatus status = SecTrustEvaluate(trust, &amp;result);
+    if (status == errSecSuccess &amp;&amp; (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified)) {
+
+        //3)验证成功，生成NSURLCredential凭证cred，告知challenge的sender使用这个凭证来继续连接
+        NSURLCredential *cred = [NSURLCredential credentialForTrust:trust];
+        [challenge.sender useCredential:cred forAuthenticationChallenge:challenge];
+
+    } else {
+
+        //5)验证失败，取消这次验证流程
+        [challenge.sender cancelAuthenticationChallenge:challenge];
+    }
+}
+</code></pre><h3 id="AFNetworking对Https的支持"><a href="#AFNetworking对Https的支持" class="headerlink" title="AFNetworking对Https的支持"></a>AFNetworking对Https的支持</h3><p>因为AFNetworking直接会遍历bundle找到对应的cer证书文件，故不需要添加证书路径，只需要把证书添加到工程中即可。</p>
+<pre><code>NSURL * url = [NSURL URLWithString:@&quot;https://www.google.com&quot;];
+AFHTTPRequestOperationManager * requestOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
+dispatch_queue_t requestQueue = dispatch_create_serial_queue_for_name(&quot;kRequestCompletionQueue&quot;);
+requestOperationManager.completionQueue = requestQueue;
+
+AFSecurityPolicy * securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+
+//allowInvalidCertificates 是否允许无效证书（也就是自建的证书），默认为NO
+//如果是需要验证自建证书，需要设置为YES
+securityPolicy.allowInvalidCertificates = YES;
+
+//validatesDomainName 是否需要验证域名，默认为YES；
+//假如证书的域名与你请求的域名不一致，需把该项设置为NO
+//主要用于这种情况：客户端请求的是子域名，而证书上的是另外一个域名。因为SSL证书上的域名是独立的，假如证书上注册的域名是www.google.com，那么mail.google.com是无法验证通过的；当然，有钱可以注册通配符的域名*.google.com，但这个还是比较贵的。
+securityPolicy.validatesDomainName = NO;
+
+//validatesCertificateChain 是否验证整个证书链，默认为YES
+//设置为YES，会将服务器返回的Trust Object上的证书链与本地导入的证书进行对比，这就意味着，假如你的证书链是这样的：
+//GeoTrust Global CA 
+//    Google Internet Authority G2
+//        *.google.com
+//那么，除了导入*.google.com之外，还需要导入证书链上所有的CA证书（GeoTrust Global CA, Google Internet Authority G2）；
+//如是自建证书的时候，可以设置为YES，增强安全性；假如是信任的CA所签发的证书，则建议关闭该验证；
+securityPolicy.validatesCertificateChain = NO;
+
+requestOperationManager.securityPolicy = securityPolicy;
+</code></pre><p>AFHTTPSessionManager与之基本一致,不再详述。</p>
+<p><br></p>
+<hr>
+<p>参考博文：</p>
+<p><a href="http://www.cocoachina.com/ios/20150811/12947.html" target="_blank" rel="external">打造安全的App！iOS安全系列之 HTTPS</a></p>
+<p><a href="http://blog.csdn.net/aragan/article/details/41315467" target="_blank" rel="external">AFNetworking 2.0 实现自签名SSL的HTTPS网络连接</a></p>
+<p><a href="http://my.oschina.net/non6/blog/290175" target="_blank" rel="external">iOS实用技巧 - AFNetworking2安全的使用自签证书访问HTTPS</a></p>
+<p><br></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/15/Xcode更新或者重新安装导致插件无效问题的解决方案/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Xcode更新或者重新安装导致插件无效问题的解决方案
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/04/第一篇文章-那片树海的Hello World/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一篇文章-那片树海的Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Https浅析与实现（iOS）" data-title="Https浅析与实现（iOS）" data-url="http://yoursite.com/2016/01/05/Https浅析与实现（iOS）/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shuhai"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 树海
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71671003-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?a731b6b05ebb338328092318364159e3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </div>
+</body>
+</html>
