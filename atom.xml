@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-24T07:59:39.000Z</updated>
+  <updated>2017-05-25T09:11:29.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,24 +20,24 @@
     <link href="http://yoursite.com/2017/05/23/%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8BtintColor/"/>
     <id>http://yoursite.com/2017/05/23/简单说下tintColor/</id>
     <published>2017-05-23T07:20:17.000Z</published>
-    <updated>2017-05-24T07:59:39.000Z</updated>
+    <updated>2017-05-25T09:11:29.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170523-2.png&quot; alt=&quot;20170523-2&quot;&gt;&lt;/p&gt;
-&lt;p&gt;起初以为是修改了导航栏的颜色，后来发现是导航栏着色&lt;code&gt;tintColor&lt;/code&gt;渲染模式修改造成的。&lt;/p&gt;
-&lt;h3 id=&quot;tintColor&quot;&gt;&lt;a href=&quot;#tintColor&quot; class=&quot;headerlink&quot; title=&quot;tintColor&quot;&gt;&lt;/a&gt;tintColor&lt;/h3&gt;&lt;p&gt;每个APP基本上都会有一个主色调，这个时候我们一般都会使用&lt;code&gt;tintColor&lt;/code&gt;来设置。它比较明显的作用是影响系统默认的返回文字的颜色和一些操作按钮的颜色，这样可以方便的帮我们来设置主色调。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/reference/uikit/uiview/1622467-tintcolor?language=objc#declarations&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;苹果的文档&lt;/a&gt;当中是这样描述的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;h3 id=&quot;tintColor-1&quot;&gt;&lt;a href=&quot;#tintColor-1&quot; class=&quot;headerlink&quot; title=&quot;tintColor&quot;&gt;&lt;/a&gt;tintColor&lt;/h3&gt;&lt;p&gt;The first nondefault tint color value in the view’s hierarchy, ascending from and starting with the view itself.&lt;/p&gt;
-&lt;h3 id=&quot;Discussion&quot;&gt;&lt;a href=&quot;#Discussion&quot; class=&quot;headerlink&quot; title=&quot;Discussion&quot;&gt;&lt;/a&gt;Discussion&lt;/h3&gt;&lt;p&gt;If the system cannot find a nondefault color in the hierarchy, this property’s value is a system-defined color instead.&lt;/p&gt;
-&lt;p&gt;If the view’s tintAdjustmentMode property’s value is UIViewTintAdjustmentModeDimmed, then the tintColor property value is automatically dimmed.&lt;/p&gt;
-&lt;p&gt;To refresh subview rendering when this property changes, override the tintColorDidChange method.&lt;/p&gt;
-&lt;p&gt;Colors that are pattern colors (as described in UIColor) are not supported.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;文档的大致意思是&lt;code&gt;tintColor&lt;/code&gt;是视图层级当中的第一个非默认的着色颜色，当视图层级中不存在非默认的颜色值时，系统就会使用&lt;code&gt;tintColor&lt;/code&gt;作为渲染的颜色值。当&lt;code&gt;tintAdjustmentMode&lt;/code&gt;的值为&lt;code&gt;UIViewTintAdjustmentModeDimmed&lt;/code&gt;时，所渲染出来的&lt;code&gt;tintColor&lt;/code&gt;的颜色会变暗。&lt;/p&gt;
-&lt;p&gt;需要注意的一点是&lt;code&gt;tintColor&lt;/code&gt;的查询是在视图层级中一次次往上的，所以你父视图的设置会影响子视图的渲染。子视图想要呈现不同的颜色时，需要设置颜色或者它自己的&lt;code&gt;tintColor&lt;/code&gt;。&lt;/p&gt;
-&lt;h3 id=&quot;问题解决&quot;&gt;&lt;a href=&quot;#问题解决&quot; class=&quot;headerlink&quot; title=&quot;问题解决&quot;&gt;&lt;/a&gt;问题解决&lt;/h3&gt;&lt;p&gt;我们上面提到的导航栏颜色变暗就是因为弹框时需要一个暗色的背景，修改了视图的的&lt;code&gt;tintAdjustmentMode&lt;/code&gt;为&lt;code&gt;UIViewTintAdjustmentModeDimmed&lt;/code&gt;，而在消失的时候忘记设置回默认值造成的，只需要在弹框消失时把视图的&lt;code&gt;tintAdjustmentMode&lt;/code&gt;属性修改回来即可。&lt;/p&gt;
-</content>
+    <content type="html"><![CDATA[<p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20170523-2.png" alt="20170523-2"></p>
+<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。</p>
+<h3 id="tintColor"><a href="#tintColor" class="headerlink" title="tintColor"></a>tintColor</h3><p>每个APP基本上都会有一个主色调，这个时候我们一般都会使用<code>tintColor</code>来设置。它比较明显的作用是影响系统默认的返回文字的颜色和一些操作按钮的颜色，这样可以方便的帮我们来设置主色调。</p>
+<p><a href="https://developer.apple.com/reference/uikit/uiview/1622467-tintcolor?language=objc#declarations" target="_blank" rel="external">苹果的文档</a>当中是这样描述的</p>
+<blockquote>
+<h3 id="tintColor-1"><a href="#tintColor-1" class="headerlink" title="tintColor"></a>tintColor</h3><p>The first nondefault tint color value in the view’s hierarchy, ascending from and starting with the view itself.</p>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>If the system cannot find a nondefault color in the hierarchy, this property’s value is a system-defined color instead.</p>
+<p>If the view’s tintAdjustmentMode property’s value is UIViewTintAdjustmentModeDimmed, then the tintColor property value is automatically dimmed.</p>
+<p>To refresh subview rendering when this property changes, override the tintColorDidChange method.</p>
+<p>Colors that are pattern colors (as described in UIColor) are not supported.</p>
+</blockquote>
+<p>文档的大致意思是<code>tintColor</code>是视图层级当中的第一个非默认的着色颜色，当视图层级中不存在非默认的颜色值时，系统就会使用<code>tintColor</code>作为渲染的颜色值。当<code>tintAdjustmentMode</code>的值为<code>UIViewTintAdjustmentModeDimmed</code>时，所渲染出来的<code>tintColor</code>的颜色会变暗。</p>
+<p>需要注意的一点是<code>tintColor</code>的查询是在视图层级中一次次往上的，所以你父视图的设置会影响子视图的渲染。子视图想要呈现不同的颜色时，需要设置颜色或者它自己的<code>tintColor</code>。</p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>我们上面提到的导航栏颜色变暗就是因为弹框时需要一个暗色的背景，修改了视图的的<code>tintAdjustmentMode</code>为<code>UIViewTintAdjustmentModeDimmed</code>，而在消失的时候忘记设置回默认值造成的，只需要在弹框消失时把视图的<code>tintAdjustmentMode</code>属性修改回来即可。</p>
+]]></content>
     
     <summary type="html">
     
@@ -57,48 +57,48 @@
     <published>2017-04-07T08:42:55.000Z</published>
     <updated>2017-05-24T08:34:39.000Z</updated>
     
-    <content type="html">&lt;p&gt;曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……&lt;/p&gt;
-&lt;p&gt;这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下&lt;/p&gt;
-&lt;h3 id=&quot;Bus-error&quot;&gt;&lt;a href=&quot;#Bus-error&quot; class=&quot;headerlink&quot; title=&quot;Bus error&quot;&gt;&lt;/a&gt;Bus error&lt;/h3&gt;&lt;p&gt;Bus error即总线错误，以下是&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文维基百科的定义&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。&lt;/p&gt;
-&lt;p&gt;它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bus_error&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;英文维基百科的释义&lt;/a&gt;相对详细一些，也介绍了造成这种错误的原因&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.&lt;/p&gt;
-&lt;p&gt;There are at least three main causes of bus errors:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Non-existent address&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Unaligned access&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Paging errors&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;上面这段话的大致意思是说在类POSIX平台，Bus errors通常是因为SIGBUS信号被发送到当前线程导致错误。SIGBUS也可以由一些硬件设备错误导致，但是这个几率极低，因此一般都是我们编码错误导致的。Bus errors也可以由特定的分页错误导致。下面是三种主要的导致Bus errors的原因，即&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Non-existent address（访问不存在的内存地址）&lt;/li&gt;
-&lt;li&gt;Unaligned access（访问未对齐的内存地址）&lt;/li&gt;
-&lt;li&gt;Paging errors（分页错误）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;看了上面的解释，我们就意识到这是一个内存访问错误了。&lt;/p&gt;
-&lt;h3 id=&quot;错误解决&quot;&gt;&lt;a href=&quot;#错误解决&quot; class=&quot;headerlink&quot; title=&quot;错误解决&quot;&gt;&lt;/a&gt;错误解决&lt;/h3&gt;&lt;p&gt;因为这个错误的出现几率不是很高，debug了挺长时间也没有进展，直到我看到了某个delegate的修饰符是assign。作为mrc时代走过来的iOS开发者刚开始对此感觉并没有什么异样，但是后来发现问题就出在这里，需要将delegate的修饰符修改为weak。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//不安全的写法
-@property (assign, nonatomic) id&amp;lt;VinScanDelegate&amp;gt; delegate;
+    <content type="html"><![CDATA[<p>曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……</p>
+<p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
+<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="external">中文维基百科的定义</a></p>
+<blockquote>
+<p>存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
+<p>它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="external">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
+<blockquote>
+<p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
+<p>There are at least three main causes of bus errors:</p>
+<ul>
+<li><p>Non-existent address</p>
+</li>
+<li><p>Unaligned access</p>
+</li>
+<li><p>Paging errors</p>
+</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<p>上面这段话的大致意思是说在类POSIX平台，Bus errors通常是因为SIGBUS信号被发送到当前线程导致错误。SIGBUS也可以由一些硬件设备错误导致，但是这个几率极低，因此一般都是我们编码错误导致的。Bus errors也可以由特定的分页错误导致。下面是三种主要的导致Bus errors的原因，即</p>
+<ul>
+<li>Non-existent address（访问不存在的内存地址）</li>
+<li>Unaligned access（访问未对齐的内存地址）</li>
+<li>Paging errors（分页错误）</li>
+</ul>
+<p>看了上面的解释，我们就意识到这是一个内存访问错误了。</p>
+<h3 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h3><p>因为这个错误的出现几率不是很高，debug了挺长时间也没有进展，直到我看到了某个delegate的修饰符是assign。作为mrc时代走过来的iOS开发者刚开始对此感觉并没有什么异样，但是后来发现问题就出在这里，需要将delegate的修饰符修改为weak。</p>
+<pre><code>//不安全的写法
+@property (assign, nonatomic) id&lt;VinScanDelegate&gt; delegate;
 
 //安全的写法
-@property (weak, nonatomic) id&amp;lt;VinScanDelegate&amp;gt; delegate;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;但是为什么呢？我们来看下assgin和weak的区别&lt;/p&gt;
-&lt;h3 id=&quot;assgin-amp-weak&quot;&gt;&lt;a href=&quot;#assgin-amp-weak&quot; class=&quot;headerlink&quot; title=&quot;assgin&amp;amp;weak&quot;&gt;&lt;/a&gt;assgin&amp;amp;weak&lt;/h3&gt;&lt;p&gt;在arc中，assign和weak非常类似，但是他们还是有一些细微的区别的&lt;/p&gt;
-&lt;p&gt;weak会在所指向的对象释放消失之后自动置为nil，这样就会避免野指针导致的crash，也就不会导致上面所提到的内存错误了&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;“The main difference between weak and assign is that the with weak, once the object being pointed to is no longer valid, the pointer is nilled out. Assigning the pointer the value nil avoids many crashes as messages sent to nil are essentially no-ops”&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;有人写了一个小demo来验证这个问题，如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#import &amp;quot;ViewController.h&amp;quot;
+@property (weak, nonatomic) id&lt;VinScanDelegate&gt; delegate;
+</code></pre><p>但是为什么呢？我们来看下assgin和weak的区别</p>
+<h3 id="assgin-amp-weak"><a href="#assgin-amp-weak" class="headerlink" title="assgin&amp;weak"></a>assgin&amp;weak</h3><p>在arc中，assign和weak非常类似，但是他们还是有一些细微的区别的</p>
+<p>weak会在所指向的对象释放消失之后自动置为nil，这样就会避免野指针导致的crash，也就不会导致上面所提到的内存错误了</p>
+<blockquote>
+<p>“The main difference between weak and assign is that the with weak, once the object being pointed to is no longer valid, the pointer is nilled out. Assigning the pointer the value nil avoids many crashes as messages sent to nil are essentially no-ops”</p>
+</blockquote>
+<p>有人写了一个小demo来验证这个问题，如下：</p>
+<pre><code>#import &quot;ViewController.h&quot;
 
 @interface ViewController ()
 @property (nonatomic,weak) id weakPoint;
@@ -110,12 +110,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.strongPoint = [NSDate date];
-    NSLog(@&amp;quot;strong属性：%@&amp;quot;,self.strongPoint);
+    NSLog(@&quot;strong属性：%@&quot;,self.strongPoint);
     self.weakPoint = self.strongPoint;
     self.assignPoint = self.strongPoint;
     self.strongPoint = nil;
-    NSLog(@&amp;quot;weak属性：%@&amp;quot;,self.weakPoint);
-    //NSLog(@&amp;quot;assign属性：%@&amp;quot;,self.assignPoint);
+    NSLog(@&quot;weak属性：%@&quot;,self.weakPoint);
+    //NSLog(@&quot;assign属性：%@&quot;,self.assignPoint);
 }
 @end
 
@@ -124,8 +124,8 @@
 //这样再引用 self.assignPoint 就会导致野指针操作
 //如果这个操作发生时内存还没有改变内容，依旧可以输出正确的结果
 //而如果发生时内存内容被改变了，就会crash。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;所以，在arc情况下，指针类型最好使用strong或者weak来修饰，基本类型和结构体用assign，委托要用weak来修饰。&lt;/p&gt;
-</content>
+</code></pre><p>所以，在arc情况下，指针类型最好使用strong或者weak来修饰，基本类型和结构体用assign，委托要用weak来修饰。</p>
+]]></content>
     
     <summary type="html">
     
@@ -145,10 +145,10 @@
     <published>2017-03-29T06:45:05.000Z</published>
     <updated>2017-04-10T06:23:30.000Z</updated>
     
-    <content type="html">&lt;p&gt;开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。&lt;/p&gt;
-&lt;p&gt;翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。&lt;/p&gt;
-&lt;p&gt;我们可以终端当中输入以下命令使终端的请求走相应的代理&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//设置http和https请求代理
+    <content type="html"><![CDATA[<p>开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。</p>
+<p>翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。</p>
+<p>我们可以终端当中输入以下命令使终端的请求走相应的代理</p>
+<pre><code>//设置http和https请求代理
 export http_proxy=http://127.0.0.1:8118
 export https_proxy=http://127.0.0.1:8118
 
@@ -159,37 +159,37 @@ export https_proxy=socks5://127.0.0.1:1080
 //移除配置
 unset http_proxy
 unset https_proxy
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们拉取的时候有的时候可能会用到ssh，我们可以这样配置&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//设置所有协议代理
+</code></pre><p>我们拉取的时候有的时候可能会用到ssh，我们可以这样配置</p>
+<pre><code>//设置所有协议代理
 export ALL_PROXY=socks5://127.0.0.1:1080
 
 //移除配置
 unset ALL_PROXY
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当前这些配置只对当前终端有效&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;改进&quot;&gt;&lt;a href=&quot;#改进&quot; class=&quot;headerlink&quot; title=&quot;改进&quot;&gt;&lt;/a&gt;改进&lt;/h3&gt;&lt;p&gt;以上方式虽然解决了我们的需求，但是每次输入这些命令不免有些麻烦，所以我们进行了以下改进。&lt;/p&gt;
-&lt;p&gt;改进方案大致有以下两种：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;编写shell脚本，需要时运行脚本&lt;/li&gt;
-&lt;li&gt;自定义shell命令，简化输入&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;相比1需要保存脚本文件来说，2是一个不错的选择&lt;/p&gt;
-&lt;p&gt;自定义shell命令需要你打开~/.bashrc文件（如果使用的是zsh，对应文件为.zshrc）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//终端打开文件
+</code></pre><p>当前这些配置只对当前终端有效<br><a id="more"></a></p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>以上方式虽然解决了我们的需求，但是每次输入这些命令不免有些麻烦，所以我们进行了以下改进。</p>
+<p>改进方案大致有以下两种：</p>
+<ol>
+<li>编写shell脚本，需要时运行脚本</li>
+<li>自定义shell命令，简化输入</li>
+</ol>
+<p>相比1需要保存脚本文件来说，2是一个不错的选择</p>
+<p>自定义shell命令需要你打开~/.bashrc文件（如果使用的是zsh，对应文件为.zshrc）</p>
+<pre><code>//终端打开文件
 open ~/.zshrc
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在文件末尾以以下形式添加命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;alias {自定义指令名}=&amp;apos;{具体指令}&amp;apos;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以上所有协议代理的命令就可以写作&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//末尾的echo是为了在命令执行完毕输出一个字符串作为提醒，可删除
-alias openproxy=&amp;quot;export ALL_PROXY=socks5://127.0.0.1:1080; echo &amp;apos;HTTP Proxy on&amp;apos;;&amp;quot;
-alias closeproxy=&amp;quot;unset ALL_PROXY; echo &amp;apos;HTTP Proxy off&amp;apos;;&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样我们就可以使用openproxy和closeproxy方便的在终端打开和关闭代理了&lt;/p&gt;
-&lt;h3 id=&quot;其他解决方案&quot;&gt;&lt;a href=&quot;#其他解决方案&quot; class=&quot;headerlink&quot; title=&quot;其他解决方案&quot;&gt;&lt;/a&gt;其他解决方案&lt;/h3&gt;&lt;p&gt;我们最初的目的是为了更快的从GitHub上拿到文件，同事给我提供了另外一个解决方案。&lt;/p&gt;
-&lt;p&gt;即对git进行相关配置，使其在请求时走代理。&lt;/p&gt;
-&lt;p&gt;配置需要你打开~/.gitconfig文件，在文件末尾添加&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[http &amp;quot;https://github.com&amp;quot;]
+</code></pre><p>然后在文件末尾以以下形式添加命令</p>
+<pre><code>alias {自定义指令名}=&apos;{具体指令}&apos;
+</code></pre><p>以上所有协议代理的命令就可以写作</p>
+<pre><code>//末尾的echo是为了在命令执行完毕输出一个字符串作为提醒，可删除
+alias openproxy=&quot;export ALL_PROXY=socks5://127.0.0.1:1080; echo &apos;HTTP Proxy on&apos;;&quot;
+alias closeproxy=&quot;unset ALL_PROXY; echo &apos;HTTP Proxy off&apos;;&quot;
+</code></pre><p>这样我们就可以使用openproxy和closeproxy方便的在终端打开和关闭代理了</p>
+<h3 id="其他解决方案"><a href="#其他解决方案" class="headerlink" title="其他解决方案"></a>其他解决方案</h3><p>我们最初的目的是为了更快的从GitHub上拿到文件，同事给我提供了另外一个解决方案。</p>
+<p>即对git进行相关配置，使其在请求时走代理。</p>
+<p>配置需要你打开~/.gitconfig文件，在文件末尾添加</p>
+<pre><code>[http &quot;https://github.com&quot;]
         proxy = socks5://127.0.0.1:1080
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样在Git发起向GitHub上的请求时就会默认走代理了。&lt;/p&gt;
-</content>
+</code></pre><p>这样在Git发起向GitHub上的请求时就会默认走代理了。</p>
+]]></content>
     
     <summary type="html">
     
@@ -209,24 +209,24 @@ alias closeproxy=&amp;quot;unset ALL_PROXY; echo &amp;apos;HTTP Proxy off&amp;ap
     <published>2017-02-08T09:00:03.000Z</published>
     <updated>2017-03-31T06:13:58.000Z</updated>
     
-    <content type="html">&lt;p&gt;在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。&lt;/p&gt;
-&lt;p&gt;在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。&lt;/p&gt;
-&lt;h3 id=&quot;TinyPng-amp-Shell&quot;&gt;&lt;a href=&quot;#TinyPng-amp-Shell&quot; class=&quot;headerlink&quot; title=&quot;TinyPng&amp;amp;Shell&quot;&gt;&lt;/a&gt;TinyPng&amp;amp;Shell&lt;/h3&gt;&lt;p&gt;我们先来介绍我们今天的主角&lt;a href=&quot;https://tinypng.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;TinyPng&lt;/a&gt;，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。&lt;/p&gt;
-&lt;p&gt;不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。&lt;/p&gt;
-&lt;p&gt;shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。&lt;/p&gt;
-&lt;h3 id=&quot;实现思路&quot;&gt;&lt;a href=&quot;#实现思路&quot; class=&quot;headerlink&quot; title=&quot;实现思路&quot;&gt;&lt;/a&gt;实现思路&lt;/h3&gt;&lt;p&gt;基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#!/bin/bash
+    <content type="html"><![CDATA[<p>在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。</p>
+<p>在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。</p>
+<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/" target="_blank" rel="external">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
+<p>不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。</p>
+<p>shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。</p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：<br><a id="more"></a></p>
+<pre><code>#!/bin/bash
 
-dir=&amp;lt;#directory#&amp;gt;
+dir=&lt;#directory#&gt;
 
-apikey=&amp;lt;#apikey#&amp;gt;
+apikey=&lt;#apikey#&gt;
 
 pngindex=0
 
 #获取上传文件返回的数据当中的url
 parse_json()
 {
-    value=`echo $1 | sed &amp;apos;s/.*&amp;quot;url&amp;quot;:&amp;quot;\(.*\)&amp;quot;}}/\1/g&amp;apos;`
+    value=`echo $1 | sed &apos;s/.*&quot;url&quot;:&quot;\(.*\)&quot;}}/\1/g&apos;`
     echo $value
 }
 
@@ -234,28 +234,28 @@ compress_file()
 {
     for file in `ls $1`; do
         #如果是普通文件
-        if [ -f &amp;quot;$1/$file&amp;quot; ]; then
-            if [ ${file##*.} == &amp;quot;png&amp;quot; ] || [ ${file##*.} == &amp;quot;PNG&amp;quot; ] || [ ${file##*.} == &amp;quot;jpg&amp;quot; ]; then
-                echo &amp;quot;压缩文件$1/$file&amp;quot;
+        if [ -f &quot;$1/$file&quot; ]; then
+            if [ ${file##*.} == &quot;png&quot; ] || [ ${file##*.} == &quot;PNG&quot; ] || [ ${file##*.} == &quot;jpg&quot; ]; then
+                echo &quot;压缩文件$1/$file&quot;
 
                 s=$(curl https://api.tinify.com/shrink \
                      --user api:${apikey} \
-                     --data-binary &amp;quot;@$1/$file&amp;quot;)
+                     --data-binary &quot;@$1/$file&quot;)
 
                 url=$(parse_json $s) 
 
                 #如果url不为空下载
-                if [ -n &amp;quot;$url&amp;quot; ]; then
+                if [ -n &quot;$url&quot; ]; then
                     length=$(curl $url \
                          --user api:${apikey} \
-                         --output &amp;quot;$1/$file&amp;quot;)
+                         --output &quot;$1/$file&quot;)
                 else
-                    echo &amp;quot;$s1/$file压缩失败&amp;quot;
+                    echo &quot;$s1/$file压缩失败&quot;
                 fi
             fi
         #如果是文件夹
         else
-            compress_file &amp;quot;$1/$file&amp;quot;
+            compress_file &quot;$1/$file&quot;
         fi
     done
 }
@@ -264,46 +264,46 @@ check_filenumber()
 {
     for file in `ls $1`; do
         #如果是普通文件
-        if [ -f &amp;quot;$1/$file&amp;quot; ]; then
-            if [ ${file##*.} == &amp;quot;png&amp;quot; ] || [ ${file##*.} == &amp;quot;PNG&amp;quot; ] || [ ${file##*.} == &amp;quot;jpg&amp;quot; ]; then
+        if [ -f &quot;$1/$file&quot; ]; then
+            if [ ${file##*.} == &quot;png&quot; ] || [ ${file##*.} == &quot;PNG&quot; ] || [ ${file##*.} == &quot;jpg&quot; ]; then
                 pngindex=`expr $pngindex + 1`
             fi
         #如果是文件夹
         else
-            check_filenumber &amp;quot;$1/$file&amp;quot;
+            check_filenumber &quot;$1/$file&quot;
         fi
     done
 }
 
 main()
 {
-    echo &amp;quot;请输入以下选项：&amp;quot;
-    echo &amp;quot;0:查看当前文件夹下的png图片个数&amp;quot;
-    echo &amp;quot;1:执行压缩操作&amp;quot;
+    echo &quot;请输入以下选项：&quot;
+    echo &quot;0:查看当前文件夹下的png图片个数&quot;
+    echo &quot;1:执行压缩操作&quot;
 
     read item
     if [ $item == 0 ]; then
         check_filenumber $dir
-        echo &amp;quot;图片数:$pngindex&amp;quot;;
+        echo &quot;图片数:$pngindex&quot;;
     elif [ $item == 1 ]; then
         compress_file $dir;
     fi
 }
 
 main
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;&amp;lt;#directory#&amp;gt;&lt;/code&gt;替换成需要压缩的路径&lt;code&gt;&amp;lt;#apikey#&amp;gt;&lt;/code&gt;替换成TinyPng上申请的key即可&lt;/p&gt;
-&lt;p&gt;可以看到为了避免文件夹下图片数量超过500，我先写了一个查看该文件夹下图片数量的方法，这样不想付费的用户可以使用多个账号对工程下面的图片数量不超过500进行分次压缩即可。&lt;/p&gt;
-&lt;p&gt;如果单个文件夹下图片超过500，建议先拆成多个小于500的文件夹进行处理。当然付费提升数量或者改造脚本也是一个不错的选择。&lt;/p&gt;
-&lt;h3 id=&quot;一些说明&quot;&gt;&lt;a href=&quot;#一些说明&quot; class=&quot;headerlink&quot; title=&quot;一些说明&quot;&gt;&lt;/a&gt;一些说明&lt;/h3&gt;&lt;p&gt;1.运行脚本之前最好执行一下chmod +x &amp;lt;#ScriptFile#&amp;gt;命令，赋予脚本文件执行权限&lt;/p&gt;
-&lt;p&gt;2.shell函数一般把最后一行执行的结果作为函数的结果返回，所以&lt;code&gt;parse_json&lt;/code&gt;方法最后一行的&lt;code&gt;echo $value&lt;/code&gt;是将value的值返回（控制台并不输出value）。shell当中也可以使用return返回结果，但return只能返回0/1这样的整数，有一定的限制。&lt;/p&gt;
-&lt;p&gt;3.&lt;code&gt;|&lt;/code&gt;在shell当中用来连接两个命令，并将第一个命令执行的结果作为参数传递给后面的命令&lt;/p&gt;
-&lt;p&gt;4.sed是流编辑器命令，用来处理获取到的文本，此处的作用是将上传返回数据当中的压缩后的图片的地址筛选出来。&lt;/p&gt;
-&lt;p&gt;5.`sed ‘s/&amp;lt;#value1#&amp;gt;/&amp;lt;#value2#&amp;gt;/g’``是匹配相应正则的value1用value2替换，/g表示全部替换，没有的时候只替换第一个匹配的&lt;/p&gt;
-&lt;p&gt;6.`sed ‘s/.&lt;em&gt;“url”:”(.&lt;/em&gt;)“}}/\1/g’``当中的\1是将()当中标记为1并返回，这样value就可以接收到sed命令的处理结果。&lt;/p&gt;
-&lt;p&gt;7.curl是一个命令行下文件传输工具，这里不过多介绍。&lt;/p&gt;
-&lt;p&gt;8.之前因为不熟悉curl命令，将–dump-header &amp;lt;#路径#&amp;gt;添加在curl命令后，造成在&lt;code&gt;compress_file&lt;/code&gt;方法当中输出s的值是正常的json数值，而在&lt;code&gt;parse_json&lt;/code&gt;方法当中接收到却是网络请求头的第一行HTTP 1.1，遇到这个问题的同学注意下。&lt;/p&gt;
-&lt;p&gt;9.脚本文件戳&lt;a href=&quot;https://github.com/yangzq007/mytinypng&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre><p><code>&lt;#directory#&gt;</code>替换成需要压缩的路径<code>&lt;#apikey#&gt;</code>替换成TinyPng上申请的key即可</p>
+<p>可以看到为了避免文件夹下图片数量超过500，我先写了一个查看该文件夹下图片数量的方法，这样不想付费的用户可以使用多个账号对工程下面的图片数量不超过500进行分次压缩即可。</p>
+<p>如果单个文件夹下图片超过500，建议先拆成多个小于500的文件夹进行处理。当然付费提升数量或者改造脚本也是一个不错的选择。</p>
+<h3 id="一些说明"><a href="#一些说明" class="headerlink" title="一些说明"></a>一些说明</h3><p>1.运行脚本之前最好执行一下chmod +x &lt;#ScriptFile#&gt;命令，赋予脚本文件执行权限</p>
+<p>2.shell函数一般把最后一行执行的结果作为函数的结果返回，所以<code>parse_json</code>方法最后一行的<code>echo $value</code>是将value的值返回（控制台并不输出value）。shell当中也可以使用return返回结果，但return只能返回0/1这样的整数，有一定的限制。</p>
+<p>3.<code>|</code>在shell当中用来连接两个命令，并将第一个命令执行的结果作为参数传递给后面的命令</p>
+<p>4.sed是流编辑器命令，用来处理获取到的文本，此处的作用是将上传返回数据当中的压缩后的图片的地址筛选出来。</p>
+<p>5.`sed ‘s/&lt;#value1#&gt;/&lt;#value2#&gt;/g’``是匹配相应正则的value1用value2替换，/g表示全部替换，没有的时候只替换第一个匹配的</p>
+<p>6.`sed ‘s/.<em>“url”:”(.</em>)“}}/\1/g’``当中的\1是将()当中标记为1并返回，这样value就可以接收到sed命令的处理结果。</p>
+<p>7.curl是一个命令行下文件传输工具，这里不过多介绍。</p>
+<p>8.之前因为不熟悉curl命令，将–dump-header &lt;#路径#&gt;添加在curl命令后，造成在<code>compress_file</code>方法当中输出s的值是正常的json数值，而在<code>parse_json</code>方法当中接收到却是网络请求头的第一行HTTP 1.1，遇到这个问题的同学注意下。</p>
+<p>9.脚本文件戳<a href="https://github.com/yangzq007/mytinypng" target="_blank" rel="external">这里</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -325,13 +325,13 @@ main
     <published>2017-02-08T06:50:56.000Z</published>
     <updated>2017-02-08T08:21:38.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。&lt;/p&gt;
-&lt;h3 id=&quot;2017-02-08更新&quot;&gt;&lt;a href=&quot;#2017-02-08更新&quot; class=&quot;headerlink&quot; title=&quot;2017.02.08更新&quot;&gt;&lt;/a&gt;2017.02.08更新&lt;/h3&gt;&lt;p&gt;1.一些无法直接调用的常量应该怎么写，特别是系统定义的？&lt;/p&gt;
-&lt;p&gt;使用NSLog将对应常量值输出，直接使用输出的常量值替代&lt;br&gt;&lt;br&gt;2.在JS当中发现不能调用方法，导致JS文件执行中断，使用console.log输出，发现为[NSObject object]&lt;/p&gt;
-&lt;p&gt;这种情况说明当前对象没有序列化，需转换成JS对象使用，调用toJS()即可&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;var temp = registrationID.toJS();
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更多问题详见JSPatch官方文档，&lt;a href=&quot;https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JSPatch 基础用法&lt;/a&gt;，&lt;a href=&quot;https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JSPatch 常见问题&lt;/a&gt;&lt;/p&gt;
-</content>
+    <content type="html"><![CDATA[<p>最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。</p>
+<h3 id="2017-02-08更新"><a href="#2017-02-08更新" class="headerlink" title="2017.02.08更新"></a>2017.02.08更新</h3><p>1.一些无法直接调用的常量应该怎么写，特别是系统定义的？</p>
+<p>使用NSLog将对应常量值输出，直接使用输出的常量值替代<br><br>2.在JS当中发现不能调用方法，导致JS文件执行中断，使用console.log输出，发现为[NSObject object]</p>
+<p>这种情况说明当前对象没有序列化，需转换成JS对象使用，调用toJS()即可</p>
+<pre><code>var temp = registrationID.toJS();
+</code></pre><p>更多问题详见JSPatch官方文档，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatch 基础用法</a>，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" target="_blank" rel="external">JSPatch 常见问题</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -353,16 +353,16 @@ main
     <published>2017-02-06T02:25:57.000Z</published>
     <updated>2017-02-08T11:21:18.000Z</updated>
     
-    <content type="html">&lt;p&gt;在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。&lt;/p&gt;
-&lt;p&gt;使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100&quot; alt=&quot;20170206-1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。&lt;/p&gt;
-&lt;h3 id=&quot;解决方法&quot;&gt;&lt;a href=&quot;#解决方法&quot; class=&quot;headerlink&quot; title=&quot;解决方法&quot;&gt;&lt;/a&gt;解决方法&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;进入对应目录下，使用&lt;code&gt;git remote show origin&lt;/code&gt;命令查看本地仓库追踪远程仓库的状态&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170206-2.png&quot; alt=&quot;20170206-2&quot;&gt;&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;git remote prune origin&lt;/code&gt;清除所有失效的远程分支或根据提示删除特定失效分支&lt;/li&gt;
-&lt;li&gt;重启SourceTree即可。&lt;/li&gt;
-&lt;/ol&gt;
-</content>
+    <content type="html"><![CDATA[<p>在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。</p>
+<p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
+<p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="http://o84wamnts.bkt.clouddn.com/20170206-2.png" alt="20170206-2"></li>
+<li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
+<li>重启SourceTree即可。</li>
+</ol>
+]]></content>
     
     <summary type="html">
     
@@ -382,33 +382,33 @@ main
     <published>2017-01-22T09:26:29.000Z</published>
     <updated>2017-02-08T11:16:36.000Z</updated>
     
-    <content type="html">&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170122-1.JPG&quot; alt=&quot;20170122-1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;一转眼马上要过春节了，趁着这个时候我也发个2016年的总结吧，给今年划上一个圆满的句号。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;关于工作&quot;&gt;&lt;a href=&quot;#关于工作&quot; class=&quot;headerlink&quot; title=&quot;关于工作&quot;&gt;&lt;/a&gt;关于工作&lt;/h3&gt;&lt;p&gt;今年经历了一次工作变动，算是意料之外的，这次变动整体上没有造成特别大的影响，自己也从这次经历当中学到了很多。&lt;/p&gt;
-&lt;p&gt;在今年的工作当中结识了很多有意思的小伙伴，也经历了很多有趣的事情。之前公司的小伙伴能经常聚下，这也实在是一件难得的事情，现在一起相处的同事和朋友也都非常友好和有才华，让我从不同的角度了解这个世界，挺好。&lt;/p&gt;
-&lt;p&gt;同事有句话说的很好&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;聚是一团火,散是满天星。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;工作内容上主要还是以基础开发为主，对安全和直播这两块的涉及还是蛮让人振奋的，在脚本和架构方面的一些拓展也算是达成了自己进阶的一部分计划。&lt;/p&gt;
-&lt;h3 id=&quot;关于生活&quot;&gt;&lt;a href=&quot;#关于生活&quot; class=&quot;headerlink&quot; title=&quot;关于生活&quot;&gt;&lt;/a&gt;关于生活&lt;/h3&gt;&lt;p&gt;生活依旧是平淡无奇的大日常。&lt;/p&gt;
-&lt;p&gt;好的方面：&lt;/p&gt;
-&lt;p&gt;加强了锻炼，经常参加各种体育活动，户外活动还是蛮多的。&lt;/p&gt;
-&lt;p&gt;坏的方面：&lt;/p&gt;
-&lt;p&gt;作息不太规律，这个好像是通病，在努力调整中。&lt;/p&gt;
-&lt;p&gt;今年杭城开了G20，我也刚好趁着这个假期去了云南，体验了那里的山清水秀，也算是完成了自己的一个小心愿。至于后来的黄山之行算是个小惊喜吧。&lt;/p&gt;
-&lt;h3 id=&quot;关于阅读&quot;&gt;&lt;a href=&quot;#关于阅读&quot; class=&quot;headerlink&quot; title=&quot;关于阅读&quot;&gt;&lt;/a&gt;关于阅读&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;《平凡的世界》&lt;/li&gt;
-&lt;li&gt;《活着》&lt;/li&gt;
-&lt;li&gt;《追风筝的人》&lt;/li&gt;
-&lt;li&gt;《围城》&lt;/li&gt;
-&lt;li&gt;《人生》&lt;/li&gt;
-&lt;li&gt;《圣经的故事》&lt;/li&gt;
-&lt;li&gt;《解忧杂货店》&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;老实说，能完成这样的阅读量有点出乎我的意料，也因为这些书籍让我对历史和宗教产生了一些的兴趣。&lt;/p&gt;
-&lt;h3 id=&quot;关于博客&quot;&gt;&lt;a href=&quot;#关于博客&quot; class=&quot;headerlink&quot; title=&quot;关于博客&quot;&gt;&lt;/a&gt;关于博客&lt;/h3&gt;&lt;p&gt;博客是15年末16年初慢慢搭建起来的，已经走过了一个完整的年头，在这里也希望自己能够继续坚持下去，更多的分享自己的体会和心得。&lt;/p&gt;
-</content>
+    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20170122-1.JPG" alt="20170122-1"></p>
+<p>一转眼马上要过春节了，趁着这个时候我也发个2016年的总结吧，给今年划上一个圆满的句号。<a id="more"></a></p>
+<h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>今年经历了一次工作变动，算是意料之外的，这次变动整体上没有造成特别大的影响，自己也从这次经历当中学到了很多。</p>
+<p>在今年的工作当中结识了很多有意思的小伙伴，也经历了很多有趣的事情。之前公司的小伙伴能经常聚下，这也实在是一件难得的事情，现在一起相处的同事和朋友也都非常友好和有才华，让我从不同的角度了解这个世界，挺好。</p>
+<p>同事有句话说的很好</p>
+<blockquote>
+<p>聚是一团火,散是满天星。</p>
+</blockquote>
+<p>工作内容上主要还是以基础开发为主，对安全和直播这两块的涉及还是蛮让人振奋的，在脚本和架构方面的一些拓展也算是达成了自己进阶的一部分计划。</p>
+<h3 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h3><p>生活依旧是平淡无奇的大日常。</p>
+<p>好的方面：</p>
+<p>加强了锻炼，经常参加各种体育活动，户外活动还是蛮多的。</p>
+<p>坏的方面：</p>
+<p>作息不太规律，这个好像是通病，在努力调整中。</p>
+<p>今年杭城开了G20，我也刚好趁着这个假期去了云南，体验了那里的山清水秀，也算是完成了自己的一个小心愿。至于后来的黄山之行算是个小惊喜吧。</p>
+<h3 id="关于阅读"><a href="#关于阅读" class="headerlink" title="关于阅读"></a>关于阅读</h3><ul>
+<li>《平凡的世界》</li>
+<li>《活着》</li>
+<li>《追风筝的人》</li>
+<li>《围城》</li>
+<li>《人生》</li>
+<li>《圣经的故事》</li>
+<li>《解忧杂货店》</li>
+</ul>
+<p>老实说，能完成这样的阅读量有点出乎我的意料，也因为这些书籍让我对历史和宗教产生了一些的兴趣。</p>
+<h3 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h3><p>博客是15年末16年初慢慢搭建起来的，已经走过了一个完整的年头，在这里也希望自己能够继续坚持下去，更多的分享自己的体会和心得。</p>
+]]></content>
     
     <summary type="html">
     
@@ -428,44 +428,44 @@ main
     <published>2017-01-13T07:22:15.000Z</published>
     <updated>2017-02-08T11:15:09.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。&lt;/p&gt;
-&lt;h3 id=&quot;oh-my-zsh&quot;&gt;&lt;a href=&quot;#oh-my-zsh&quot; class=&quot;headerlink&quot; title=&quot;oh my zsh&quot;&gt;&lt;/a&gt;oh my zsh&lt;/h3&gt;&lt;p&gt;oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。&lt;/p&gt;
-&lt;p&gt;后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;zsh和oh my zsh&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;oh my zsh&lt;/a&gt;是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;zsh安装&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;macOS一般都预装了zsh，使用&lt;code&gt;zsh --version&lt;/code&gt;命令可以查看zsh版本&lt;/p&gt;
-&lt;p&gt;如果是老版本的系统，可以使用&lt;code&gt;brew install zsh zsh-completions&lt;/code&gt;安装zsh&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;oh my zsh安装&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;直接执行下面的命令即可&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;通过curl方式
-sh -c &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+    <content type="html"><![CDATA[<p>最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。</p>
+<h3 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h3><p>oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。</p>
+<p>后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。</p>
+<p><strong>zsh和oh my zsh</strong></p>
+<p>zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。</p>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。<a id="more"></a></p>
+<p><strong>zsh安装</strong></p>
+<p>macOS一般都预装了zsh，使用<code>zsh --version</code>命令可以查看zsh版本</p>
+<p>如果是老版本的系统，可以使用<code>brew install zsh zsh-completions</code>安装zsh</p>
+<p><strong>oh my zsh安装</strong></p>
+<p>直接执行下面的命令即可</p>
+<pre><code>通过curl方式
+sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
 
 或者wget方式
-sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;安装完成之后重新启动下终端就可以愉快的使用了&lt;/p&gt;
-&lt;p&gt;如果你想要更多的插件和主题&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh/wiki&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点击这里&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;语义化版本&quot;&gt;&lt;a href=&quot;#语义化版本&quot; class=&quot;headerlink&quot; title=&quot;语义化版本&quot;&gt;&lt;/a&gt;语义化版本&lt;/h3&gt;&lt;p&gt;目前工作当中使用的开发模式是基于Git和CocoaPods的组件化开发，使用这种开发模式就会存在各种组件的相互依赖，随着业务的丰富、工程的增大，就会逐渐出现一种叫做“依赖地狱”问题，就是各个组件不同版本的相互依赖，最后造成某个组件版本冲突锁死的问题。&lt;/p&gt;
-&lt;p&gt;语义化版本，就是为了解决这种问题提出的，我想大多数开发者都或多或少的听说过，在开发过程中按照这种方式来控制版本，就可以尽可能避免“依赖地狱”了。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;版本规则&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;语义化版本2.0.0是这样定义的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;版本格式：主版本号.次版本号.修订号，版本号递增规则如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;主版本号：当你做了不兼容的 API 修改，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;次版本号：当你做了向下兼容的功能性新增，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修订号：当你做了向下兼容的问题修正。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;更加详细的介绍&lt;a href=&quot;http://semver.org/lang/zh-CN/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点击这里&lt;/a&gt;，英文版&lt;a href=&quot;http://semver.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;click me&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;版本引用&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;我们在引用的时候使用大于等于次版本号但不超过的主版本号的版本即&lt;code&gt;&amp;#39;~&amp;gt; 2.0&amp;#39;&lt;/code&gt;这样，这样既可以保证使用最新的组件，又可以避免因为不兼容API造成的错误。&lt;/p&gt;
-</content>
+sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
+</code></pre><p>安装完成之后重新启动下终端就可以愉快的使用了</p>
+<p>如果你想要更多的插件和主题<a href="https://github.com/robbyrussell/oh-my-zsh/wiki" target="_blank" rel="external">点击这里</a></p>
+<h3 id="语义化版本"><a href="#语义化版本" class="headerlink" title="语义化版本"></a>语义化版本</h3><p>目前工作当中使用的开发模式是基于Git和CocoaPods的组件化开发，使用这种开发模式就会存在各种组件的相互依赖，随着业务的丰富、工程的增大，就会逐渐出现一种叫做“依赖地狱”问题，就是各个组件不同版本的相互依赖，最后造成某个组件版本冲突锁死的问题。</p>
+<p>语义化版本，就是为了解决这种问题提出的，我想大多数开发者都或多或少的听说过，在开发过程中按照这种方式来控制版本，就可以尽可能避免“依赖地狱”了。</p>
+<p><strong>版本规则</strong></p>
+<p>语义化版本2.0.0是这样定义的</p>
+<blockquote>
+<p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
+<ol>
+<li><p>主版本号：当你做了不兼容的 API 修改，</p>
+</li>
+<li><p>次版本号：当你做了向下兼容的功能性新增，</p>
+</li>
+<li><p>修订号：当你做了向下兼容的问题修正。</p>
+</li>
+</ol>
+<p>先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
+</blockquote>
+<p>更加详细的介绍<a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">点击这里</a>，英文版<a href="http://semver.org/" target="_blank" rel="external">click me</a></p>
+<p><strong>版本引用</strong></p>
+<p>我们在引用的时候使用大于等于次版本号但不超过的主版本号的版本即<code>&#39;~&gt; 2.0&#39;</code>这样，这样既可以保证使用最新的组件，又可以避免因为不兼容API造成的错误。</p>
+]]></content>
     
     <summary type="html">
     
@@ -489,14 +489,14 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     <published>2016-11-14T09:54:36.000Z</published>
     <updated>2016-11-16T02:40:05.000Z</updated>
     
-    <content type="html">&lt;p&gt;最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。&lt;/p&gt;
-&lt;h3 id=&quot;粒子特效&quot;&gt;&lt;a href=&quot;#粒子特效&quot; class=&quot;headerlink&quot; title=&quot;粒子特效&quot;&gt;&lt;/a&gt;粒子特效&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;以上定义来自维基百科，详细的解释&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点击这里&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id=&quot;在iOS系统当中的实现&quot;&gt;&lt;a href=&quot;#在iOS系统当中的实现&quot; class=&quot;headerlink&quot; title=&quot;在iOS系统当中的实现&quot;&gt;&lt;/a&gt;在iOS系统当中的实现&lt;/h3&gt;&lt;p&gt;粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;具体使用可以查看以下代码：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//雪花动画
+    <content type="html"><![CDATA[<p>最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。</p>
+<h3 id="粒子特效"><a href="#粒子特效" class="headerlink" title="粒子特效"></a>粒子特效</h3><blockquote>
+<p>粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。</p>
+</blockquote>
+<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">点击这里</a>.</p>
+<h3 id="在iOS系统当中的实现"><a href="#在iOS系统当中的实现" class="headerlink" title="在iOS系统当中的实现"></a>在iOS系统当中的实现</h3><p>粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。<a id="more"></a></p>
+<p>具体使用可以查看以下代码：</p>
+<pre><code>//雪花动画
 - (void)snow {
 
     //粒子发射器
@@ -513,7 +513,7 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     //创建雪花粒子
     CAEmitterCell *snowflake = [CAEmitterCell emitterCell];
     //粒子的名称
-    snowflake.name = @&amp;quot;snow&amp;quot;;
+    snowflake.name = @&quot;snow&quot;;
     //粒子参数的速度乘数因子。越大出现的越快
     snowflake.birthRate = 1.0;
     //存活时间
@@ -529,7 +529,7 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     //子旋转角度范围
     snowflake.spinRange = 0.25 * M_PI;        // slow spin
     //粒子图片
-    snowflake.contents = (id)[[UIImage imageNamed:@&amp;quot;DazFlake&amp;quot;] CGImage];
+    snowflake.contents = (id)[[UIImage imageNamed:@&quot;DazFlake&quot;] CGImage];
     //粒子颜色
     snowflake.color = [[UIColor redColor] CGColor];
 
@@ -566,10 +566,10 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     rocket.velocity = 380;
     rocket.velocityRange = 100;
     rocket.yAcceleration = 75;
-    rocket.lifetime = 1.02;    // we cannot set the birthrate &amp;lt; 1.0 for the burst
+    rocket.lifetime = 1.02;    // we cannot set the birthrate &lt; 1.0 for the burst
 
     //小圆球图片
-    rocket.contents = (id)[[UIImage imageNamed:@&amp;quot;DazRing&amp;quot;] CGImage];
+    rocket.contents = (id)[[UIImage imageNamed:@&quot;DazRing&quot;] CGImage];
     rocket.scale = 0.2;
     rocket.color = [[UIColor redColor] CGColor];
     rocket.greenRange = 1.0;        // different colors
@@ -600,7 +600,7 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     spark.yAcceleration = 75;        // gravity
     spark.lifetime = 3;
     //星星图片
-    spark.contents = (id)[[UIImage imageNamed:@&amp;quot;DazStarOutline&amp;quot;] CGImage];
+    spark.contents = (id)[[UIImage imageNamed:@&quot;DazStarOutline&quot;] CGImage];
     spark.scaleSpeed = -0.2;
     spark.greenSpeed = -0.1;
     spark.redSpeed = 0.4;
@@ -615,41 +615,41 @@ sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/
     burst.emitterCells = [NSArray arrayWithObject:spark];
     [self.view.layer addSublayer:fireworksEmitter];
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;粒子特效的叠加&quot;&gt;&lt;a href=&quot;#粒子特效的叠加&quot; class=&quot;headerlink&quot; title=&quot;粒子特效的叠加&quot;&gt;&lt;/a&gt;粒子特效的叠加&lt;/h3&gt;&lt;p&gt;通过上面的代码和注释、以及苹果的注释，我相信大部分人都已掌握了粒子效果的基本使用，下面我们来谈谈粒子特效叠加的问题。&lt;/p&gt;
-&lt;p&gt;在CAEmitterCell.h当中我们可以看到这样一段描述&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;/* An array containing the sub-cells of this cell, or nil (the default
+</code></pre><h3 id="粒子特效的叠加"><a href="#粒子特效的叠加" class="headerlink" title="粒子特效的叠加"></a>粒子特效的叠加</h3><p>通过上面的代码和注释、以及苹果的注释，我相信大部分人都已掌握了粒子效果的基本使用，下面我们来谈谈粒子特效叠加的问题。</p>
+<p>在CAEmitterCell.h当中我们可以看到这样一段描述</p>
+<pre><code>/* An array containing the sub-cells of this cell, or nil (the default
  * value). When non-nil each particle emitted by the cell will act as
- * an emitter for each of the cell&amp;apos;s sub-cells. The emission point is
+ * an emitter for each of the cell&apos;s sub-cells. The emission point is
  * the current particle position and the emission angle is relative to
  * the current direction of the particle. Animatable. */
 
-@property(nullable, copy) NSArray&amp;lt;CAEmitterCell *&amp;gt; *emitterCells;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段描述说明了当设置粒子单元（CAEmitterCell *）的emitterCells时，每个粒子会充当一个发射器的角色，发射对应粒子，形成粒子特效的叠加。&lt;/p&gt;
-&lt;p&gt;将&lt;code&gt;rocket.emitterCells = [NSArray arrayWithObject:burst];&lt;/code&gt;修改为&lt;code&gt;rocket.emitterCells = [NSArray arrayWithObject: spark];&lt;/code&gt;就可以看到如下图对应的叠加效果了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161115-1.gif&quot; alt=&quot;粒子特效叠加&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;取消叠加&quot;&gt;&lt;a href=&quot;#取消叠加&quot; class=&quot;headerlink&quot; title=&quot;取消叠加&quot;&gt;&lt;/a&gt;取消叠加&lt;/h3&gt;&lt;p&gt;看了粒子特效的叠加，你可能还会有这样一个想法，我能不能取消某个时间段的叠加，只让发射的粒子在最后的时间作为发射器产生粒子效果呢，类似于发射一颗礼炮，在礼炮到达空中时爆炸，而不是像现在这样一路炸上天呢。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161115-2.gif&quot; alt=&quot;取消叠加&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;实例代码的fireworks部分就实现了这样的效果，下面我们来分析一下他的思路&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;fireworks部分的基本思路是这样的，给发射的粒子A附加一个新的粒子效果B，B的效果是在A生命周期的结尾发射&lt;strong&gt;一个&lt;/strong&gt;生命周期极短的粒子，在B粒子极短的生命周期内，发射爆炸效果的粒子C，这样看起来的效果就是A被发射出去，在其生命周期的结尾发射了一个爆炸的粒子C，用户并没有意识到B粒子的存在，从而达到取消叠加的效果。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;如何在代码中实现这种取消叠加的效果&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;birthRate&lt;/code&gt;粒子每秒钟产生粒子的个数，决定了粒子产生的间隔，而且并不是一开始就发射粒子，而是要从开始过相应的时间间隔才发送粒子。所以我们只需要将B粒子的生成间隔设定为A粒子的生存长度即可，这样就实现了在A粒子即将结束的时候发射B粒子。&lt;/p&gt;
-&lt;p&gt;fireworks部分的代码也可以这样表示&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;burst.birthRate = 1.0/rocket.lifetime;
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;取消叠加的坑&quot;&gt;&lt;a href=&quot;#取消叠加的坑&quot; class=&quot;headerlink&quot; title=&quot;取消叠加的坑&quot;&gt;&lt;/a&gt;取消叠加的坑&lt;/h3&gt;&lt;p&gt;你做了取消叠加部分的操作，发现A粒子生命周期结束时并没有出现爆炸效果的粒子C，这个时候问题出现在哪里呢？&lt;/p&gt;
-&lt;p&gt;原因就是刚好在A生命周期的结尾要发射单个粒子B的时候，A died，然后B就没发射出来……&lt;/p&gt;
-&lt;p&gt;这个时候你需要将A的生命周期比原来加长一点，要比B的生成间隔时间长那么一小点，代码实现上为：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;CGFloat rocketLifeTime = 1.0f;
+@property(nullable, copy) NSArray&lt;CAEmitterCell *&gt; *emitterCells;
+</code></pre><p>这段描述说明了当设置粒子单元（CAEmitterCell *）的emitterCells时，每个粒子会充当一个发射器的角色，发射对应粒子，形成粒子特效的叠加。</p>
+<p>将<code>rocket.emitterCells = [NSArray arrayWithObject:burst];</code>修改为<code>rocket.emitterCells = [NSArray arrayWithObject: spark];</code>就可以看到如下图对应的叠加效果了。</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-1.gif" alt="粒子特效叠加"></p>
+<h3 id="取消叠加"><a href="#取消叠加" class="headerlink" title="取消叠加"></a>取消叠加</h3><p>看了粒子特效的叠加，你可能还会有这样一个想法，我能不能取消某个时间段的叠加，只让发射的粒子在最后的时间作为发射器产生粒子效果呢，类似于发射一颗礼炮，在礼炮到达空中时爆炸，而不是像现在这样一路炸上天呢。</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-2.gif" alt="取消叠加"></p>
+<p><strong>实例代码的fireworks部分就实现了这样的效果，下面我们来分析一下他的思路</strong></p>
+<p>fireworks部分的基本思路是这样的，给发射的粒子A附加一个新的粒子效果B，B的效果是在A生命周期的结尾发射<strong>一个</strong>生命周期极短的粒子，在B粒子极短的生命周期内，发射爆炸效果的粒子C，这样看起来的效果就是A被发射出去，在其生命周期的结尾发射了一个爆炸的粒子C，用户并没有意识到B粒子的存在，从而达到取消叠加的效果。</p>
+<p><strong>如何在代码中实现这种取消叠加的效果</strong></p>
+<p><code>birthRate</code>粒子每秒钟产生粒子的个数，决定了粒子产生的间隔，而且并不是一开始就发射粒子，而是要从开始过相应的时间间隔才发送粒子。所以我们只需要将B粒子的生成间隔设定为A粒子的生存长度即可，这样就实现了在A粒子即将结束的时候发射B粒子。</p>
+<p>fireworks部分的代码也可以这样表示</p>
+<pre><code>burst.birthRate = 1.0/rocket.lifetime;
+</code></pre><h3 id="取消叠加的坑"><a href="#取消叠加的坑" class="headerlink" title="取消叠加的坑"></a>取消叠加的坑</h3><p>你做了取消叠加部分的操作，发现A粒子生命周期结束时并没有出现爆炸效果的粒子C，这个时候问题出现在哪里呢？</p>
+<p>原因就是刚好在A生命周期的结尾要发射单个粒子B的时候，A died，然后B就没发射出来……</p>
+<p>这个时候你需要将A的生命周期比原来加长一点，要比B的生成间隔时间长那么一小点，代码实现上为：</p>
+<pre><code>CGFloat rocketLifeTime = 1.0f;
 rocket.lifetime = rocketLifeTime + 0.01f;
 …
 burst.birthRate = 1.0f/rocketLifeTime;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;burst.birthRate = 1.0f/(rocket.lifetime-0.01f);
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;补充：粒子属性的继承&quot;&gt;&lt;a href=&quot;#补充：粒子属性的继承&quot; class=&quot;headerlink&quot; title=&quot;补充：粒子属性的继承&quot;&gt;&lt;/a&gt;补充：粒子属性的继承&lt;/h3&gt;&lt;p&gt;如果发射器是粒子的话，它的相应属性，会继承给它发射出的子粒子。比如说粒子A设置了redSpeed属性，粒子B redSpeed的默认值会和A相同，除非B自己设置一个redSpeed的数值。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;参考博文：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.jianshu.com/p/6f5d7cfdae2f&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;iOS粒子效果&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/wwmusic/article/details/8901398&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CAEmitterLayer（粒子系统）学习笔记&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre><p>或者</p>
+<pre><code>burst.birthRate = 1.0f/(rocket.lifetime-0.01f);
+</code></pre><h3 id="补充：粒子属性的继承"><a href="#补充：粒子属性的继承" class="headerlink" title="补充：粒子属性的继承"></a>补充：粒子属性的继承</h3><p>如果发射器是粒子的话，它的相应属性，会继承给它发射出的子粒子。比如说粒子A设置了redSpeed属性，粒子B redSpeed的默认值会和A相同，除非B自己设置一个redSpeed的数值。</p>
+<hr>
+<p>参考博文：</p>
+<p><a href="http://www.jianshu.com/p/6f5d7cfdae2f" target="_blank" rel="external">iOS粒子效果</a></p>
+<p><a href="http://blog.csdn.net/wwmusic/article/details/8901398" target="_blank" rel="external">CAEmitterLayer（粒子系统）学习笔记</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -669,18 +669,18 @@ burst.birthRate = 1.0f/rocketLifeTime;
     <published>2016-11-07T02:50:46.000Z</published>
     <updated>2016-11-07T03:23:27.000Z</updated>
     
-    <content type="html">&lt;p&gt;之前有段时间一直有一个关于二维码传输比较大信息量来解决某个问题的想法，当时觉得这个想法还不错可以快速交换信息，但是后来看到一段话之后恍然大悟，放弃了这个想法。&lt;/p&gt;
-&lt;p&gt;这个问题也引发了我的一些思考，作为一名技术人员，我们往往更倾向于用技术的思维去思考和解决问题而忽略了用户的一些使用场景和需求，帮助用户更快更好的解决问题才是我们的初衷。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;对于普通二维码，包含的信息越多，二维码的图案就会越复杂。&lt;/p&gt;
-&lt;p&gt;所以在过去，一个二维码包含大量的信息并不是应该追求的目标。&lt;/p&gt;
-&lt;p&gt;就好比一张纸理论上你可以写下无数个字，但是关键是要便于阅读。&lt;/p&gt;
-&lt;p&gt;二维码也是这样。&lt;/p&gt;
-&lt;p&gt;一个信息量大，但是图案密密麻麻的二维码，如果根本扫描不出，又有什么用呢？&lt;/p&gt;
-&lt;p&gt;如果你拿着手机打开微信扫一扫对着二维码，来来回回几分钟，这个码还解不出来，谁还会有耐心关注码后面隐藏着什么内容？&lt;/p&gt;
-&lt;p&gt;真正好地二维码，应该是打开摄像头，对准条码，哔-！搞定。&lt;/p&gt;
-&lt;/blockquote&gt;
-</content>
+    <content type="html"><![CDATA[<p>之前有段时间一直有一个关于二维码传输比较大信息量来解决某个问题的想法，当时觉得这个想法还不错可以快速交换信息，但是后来看到一段话之后恍然大悟，放弃了这个想法。</p>
+<p>这个问题也引发了我的一些思考，作为一名技术人员，我们往往更倾向于用技术的思维去思考和解决问题而忽略了用户的一些使用场景和需求，帮助用户更快更好的解决问题才是我们的初衷。</p>
+<blockquote>
+<p>对于普通二维码，包含的信息越多，二维码的图案就会越复杂。</p>
+<p>所以在过去，一个二维码包含大量的信息并不是应该追求的目标。</p>
+<p>就好比一张纸理论上你可以写下无数个字，但是关键是要便于阅读。</p>
+<p>二维码也是这样。</p>
+<p>一个信息量大，但是图案密密麻麻的二维码，如果根本扫描不出，又有什么用呢？</p>
+<p>如果你拿着手机打开微信扫一扫对着二维码，来来回回几分钟，这个码还解不出来，谁还会有耐心关注码后面隐藏着什么内容？</p>
+<p>真正好地二维码，应该是打开摄像头，对准条码，哔-！搞定。</p>
+</blockquote>
+]]></content>
     
     <summary type="html">
     
@@ -700,29 +700,29 @@ burst.birthRate = 1.0f/rocketLifeTime;
     <published>2016-10-24T09:15:03.000Z</published>
     <updated>2016-11-01T07:36:57.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。&lt;/p&gt;
-&lt;h3 id=&quot;影响视图偏移的属性&quot;&gt;&lt;a href=&quot;#影响视图偏移的属性&quot; class=&quot;headerlink&quot; title=&quot;影响视图偏移的属性&quot;&gt;&lt;/a&gt;影响视图偏移的属性&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;translucent(UINavigationBar)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;automaticallyAdjustsScrollViewInsets(UIViewController)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;extendedLayoutIncludesOpaqueBars(UIViewController)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;所以滚动视图只有在translucent为NO且extendedLayoutIncludesOpaqueBars为NO时滚动视图位置会下移64个像素，其他情况都是正常的，只需根据情况调整视图内容偏移属性即可。&lt;/p&gt;
-&lt;p&gt;以下是所述几种情况的UI调试&lt;/p&gt;
-&lt;p&gt;translucent为YES，automaticallyAdjustsScrollViewInsets为YES时的视图分析&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161026-1.png&quot; alt=&quot;TYAY&quot;&gt;&lt;/p&gt;
-&lt;p&gt;translucent为YES，automaticallyAdjustsScrollViewInsets为NO时的视图分析&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161026-2.png&quot; alt=&quot;TYAN&quot;&gt;&lt;/p&gt;
-&lt;p&gt;translucent为NO，extendedLayoutIncludesOpaqueBars为NO时的视图分析&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161026-3.png&quot; alt=&quot;TNEN&quot;&gt;&lt;/p&gt;
-&lt;p&gt;translucent为NO，extendedLayoutIncludesOpaqueBars为YES时的视图分析&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20161026-4.png&quot; alt=&quot;TNEY&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;滚动视图内容偏移的条件&quot;&gt;&lt;a href=&quot;#滚动视图内容偏移的条件&quot; class=&quot;headerlink&quot; title=&quot;滚动视图内容偏移的条件&quot;&gt;&lt;/a&gt;滚动视图内容偏移的条件&lt;/h3&gt;&lt;p&gt;想要以上属性定义的滚动视图内容下移64个像素有效需要该滚动视图在其父视图堆栈当中处于最底层，也就是说滚动视图下面不能有其他子视图&lt;/p&gt;
-&lt;p&gt;鉴于这个限制条件有一个取巧的方法，当不能改动上述属性又必须让滚动视图内容不下移的时候可以在滚动视图前面add一个填充视图，这个视图的大小和颜色等属性都没有限制，因此你可以设置frame很小而且透明，这样就轻松的解决了一个难题。&lt;/p&gt;
-&lt;h3 id=&quot;iOS-8-UITabBarController的遗留问题&quot;&gt;&lt;a href=&quot;#iOS-8-UITabBarController的遗留问题&quot; class=&quot;headerlink&quot; title=&quot;iOS 8 UITabBarController的遗留问题&quot;&gt;&lt;/a&gt;iOS 8 UITabBarController的遗留问题&lt;/h3&gt;&lt;p&gt;UITabBarController下挂载的UIViewController的automaticallyAdjustsScrollViewInsets和extendedLayoutIncludesOpaqueBars无效，在translucent为YES时所有滚动视图位置正常，滚动视图内容向下偏移64个像素，translucent为NO时所有滚动视图位置下移64个像素，滚动视图内容位置正常。&lt;/p&gt;
-&lt;p&gt;但是在iOS 8系统当中，在translucent为YES时只会针对UITabBarController下第一个出现的视图进行滚动视图内容下压，这就造成了第一个出现的视图和其他视图的偏移显示不一致。针对这个问题，如果不能改动translucent为NO的话就需要用到我们第二部分提到的方法，我们需要在UITabBarController下的所有视图当中insert一个填充视图，让所有的滚动视图内容都不发生偏移，这个样就可以正常显示了。&lt;/p&gt;
-&lt;h3 id=&quot;补充：解决UIViewController的View下移导致的偏移&quot;&gt;&lt;a href=&quot;#补充：解决UIViewController的View下移导致的偏移&quot; class=&quot;headerlink&quot; title=&quot;补充：解决UIViewController的View下移导致的偏移&quot;&gt;&lt;/a&gt;补充：解决UIViewController的View下移导致的偏移&lt;/h3&gt;&lt;p&gt;如果大家细心的话，可以发现我把UIViewController当中的View的颜色也设置成了红色。在translucent为NO、extendedLayoutIncludesOpaqueBars也为NO的时候发现View下移了64个像素（详情可以比较上面四种情况的UI调试）。如果是因为UIViewController的View下移导致视图偏移，我们可以&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;设置navigationBar的translucent为YES（工程整体风格，一般不允许修改）&lt;/li&gt;
-&lt;li&gt;设置extendedLayoutIncludesOpaqueBars为YES（只影响当前视图，推荐）&lt;/li&gt;
-&lt;/ol&gt;
-</content>
+    <content type="html"><![CDATA[<p>最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。</p>
+<h3 id="影响视图偏移的属性"><a href="#影响视图偏移的属性" class="headerlink" title="影响视图偏移的属性"></a>影响视图偏移的属性</h3><p><strong>translucent(UINavigationBar)</strong></p>
+<p>导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。</p>
+<p><strong>automaticallyAdjustsScrollViewInsets(UIViewController)</strong></p>
+<p>该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容</p>
+<p><strong>extendedLayoutIncludesOpaqueBars(UIViewController)</strong></p>
+<p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）<a id="more"></a></p>
+<p>所以滚动视图只有在translucent为NO且extendedLayoutIncludesOpaqueBars为NO时滚动视图位置会下移64个像素，其他情况都是正常的，只需根据情况调整视图内容偏移属性即可。</p>
+<p>以下是所述几种情况的UI调试</p>
+<p>translucent为YES，automaticallyAdjustsScrollViewInsets为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-1.png" alt="TYAY"></p>
+<p>translucent为YES，automaticallyAdjustsScrollViewInsets为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-2.png" alt="TYAN"></p>
+<p>translucent为NO，extendedLayoutIncludesOpaqueBars为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-3.png" alt="TNEN"></p>
+<p>translucent为NO，extendedLayoutIncludesOpaqueBars为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-4.png" alt="TNEY"></p>
+<h3 id="滚动视图内容偏移的条件"><a href="#滚动视图内容偏移的条件" class="headerlink" title="滚动视图内容偏移的条件"></a>滚动视图内容偏移的条件</h3><p>想要以上属性定义的滚动视图内容下移64个像素有效需要该滚动视图在其父视图堆栈当中处于最底层，也就是说滚动视图下面不能有其他子视图</p>
+<p>鉴于这个限制条件有一个取巧的方法，当不能改动上述属性又必须让滚动视图内容不下移的时候可以在滚动视图前面add一个填充视图，这个视图的大小和颜色等属性都没有限制，因此你可以设置frame很小而且透明，这样就轻松的解决了一个难题。</p>
+<h3 id="iOS-8-UITabBarController的遗留问题"><a href="#iOS-8-UITabBarController的遗留问题" class="headerlink" title="iOS 8 UITabBarController的遗留问题"></a>iOS 8 UITabBarController的遗留问题</h3><p>UITabBarController下挂载的UIViewController的automaticallyAdjustsScrollViewInsets和extendedLayoutIncludesOpaqueBars无效，在translucent为YES时所有滚动视图位置正常，滚动视图内容向下偏移64个像素，translucent为NO时所有滚动视图位置下移64个像素，滚动视图内容位置正常。</p>
+<p>但是在iOS 8系统当中，在translucent为YES时只会针对UITabBarController下第一个出现的视图进行滚动视图内容下压，这就造成了第一个出现的视图和其他视图的偏移显示不一致。针对这个问题，如果不能改动translucent为NO的话就需要用到我们第二部分提到的方法，我们需要在UITabBarController下的所有视图当中insert一个填充视图，让所有的滚动视图内容都不发生偏移，这个样就可以正常显示了。</p>
+<h3 id="补充：解决UIViewController的View下移导致的偏移"><a href="#补充：解决UIViewController的View下移导致的偏移" class="headerlink" title="补充：解决UIViewController的View下移导致的偏移"></a>补充：解决UIViewController的View下移导致的偏移</h3><p>如果大家细心的话，可以发现我把UIViewController当中的View的颜色也设置成了红色。在translucent为NO、extendedLayoutIncludesOpaqueBars也为NO的时候发现View下移了64个像素（详情可以比较上面四种情况的UI调试）。如果是因为UIViewController的View下移导致视图偏移，我们可以</p>
+<ol>
+<li>设置navigationBar的translucent为YES（工程整体风格，一般不允许修改）</li>
+<li>设置extendedLayoutIncludesOpaqueBars为YES（只影响当前视图，推荐）</li>
+</ol>
+]]></content>
     
     <summary type="html">
     
@@ -742,11 +742,11 @@ burst.birthRate = 1.0f/rocketLifeTime;
     <published>2016-09-22T10:26:00.000Z</published>
     <updated>2016-11-02T12:58:14.000Z</updated>
     
-    <content type="html">&lt;p&gt;有些时候我们会有这样的一些需求：需要获得一张图片的具体尺寸和所占的存储空间，这张图片可能来自网络、本地，也可能是在内存当中的UIImage对象。&lt;/p&gt;
-&lt;p&gt;基本思路：图片文件的本质是一些二进制数据，他们按照一定的规则存储在磁盘或内存当中，我们只需要在相应的位置取出我们需要的数据即可。不同格式的图片存储方式不同，数据所在的位置也不同，所幸的是前人已经帮我们做好了封装，我们只需要调用相关API即可。针对图片文件的大小，我们还可以通过计算数据的长度的方式来计算。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;网络图片和本地图片&quot;&gt;&lt;a href=&quot;#网络图片和本地图片&quot; class=&quot;headerlink&quot; title=&quot;网络图片和本地图片&quot;&gt;&lt;/a&gt;网络图片和本地图片&lt;/h3&gt;&lt;p&gt;对于计算机系统而言，本地和网络都是计算机系统外部某个位置，所以这两种存储方式的方法是一致的。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;图片的尺寸&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//需导入头文件#import &amp;lt;ImageIO/ImageIO.h&amp;gt;
+    <content type="html"><![CDATA[<p>有些时候我们会有这样的一些需求：需要获得一张图片的具体尺寸和所占的存储空间，这张图片可能来自网络、本地，也可能是在内存当中的UIImage对象。</p>
+<p>基本思路：图片文件的本质是一些二进制数据，他们按照一定的规则存储在磁盘或内存当中，我们只需要在相应的位置取出我们需要的数据即可。不同格式的图片存储方式不同，数据所在的位置也不同，所幸的是前人已经帮我们做好了封装，我们只需要调用相关API即可。针对图片文件的大小，我们还可以通过计算数据的长度的方式来计算。<a id="more"></a></p>
+<h3 id="网络图片和本地图片"><a href="#网络图片和本地图片" class="headerlink" title="网络图片和本地图片"></a>网络图片和本地图片</h3><p>对于计算机系统而言，本地和网络都是计算机系统外部某个位置，所以这两种存储方式的方法是一致的。</p>
+<p><strong>图片的尺寸</strong></p>
+<pre><code>//需导入头文件#import &lt;ImageIO/ImageIO.h&gt;
 
 - (CGSize)getImageSizeWithURL:(NSURL *)url
 {
@@ -765,11 +765,11 @@ burst.birthRate = 1.0f/rocketLifeTime;
         if (imageProperties != NULL) {
             CFNumberRef widthNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
             if (widthNumberRef != NULL) {
-                CFNumberGetValue(widthNumberRef, kCFNumberFloat64Type, &amp;amp;width);
+                CFNumberGetValue(widthNumberRef, kCFNumberFloat64Type, &amp;width);
             }
             CFNumberRef heightNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
             if (heightNumberRef != NULL) {
-                CFNumberGetValue(heightNumberRef, kCFNumberFloat64Type, &amp;amp;height);
+                CFNumberGetValue(heightNumberRef, kCFNumberFloat64Type, &amp;height);
             }
             CFRelease(imageProperties);
         }
@@ -777,8 +777,8 @@ burst.birthRate = 1.0f/rocketLifeTime;
     }
     return CGSizeMake(width, height);
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;图片大小&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//需导入头文件#import &amp;lt;ImageIO/ImageIO.h&amp;gt;
+</code></pre><p><strong>图片大小</strong></p>
+<pre><code>//需导入头文件#import &lt;ImageIO/ImageIO.h&gt;
 
 - (CGFloat)getImageFileSizeWithURL:(NSURL *)url
 {
@@ -797,7 +797,7 @@ burst.birthRate = 1.0f/rocketLifeTime;
         if (imageProperties != NULL) {
             CFNumberRef fileSizeNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyFileSize);
             if (fileSizeNumberRef != NULL) {
-                CFNumberGetValue(fileSizeNumberRef, kCFNumberFloat64Type, &amp;amp;fileSize);
+                CFNumberGetValue(fileSizeNumberRef, kCFNumberFloat64Type, &amp;fileSize);
             }
             CFRelease(imageProperties);
         }
@@ -805,15 +805,15 @@ burst.birthRate = 1.0f/rocketLifeTime;
     }
     return fileSize;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;内存当中的UIImage对象&quot;&gt;&lt;a href=&quot;#内存当中的UIImage对象&quot; class=&quot;headerlink&quot; title=&quot;内存当中的UIImage对象&quot;&gt;&lt;/a&gt;内存当中的UIImage对象&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;图片尺寸&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;UIImage *tempImage = [UIImage imageNamed:@&amp;quot;paperPlane&amp;quot;];
-NSLog(@&amp;quot;imageSize:%f,%f&amp;quot;,tempImage.size.width,tempImage.size.height);
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;图片大小&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;UIImage *tempImage = [UIImage imageNamed:@&amp;quot;paperPlane&amp;quot;];
+</code></pre><h3 id="内存当中的UIImage对象"><a href="#内存当中的UIImage对象" class="headerlink" title="内存当中的UIImage对象"></a>内存当中的UIImage对象</h3><p><strong>图片尺寸</strong></p>
+<pre><code>UIImage *tempImage = [UIImage imageNamed:@&quot;paperPlane&quot;];
+NSLog(@&quot;imageSize:%f,%f&quot;,tempImage.size.width,tempImage.size.height);
+</code></pre><p><strong>图片大小</strong></p>
+<pre><code>UIImage *tempImage = [UIImage imageNamed:@&quot;paperPlane&quot;];
 NSData *imageData = UIImagePNGRepresentation(tempImage);
-NSLog(@&amp;quot;imageFileSize:%ld&amp;quot;,(long)imageData.length);
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;其他&quot;&gt;&lt;a href=&quot;#其他&quot; class=&quot;headerlink&quot; title=&quot;其他&quot;&gt;&lt;/a&gt;其他&lt;/h3&gt;&lt;p&gt;网络和本地图片也可以通过IO读入计算，但需要拿到图片的全部数据，不推荐。&lt;/p&gt;
-</content>
+NSLog(@&quot;imageFileSize:%ld&quot;,(long)imageData.length);
+</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>网络和本地图片也可以通过IO读入计算，但需要拿到图片的全部数据，不推荐。</p>
+]]></content>
     
     <summary type="html">
     
@@ -833,23 +833,23 @@ NSLog(@&amp;quot;imageFileSize:%ld&amp;quot;,(long)imageData.length);
     <published>2016-07-29T03:11:47.000Z</published>
     <updated>2016-08-11T09:34:10.000Z</updated>
     
-    <content type="html">&lt;p&gt;之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。&lt;/p&gt;
-&lt;p&gt;H5和iOS原生交互现在主流的有两种方式：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通过Webview拦截url请求和Webview的执行js方法来实现&lt;/li&gt;
-&lt;li&gt;通过JavaScriptCore来实现&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为&lt;a href=&quot;https://github.com/marcuswestin/WebViewJavascriptBridge&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;WebViewJavascriptBridge&lt;/a&gt;这个框架，它是采用第一种方式实现的，而且封装的也比较好。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;拦截请求方式&quot;&gt;&lt;a href=&quot;#拦截请求方式&quot; class=&quot;headerlink&quot; title=&quot;拦截请求方式&quot;&gt;&lt;/a&gt;拦截请求方式&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;原生调用H5&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;原生调用H5比较简单，直接调用UIWebView（WKWebView同理）当中的&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;方法即可。同时WKWebView当中还增加了一个异步调用的方法&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ __nullable)(__nullable id, NSError * __nullable error))completionHandler;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;H5调用原生&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;H5调用原生通过在UIWebView（WKWebView同理）的&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：&lt;a href=&quot;https://github.com/marcuswestin/WebViewJavascriptBridge&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;WebViewJavascriptBridge&lt;/a&gt;）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    <content type="html"><![CDATA[<p>之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。</p>
+<p>H5和iOS原生交互现在主流的有两种方式：</p>
+<ol>
+<li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
+<li>通过JavaScriptCore来实现</li>
+</ol>
+<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。<a id="more"></a></p>
+<h3 id="拦截请求方式"><a href="#拦截请求方式" class="headerlink" title="拦截请求方式"></a>拦截请求方式</h3><p><strong>原生调用H5</strong></p>
+<p>原生调用H5比较简单，直接调用UIWebView（WKWebView同理）当中的</p>
+<pre><code>- (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
+</code></pre><p>方法即可。同时WKWebView当中还增加了一个异步调用的方法</p>
+<pre><code>- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ __nullable)(__nullable id, NSError * __nullable error))completionHandler;
+</code></pre><p><strong>H5调用原生</strong></p>
+<p>H5调用原生通过在UIWebView（WKWebView同理）的</p>
+<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+</code></pre><p>方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>）</p>
+<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (webView != _webView) { return YES; }
     NSURL *url = [request URL];
     __strong WVJB_WEBVIEW_DELEGATE_TYPE* strongDelegate = _webViewDelegate;
@@ -863,44 +863,44 @@ NSLog(@&amp;quot;imageFileSize:%ld&amp;quot;,(long)imageData.length);
             [_base logUnkownMessage:url];
         }
         return NO;
-    } else if (strongDelegate &amp;amp;&amp;amp; [strongDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
+    } else if (strongDelegate &amp;&amp; [strongDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
         return [strongDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     } else {
         return YES;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以上代码通过&lt;code&gt;isCorrectProcotocolScheme:&lt;/code&gt;、&lt;code&gt;isBridgeLoadedURL:&lt;/code&gt;和&lt;code&gt;isQueueMessageURL:&lt;/code&gt;三个方法对拦截的url进行判断需要执行哪个原生的方法。&lt;/p&gt;
-&lt;p&gt;一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而&lt;a href=&quot;https://github.com/marcuswestin/WebViewJavascriptBridge&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;WebViewJavascriptBridge&lt;/a&gt;则是将需要获取的数据放到js对象当中，让原生通过&lt;code&gt;[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]&lt;/code&gt;调用js去取到数据。&lt;/p&gt;
-&lt;h3 id=&quot;JavaScriptCore方式&quot;&gt;&lt;a href=&quot;#JavaScriptCore方式&quot; class=&quot;headerlink&quot; title=&quot;JavaScriptCore方式&quot;&gt;&lt;/a&gt;JavaScriptCore方式&lt;/h3&gt;&lt;p&gt;JavaScriptCore是iOS7之后添加的库，这个库使H5和原生的交互变得比较简单。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;原生调用H5&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;JSContext *context = [self.webView valueForKeyPath:@&amp;quot;documentView.webView.mainFrame.javaScriptContext&amp;quot;];
-NSString *textJS = @&amp;quot;showAlert(&amp;apos;这里是JS中alert弹出的message&amp;apos;)&amp;quot;;
+</code></pre><p>以上代码通过<code>isCorrectProcotocolScheme:</code>、<code>isBridgeLoadedURL:</code>和<code>isQueueMessageURL:</code>三个方法对拦截的url进行判断需要执行哪个原生的方法。</p>
+<p>一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>则是将需要获取的数据放到js对象当中，让原生通过<code>[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]</code>调用js去取到数据。</p>
+<h3 id="JavaScriptCore方式"><a href="#JavaScriptCore方式" class="headerlink" title="JavaScriptCore方式"></a>JavaScriptCore方式</h3><p>JavaScriptCore是iOS7之后添加的库，这个库使H5和原生的交互变得比较简单。</p>
+<p><strong>原生调用H5</strong></p>
+<pre><code>JSContext *context = [self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
+NSString *textJS = @&quot;showAlert(&apos;这里是JS中alert弹出的message&apos;)&quot;;
 [context evaluateScript:textJS];
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;H5调用原生&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;JavaScriptCore方式H5和原生交互更像是将一个原生对象注册到H5的js当中，通过js来调用。&lt;/p&gt;
-&lt;p&gt;js直接调用方法&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (void)webViewDidFinishLoad:(UIWebView *)webView
+</code></pre><p><strong>H5调用原生</strong></p>
+<p>JavaScriptCore方式H5和原生交互更像是将一个原生对象注册到H5的js当中，通过js来调用。</p>
+<p>js直接调用方法</p>
+<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    JSContext *context=[self.webView valueForKeyPath:@&amp;quot;documentView.webView.mainFrame.javaScriptContext&amp;quot;];    
-    context[@&amp;quot;test&amp;quot;] = ^() {
+    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];    
+    context[@&quot;test&quot;] = ^() {
         //此处获得方法传过来的参数，参数数量不固定，由js在调用时传递个数决定  
         NSArray *args = [JSContext currentArguments];  
         for (id obj in args) {  
-            NSLog(@&amp;quot;%@&amp;quot;,obj);  
+            NSLog(@&quot;%@&quot;,obj);  
         }  
     };    
 }
 
 //我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&amp;quot;test()&amp;quot;;  
+NSString *jsStr1=@&quot;test()&quot;;  
 [context evaluateScript:jsStr1];  
-NSString *jsStr2=@&amp;quot;test(&amp;apos;参数1&amp;apos;)&amp;quot;;  
+NSString *jsStr2=@&quot;test(&apos;参数1&apos;)&quot;;  
 [context evaluateScript:jsStr2];  
-NSString *jsStr3=@&amp;quot;test(&amp;apos;参数A&amp;apos;,&amp;apos;参数B&amp;apos;)&amp;quot;;  
+NSString *jsStr3=@&quot;test(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
 [context evaluateScript:jsStr3]; 
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;js通过对象调用方法，此时需要向js当中传递一个实现了JSExport协议的对象，通过该对象调用在协议中声明并实现的自定义方法。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;创建一个继承JSExport协议的协议，并添加自定义方法
-@protocol TestProtocol &amp;lt;JSExport&amp;gt;  
+</code></pre><p>js通过对象调用方法，此时需要向js当中传递一个实现了JSExport协议的对象，通过该对象调用在协议中声明并实现的自定义方法。</p>
+<pre><code>创建一个继承JSExport协议的协议，并添加自定义方法
+@protocol TestProtocol &lt;JSExport&gt;  
 //无参数  
 -(void)test;
 //一个参数  
@@ -910,7 +910,7 @@ NSString *jsStr3=@&amp;quot;test(&amp;apos;参数A&amp;apos;,&amp;apos;参数B&a
 @end
 
 //在需要调用的对象当中实现这个协议
-@interface TestJSObject : NSObject&amp;lt;TestProtocol&amp;gt;  
+@interface TestJSObject : NSObject&lt;TestProtocol&gt;  
 
 @end
 
@@ -918,16 +918,16 @@ NSString *jsStr3=@&amp;quot;test(&amp;apos;参数A&amp;apos;,&amp;apos;参数B&a
 
 -(void)test  
 {  
-    NSLog(@&amp;quot;this is a test&amp;quot;);  
+    NSLog(@&quot;this is a test&quot;);  
 }
 
 -(void)testOne:(NSString *)one  
 {  
-    NSLog(@&amp;quot;this is a test,one=%@&amp;quot;,one);  
+    NSLog(@&quot;this is a test,one=%@&quot;,one);  
 }  
 -(void)testOne:(NSString *)one two:(NSString *)two  
 {
-    NSLog(@&amp;quot;this is a test,one=%@,two=%@&amp;quot;,one,two);  
+    NSLog(@&quot;this is a test,one=%@,two=%@&quot;,one,two);  
 }
 
 @end
@@ -935,19 +935,19 @@ NSString *jsStr3=@&amp;quot;test(&amp;apos;参数A&amp;apos;,&amp;apos;参数B&a
 //将实现TestProtocol协议的对象注册进js当中即可
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    JSContext *context=[self.webView valueForKeyPath:@&amp;quot;documentView.webView.mainFrame.javaScriptContext&amp;quot;];   
+    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];   
     TestJSObject *testJS=[[TestJSObject alloc] init];  
-    context[@&amp;quot;testJS&amp;quot;]=testJS;
+    context[@&quot;testJS&quot;]=testJS;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在js当中调用时需要注意当调用多个参数的方法时需要需要将方法名拼接起来调用，比如我们写的两个参数调用就需要写成&lt;code&gt;testJS.testOnetwo(‘参数1’,’参数2’)&lt;/code&gt;，如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&amp;quot;testJS.test()&amp;quot;;  
+</code></pre><p>在js当中调用时需要注意当调用多个参数的方法时需要需要将方法名拼接起来调用，比如我们写的两个参数调用就需要写成<code>testJS.testOnetwo(‘参数1’,’参数2’)</code>，如下：</p>
+<pre><code>//我们模拟一下H5当中的js调用  
+NSString *jsStr1=@&quot;testJS.test()&quot;;  
 [context evaluateScript:jsStr1];  
-NSString *jsStr2=@&amp;quot;testJS.testOne(&amp;apos;参数1&amp;apos;)&amp;quot;;  
+NSString *jsStr2=@&quot;testJS.testOne(&apos;参数1&apos;)&quot;;  
 [context evaluateScript:jsStr2];  
-NSString *jsStr3=@&amp;quot;testJS.testOnetwo(&amp;apos;参数A&amp;apos;,&amp;apos;参数B&amp;apos;)&amp;quot;;  
+NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
 [context evaluateScript:jsStr3]; 
-&lt;/code&gt;&lt;/pre&gt;</content>
+</code></pre>]]></content>
     
     <summary type="html">
     
@@ -967,78 +967,77 @@ NSString *jsStr3=@&amp;quot;testJS.testOnetwo(&amp;apos;参数A&amp;apos;,&amp;a
     <link href="http://yoursite.com/2016/07/21/%E4%BB%8EOctopress%E8%BF%81%E7%A7%BB%E5%88%B0Hexo/"/>
     <id>http://yoursite.com/2016/07/21/从Octopress迁移到Hexo/</id>
     <published>2016-07-21T08:29:15.000Z</published>
-    <updated>2016-07-26T09:18:40.000Z</updated>
+    <updated>2017-05-25T09:13:13.000Z</updated>
     
-    <content type="html">&lt;p&gt;之前看到有挺多人弃用Octopress投奔了Hexo，刚好赶上前段时间稍微宽松点，就自己搭建了下试试。&lt;/p&gt;
-&lt;p&gt;以下是自己的几点使用感受：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;generate生成的速度确实是蛮快的&lt;/li&gt;
-&lt;li&gt;相关命令使用比较顺手&lt;/li&gt;
-&lt;li&gt;文件结构比较合理&lt;/li&gt;
-&lt;li&gt;从Octopress迁移成本小&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;所以我就把自己的博客也迁移到了Hexo。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;迁移&quot;&gt;&lt;a href=&quot;#迁移&quot; class=&quot;headerlink&quot; title=&quot;迁移&quot;&gt;&lt;/a&gt;迁移&lt;/h3&gt;&lt;p&gt;1.安装Hexo&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npm install -g hexo-cli
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.创建博客目录&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo init &amp;lt;folder&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.迁移文章和资源&lt;/p&gt;
-&lt;p&gt;将Octopress的&lt;code&gt;source/_post&lt;/code&gt;下的markdown文件复制到Hexo博客目录下的同名文件里&lt;/p&gt;
-&lt;p&gt;将Octopress的&lt;code&gt;source/images&lt;/code&gt;下的资源文件复制到Hexo博客目录下的同名文件里，没有的话自己创建一个。&lt;/p&gt;
-&lt;p&gt;4.进行相关配置&lt;/p&gt;
-&lt;p&gt;修改Hexo博客目录下_config.yml的相关配置&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h3&gt;&lt;p&gt;1.新建文章&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo new post &amp;lt;title&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.清除之前生成的缓存&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo clean
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.生成静态页面&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo generate
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;4.预览&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo server
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;5.推送静态页面到Github服务器&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;hexo deploy
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;6.更多操作和配置看这里&lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo文档&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;个性化和配置&quot;&gt;&lt;a href=&quot;#个性化和配置&quot; class=&quot;headerlink&quot; title=&quot;个性化和配置&quot;&gt;&lt;/a&gt;个性化和配置&lt;/h3&gt;&lt;p&gt;1.主题&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hexo.io/themes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;主题看这里&lt;/a&gt;，你可以到github上搜索hexo theme，我觉得大部分都在那个列表当中了。&lt;/p&gt;
-&lt;p&gt;2.操作文档&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo文档&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;3.必备插件&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持RSS：&lt;code&gt;npm install hexo-generator-feed –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;生成站点地图：&lt;code&gt;npm install hexo-generator-sitemap –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;生成百度站点地图：&lt;code&gt;npm install hexo-generator-baidu-sitemap –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;HTML 压缩：&lt;code&gt;npm install hexo-html-minifier –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;JavaScript 压缩：&lt;code&gt;npm install hexo-uglify –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;CSS 压缩插件：&lt;code&gt;npm install hexo-clean-css –save&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;SEO优化：&lt;code&gt;npm install hexo-generator-seo-friendly-sitemap&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;安装插件：&lt;code&gt;npm install 插件名 –save&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;卸载插件：&lt;code&gt;npm uninstall 插件名&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;更新插件和博客框架：&lt;code&gt;npm update&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;tips：部分插件可能会造成生成静态页面时报错，卸载即可。&lt;/p&gt;
-&lt;p&gt;4.部署地址&lt;/p&gt;
-&lt;p&gt;详见&lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo文档&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;5.评论&lt;/p&gt;
-&lt;p&gt;我使用的是多说，在yilia主题文件夹下的_config.yml当中直接配置即可，需要注意的是要填写短域名（域名的第一段，不要携带&lt;code&gt;.duoshuo.com&lt;/code&gt;）。&lt;/p&gt;
-&lt;p&gt;6.统计&lt;/p&gt;
-&lt;p&gt;统计使用google的话直接在_config.yml配置id即可。&lt;/p&gt;
-&lt;p&gt;使用百度统计的话将获取到的代码添加到主题layout文件夹下的after_footer.ejs文件最后即可。&lt;a href=&quot;http://blog.csdn.net/smallcheric/article/details/51049695&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;详见&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;SEO&quot;&gt;&lt;a href=&quot;#SEO&quot; class=&quot;headerlink&quot; title=&quot;SEO&quot;&gt;&lt;/a&gt;SEO&lt;/h3&gt;&lt;p&gt;1.增加统计工具&lt;/p&gt;
-&lt;p&gt;上面已经介绍，此处不再赘述。&lt;/p&gt;
-&lt;p&gt;2.搜索优化&lt;/p&gt;
-&lt;p&gt;为了博客更好的被搜到，可以将博客地址提交到各大搜索引擎&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;http://urlc.cn/tool/addurl.html
+    <content type="html"><![CDATA[<p>之前看到有挺多人弃用Octopress投奔了Hexo，刚好赶上前段时间稍微宽松点，就自己搭建了下试试。</p>
+<p>以下是自己的几点使用感受：</p>
+<ol>
+<li>generate生成的速度确实是蛮快的</li>
+<li>相关命令使用比较顺手</li>
+<li>文件结构比较合理</li>
+<li>从Octopress迁移成本小</li>
+</ol>
+<p>所以我就把自己的博客也迁移到了Hexo。<br><a id="more"></a></p>
+<h3 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h3><p>1.安装Hexo</p>
+<pre><code>npm install -g hexo-cli
+</code></pre><p>2.创建博客目录</p>
+<pre><code>hexo init &lt;folder&gt;
+</code></pre><p>3.迁移文章和资源</p>
+<p>将Octopress的<code>source/_post</code>下的markdown文件复制到Hexo博客目录下的同名文件里</p>
+<p>将Octopress的<code>source/images</code>下的资源文件复制到Hexo博客目录下的同名文件里，没有的话自己创建一个。</p>
+<p>4.进行相关配置</p>
+<p>修改Hexo博客目录下_config.yml的相关配置<br></p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>1.新建文章</p>
+<pre><code>hexo new post &lt;title&gt;
+</code></pre><p>2.清除之前生成的缓存</p>
+<pre><code>hexo clean
+</code></pre><p>3.生成静态页面</p>
+<pre><code>hexo generate
+</code></pre><p>4.预览</p>
+<pre><code>hexo server
+</code></pre><p>5.推送静态页面到Github服务器</p>
+<pre><code>hexo deploy
+</code></pre><p>6.更多操作和配置看这里<a href="https://hexo.io/docs/" target="_blank" rel="external">Hexo文档</a><br></p>
+<h3 id="个性化和配置"><a href="#个性化和配置" class="headerlink" title="个性化和配置"></a>个性化和配置</h3><p>1.主题</p>
+<p><a href="https://hexo.io/themes/" target="_blank" rel="external">主题看这里</a>，你可以到github上搜索hexo theme，我觉得大部分都在那个列表当中了。</p>
+<p>2.操作文档</p>
+<p><a href="https://hexo.io/docs/" target="_blank" rel="external">Hexo文档</a></p>
+<p>3.必备插件</p>
+<ul>
+<li>支持RSS：<code>npm install hexo-generator-feed –save</code></li>
+<li>生成站点地图：<code>npm install hexo-generator-sitemap –save</code></li>
+<li>生成百度站点地图：<code>npm install hexo-generator-baidu-sitemap –save</code></li>
+<li>JavaScript 压缩：<code>npm install hexo-uglify –save</code></li>
+<li>CSS 压缩插件：<code>npm install hexo-clean-css –save</code></li>
+<li>SEO优化：<code>npm install hexo-generator-seo-friendly-sitemap</code></li>
+</ul>
+<p>安装插件：<code>npm install 插件名 –save</code></p>
+<p>卸载插件：<code>npm uninstall 插件名</code></p>
+<p>更新插件和博客框架：<code>npm update</code></p>
+<p>tips：部分插件可能会造成生成静态页面时报错，卸载即可。</p>
+<p>4.部署地址</p>
+<p>详见<a href="https://hexo.io/docs/" target="_blank" rel="external">Hexo文档</a></p>
+<p>5.评论</p>
+<p>我使用的是多说，在yilia主题文件夹下的_config.yml当中直接配置即可，需要注意的是要填写短域名（域名的第一段，不要携带<code>.duoshuo.com</code>）。</p>
+<p>6.统计</p>
+<p>统计使用google的话直接在_config.yml配置id即可。</p>
+<p>使用百度统计的话将获取到的代码添加到主题layout文件夹下的after_footer.ejs文件最后即可。<a href="http://blog.csdn.net/smallcheric/article/details/51049695" target="_blank" rel="external">详见</a><br></p>
+<h3 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h3><p>1.增加统计工具</p>
+<p>上面已经介绍，此处不再赘述。</p>
+<p>2.搜索优化</p>
+<p>为了博客更好的被搜到，可以将博客地址提交到各大搜索引擎</p>
+<pre><code>http://urlc.cn/tool/addurl.html
 http://tool.lusongsong.com/addurl.html
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.内容搜索优化&lt;/p&gt;
-&lt;p&gt;为了让自己的文章更精确更容易被搜索引擎抓取，建议添加相关关键字和描述&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;tags: [博客历程]
+</code></pre><p>3.内容搜索优化</p>
+<p>为了让自己的文章更精确更容易被搜索引擎抓取，建议添加相关关键字和描述</p>
+<pre><code>tags: [博客历程]
 keywords: Octopress,Hexo,博客
 description: 从Octopress迁移到Hexo
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;参考文章&quot;&gt;&lt;a href=&quot;#参考文章&quot; class=&quot;headerlink&quot; title=&quot;参考文章&quot;&gt;&lt;/a&gt;参考文章&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://foggry.com/blog/2014/04/28/custom-your-octopress-blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;自定义你的Octopress博客&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/smallcheric/article/details/51049695&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo站点优化更换主题添加多说评论增加百度统计&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.jianshu.com/p/2640561e96f8&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;搭建 Hexo 博客–增强篇&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre><p><br></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://foggry.com/blog/2014/04/28/custom-your-octopress-blog/" target="_blank" rel="external">自定义你的Octopress博客</a></p>
+<p><a href="http://blog.csdn.net/smallcheric/article/details/51049695" target="_blank" rel="external">Hexo站点优化更换主题添加多说评论增加百度统计</a></p>
+<p><a href="http://www.jianshu.com/p/2640561e96f8" target="_blank" rel="external">搭建 Hexo 博客–增强篇</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -1058,16 +1057,16 @@ description: 从Octopress迁移到Hexo
     <published>2016-07-18T08:39:30.000Z</published>
     <updated>2016-07-21T08:04:27.000Z</updated>
     
-    <content type="html">&lt;p&gt;有些时候我们会碰到自定义不规则button的需求，我们会采用设置button图片的方式来解决，但是这种方式针对饼状图按钮或者其他复杂的样式实现起来就会有困难，而且这种方式在响应区域上也存在一定的问题。下面我就和大家分享一个比较好的方法。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h3 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h3&gt;&lt;p&gt;iOS系统当中的事件响应是有一个特殊的响应链和查找规则来确定的，今天我们要涉及的是一个叫做&lt;a href=&quot;http://suenblog.duapp.com/blog/100031/iOS%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89%20hit-Testing&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hit-Testing&lt;/a&gt;的方式。&lt;/p&gt;
-&lt;p&gt;在hit-Testing当中，View按照相应规则查找响应控件时会调用&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event; // recursively calls -pointInside:withEvent:. point is in the receiver&amp;apos;s coordinate system
+    <content type="html"><![CDATA[<p>有些时候我们会碰到自定义不规则button的需求，我们会采用设置button图片的方式来解决，但是这种方式针对饼状图按钮或者其他复杂的样式实现起来就会有困难，而且这种方式在响应区域上也存在一定的问题。下面我就和大家分享一个比较好的方法。</p>
+<a id="more"></a>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>iOS系统当中的事件响应是有一个特殊的响应链和查找规则来确定的，今天我们要涉及的是一个叫做<a href="http://suenblog.duapp.com/blog/100031/iOS%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89%20hit-Testing" target="_blank" rel="external">hit-Testing</a>的方式。</p>
+<p>在hit-Testing当中，View按照相应规则查找响应控件时会调用</p>
+<pre><code>- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event; // recursively calls -pointInside:withEvent:. point is in the receiver&apos;s coordinate system
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event; // default returns YES if point is in bounds
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这两个方法。在这两个方法当中会有操作在当前视图坐标系当中的位置，我们可以根据位置确定该操作是否响应，进而达到实现不规则的响应区域。&lt;/p&gt;
-&lt;h3 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot; class=&quot;headerlink&quot; title=&quot;实现&quot;&gt;&lt;/a&gt;实现&lt;/h3&gt;&lt;p&gt;以一个响应区域为半径20的圆为例，简单写一下实现。（其他图形也都可以通过数学方式表达出来）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+</code></pre><p>这两个方法。在这两个方法当中会有操作在当前视图坐标系当中的位置，我们可以根据位置确定该操作是否响应，进而达到实现不规则的响应区域。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>以一个响应区域为半径20的圆为例，简单写一下实现。（其他图形也都可以通过数学方式表达出来）</p>
+<pre><code>- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
     //当父类返回为NO时直接返回（操作在该控件外）
     BOOL superResult = [super pointInside:point withEvent:event];
@@ -1088,19 +1087,19 @@ description: 从Octopress迁移到Hexo
 - (BOOL)checkIsResponse:(CGPoint)point
 {
     //圆心为（20，20），半径为20
-    if (pow(point.x-20, 2) + pow(point.y-20, 2) &amp;lt;= pow(20, 2)) {
+    if (pow(point.x-20, 2) + pow(point.y-20, 2) &lt;= pow(20, 2)) {
         return YES;
     }else{
         return NO;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其他比较特殊的都可以在上文提到的两个方法当中采用数学计算实现。&lt;/p&gt;
-&lt;h3 id=&quot;优化&quot;&gt;&lt;a href=&quot;#优化&quot; class=&quot;headerlink&quot; title=&quot;优化&quot;&gt;&lt;/a&gt;优化&lt;/h3&gt;&lt;p&gt;上面提到的&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event; // recursively calls -pointInside:withEvent:. point is in the receiver&amp;apos;s coordinate system
+</code></pre><p>其他比较特殊的都可以在上文提到的两个方法当中采用数学计算实现。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>上面提到的</p>
+<pre><code>- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event; // recursively calls -pointInside:withEvent:. point is in the receiver&apos;s coordinate system
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event; // default returns YES if point is in bounds
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这两个方法，视图当中有几个子视图就会调用多少次，因为后续的都是对同一个操作点进行计算，没有必要，故代码修改如下：（参考了&lt;a href=&quot;https://github.com/ole/OBShapedButton&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;OBShapedButton&lt;/a&gt;的写法）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@interface HitTestView ()
+</code></pre><p>这两个方法，视图当中有几个子视图就会调用多少次，因为后续的都是对同一个操作点进行计算，没有必要，故代码修改如下：（参考了<a href="https://github.com/ole/OBShapedButton" target="_blank" rel="external">OBShapedButton</a>的写法）</p>
+<pre><code>@interface HitTestView ()
 
 @property (nonatomic, assign) CGPoint previousTouchPoint;
 @property (nonatomic, assign) BOOL previousTouchHitTestResponse;
@@ -1136,7 +1135,7 @@ description: 从Octopress迁移到Hexo
     }
 
     //圆心为（20，20），半径为20
-    if (pow(point.x-20, 2) + pow(point.y-20, 2) &amp;lt;= pow(20, 2)) {
+    if (pow(point.x-20, 2) + pow(point.y-20, 2) &lt;= pow(20, 2)) {
         self.previousTouchHitTestResponse = YES;
         return self.previousTouchHitTestResponse;
     }else{
@@ -1146,12 +1145,12 @@ description: 从Octopress迁移到Hexo
 }
 
 @end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样减少了不必要的计算,提高了效率。&lt;/p&gt;
-&lt;h3 id=&quot;多说两句&quot;&gt;&lt;a href=&quot;#多说两句&quot; class=&quot;headerlink&quot; title=&quot;多说两句&quot;&gt;&lt;/a&gt;多说两句&lt;/h3&gt;&lt;p&gt;OBShapedButton采用的通过按钮图片来判断对应的响应区域，如果没有比较特殊的需求的话，OBShapedButton是一个不错的选择。&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;br&gt;参考博文和资料：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://suenblog.duapp.com/blog/100031/iOS%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89%20hit-Testing&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;iOS事件分发机制（一） hit-Testing&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/ole/OBShapedButton&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/ole/OBShapedButton&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre><p>这样减少了不必要的计算,提高了效率。</p>
+<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>OBShapedButton采用的通过按钮图片来判断对应的响应区域，如果没有比较特殊的需求的话，OBShapedButton是一个不错的选择。</p>
+<p><br><br>参考博文和资料：</p>
+<p><a href="http://suenblog.duapp.com/blog/100031/iOS%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89%20hit-Testing" target="_blank" rel="external">iOS事件分发机制（一） hit-Testing</a></p>
+<p><a href="https://github.com/ole/OBShapedButton" target="_blank" rel="external">https://github.com/ole/OBShapedButton</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -1171,18 +1170,18 @@ description: 从Octopress迁移到Hexo
     <published>2016-06-23T07:51:06.000Z</published>
     <updated>2016-07-21T06:49:16.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近在开发过程中遇到一个比较特殊的优化点，在通话过程中APP UI会有下压被部分遮盖的问题。&lt;br&gt;&lt;br&gt;以前偶尔在使用别的APP的时候也会遇到这个问题，但是当时并没有太在意，因为UI下移了一小块并不太影响操作，而且这种情况只有在你语音通话过程中才会出现，场景也比较特定。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;UI异常原因&quot;&gt;&lt;a href=&quot;#UI异常原因&quot; class=&quot;headerlink&quot; title=&quot;UI异常原因&quot;&gt;&lt;/a&gt;UI异常原因&lt;/h3&gt;&lt;p&gt;是什么造成这样的UI异常的，大家仔细观察就会发现在通话过程中状态栏的高度增大了20个像素，引起视图下移，进而导致UI异常。&lt;br&gt;&lt;br&gt;但是大家在仔细研究一下就会发现，在使用autolayout的应用当中似乎并不太会出现这样的情况，出现这种UI异常的一般都是用frame编写UI的应用。&lt;br&gt;&lt;br&gt;这是因为UIViewController的View没有设置frame的情况下自适应，当视图下移的时会将自身高度减少20个像素，保证View不超出屏幕。如果此时使用了autolayout，并且以View的边界为约束（而不是具体的数值）为约束，这样会在&lt;code&gt;- (void)viewDidLayoutSubviews&lt;/code&gt;（在手机切换到语音通话状态时打开会后台挂起应用会触发这个方法）中使用约束重新布局，不出现异常。&lt;br&gt;&lt;br&gt;我也查看了一些我们常用的APP，像微信这种界面元素比较简单的做到了比较好的通话适配，而淘宝、京东、蘑菇街之类界面元素比较复杂的应用有些地方还是有些异常，但是对于我们这些老司机也不影响正常的使用。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;这时候你也许会想，难道为了这么一个优化我们要把整个项目从frame改成autolayout（使用autolayout的小伙伴笑了），其实并不用。我写了三个宏如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//状态栏高度(用于通话时视图高度的适配)    
+    <content type="html"><![CDATA[<p>最近在开发过程中遇到一个比较特殊的优化点，在通话过程中APP UI会有下压被部分遮盖的问题。<br><br>以前偶尔在使用别的APP的时候也会遇到这个问题，但是当时并没有太在意，因为UI下移了一小块并不太影响操作，而且这种情况只有在你语音通话过程中才会出现，场景也比较特定。<br><a id="more"></a></p>
+<h3 id="UI异常原因"><a href="#UI异常原因" class="headerlink" title="UI异常原因"></a>UI异常原因</h3><p>是什么造成这样的UI异常的，大家仔细观察就会发现在通话过程中状态栏的高度增大了20个像素，引起视图下移，进而导致UI异常。<br><br>但是大家在仔细研究一下就会发现，在使用autolayout的应用当中似乎并不太会出现这样的情况，出现这种UI异常的一般都是用frame编写UI的应用。<br><br>这是因为UIViewController的View没有设置frame的情况下自适应，当视图下移的时会将自身高度减少20个像素，保证View不超出屏幕。如果此时使用了autolayout，并且以View的边界为约束（而不是具体的数值）为约束，这样会在<code>- (void)viewDidLayoutSubviews</code>（在手机切换到语音通话状态时打开会后台挂起应用会触发这个方法）中使用约束重新布局，不出现异常。<br><br>我也查看了一些我们常用的APP，像微信这种界面元素比较简单的做到了比较好的通话适配，而淘宝、京东、蘑菇街之类界面元素比较复杂的应用有些地方还是有些异常，但是对于我们这些老司机也不影响正常的使用。<br></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>这时候你也许会想，难道为了这么一个优化我们要把整个项目从frame改成autolayout（使用autolayout的小伙伴笑了），其实并不用。我写了三个宏如下：</p>
+<pre><code>//状态栏高度(用于通话时视图高度的适配)    
 #define STATUSBARHEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
 //导航高度(用户通话时视图高度的适配)
 #define NAVHEIGHT ([[UIApplication sharedApplication] statusBarFrame].size.height+44)
 //状态栏高度偏移(用于通话时视图高度的适配)
 #define STATUSBAROFFSET ([[UIApplication sharedApplication] statusBarFrame].size.height-20)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们在开发过程中只需要将我们常用的导航栏高度从64改成NAVHEIGHT，状态栏高度从20改成STATUSBARHEIGHT，计算状态栏高度差值时使用STATUSBAROFFSET，就可以保证你打开的新页面是自适应的。&lt;br&gt;&lt;br&gt;那针对已经打开的旧页面怎么办，这就需要在上文提到的&lt;code&gt;- (void)viewDidLayoutSubviews&lt;/code&gt;中，将和状态栏相关的frame（和这些frame相关的frame也要重新设置）重新设置一遍就好了。这样在设备接收语音通话重新打开应用后，页面就会重新layout达到自适应。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;多说两句&quot;&gt;&lt;a href=&quot;#多说两句&quot; class=&quot;headerlink&quot; title=&quot;多说两句&quot;&gt;&lt;/a&gt;多说两句&lt;/h3&gt;&lt;p&gt;针对这个优化，如果你使用的是frame布局，修改起来还是有一定的工作量的，个人建议在资源有限的情况下只针对一些特定的页面进行优化就好了，毕竟场景有点特殊，投入产出比不高。&lt;/p&gt;
-</content>
+</code></pre><p>我们在开发过程中只需要将我们常用的导航栏高度从64改成NAVHEIGHT，状态栏高度从20改成STATUSBARHEIGHT，计算状态栏高度差值时使用STATUSBAROFFSET，就可以保证你打开的新页面是自适应的。<br><br>那针对已经打开的旧页面怎么办，这就需要在上文提到的<code>- (void)viewDidLayoutSubviews</code>中，将和状态栏相关的frame（和这些frame相关的frame也要重新设置）重新设置一遍就好了。这样在设备接收语音通话重新打开应用后，页面就会重新layout达到自适应。<br></p>
+<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>针对这个优化，如果你使用的是frame布局，修改起来还是有一定的工作量的，个人建议在资源有限的情况下只针对一些特定的页面进行优化就好了，毕竟场景有点特殊，投入产出比不高。</p>
+]]></content>
     
     <summary type="html">
     
@@ -1202,22 +1201,22 @@ description: 从Octopress迁移到Hexo
     <link href="http://yoursite.com/2016/06/15/SVN%E8%BF%81%E7%A7%BB%E5%88%B0Git/"/>
     <id>http://yoursite.com/2016/06/15/SVN迁移到Git/</id>
     <published>2016-06-15T03:13:23.000Z</published>
-    <updated>2016-07-21T07:19:19.000Z</updated>
+    <updated>2017-05-25T02:57:40.000Z</updated>
     
-    <content type="html">&lt;p&gt;SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，&lt;a href=&quot;http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git模型点击这里&lt;/a&gt;）&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;下面我们来介绍迁移过程，整个过程大致分为两步：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;搭建新的版本管理模型&lt;/li&gt;
-&lt;li&gt;旧代码和提交信息的迁移&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;搭建新的版本管理模型&quot;&gt;&lt;a href=&quot;#搭建新的版本管理模型&quot; class=&quot;headerlink&quot; title=&quot;搭建新的版本管理模型&quot;&gt;&lt;/a&gt;搭建新的版本管理模型&lt;/h3&gt;&lt;p&gt;因为SVN和Git的版本管理模型不同，而且可能一部分公司在使用SVN的过程中模型也不是很规范，所以需要重新搭建Git模型，如果之前在SVN上的使用的比较规范且模型和Git类似，可以直接在第二步（旧代码和提交信息的迁移）上迁移出来的仓库上开发。&lt;br&gt;&lt;br&gt;我们需要做的操作如下：&lt;br&gt;&lt;br&gt;1.在GitLab上建立一个新的代码仓库，并clone远程仓库到本地，文件夹名称为XXX&lt;br&gt;&lt;br&gt;2.将需要迁移的最新版本的SVN代码（此处是工程的最新版本的代码，并不是SVN上对应仓库的全部代码）更新下来，并复制到XXX文件下&lt;br&gt;&lt;br&gt;3.将XXX文件下的代码提交，并推送到Git远程仓库，然后按照之前的Git模型管理即可&lt;/p&gt;
-&lt;p&gt;以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有&lt;a href=&quot;https://www.sourcetreeapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SourceTree&lt;/a&gt;、&lt;a href=&quot;http://www.smartsvn.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SmartSVN&lt;/a&gt;等神器。&lt;br&gt;&lt;br&gt;在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;旧代码和提交信息的迁移&quot;&gt;&lt;a href=&quot;#旧代码和提交信息的迁移&quot; class=&quot;headerlink&quot; title=&quot;旧代码和提交信息的迁移&quot;&gt;&lt;/a&gt;旧代码和提交信息的迁移&lt;/h3&gt;&lt;p&gt;下面我们着重介绍旧代码和旧的提交信息的迁移，因为这部分只是用作对历史提交的记录，因此需要新建一个仓库用来存储，而且后续也不在此仓库上开发。&lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&quot;迁移步骤&quot;&gt;&lt;a href=&quot;#迁移步骤&quot; class=&quot;headerlink&quot; title=&quot;迁移步骤&quot;&gt;&lt;/a&gt;迁移步骤&lt;/h4&gt;&lt;p&gt;假设想要将SVN项目检出到myGit文件夹下&lt;br&gt;&lt;br&gt;1.在要迁移的文件夹下添加SVN用户到Git用的映射文件，文件名为：userinfo.txt.&lt;/p&gt;
-&lt;p&gt;文件内容为：（[SVN上的名字] = [Git上的名字] &amp;lt;[Git上的email]&amp;gt;，下面第一行必需）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;VisualSVN Server = Visual SVN Server\&amp;lt;admin@showjoy.com\&amp;gt;
-shuhai=shuhai\&amp;lt;shuhai@showjoy.com\&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.使用git svn clone命令克隆一个Git版本库，包含SVN里面的trunk、branches和tags。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git svn clone &amp;lt;SVN地址&amp;gt; --no-metadata --authors-file=userinfo.txt --trunk= trunk --tags=tags --branches=branches --ignore-refs=&amp;lt;忽视的分支&amp;gt; gitName
+    <content type="html"><![CDATA[<p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="external">Git模型点击这里</a>）<br><a id="more"></a><br>下面我们来介绍迁移过程，整个过程大致分为两步：</p>
+<ol>
+<li>搭建新的版本管理模型</li>
+<li>旧代码和提交信息的迁移</li>
+</ol>
+<h3 id="搭建新的版本管理模型"><a href="#搭建新的版本管理模型" class="headerlink" title="搭建新的版本管理模型"></a>搭建新的版本管理模型</h3><p>因为SVN和Git的版本管理模型不同，而且可能一部分公司在使用SVN的过程中模型也不是很规范，所以需要重新搭建Git模型，如果之前在SVN上的使用的比较规范且模型和Git类似，可以直接在第二步（旧代码和提交信息的迁移）上迁移出来的仓库上开发。<br><br>我们需要做的操作如下：<br><br>1.在GitLab上建立一个新的代码仓库，并clone远程仓库到本地，文件夹名称为XXX<br><br>2.将需要迁移的最新版本的SVN代码（此处是工程的最新版本的代码，并不是SVN上对应仓库的全部代码）更新下来，并复制到XXX文件下<br><br>3.将XXX文件下的代码提交，并推送到Git远程仓库，然后按照之前的Git模型管理即可</p>
+<p>以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a>、<a href="http://www.smartsvn.com/" target="_blank" rel="external">SmartSVN</a>等神器。<br><br>在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。<br></p>
+<h3 id="旧代码和提交信息的迁移"><a href="#旧代码和提交信息的迁移" class="headerlink" title="旧代码和提交信息的迁移"></a>旧代码和提交信息的迁移</h3><p>下面我们着重介绍旧代码和旧的提交信息的迁移，因为这部分只是用作对历史提交的记录，因此需要新建一个仓库用来存储，而且后续也不在此仓库上开发。<br></p>
+<h4 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h4><p>假设想要将SVN项目检出到myGit文件夹下<br><br>1.在要迁移的文件夹下添加SVN用户到Git用的映射文件，文件名为：userinfo.txt.</p>
+<p>文件内容为：（[SVN上的名字] = [Git上的名字] &lt;[Git上的email]&gt;，下面第一行必需）</p>
+<pre><code>VisualSVN Server = Visual SVN Server\&lt;admin@showjoy.com\&gt;
+shuhai=shuhai\&lt;shuhai@showjoy.com\&gt;
+</code></pre><p>2.使用git svn clone命令克隆一个Git版本库，包含SVN里面的trunk、branches和tags。</p>
+<pre><code>git svn clone &lt;SVN地址&gt; --no-metadata --authors-file=userinfo.txt --trunk= trunk --tags=tags --branches=branches --ignore-refs=&lt;忽视的分支&gt; gitName
 
 参数–no-metadata表示阻止Git导出SVN包含的一些无用信息
 参数–authors-file表示SVN账号映射到Git账号文件，所有svn作者都要做映射
@@ -1225,45 +1224,45 @@ shuhai=shuhai\&amp;lt;shuhai@showjoy.com\&amp;gt;
 参数–branches表示分支项目
 参数–ignore-refs表示不包含后面的分支项目（可缺省）
 参数gitName表示Git项目名称
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.上述步骤成功，则可通过git log 查看项目提交的历史记录，包括作者，日照，和提交注释信息等，证明SVN相应的提交信息已经被克隆到本地仓库&lt;br&gt;&lt;br&gt;4.将SVN上的tags分支转为tags&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git tag mobile_1.0.0 tags/mobile_1.0.0
+</code></pre><p>3.上述步骤成功，则可通过git log 查看项目提交的历史记录，包括作者，日照，和提交注释信息等，证明SVN相应的提交信息已经被克隆到本地仓库<br><br>4.将SVN上的tags分支转为tags</p>
+<pre><code>git tag mobile_1.0.0 tags/mobile_1.0.0
 git tag mobile_1.0.1 tags/mobile_1.0.1
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;5.将多余的branches删除掉&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git branch -r -d tags/mobile_1.0.0
+</code></pre><p>5.将多余的branches删除掉</p>
+<pre><code>git branch -r -d tags/mobile_1.0.0
 Deleted remote branch tags/mobile_1.0.0 (was d50002b).
 git branch -r -d tags/mobile_1.0.1
 Deleted remote branch tags/mobile_1.0.1 (was e7b78a2).
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;6.列出并检查当前所有分支（此步骤可缺省）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git branch -r
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;7.建立Git仓库并初始化版本库（克隆后默认初始化，可缺省，若遇到没初始化的情况，请在仓库文件夹下cd .git初始化，该文件为隐藏文件）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd .git
+</code></pre><p>6.列出并检查当前所有分支（此步骤可缺省）</p>
+<pre><code>git branch -r
+</code></pre><p>7.建立Git仓库并初始化版本库（克隆后默认初始化，可缺省，若遇到没初始化的情况，请在仓库文件夹下cd .git初始化，该文件为隐藏文件）</p>
+<pre><code>cd .git
 git init --bare
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;8.添加远程Git服务器地址（建议先在远程建立好对应的仓库）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git remote add origin git@git.showjoy.net:showjoyios/tashow.git
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;9.使用git push命令推送全部的分支和标签信息到git服务器上面&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git push origin master --tags
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;10.推送代码完成后就可以在服务器上看到对应的代码和提交记录了，其他人员就可以克隆使用Git仓库了&lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&quot;可能会用到&quot;&gt;&lt;a href=&quot;#可能会用到&quot; class=&quot;headerlink&quot; title=&quot;可能会用到&quot;&gt;&lt;/a&gt;可能会用到&lt;/h4&gt;&lt;p&gt;1.相关shell命令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;mkdir &amp;lt;filename&amp;gt;  建立文件夹
+</code></pre><p>8.添加远程Git服务器地址（建议先在远程建立好对应的仓库）</p>
+<pre><code>git remote add origin git@git.showjoy.net:showjoyios/tashow.git
+</code></pre><p>9.使用git push命令推送全部的分支和标签信息到git服务器上面</p>
+<pre><code>git push origin master --tags
+</code></pre><p>10.推送代码完成后就可以在服务器上看到对应的代码和提交记录了，其他人员就可以克隆使用Git仓库了<br></p>
+<h4 id="可能会用到"><a href="#可能会用到" class="headerlink" title="可能会用到"></a>可能会用到</h4><p>1.相关shell命令</p>
+<pre><code>mkdir &lt;filename&gt;  建立文件夹
 出现Permission denied提示时请在命令前加sudo以管理员权限执行
 
-sudo rm -rf &amp;lt;filePath&amp;gt;  删除文件目录
+sudo rm -rf &lt;filePath&gt;  删除文件目录
 -r 就是向下递归，不管有多少级目录，一并删除
 -f 就是直接强行删除，不作任何提示的意思
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.ssh方式使用git&lt;br&gt;&lt;br&gt;a.输入命令cat ~/.ssh/id_rsa.pub检查本地是否有SSH Key，如果有可以跳过b、c两步&lt;/p&gt;
-&lt;p&gt;b.输入命令ssh-keygen -t rsa -C “&lt;git邮箱&gt;“生成SSH Key&lt;/git邮箱&gt;&lt;/p&gt;
-&lt;p&gt;c.输入命令cat ~/.ssh/id_rsa.pub查看Key值&lt;/p&gt;
-&lt;p&gt;d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去&lt;/p&gt;
-&lt;p&gt;e.愉快的使用SSH Key方式使用Git&lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&quot;遇到的问题&quot;&gt;&lt;a href=&quot;#遇到的问题&quot; class=&quot;headerlink&quot; title=&quot;遇到的问题&quot;&gt;&lt;/a&gt;遇到的问题&lt;/h4&gt;&lt;p&gt;1.提示Author: VisualSVN Server not defined in userinfo.txt file错误&lt;br&gt;&lt;br&gt;解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\&lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#97;&amp;#100;&amp;#109;&amp;#x69;&amp;#110;&amp;#64;&amp;#121;&amp;#111;&amp;#x75;&amp;#x72;&amp;#x64;&amp;#111;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109;&amp;#x5c;&quot;&gt;&amp;#97;&amp;#100;&amp;#109;&amp;#x69;&amp;#110;&amp;#64;&amp;#121;&amp;#111;&amp;#x75;&amp;#x72;&amp;#x64;&amp;#111;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109;&amp;#x5c;&lt;/a&gt;配置即&lt;br&gt;&lt;br&gt;2.添加远程服务器地址时添加错误&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git remote -v 查看当前绑定的远程地址
-git remote remove &amp;lt;repo&amp;gt; 移除绑定的远程仓库
+</code></pre><p>2.ssh方式使用git<br><br>a.输入命令<code>cat ~/.ssh/id_rsa.pub</code>检查本地是否有SSH Key，如果有可以跳过b、c两步</p>
+<p>b.输入命令<code>ssh-keygen -t rsa -C &quot;&lt;git邮箱&gt;&quot;</code>生成SSH Key</p>
+<p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
+<p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
+<p>e.愉快的使用SSH Key方式使用Git<br></p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x61;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#92;">&#x61;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
+<pre><code>git remote -v 查看当前绑定的远程地址
+git remote remove &lt;repo&gt; 移除绑定的远程仓库
 git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
 git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加仓库远程地址
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.错误Write failed: Broken pipe; git error: pack-objects died of signal 13&lt;br&gt;&lt;br&gt;同错误4，采用ssh方式上传即可，如果还是不行，重启一下电脑吧，有奇效（据说是终端长时间打开会造成网络连接失败）&lt;br&gt;&lt;br&gt;4.错误fatal: The remote end hung up unexpectedly，单个文件过大超出gitlab限制&lt;br&gt;&lt;br&gt;采用ssh方式上传即可&lt;br&gt;&lt;br&gt;5.错误Warning: Permanently added the RSA host key for IP address ‘222.186.133.56’ to the list of known hosts.    &lt;/p&gt;
-&lt;p&gt;Permission denied (publickey).&lt;/p&gt;
-&lt;p&gt;fatal: Could not read from remote repository.&lt;br&gt;&lt;br&gt;ssh公钥key未配置&lt;/p&gt;
-</content>
+</code></pre><p>3.错误Write failed: Broken pipe; git error: pack-objects died of signal 13<br><br>同错误4，采用ssh方式上传即可，如果还是不行，重启一下电脑吧，有奇效（据说是终端长时间打开会造成网络连接失败）<br><br>4.错误fatal: The remote end hung up unexpectedly，单个文件过大超出gitlab限制<br><br>采用ssh方式上传即可<br><br>5.错误Warning: Permanently added the RSA host key for IP address ‘222.186.133.56’ to the list of known hosts.    </p>
+<p>Permission denied (publickey).</p>
+<p>fatal: Could not read from remote repository.<br><br>ssh公钥key未配置</p>
+]]></content>
     
     <summary type="html">
     
@@ -1283,94 +1282,94 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
     <published>2016-06-14T07:03:04.000Z</published>
     <updated>2016-07-21T07:19:05.000Z</updated>
     
-    <content type="html">&lt;p&gt;最近在做代码从SVN往Git的迁移，在使用Git的过程中看到这篇文章，感觉非常不错，分享给大家。&lt;/p&gt;
-&lt;p&gt;原链接：&lt;a href=&quot;http://blog.jobbole.com/81196/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.jobbole.com/81196/&lt;/a&gt;&lt;br&gt;&lt;br&gt;在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-1.jpg&quot; alt=&quot;20160614-1&quot;&gt;&lt;br&gt;&lt;br&gt;这篇文章围绕着Git做为我们所有的源代码版本控制工具而展开的。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;为什么是Git&quot;&gt;&lt;a href=&quot;#为什么是Git&quot; class=&quot;headerlink&quot; title=&quot;为什么是Git&quot;&gt;&lt;/a&gt;为什么是Git&lt;/h3&gt;&lt;p&gt;为了深入探讨git和集中式源码版本控制系统的利弊，参见这些文章&lt;a href=&quot;http://www.whygitisbetterthanx.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;[1]&lt;/a&gt;&lt;a href=&quot;https://git.wiki.kernel.org/index.php/GitSvnComparsion&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;[2]&lt;/a&gt;。这方面有太多的激烈争论。作为一个开发者，相比其他工具，当前我更喜欢Git。Git的确改变了开发者关于合并与分支的思考方式。在那些经典的CVS/Subversion管理工具的世界中，合并/分支被认为是有些吓人的(“当心合并冲突，它们咬你!”)，而且偶尔你得做些操作解决一些问题。&lt;br&gt;&lt;br&gt;但是使用Git，这些操作都变得极度简单，这些操作被认为是你日常工作流程核心部分之一。例如，在&lt;a href=&quot;http://svnbook.red-bean.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CVS/Subversion&lt;/a&gt;这本书中，分支与合并在很后的章节中才被第一次讨论(针对高级用户)。但是在每一本Git书籍中，在第三章就讲到了(基础部分)。&lt;br&gt;&lt;br&gt;由于它的简单性和操作命令的重复性，分支与合并操作变得不再可怕。版本控制工具被认为在分支/合并方面提供操作便利性比什么都重要&lt;br&gt;&lt;br&gt;关于工具本身，已经讨论的足够多了，下面针对开发模型进行展开。我将要介绍的这个模型不会比任何一套流程内容多，每个团队成员都必须遵守，这样便于管理软件开发过程。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;既分散又集中&quot;&gt;&lt;a href=&quot;#既分散又集中&quot; class=&quot;headerlink&quot; title=&quot;既分散又集中&quot;&gt;&lt;/a&gt;既分散又集中&lt;/h3&gt;&lt;p&gt;我们使用的，且与这个分支模型配合的非常好的库，他有一个“真正”的中央仓库。注意，这个库只是被认为是中央仓库(因为Git是一个分布式的版本控制工具，在技术层面没有所谓的中央仓库)。我们将会为这个仓库起名为origin，因为所有的Git用户对这个名字都比较熟悉。&lt;br&gt;&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-2.jpg&quot; alt=&quot;20160614-2&quot;&gt;&lt;br&gt;&lt;br&gt;每个开发者从origin拉取和推送代码。除了集中式的推送拉取关系，每个开发者也有可能从别的开发者处拉取代码，形成自己的团队。例如当与两个或者更多的人开发一个大的特性时，或者在将代码推送到origin之前，这种代码管理模式可能有用。在上图中，存在Alice和Bob，Alice和David，Clair 和David三个子团队&lt;br&gt;&lt;br&gt;技术上而言，这只不过意味着Alice定义了一个远程Git仓库，起名为bob，实际上指向Bob的版本库，反之亦然(Bob定义了一个远程Git仓库，起名为alice，实际上指向Alice的版本库)。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;主分支&quot;&gt;&lt;a href=&quot;#主分支&quot; class=&quot;headerlink&quot; title=&quot;主分支&quot;&gt;&lt;/a&gt;主分支&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-3.jpg&quot; alt=&quot;20160614-3&quot;&gt;&lt;br&gt;&lt;br&gt;老实说，我们讨论的开发模型受到了当前已存在模型的很大启发。集中式的版本库有两个永久存在的主分支：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;master分支&lt;/li&gt;
-&lt;li&gt;develop分支&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;origin的master分支每个Git用户都很熟悉。平行的另外一个分支叫做develop分支。&lt;br&gt;&lt;br&gt;我们认为origin/master这个分支上HEAD引用所指向的代码都是可发布的。&lt;br&gt;&lt;br&gt;我们认为origin/develop这个分支上HEAD引用所指向的代码总是反应了下一个版本所要交付特性的最新的代码变更。一些人管它叫“整合分支”。它也是自动构建系统执行构建命令的分支。&lt;br&gt;&lt;br&gt;当develop分支上的代码达到了一个稳定状态，并且准备发布时，所有的代码变更都应该合并到master分支，然后打上发布版本号的tag。具体如何进行这些操作，我们将会讨论&lt;br&gt;&lt;br&gt;因此，每次代码合并到master分支时，它就是一个人为定义的新的发布产品。理论上而言，在这我们应该非常严格，当master分支有新的提交时，我们应该使用Git的钩子脚本执行自动构建命令，然后将软件推送到生产环境的服务器中进行发布。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;辅助性分支&quot;&gt;&lt;a href=&quot;#辅助性分支&quot; class=&quot;headerlink&quot; title=&quot;辅助性分支&quot;&gt;&lt;/a&gt;辅助性分支&lt;/h3&gt;&lt;p&gt;紧邻master和develop分支，我们的开发模型采用了另外一种辅助性的分支，以帮助团队成员间的并行开发，特性的简单跟踪，产品的发布准备事宜，以及快速的解决线上问题。不同于主分支，这些辅助性分支往往只要有限的生命周期，因为他们最终会被删除。&lt;br&gt;&lt;br&gt;我们使用的不同类型分支包括:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;特性分支&lt;/li&gt;
-&lt;li&gt;Release分支&lt;/li&gt;
-&lt;li&gt;Hotfix 分支&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;上述的每一个分支都有其特殊目的，也绑定了严格的规则：哪些分支是自己的拉取分支，哪些分支是自己的目标合并分支。&lt;br&gt;&lt;br&gt;从技术角度看，这些分支的特殊性没有更多的含义。只是按照我们的使用方式对这些分支进行了归类。他们依旧是原Git分支的样子。&lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&quot;特性分支&quot;&gt;&lt;a href=&quot;#特性分支&quot; class=&quot;headerlink&quot; title=&quot;特性分支&quot;&gt;&lt;/a&gt;特性分支&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-4.jpg&quot; alt=&quot;20160614-4&quot;&gt;&lt;br&gt;&lt;br&gt;特性分支可以从develop分支拉取建立，最终必须合并会develop分支。特性分支的命名，除了 master， develop， release-*，或hotfix-*以外，可以随便起名。&lt;br&gt;&lt;br&gt;特性分支(有时候也成主题分支)用于开发未来某个版本新的特性。当开始一个新特性的开发时，这个特性未来将发布于哪个目标版本，此刻我们是不得而知的。特性分支的本质特征就是只要特性还在开发，他就应该存在，但最终这些特性分支会被合并到develop分支(目的是在新版本中添加新的功能)或者被丢弃(它只是一个令人失望的试验)&lt;br&gt;&lt;br&gt;特性分支只存在开发者本地版本库，不在远程版本库。&lt;br&gt;&lt;/p&gt;
-&lt;h5 id=&quot;创建特性分支&quot;&gt;&lt;a href=&quot;#创建特性分支&quot; class=&quot;headerlink&quot; title=&quot;创建特性分支&quot;&gt;&lt;/a&gt;创建特性分支&lt;/h5&gt;&lt;p&gt;当开始开发一个新特性时，从develop分支中创建特性分支&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout -b myfeature develop
-Switched to a new branch &amp;quot;myfeature&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;在develop分支整合已经开发完成的特性&quot;&gt;&lt;a href=&quot;#在develop分支整合已经开发完成的特性&quot; class=&quot;headerlink&quot; title=&quot;在develop分支整合已经开发完成的特性&quot;&gt;&lt;/a&gt;在develop分支整合已经开发完成的特性&lt;/h5&gt;&lt;p&gt;开发完成的特性必须合并到develop分支，即添加到即将发布的版本中。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout develop
-Switched to branch &amp;apos;develop&amp;apos;
+    <content type="html"><![CDATA[<p>最近在做代码从SVN往Git的迁移，在使用Git的过程中看到这篇文章，感觉非常不错，分享给大家。</p>
+<p>原链接：<a href="http://blog.jobbole.com/81196/" target="_blank" rel="external">http://blog.jobbole.com/81196/</a><br><br>在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。<br><a id="more"></a><br><img src="http://o84wamnts.bkt.clouddn.com/20160614-1.jpg" alt="20160614-1"><br><br>这篇文章围绕着Git做为我们所有的源代码版本控制工具而展开的。<br></p>
+<h3 id="为什么是Git"><a href="#为什么是Git" class="headerlink" title="为什么是Git"></a>为什么是Git</h3><p>为了深入探讨git和集中式源码版本控制系统的利弊，参见这些文章<a href="http://www.whygitisbetterthanx.com/" target="_blank" rel="external">[1]</a><a href="https://git.wiki.kernel.org/index.php/GitSvnComparsion" target="_blank" rel="external">[2]</a>。这方面有太多的激烈争论。作为一个开发者，相比其他工具，当前我更喜欢Git。Git的确改变了开发者关于合并与分支的思考方式。在那些经典的CVS/Subversion管理工具的世界中，合并/分支被认为是有些吓人的(“当心合并冲突，它们咬你!”)，而且偶尔你得做些操作解决一些问题。<br><br>但是使用Git，这些操作都变得极度简单，这些操作被认为是你日常工作流程核心部分之一。例如，在<a href="http://svnbook.red-bean.com/" target="_blank" rel="external">CVS/Subversion</a>这本书中，分支与合并在很后的章节中才被第一次讨论(针对高级用户)。但是在每一本Git书籍中，在第三章就讲到了(基础部分)。<br><br>由于它的简单性和操作命令的重复性，分支与合并操作变得不再可怕。版本控制工具被认为在分支/合并方面提供操作便利性比什么都重要<br><br>关于工具本身，已经讨论的足够多了，下面针对开发模型进行展开。我将要介绍的这个模型不会比任何一套流程内容多，每个团队成员都必须遵守，这样便于管理软件开发过程。<br></p>
+<h3 id="既分散又集中"><a href="#既分散又集中" class="headerlink" title="既分散又集中"></a>既分散又集中</h3><p>我们使用的，且与这个分支模型配合的非常好的库，他有一个“真正”的中央仓库。注意，这个库只是被认为是中央仓库(因为Git是一个分布式的版本控制工具，在技术层面没有所谓的中央仓库)。我们将会为这个仓库起名为origin，因为所有的Git用户对这个名字都比较熟悉。<br><br><img src="http://o84wamnts.bkt.clouddn.com/20160614-2.jpg" alt="20160614-2"><br><br>每个开发者从origin拉取和推送代码。除了集中式的推送拉取关系，每个开发者也有可能从别的开发者处拉取代码，形成自己的团队。例如当与两个或者更多的人开发一个大的特性时，或者在将代码推送到origin之前，这种代码管理模式可能有用。在上图中，存在Alice和Bob，Alice和David，Clair 和David三个子团队<br><br>技术上而言，这只不过意味着Alice定义了一个远程Git仓库，起名为bob，实际上指向Bob的版本库，反之亦然(Bob定义了一个远程Git仓库，起名为alice，实际上指向Alice的版本库)。<br></p>
+<h3 id="主分支"><a href="#主分支" class="headerlink" title="主分支"></a>主分支</h3><p><img src="http://o84wamnts.bkt.clouddn.com/20160614-3.jpg" alt="20160614-3"><br><br>老实说，我们讨论的开发模型受到了当前已存在模型的很大启发。集中式的版本库有两个永久存在的主分支：</p>
+<ul>
+<li>master分支</li>
+<li>develop分支</li>
+</ul>
+<p>origin的master分支每个Git用户都很熟悉。平行的另外一个分支叫做develop分支。<br><br>我们认为origin/master这个分支上HEAD引用所指向的代码都是可发布的。<br><br>我们认为origin/develop这个分支上HEAD引用所指向的代码总是反应了下一个版本所要交付特性的最新的代码变更。一些人管它叫“整合分支”。它也是自动构建系统执行构建命令的分支。<br><br>当develop分支上的代码达到了一个稳定状态，并且准备发布时，所有的代码变更都应该合并到master分支，然后打上发布版本号的tag。具体如何进行这些操作，我们将会讨论<br><br>因此，每次代码合并到master分支时，它就是一个人为定义的新的发布产品。理论上而言，在这我们应该非常严格，当master分支有新的提交时，我们应该使用Git的钩子脚本执行自动构建命令，然后将软件推送到生产环境的服务器中进行发布。<br></p>
+<h3 id="辅助性分支"><a href="#辅助性分支" class="headerlink" title="辅助性分支"></a>辅助性分支</h3><p>紧邻master和develop分支，我们的开发模型采用了另外一种辅助性的分支，以帮助团队成员间的并行开发，特性的简单跟踪，产品的发布准备事宜，以及快速的解决线上问题。不同于主分支，这些辅助性分支往往只要有限的生命周期，因为他们最终会被删除。<br><br>我们使用的不同类型分支包括:</p>
+<ul>
+<li>特性分支</li>
+<li>Release分支</li>
+<li>Hotfix 分支</li>
+</ul>
+<p>上述的每一个分支都有其特殊目的，也绑定了严格的规则：哪些分支是自己的拉取分支，哪些分支是自己的目标合并分支。<br><br>从技术角度看，这些分支的特殊性没有更多的含义。只是按照我们的使用方式对这些分支进行了归类。他们依旧是原Git分支的样子。<br></p>
+<h4 id="特性分支"><a href="#特性分支" class="headerlink" title="特性分支"></a>特性分支</h4><p><img src="http://o84wamnts.bkt.clouddn.com/20160614-4.jpg" alt="20160614-4"><br><br>特性分支可以从develop分支拉取建立，最终必须合并会develop分支。特性分支的命名，除了 master， develop， release-*，或hotfix-*以外，可以随便起名。<br><br>特性分支(有时候也成主题分支)用于开发未来某个版本新的特性。当开始一个新特性的开发时，这个特性未来将发布于哪个目标版本，此刻我们是不得而知的。特性分支的本质特征就是只要特性还在开发，他就应该存在，但最终这些特性分支会被合并到develop分支(目的是在新版本中添加新的功能)或者被丢弃(它只是一个令人失望的试验)<br><br>特性分支只存在开发者本地版本库，不在远程版本库。<br></p>
+<h5 id="创建特性分支"><a href="#创建特性分支" class="headerlink" title="创建特性分支"></a>创建特性分支</h5><p>当开始开发一个新特性时，从develop分支中创建特性分支</p>
+<pre><code>$ git checkout -b myfeature develop
+Switched to a new branch &quot;myfeature&quot;
+</code></pre><h5 id="在develop分支整合已经开发完成的特性"><a href="#在develop分支整合已经开发完成的特性" class="headerlink" title="在develop分支整合已经开发完成的特性"></a>在develop分支整合已经开发完成的特性</h5><p>开发完成的特性必须合并到develop分支，即添加到即将发布的版本中。</p>
+<pre><code>$ git checkout develop
+Switched to branch &apos;develop&apos;
 $ git merge --no-ff myfeature
 Updating ea1b82a..05e9557
 (Summary of changes)
 $ git branch -d myfeature
 Deleted branch myfeature (was 05e9557).
 $ git push origin develop
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;–no-ff参数的作用是在合并的时候，会创建一个新的提交对象，即使是fast-forward方式的合并。这就避免了丢失特性分支的历史记录信息以及提交记录信息。比较一下&lt;br&gt;&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-5.jpg&quot; alt=&quot;20160614-5&quot;&gt;&lt;br&gt;&lt;br&gt;在右面的例子中，是不可能从Git历史记录中看到一个已经实现了的特性的所有提交对象-除非你去查看所有的日志信息。要想获取整个特性分支信息，在右面的例子中的确是一个头疼的问题，但是如果使用–no-ff参数就没有这个问题。&lt;br&gt;&lt;br&gt;使用这个参数后，的确创建了一些新的提交对象(那怕是空提交对象)，但是很值得。&lt;br&gt;&lt;br&gt;不幸的是，我还没有找到一种方法使Git默认的merge操作带着–no-ff参数，但的确应该这样。&lt;br&gt;&lt;/p&gt;
-&lt;h4 id=&quot;发布分支&quot;&gt;&lt;a href=&quot;#发布分支&quot; class=&quot;headerlink&quot; title=&quot;发布分支&quot;&gt;&lt;/a&gt;发布分支&lt;/h4&gt;&lt;p&gt;从develop分支去建立Release分支，Release分支必须合并到develop分支和master分支，Release分支名可以这样起名:release-*。&lt;br&gt;&lt;br&gt;Release分支用于支持一个新版本的发布。他们允许在最后时刻进行一些小修小改。甚至允许进行一些小bug的修改，为新版本的发布准要一些元数据(版本号，构建时间等)。通过在release分支完成这些工作，develop分支将会合并这些特性以备下一个大版本的发布。&lt;br&gt;&lt;br&gt;从develop分支拉取新的release分支的时间点是当开发工作已经达到了新版本的期望值。至少在这个时间点，下一版本准备发布的所有目标特性必须已经合并到了develop分支。更远版本的目标特性不必合并会develop分支。这些特性必须等到个性分支创建后，才能合并回develop分支&lt;br&gt;&lt;br&gt;在release分支创建好后，就会获取到一个分配好即将发布的版本号，不能更早，就在这个时间点。在此之前，develop分支代码反应出了下一版本的代码变更，但是到底下一版本是 0.3 还是 1.0，不是很明确，直到release分支被建立后一切都确定了。这些决定在release分支开始建立，项目版本号等项目规则出来后就会做出。&lt;br&gt;&lt;/p&gt;
-&lt;h5 id=&quot;创建release分支&quot;&gt;&lt;a href=&quot;#创建release分支&quot; class=&quot;headerlink&quot; title=&quot;创建release分支&quot;&gt;&lt;/a&gt;创建release分支&lt;/h5&gt;&lt;p&gt;从develop分支创建release分支。例如1.1.5版本是当前产品的发布版本，我们即将发布一个更大的版本。develop分支此时已经为下一版本准备好了，我们决定下一版的版本号是1.2(1.1.6或者2.0也可以)。所以我们创建release分支，并给分支赋予新的版本号:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout -b release-1.2 develop
-Switched to a new branch &amp;quot;release-1.2&amp;quot;
+</code></pre><p>–no-ff参数的作用是在合并的时候，会创建一个新的提交对象，即使是fast-forward方式的合并。这就避免了丢失特性分支的历史记录信息以及提交记录信息。比较一下<br><br><img src="http://o84wamnts.bkt.clouddn.com/20160614-5.jpg" alt="20160614-5"><br><br>在右面的例子中，是不可能从Git历史记录中看到一个已经实现了的特性的所有提交对象-除非你去查看所有的日志信息。要想获取整个特性分支信息，在右面的例子中的确是一个头疼的问题，但是如果使用–no-ff参数就没有这个问题。<br><br>使用这个参数后，的确创建了一些新的提交对象(那怕是空提交对象)，但是很值得。<br><br>不幸的是，我还没有找到一种方法使Git默认的merge操作带着–no-ff参数，但的确应该这样。<br></p>
+<h4 id="发布分支"><a href="#发布分支" class="headerlink" title="发布分支"></a>发布分支</h4><p>从develop分支去建立Release分支，Release分支必须合并到develop分支和master分支，Release分支名可以这样起名:release-*。<br><br>Release分支用于支持一个新版本的发布。他们允许在最后时刻进行一些小修小改。甚至允许进行一些小bug的修改，为新版本的发布准要一些元数据(版本号，构建时间等)。通过在release分支完成这些工作，develop分支将会合并这些特性以备下一个大版本的发布。<br><br>从develop分支拉取新的release分支的时间点是当开发工作已经达到了新版本的期望值。至少在这个时间点，下一版本准备发布的所有目标特性必须已经合并到了develop分支。更远版本的目标特性不必合并会develop分支。这些特性必须等到个性分支创建后，才能合并回develop分支<br><br>在release分支创建好后，就会获取到一个分配好即将发布的版本号，不能更早，就在这个时间点。在此之前，develop分支代码反应出了下一版本的代码变更，但是到底下一版本是 0.3 还是 1.0，不是很明确，直到release分支被建立后一切都确定了。这些决定在release分支开始建立，项目版本号等项目规则出来后就会做出。<br></p>
+<h5 id="创建release分支"><a href="#创建release分支" class="headerlink" title="创建release分支"></a>创建release分支</h5><p>从develop分支创建release分支。例如1.1.5版本是当前产品的发布版本，我们即将发布一个更大的版本。develop分支此时已经为下一版本准备好了，我们决定下一版的版本号是1.2(1.1.6或者2.0也可以)。所以我们创建release分支，并给分支赋予新的版本号:</p>
+<pre><code>$ git checkout -b release-1.2 develop
+Switched to a new branch &quot;release-1.2&quot;
 $ ./bump-version.sh 1.2
 Files modified successfully, version bumped to 1.2.
-$ git commit -a -m &amp;quot;Bumped version number to 1.2&amp;quot;
+$ git commit -a -m &quot;Bumped version number to 1.2&quot;
 [release-1.2 74d9424] Bumped version number to 1.2
 1 files changed, 1 insertions(+), 1 deletions(-)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建好分支并切到这个分支后，我们给分支打上版本号。bump-version.sh是一个虚构的shell脚本，它更改了工作空间的某些文件来反映新版本特征。(当然也可以手动改变这些文件)，然后版本就被提交了。&lt;br&gt;&lt;br&gt;新的分支会存在一段时间，直到新版本最终发布。在这段时间里，bug的解决可以在这个分支进行(不要在develop分支进行)。此时是严禁添加新的大特性。这些修改必须合并回develop分支，之后就等待新版本的发布。&lt;br&gt;&lt;/p&gt;
-&lt;h5 id=&quot;结束一个release分支&quot;&gt;&lt;a href=&quot;#结束一个release分支&quot; class=&quot;headerlink&quot; title=&quot;结束一个release分支&quot;&gt;&lt;/a&gt;结束一个release分支&lt;/h5&gt;&lt;p&gt;当release分支的准备成为一个真正的发布版本时，一些操作必须需要执行。首先，将release分支合并回master分支(因为master分支的每一次提交都是预先定义好的一个新版本，谨记)。然后为这次提交打tag，为将来去查看历史版本。最后在release分支做的更改也合并到develop分支，这样的话，将来的其他版本也会包含这些已经解决了的bug。&lt;br&gt;&lt;br&gt;在Git中需要两步完成:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout master
-Switched to branch &amp;apos;master&amp;apos;
+</code></pre><p>创建好分支并切到这个分支后，我们给分支打上版本号。bump-version.sh是一个虚构的shell脚本，它更改了工作空间的某些文件来反映新版本特征。(当然也可以手动改变这些文件)，然后版本就被提交了。<br><br>新的分支会存在一段时间，直到新版本最终发布。在这段时间里，bug的解决可以在这个分支进行(不要在develop分支进行)。此时是严禁添加新的大特性。这些修改必须合并回develop分支，之后就等待新版本的发布。<br></p>
+<h5 id="结束一个release分支"><a href="#结束一个release分支" class="headerlink" title="结束一个release分支"></a>结束一个release分支</h5><p>当release分支的准备成为一个真正的发布版本时，一些操作必须需要执行。首先，将release分支合并回master分支(因为master分支的每一次提交都是预先定义好的一个新版本，谨记)。然后为这次提交打tag，为将来去查看历史版本。最后在release分支做的更改也合并到develop分支，这样的话，将来的其他版本也会包含这些已经解决了的bug。<br><br>在Git中需要两步完成:</p>
+<pre><code>$ git checkout master
+Switched to branch &apos;master&apos;
 $ git merge --no-ff release-1.2
 Merge made by recursive.
 (Summary of changes)
 $ git tag -a 1.2
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样release分支已经完成工作，tag也已经打了。&lt;br&gt;&lt;br&gt;备注:你可以使用-s or -u &lt;key&gt;参数为你的tag设置标签签名。&lt;br&gt;&lt;br&gt;为了保存这些在release分支所做的变更，我们需要将这些变更合并回develop分支。执行如下Git命令:&lt;/key&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout develop
-Switched to branch &amp;apos;develop&amp;apos;
+</code></pre><p>这样release分支已经完成工作，tag也已经打了。<br><br>备注:你可以使用-s or -u <key>参数为你的tag设置标签签名。<br><br>为了保存这些在release分支所做的变更，我们需要将这些变更合并回develop分支。执行如下Git命令:</key></p>
+<pre><code>$ git checkout develop
+Switched to branch &apos;develop&apos;
 $ git merge --no-ff release-1.2
 Merge made by recursive.
 (Summary of changes)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这步有可能会有合并冲突(极有可能，因为我们已经改变了版本号)。如果有冲突，解决掉他，然后提交。&lt;br&gt;现在我们已经完成了工作，release分支可以删除了，因为我们不在需要他:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git branch -d release-1.2
+</code></pre><p>这步有可能会有合并冲突(极有可能，因为我们已经改变了版本号)。如果有冲突，解决掉他，然后提交。<br>现在我们已经完成了工作，release分支可以删除了，因为我们不在需要他:</p>
+<pre><code>$ git branch -d release-1.2
 Deleted branch release-1.2 (was ff452fe).
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Hotfix分支&quot;&gt;&lt;a href=&quot;#Hotfix分支&quot; class=&quot;headerlink&quot; title=&quot;Hotfix分支&quot;&gt;&lt;/a&gt;Hotfix分支&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160614-6.jpg&quot; alt=&quot;20160614-6&quot;&gt;&lt;br&gt;&lt;br&gt;Hotfix分支从master分支建立，必须合并回develop分支和master分支，为Hotfix分支可以这样起名:hotfix-*&lt;br&gt;&lt;br&gt;Hotfix分支在某种程度上非常像release分支，他们都意味着为某个新版本发布做准备，并且都是预先不可知的。Hotfix分支是基于当前生产环境的产品的一个bug急需解决而必须创建的。当某个版本的产品有一个严重bug需要立即解决，Hotfix分支需要从master分支上该版本对应的tag上进行建立，因为这个tag标记了产品版本&lt;br&gt;&lt;/p&gt;
-&lt;h5 id=&quot;创建hotfix分支&quot;&gt;&lt;a href=&quot;#创建hotfix分支&quot; class=&quot;headerlink&quot; title=&quot;创建hotfix分支&quot;&gt;&lt;/a&gt;创建hotfix分支&lt;/h5&gt;&lt;p&gt;Hotfix分支从master分支进行创建。例如当前线上1.2版本产品因为server端的一个Bug导致系统有问题。但是在develop分支进行更改是不靠谱的，所以我们需要建立hotfix分支，然后开始解决问题:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout -b hotfix-1.2.1 master
-Switched to a new branch &amp;quot;hotfix-1.2.1&amp;quot;
+</code></pre><h4 id="Hotfix分支"><a href="#Hotfix分支" class="headerlink" title="Hotfix分支"></a>Hotfix分支</h4><p><img src="http://o84wamnts.bkt.clouddn.com/20160614-6.jpg" alt="20160614-6"><br><br>Hotfix分支从master分支建立，必须合并回develop分支和master分支，为Hotfix分支可以这样起名:hotfix-*<br><br>Hotfix分支在某种程度上非常像release分支，他们都意味着为某个新版本发布做准备，并且都是预先不可知的。Hotfix分支是基于当前生产环境的产品的一个bug急需解决而必须创建的。当某个版本的产品有一个严重bug需要立即解决，Hotfix分支需要从master分支上该版本对应的tag上进行建立，因为这个tag标记了产品版本<br></p>
+<h5 id="创建hotfix分支"><a href="#创建hotfix分支" class="headerlink" title="创建hotfix分支"></a>创建hotfix分支</h5><p>Hotfix分支从master分支进行创建。例如当前线上1.2版本产品因为server端的一个Bug导致系统有问题。但是在develop分支进行更改是不靠谱的，所以我们需要建立hotfix分支，然后开始解决问题:</p>
+<pre><code>$ git checkout -b hotfix-1.2.1 master
+Switched to a new branch &quot;hotfix-1.2.1&quot;
 $ ./bump-version.sh 1.2.1
 Files modified successfully, version bumped to 1.2.1.
-$ git commit -a -m &amp;quot;Bumped version number to 1.2.1&amp;quot;
+$ git commit -a -m &quot;Bumped version number to 1.2.1&quot;
 [hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1
 1 files changed, 1 insertions(+), 1 deletions(-)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;千万别忘记在创建分支后修改版本号。&lt;br&gt;&lt;br&gt;然后解决掉bug，提交一次或多次。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git commit -m &amp;quot;Fixed severe production problem&amp;quot;
+</code></pre><p>千万别忘记在创建分支后修改版本号。<br><br>然后解决掉bug，提交一次或多次。</p>
+<pre><code>$ git commit -m &quot;Fixed severe production problem&quot;
 [hotfix-1.2.1 abbe5d6] Fixed severe production problem
 5 files changed, 32 insertions(+), 17 deletions(-)
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;结束hotfix-分支&quot;&gt;&lt;a href=&quot;#结束hotfix-分支&quot; class=&quot;headerlink&quot; title=&quot;结束hotfix 分支&quot;&gt;&lt;/a&gt;结束hotfix 分支&lt;/h5&gt;&lt;p&gt;完成工作后，解决掉的bug代码需要合并回master分支，但同时也需要合并到develop分支，目的是保证在下一版中该bug已经被解决。这多么像release分支啊。&lt;br&gt;&lt;br&gt;首先，对master分支进行合并更新，然后打tag&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout master
-Switched to branch &amp;apos;master&amp;apos;
+</code></pre><h5 id="结束hotfix-分支"><a href="#结束hotfix-分支" class="headerlink" title="结束hotfix 分支"></a>结束hotfix 分支</h5><p>完成工作后，解决掉的bug代码需要合并回master分支，但同时也需要合并到develop分支，目的是保证在下一版中该bug已经被解决。这多么像release分支啊。<br><br>首先，对master分支进行合并更新，然后打tag</p>
+<pre><code>$ git checkout master
+Switched to branch &apos;master&apos;
 $ git merge --no-ff hotfix-1.2.1
 Merge made by recursive.
 (Summary of changes)
 $ git tag -a 1.2.1
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;备注:你可以使用-s or -u &lt;key&gt;参数为你的tag设置标签签名。&lt;br&gt;&lt;br&gt;紧接着，在develop分支合并bugfix代码&lt;/key&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git checkout develop
-Switched to branch &amp;apos;develop&amp;apos;
+</code></pre><p>备注:你可以使用-s or -u <key>参数为你的tag设置标签签名。<br><br>紧接着，在develop分支合并bugfix代码</key></p>
+<pre><code>$ git checkout develop
+Switched to branch &apos;develop&apos;
 $ git merge --no-ff hotfix-1.2.1
 Merge made by recursive.
 (Summary of changes)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里可能会有一些异常情况，当一个release分支存在时，hotfix 分支需要合并到release 分支，而不是develop分支。当release分支的使命完成后，合并回release分支的bugfix代码最终也会被合并到develop分支。(当develop分支急需解决这些bug，而等不到release分支的结束，你可以安全的将这些bugfix代码合并到develop分支，这样做也是可以的)。&lt;br&gt;&lt;br&gt;最后删除这些临时分支&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ git branch -d hotfix-1.2.1
+</code></pre><p>这里可能会有一些异常情况，当一个release分支存在时，hotfix 分支需要合并到release 分支，而不是develop分支。当release分支的使命完成后，合并回release分支的bugfix代码最终也会被合并到develop分支。(当develop分支急需解决这些bug，而等不到release分支的结束，你可以安全的将这些bugfix代码合并到develop分支，这样做也是可以的)。<br><br>最后删除这些临时分支</p>
+<pre><code>$ git branch -d hotfix-1.2.1
 Deleted branch hotfix-1.2.1 (was abbe5d6).
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h3&gt;&lt;p&gt;这个分支模型其实没有什么震撼人心的新东西，这篇文章开始的那个“最大图片”已经证明了他在我们工程项目中的巨大作用。它会形成一种优雅的理想模型，而且很容易理解，该模型也允许团队成员形成一个关于分支和版本发布过程的相同理念。&lt;br&gt;&lt;br&gt;这里有提供一个高质量的分支模型图的PDF版本。去吧，把它挂在墙上随时快速参考。&lt;a href=&quot;http://nvie.com/files/Git-branching-model.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PDF&lt;/a&gt;&lt;br&gt;&lt;br&gt;更新：任何需要他的人,这里有一个主图的&lt;a href=&quot;http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gitflow-model.src.key&lt;/a&gt;文件&lt;br&gt;&lt;br&gt;如果想和我取得联系，在推特上&lt;a href=&quot;https://twitter.com/nvie&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;@nvie&lt;/a&gt;&lt;/p&gt;
-</content>
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个分支模型其实没有什么震撼人心的新东西，这篇文章开始的那个“最大图片”已经证明了他在我们工程项目中的巨大作用。它会形成一种优雅的理想模型，而且很容易理解，该模型也允许团队成员形成一个关于分支和版本发布过程的相同理念。<br><br>这里有提供一个高质量的分支模型图的PDF版本。去吧，把它挂在墙上随时快速参考。<a href="http://nvie.com/files/Git-branching-model.pdf" target="_blank" rel="external">PDF</a><br><br>更新：任何需要他的人,这里有一个主图的<a href="http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip" target="_blank" rel="external">gitflow-model.src.key</a>文件<br><br>如果想和我取得联系，在推特上<a href="https://twitter.com/nvie" target="_blank" rel="external">@nvie</a></p>
+]]></content>
     
     <summary type="html">
     
@@ -1392,10 +1391,10 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
     <published>2016-06-02T06:38:01.000Z</published>
     <updated>2016-07-21T06:21:14.000Z</updated>
     
-    <content type="html">&lt;p&gt;前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。&lt;br&gt;&lt;br&gt;当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。&lt;br&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;p&gt;经过认真的比较工程前后的差别，发现这是由于在开发过程汇总CocoaPods版本不同造成的问题。&lt;br&gt;&lt;br&gt;较高版本的CocoaPods更新工程的时会生成一个文件名为Pods-framework.sh脚本文件，并向工程的.xcodeproj当中添加相关调用脚本的配置，我使用的版本（0.35.0）却不会。当我更新工程时，CocoaPods（0.35.0）只移除了高版本生成的脚本文件，却没有修改配置，导致编译时寻找该文件却找不到，提示错误。&lt;br&gt;&lt;/p&gt;
-&lt;h3 id=&quot;解决方法&quot;&gt;&lt;a href=&quot;#解决方法&quot; class=&quot;headerlink&quot; title=&quot;解决方法&quot;&gt;&lt;/a&gt;解决方法&lt;/h3&gt;&lt;p&gt;1.最快速有效的解决方法：删除调用Pods-framework.sh的配置&lt;br&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg&quot; alt=&quot;DeleteConfig&quot;&gt;&lt;br&gt;&lt;br&gt;2.最根本的方法：升级CocoaPods，重新更新生成工程&lt;/p&gt;
-</content>
+    <content type="html"><![CDATA[<p>前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。<br><br>当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。<br><br><a id="more"></a></p>
+<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>经过认真的比较工程前后的差别，发现这是由于在开发过程汇总CocoaPods版本不同造成的问题。<br><br>较高版本的CocoaPods更新工程的时会生成一个文件名为Pods-framework.sh脚本文件，并向工程的.xcodeproj当中添加相关调用脚本的配置，我使用的版本（0.35.0）却不会。当我更新工程时，CocoaPods（0.35.0）只移除了高版本生成的脚本文件，却没有修改配置，导致编译时寻找该文件却找不到，提示错误。<br></p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.最快速有效的解决方法：删除调用Pods-framework.sh的配置<br><img src="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg" alt="DeleteConfig"><br><br>2.最根本的方法：升级CocoaPods，重新更新生成工程</p>
+]]></content>
     
     <summary type="html">
     
@@ -1417,22 +1416,22 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
     <published>2016-05-19T07:57:19.000Z</published>
     <updated>2016-07-21T06:13:29.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;为什么要用WKWebView&quot;&gt;&lt;a href=&quot;#为什么要用WKWebView&quot; class=&quot;headerlink&quot; title=&quot;为什么要用WKWebView&quot;&gt;&lt;/a&gt;为什么要用WKWebView&lt;/h3&gt;&lt;p&gt;WKWebView有以下优点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;采用Nitro JavaScript引擎，运行JavaScript会更快更高效&lt;/li&gt;
-&lt;li&gt;WKWebView没有缓存，内存占用比较低，对内存压力比较大的APP是一个好消息&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;是不是心动了呢，别急，请注意以下这些坑&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;WKWebView的坑&quot;&gt;&lt;a href=&quot;#WKWebView的坑&quot; class=&quot;headerlink&quot; title=&quot;WKWebView的坑&quot;&gt;&lt;/a&gt;WKWebView的坑&lt;/h3&gt;&lt;p&gt;1.版本限制&lt;/p&gt;
-&lt;p&gt;WKWebView是iOS8的时候引入的，在iOS8之后的系统才能使用。&lt;/p&gt;
-&lt;p&gt;只适配iOS8以上的系统，总可以放心使用了吧。然而像&lt;code&gt;- (nullable WKNavigation &lt;em&gt;)loadData:(NSData &lt;/em&gt;)data MIMEType:(NSString &lt;em&gt;)MIMEType characterEncodingName:(NSString &lt;/em&gt;)characterEncodingName baseURL:(NSURL *)baseURL NS_AVAILABLE(10_11, 9_0);&lt;/code&gt;这样的方法在iOS9之后才有。使用的时候还是要注意，比较推荐在iOS9及以上版本使用。&lt;br&gt;&lt;br&gt;2.舍弃了UIWebView同步执行js方法&lt;/p&gt;
-&lt;p&gt;原来UIWebView提供的同步执行js的方法&lt;code&gt;- (nullable NSString &lt;em&gt;)stringByEvaluatingJavaScriptFromString:(NSString &lt;/em&gt;)script;&lt;/code&gt;在WKWebView当中没有相对应的同步方法，需要你将原来同步执行js的地方换成WKWebview异步的方法。&lt;br&gt;&lt;br&gt;3.无缓存带来的问题&lt;/p&gt;
-&lt;p&gt;无缓存可以是WKWebView占用的内存更小，APP的运行压力降低，但是无缓存会在你网络服务或者链路不稳定的时候出现异常。因为有缓存的话可以去读缓存，而不需要每次都从服务器请求数据，比较大的降低了服务不稳定的影响。&lt;/p&gt;
-&lt;p&gt;无缓存还有一个比较大的劣势就是实现cookie在H5和APP的同步时比较麻烦。因为UIWebView和NSURLRequest是共享cookie的，实现同步比较简单。WKWebView没有缓存，也就没有Cookie存储，只能在每次打开页面时将cookie用js写进页面，比较麻烦，也会有相应的短板，后续会再进行介绍。&lt;/p&gt;
-&lt;h3 id=&quot;WKWebView和UIWebview的混用&quot;&gt;&lt;a href=&quot;#WKWebView和UIWebview的混用&quot; class=&quot;headerlink&quot; title=&quot;WKWebView和UIWebview的混用&quot;&gt;&lt;/a&gt;WKWebView和UIWebview的混用&lt;/h3&gt;&lt;p&gt;WKWebView是一种不错的选择，也是一种趋势，但因为目前还存在一部分iOS8和少量的iOS7用户，所以我们只能将WKWebView和UIWebView进行混用。WKWebView和UIWebView的混用就是根据系统版本等情况来判断使用WKWebView还是UIWebView，没有cookie同步需求的话还是推荐使用WKWebView的。&lt;/p&gt;
-&lt;p&gt;我写了一个SJWebView的类，封装了基本的Webview的方法，基本可以无缝从UIWebView切换到WKWebView，大家可以参考一下。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/yangzq007/SJWebView&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SJWebView点击这里&lt;/a&gt;&lt;/p&gt;
-</content>
+    <content type="html"><![CDATA[<h3 id="为什么要用WKWebView"><a href="#为什么要用WKWebView" class="headerlink" title="为什么要用WKWebView"></a>为什么要用WKWebView</h3><p>WKWebView有以下优点：</p>
+<ol>
+<li>采用Nitro JavaScript引擎，运行JavaScript会更快更高效</li>
+<li>WKWebView没有缓存，内存占用比较低，对内存压力比较大的APP是一个好消息</li>
+</ol>
+<p>是不是心动了呢，别急，请注意以下这些坑<br><a id="more"></a></p>
+<h3 id="WKWebView的坑"><a href="#WKWebView的坑" class="headerlink" title="WKWebView的坑"></a>WKWebView的坑</h3><p>1.版本限制</p>
+<p>WKWebView是iOS8的时候引入的，在iOS8之后的系统才能使用。</p>
+<p>只适配iOS8以上的系统，总可以放心使用了吧。然而像<code>- (nullable WKNavigation <em>)loadData:(NSData </em>)data MIMEType:(NSString <em>)MIMEType characterEncodingName:(NSString </em>)characterEncodingName baseURL:(NSURL *)baseURL NS_AVAILABLE(10_11, 9_0);</code>这样的方法在iOS9之后才有。使用的时候还是要注意，比较推荐在iOS9及以上版本使用。<br><br>2.舍弃了UIWebView同步执行js方法</p>
+<p>原来UIWebView提供的同步执行js的方法<code>- (nullable NSString <em>)stringByEvaluatingJavaScriptFromString:(NSString </em>)script;</code>在WKWebView当中没有相对应的同步方法，需要你将原来同步执行js的地方换成WKWebview异步的方法。<br><br>3.无缓存带来的问题</p>
+<p>无缓存可以是WKWebView占用的内存更小，APP的运行压力降低，但是无缓存会在你网络服务或者链路不稳定的时候出现异常。因为有缓存的话可以去读缓存，而不需要每次都从服务器请求数据，比较大的降低了服务不稳定的影响。</p>
+<p>无缓存还有一个比较大的劣势就是实现cookie在H5和APP的同步时比较麻烦。因为UIWebView和NSURLRequest是共享cookie的，实现同步比较简单。WKWebView没有缓存，也就没有Cookie存储，只能在每次打开页面时将cookie用js写进页面，比较麻烦，也会有相应的短板，后续会再进行介绍。</p>
+<h3 id="WKWebView和UIWebview的混用"><a href="#WKWebView和UIWebview的混用" class="headerlink" title="WKWebView和UIWebview的混用"></a>WKWebView和UIWebview的混用</h3><p>WKWebView是一种不错的选择，也是一种趋势，但因为目前还存在一部分iOS8和少量的iOS7用户，所以我们只能将WKWebView和UIWebView进行混用。WKWebView和UIWebView的混用就是根据系统版本等情况来判断使用WKWebView还是UIWebView，没有cookie同步需求的话还是推荐使用WKWebView的。</p>
+<p>我写了一个SJWebView的类，封装了基本的Webview的方法，基本可以无缝从UIWebView切换到WKWebView，大家可以参考一下。</p>
+<p><a href="https://github.com/yangzq007/SJWebView" target="_blank" rel="external">SJWebView点击这里</a></p>
+]]></content>
     
     <summary type="html">
     

@@ -273,12 +273,12 @@
       
         <p>曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……</p>
 <p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
-<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4">中文维基百科的定义</a></p>
+<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="external">中文维基百科的定义</a></p>
 <blockquote>
 <p>存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
 <p>它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
 </blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Bus_error">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
+<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="external">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
 <blockquote>
 <p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
 <p>There are at least three main causes of bus errors:</p>
@@ -432,7 +432,7 @@ unset ALL_PROXY
       
         <p>在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。</p>
 <p>在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。</p>
-<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
+<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/" target="_blank" rel="external">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
 <p>不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。</p>
 <p>shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。</p>
 <h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：<br>
@@ -688,7 +688,7 @@ unset ALL_PROXY
 <p>后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。</p>
 <p><strong>zsh和oh my zsh</strong></p>
 <p>zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。</p>
-<p><a href="https://github.com/robbyrussell/oh-my-zsh">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。
+<p><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。
       
     </div>
     
@@ -752,7 +752,7 @@ unset ALL_PROXY
 <h3 id="粒子特效"><a href="#粒子特效" class="headerlink" title="粒子特效"></a>粒子特效</h3><blockquote>
 <p>粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。</p>
 </blockquote>
-<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F">点击这里</a>.</p>
+<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">点击这里</a>.</p>
 <h3 id="在iOS系统当中的实现"><a href="#在iOS系统当中的实现" class="headerlink" title="在iOS系统当中的实现"></a>在iOS系统当中的实现</h3><p>粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。
       
     </div>
