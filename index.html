@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 10px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 13.33px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 16.67px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 13.33px;">博客历程</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/杂谈/" style="font-size: 13.33px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 13.33px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 13.33px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 13.33px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 13.33px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 16.67px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 13.33px;">博客历程</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/杂谈/" style="font-size: 13.33px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 13.33px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 13.33px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -174,6 +174,76 @@
 
       <div class="body-wrap">
   
+    <article id="post-CocoaPods-invalid-byte-sequence-in-UTF-8" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/" class="article-date">
+  	<time datetime="2017-05-26T03:22:03.000Z" itemprop="datePublished">2017-05-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/">CocoaPods invalid byte sequence in UTF-8</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CocoaPods作为iOS开发常用的包管理工具一直深受大家的喜爱，但是它出现问题的时候也让我们非常纠结。最近我就遇到这么一个让人纠结的错误<code>ArgumentError - invalid byte sequence in UTF-8</code>，下面就来说下如何解决它。</p>
+<p>我的问题是当你<code>pod search &lt;content&gt;</code>时就会报这个错误，期间我尝试了重新下载repo、重新安装CocoaPods、甚至重新安装Ruby环境都没有解决，手动摊手。</p>
+<p>当你Google这个错误或者在CocoaPods的issues里面搜索之后，你大致会发现以下几种解决方案。</p>
+<h3 id="字符集错误"><a href="#字符集错误" class="headerlink" title="字符集错误"></a>字符集错误</h3><p>这种方法认为你本地字符集没有配置好，需要配置成标准的<code>en_US.UTF-8</code>，执行以下命令即可，或者将以下命令添加的相应的shell配置文件当中，例如：~/.bashrc或者~/.zshrc。</p>
+<pre><code>//使用命令locale可以查看本地字符集
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。</p>
+<h3 id="Podfile文件当中字符错误"><a href="#Podfile文件当中字符错误" class="headerlink" title="Podfile文件当中字符错误"></a>Podfile文件当中字符错误</h3><p>我的错误是<code>pod search</code>时出现的，和Podfile并没有什么关系，但如果你是在<code>pod install</code>或者<code>pod update</code>时出现了这个错误，请检查一下你Podfile当中的引号或者逗号，如果你使用了文本编辑器编辑过Podfile，那么问题就可能出现在这里，毕竟我们不太会注意到文本编辑器的编码。</p>
+<p>这里就有一个<a href="https://github.com/CocoaPods/CocoaPods/issues/4813" target="_blank" rel="external">案例</a>，我感觉应该有蛮多人会犯这个错误吧。</p>
+<h3 id="索引文件错误"><a href="#索引文件错误" class="headerlink" title="索引文件错误"></a>索引文件错误</h3><p>以上方案都未果时，我偶然发现也可以用Homebrew安装CocoaPods，我尝试性的用它重装了一下CocoaPods，结果<code>pod search</code>时还是报错，但是错误变成了<code>incompatible character encodings: UTF-8 and ASCII-8BIT (Encoding::CompatibilityError)</code>。</p>
+<p>接着我又在网上找了一下，发现了下面这么一条issue。<a href="https://github.com/CocoaPods/CocoaPods/issues/5338" target="_blank" rel="external">click me</a>。我按照里面的描述，删除了<code>~/Library/Caches/CocoaPods/search_index.json</code>文件，<code>pod search</code>奇迹般的可以了。</p>
+<p>其中也大概提到出现这个问题的原因，可能是CocoaPods在创建索引时，我们<code>ctrl+c</code>取消了这个操作，这导致索引生成的某些字符有问题，所以我们删除索引文件，重新生成即可。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-简单说下tintColor" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -202,20 +272,7 @@
       
         <p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
 <p><img src="http://o84wamnts.bkt.clouddn.com/20170523-2.png" alt="20170523-2"></p>
-<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。</p>
-<h3 id="tintColor"><a href="#tintColor" class="headerlink" title="tintColor"></a>tintColor</h3><p>每个APP基本上都会有一个主色调，这个时候我们一般都会使用<code>tintColor</code>来设置。它比较明显的作用是影响系统默认的返回文字的颜色和一些操作按钮的颜色，这样可以方便的帮我们来设置主色调。</p>
-<p><a href="https://developer.apple.com/reference/uikit/uiview/1622467-tintcolor?language=objc#declarations" target="_blank" rel="external">苹果的文档</a>当中是这样描述的</p>
-<blockquote>
-<h3 id="tintColor-1"><a href="#tintColor-1" class="headerlink" title="tintColor"></a>tintColor</h3><p>The first nondefault tint color value in the view’s hierarchy, ascending from and starting with the view itself.</p>
-<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><p>If the system cannot find a nondefault color in the hierarchy, this property’s value is a system-defined color instead.</p>
-<p>If the view’s tintAdjustmentMode property’s value is UIViewTintAdjustmentModeDimmed, then the tintColor property value is automatically dimmed.</p>
-<p>To refresh subview rendering when this property changes, override the tintColorDidChange method.</p>
-<p>Colors that are pattern colors (as described in UIColor) are not supported.</p>
-</blockquote>
-<p>文档的大致意思是<code>tintColor</code>是视图层级当中的第一个非默认的着色颜色，当视图层级中不存在非默认的颜色值时，系统就会使用<code>tintColor</code>作为渲染的颜色值。当<code>tintAdjustmentMode</code>的值为<code>UIViewTintAdjustmentModeDimmed</code>时，所渲染出来的<code>tintColor</code>的颜色会变暗。</p>
-<p>需要注意的一点是<code>tintColor</code>的查询是在视图层级中一次次往上的，所以你父视图的设置会影响子视图的渲染。子视图想要呈现不同的颜色时，需要设置颜色或者它自己的<code>tintColor</code>。</p>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>我们上面提到的导航栏颜色变暗就是因为弹框时需要一个暗色的背景，修改了视图的的<code>tintAdjustmentMode</code>为<code>UIViewTintAdjustmentModeDimmed</code>，而在消失的时候忘记设置回默认值造成的，只需要在弹框消失时把视图的<code>tintAdjustmentMode</code>属性修改回来即可。</p>
-
+<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。
       
     </div>
     
@@ -228,6 +285,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/05/23/简单说下tintColor/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -770,73 +831,6 @@ unset ALL_PROXY
         <p class="article-more-link">
           <a  href="/2016/11/14/iOS粒子特效/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于二维码的一些想法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/07/关于二维码的一些想法/" class="article-date">
-  	<time datetime="2016-11-07T02:50:46.000Z" itemprop="datePublished">2016-11-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/关于二维码的一些想法/">关于二维码的一些想法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前有段时间一直有一个关于二维码传输比较大信息量来解决某个问题的想法，当时觉得这个想法还不错可以快速交换信息，但是后来看到一段话之后恍然大悟，放弃了这个想法。</p>
-<p>这个问题也引发了我的一些思考，作为一名技术人员，我们往往更倾向于用技术的思维去思考和解决问题而忽略了用户的一些使用场景和需求，帮助用户更快更好的解决问题才是我们的初衷。</p>
-<blockquote>
-<p>对于普通二维码，包含的信息越多，二维码的图案就会越复杂。</p>
-<p>所以在过去，一个二维码包含大量的信息并不是应该追求的目标。</p>
-<p>就好比一张纸理论上你可以写下无数个字，但是关键是要便于阅读。</p>
-<p>二维码也是这样。</p>
-<p>一个信息量大，但是图案密密麻麻的二维码，如果根本扫描不出，又有什么用呢？</p>
-<p>如果你拿着手机打开微信扫一扫对着二维码，来来回回几分钟，这个码还解不出来，谁还会有耐心关注码后面隐藏着什么内容？</p>
-<p>真正好地二维码，应该是打开摄像头，对准条码，哔-！搞定。</p>
-</blockquote>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
-	</div>
-
-      
-
       
       <div class="clearfix"></div>
     </div>

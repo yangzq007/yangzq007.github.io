@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-25T09:11:29.000Z</updated>
+  <updated>2017-05-26T07:12:18.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,15 +16,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CocoaPods invalid byte sequence in UTF-8</title>
+    <link href="http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/"/>
+    <id>http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/</id>
+    <published>2017-05-26T03:22:03.000Z</published>
+    <updated>2017-05-26T07:12:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>CocoaPods作为iOS开发常用的包管理工具一直深受大家的喜爱，但是它出现问题的时候也让我们非常纠结。最近我就遇到这么一个让人纠结的错误<code>ArgumentError - invalid byte sequence in UTF-8</code>，下面就来说下如何解决它。</p>
+<p>我的问题是当你<code>pod search &lt;content&gt;</code>时就会报这个错误，期间我尝试了重新下载repo、重新安装CocoaPods、甚至重新安装Ruby环境都没有解决，手动摊手。</p>
+<p>当你Google这个错误或者在CocoaPods的issues里面搜索之后，你大致会发现以下几种解决方案。</p>
+<h3 id="字符集错误"><a href="#字符集错误" class="headerlink" title="字符集错误"></a>字符集错误</h3><p>这种方法认为你本地字符集没有配置好，需要配置成标准的<code>en_US.UTF-8</code>，执行以下命令即可，或者将以下命令添加的相应的shell配置文件当中，例如：~/.bashrc或者~/.zshrc。</p>
+<pre><code>//使用命令locale可以查看本地字符集
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。</p>
+<h3 id="Podfile文件当中字符错误"><a href="#Podfile文件当中字符错误" class="headerlink" title="Podfile文件当中字符错误"></a>Podfile文件当中字符错误</h3><p>我的错误是<code>pod search</code>时出现的，和Podfile并没有什么关系，但如果你是在<code>pod install</code>或者<code>pod update</code>时出现了这个错误，请检查一下你Podfile当中的引号或者逗号，如果你使用了文本编辑器编辑过Podfile，那么问题就可能出现在这里，毕竟我们不太会注意到文本编辑器的编码。</p>
+<p>这里就有一个<a href="https://github.com/CocoaPods/CocoaPods/issues/4813" target="_blank" rel="external">案例</a>，我感觉应该有蛮多人会犯这个错误吧。</p>
+<h3 id="索引文件错误"><a href="#索引文件错误" class="headerlink" title="索引文件错误"></a>索引文件错误</h3><p>以上方案都未果时，我偶然发现也可以用Homebrew安装CocoaPods，我尝试性的用它重装了一下CocoaPods，结果<code>pod search</code>时还是报错，但是错误变成了<code>incompatible character encodings: UTF-8 and ASCII-8BIT (Encoding::CompatibilityError)</code>。</p>
+<p>接着我又在网上找了一下，发现了下面这么一条issue。<a href="https://github.com/CocoaPods/CocoaPods/issues/5338" target="_blank" rel="external">click me</a>。我按照里面的描述，删除了<code>~/Library/Caches/CocoaPods/search_index.json</code>文件，<code>pod search</code>奇迹般的可以了。</p>
+<p>其中也大概提到出现这个问题的原因，可能是CocoaPods在创建索引时，我们<code>ctrl+c</code>取消了这个操作，这导致索引生成的某些字符有问题，所以我们删除索引文件，重新生成即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      CocoaPods invalid byte sequence in UTF-8
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
+  
+  <entry>
     <title>简单说下tintColor</title>
     <link href="http://yoursite.com/2017/05/23/%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8BtintColor/"/>
     <id>http://yoursite.com/2017/05/23/简单说下tintColor/</id>
     <published>2017-05-23T07:20:17.000Z</published>
-    <updated>2017-05-25T09:11:29.000Z</updated>
+    <updated>2017-05-26T07:14:20.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
 <p><img src="http://o84wamnts.bkt.clouddn.com/20170523-2.png" alt="20170523-2"></p>
-<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。</p>
+<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。<a id="more"></a></p>
 <h3 id="tintColor"><a href="#tintColor" class="headerlink" title="tintColor"></a>tintColor</h3><p>每个APP基本上都会有一个主色调，这个时候我们一般都会使用<code>tintColor</code>来设置。它比较明显的作用是影响系统默认的返回文字的颜色和一些操作按钮的颜色，这样可以方便的帮我们来设置主色调。</p>
 <p><a href="https://developer.apple.com/reference/uikit/uiview/1622467-tintcolor?language=objc#declarations" target="_blank" rel="external">苹果的文档</a>当中是这样描述的</p>
 <blockquote>
@@ -1254,7 +1290,7 @@ sudo rm -rf &lt;filePath&gt;  删除文件目录
 <p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
 <p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
 <p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x61;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#92;">&#x61;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#97;&#x64;&#109;&#x69;&#110;&#64;&#121;&#x6f;&#x75;&#x72;&#100;&#111;&#109;&#x61;&#105;&#110;&#x2e;&#99;&#x6f;&#109;&#92;">&#97;&#x64;&#109;&#x69;&#110;&#64;&#121;&#x6f;&#x75;&#x72;&#100;&#111;&#109;&#x61;&#105;&#110;&#x2e;&#99;&#x6f;&#109;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
 <pre><code>git remote -v 查看当前绑定的远程地址
 git remote remove &lt;repo&gt; 移除绑定的远程仓库
 git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
@@ -1406,45 +1442,6 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
       <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WKWebView的那些坑</title>
-    <link href="http://yoursite.com/2016/05/19/WKWebView%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"/>
-    <id>http://yoursite.com/2016/05/19/WKWebView的那些坑/</id>
-    <published>2016-05-19T07:57:19.000Z</published>
-    <updated>2016-07-21T06:13:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="为什么要用WKWebView"><a href="#为什么要用WKWebView" class="headerlink" title="为什么要用WKWebView"></a>为什么要用WKWebView</h3><p>WKWebView有以下优点：</p>
-<ol>
-<li>采用Nitro JavaScript引擎，运行JavaScript会更快更高效</li>
-<li>WKWebView没有缓存，内存占用比较低，对内存压力比较大的APP是一个好消息</li>
-</ol>
-<p>是不是心动了呢，别急，请注意以下这些坑<br><a id="more"></a></p>
-<h3 id="WKWebView的坑"><a href="#WKWebView的坑" class="headerlink" title="WKWebView的坑"></a>WKWebView的坑</h3><p>1.版本限制</p>
-<p>WKWebView是iOS8的时候引入的，在iOS8之后的系统才能使用。</p>
-<p>只适配iOS8以上的系统，总可以放心使用了吧。然而像<code>- (nullable WKNavigation <em>)loadData:(NSData </em>)data MIMEType:(NSString <em>)MIMEType characterEncodingName:(NSString </em>)characterEncodingName baseURL:(NSURL *)baseURL NS_AVAILABLE(10_11, 9_0);</code>这样的方法在iOS9之后才有。使用的时候还是要注意，比较推荐在iOS9及以上版本使用。<br><br>2.舍弃了UIWebView同步执行js方法</p>
-<p>原来UIWebView提供的同步执行js的方法<code>- (nullable NSString <em>)stringByEvaluatingJavaScriptFromString:(NSString </em>)script;</code>在WKWebView当中没有相对应的同步方法，需要你将原来同步执行js的地方换成WKWebview异步的方法。<br><br>3.无缓存带来的问题</p>
-<p>无缓存可以是WKWebView占用的内存更小，APP的运行压力降低，但是无缓存会在你网络服务或者链路不稳定的时候出现异常。因为有缓存的话可以去读缓存，而不需要每次都从服务器请求数据，比较大的降低了服务不稳定的影响。</p>
-<p>无缓存还有一个比较大的劣势就是实现cookie在H5和APP的同步时比较麻烦。因为UIWebView和NSURLRequest是共享cookie的，实现同步比较简单。WKWebView没有缓存，也就没有Cookie存储，只能在每次打开页面时将cookie用js写进页面，比较麻烦，也会有相应的短板，后续会再进行介绍。</p>
-<h3 id="WKWebView和UIWebview的混用"><a href="#WKWebView和UIWebview的混用" class="headerlink" title="WKWebView和UIWebview的混用"></a>WKWebView和UIWebview的混用</h3><p>WKWebView是一种不错的选择，也是一种趋势，但因为目前还存在一部分iOS8和少量的iOS7用户，所以我们只能将WKWebView和UIWebView进行混用。WKWebView和UIWebView的混用就是根据系统版本等情况来判断使用WKWebView还是UIWebView，没有cookie同步需求的话还是推荐使用WKWebView的。</p>
-<p>我写了一个SJWebView的类，封装了基本的Webview的方法，基本可以无缝从UIWebView切换到WKWebView，大家可以参考一下。</p>
-<p><a href="https://github.com/yangzq007/SJWebView" target="_blank" rel="external">SJWebView点击这里</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      WKWebView的那些坑
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="那些坑" scheme="http://yoursite.com/tags/%E9%82%A3%E4%BA%9B%E5%9D%91/"/>
-    
-      <category term="iOS优化" scheme="http://yoursite.com/tags/iOS%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
