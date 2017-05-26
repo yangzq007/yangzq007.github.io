@@ -4,14 +4,16 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/05/23/%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8BtintColor/</loc>
-    <lastmod>2017-05-26T07:14:20.000Z</lastmod>
+    <loc>http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/</loc>
+    <lastmod>2017-05-26T07:42:26.000Z</lastmod>
     <data>
         <display>
-        <title>简单说下tintColor</title>
-        <pubTime>2017-05-23T07:20:17.000Z</pubTime>
+        <title>CocoaPods invalid byte sequence in UTF-8</title>
+        <pubTime>2017-05-26T03:22:03.000Z</pubTime>
         
         <tag>iOS</tag>
+         
+        <tag>CocoaPods</tag>
          
          
            
@@ -21,16 +23,14 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/</loc>
-    <lastmod>2017-05-26T07:12:18.000Z</lastmod>
+    <loc>http://yoursite.com/2017/05/23/%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8BtintColor/</loc>
+    <lastmod>2017-05-26T07:14:20.000Z</lastmod>
     <data>
         <display>
-        <title>CocoaPods invalid byte sequence in UTF-8</title>
-        <pubTime>2017-05-26T03:22:03.000Z</pubTime>
+        <title>简单说下tintColor</title>
+        <pubTime>2017-05-23T07:20:17.000Z</pubTime>
         
         <tag>iOS</tag>
-         
-        <tag>CocoaPods</tag>
          
          
            
