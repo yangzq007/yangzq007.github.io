@@ -174,6 +174,168 @@
 
       <div class="body-wrap">
   
+    <article id="post-iOS下的cookies使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/27/iOS下的cookies使用/" class="article-date">
+  	<time datetime="2017-05-27T08:21:36.000Z" itemprop="datePublished">2017-05-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/iOS下的cookies使用/">iOS下的cookies使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。</p>
+<h3 id="Cookies简介"><a href="#Cookies简介" class="headerlink" title="Cookies简介"></a>Cookies简介</h3><p>这里有比较详细的介绍，本文就不再赘述了。<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="external">click me</a></p>
+<p>在iOS当中需要注意以下几点：</p>
+<ol>
+<li>不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie</li>
+<li>多个应用之间默认不共享cookie</li>
+<li>临时cookie在应用重启之后就会消失</li>
+<li>持久cookie在应用或系统重启之后不会消失</li>
+<li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
+<li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
+</ol>
+<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。</p>
+<h3 id="Cookies操作"><a href="#Cookies操作" class="headerlink" title="Cookies操作"></a>Cookies操作</h3><p>iOS系统当中的cookies由系统底层实现和使用，同时提供了<code>NSHTTPCookieStorage</code>和<code>NSHTTPCookie</code>来统一操作cookie。<code>NSHTTPCookieStorage</code>是一个单例，我们所有的cookies都存放在这里，当我们发起网络请求时，系统会默认从<code>NSHTTPCookieStorage</code>当中匹配相应cookie并带上去，所以我们只需要操作<code>NSHTTPCookieStorage</code>即可。</p>
+<p>以下是一些简单的使用</p>
+<pre><code>/**
+ *  获得url对应的cookie
+ *
+ *  @param url url
+ *
+ *  @return url对应的cookie
+ */
+- (NSArray *)getCookiesForUrl:(NSString *)url
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:url]];
+
+    return cookies;
+}
+
+/**
+ *  获取应用下所有的cookie
+ *
+ *  @return 所有的cookie
+ */
+- (NSArray *)getAllCookies
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    return sharedHTTPCookieStorage.cookies;
+}
+
+/**
+ *  将cookie数组当中的cookie设置到cookie缓存中
+ *
+ *  @param mArrCookie cookie数组
+ */
+- (void)setCookiesFromArr:(NSArray *)mArrCookie
+{
+    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
+        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSHTTPCookie *cookie in mArrCookie) {
+            [sharedHTTPCookieStorage setCookie:cookie];
+        }
+    }
+}
+
+/**
+ *  为特殊的url设置cookie
+ *
+ *  @param mArrCookie cookie数组
+ *  @param url        地址，此处地址格式需为.baidu.com这样
+ */
+- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSURL *)url
+{
+    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
+        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSHTTPCookie *cookie in mArrCookie) {
+            NSMutableDictionary *cookieDic = [NSMutableDictionary dictionaryWithDictionary:[cookie properties]];
+            [cookieDic setObject:url forKey:@&quot;Domain&quot;];
+            NSHTTPCookie *tempCookie = [NSHTTPCookie cookieWithProperties:cookieDic];
+            [sharedHTTPCookieStorage setCookie:tempCookie];
+        }
+    }
+}
+
+
+//以下是一些将cookies本地化的操作
+
+- (void)saveCacheCookie:(id)sender {
+    NSArray *mArrCookie = [self getAllCookies];
+    NSData *cookieData = [NSKeyedArchiver archivedDataWithRootObject:mArrCookie];
+    [[NSUserDefaults standardUserDefaults] setObject:cookieData forKey:@&quot;cookieData&quot;];
+}
+
+- (void)unzipCookie:(id)sender {
+    NSData *cookieData = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;cookieData&quot;];
+    NSArray *mArrCookie = [NSKeyedUnarchiver unarchiveObjectWithData:cookieData];        
+    [self setCookiesFromArr:mArrCookie];
+}
+</code></pre><h3 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h3><p>针对跨域问题，可以在服务器和客户端分别做处理解决</p>
+<p>服务器：在服务器返回cookie时同时将相关联的其他域的cookie返回</p>
+<p>客户端：在每次请求完成后，对想跨域的域名进行设置，添加对应的cookie</p>
+<p>推荐在服务器配置相关策略</p>
+<h3 id="WKWebView使用cookie"><a href="#WKWebView使用cookie" class="headerlink" title="WKWebView使用cookie"></a>WKWebView使用cookie</h3><p>因为WKWebView没有缓存，不使用<code>NSHTTPCookieStorage</code>，其cookie只存在内存当中，当前页面被释放其cookie也就消失了。因此WKWebView当中的请求不能使用其他请求的cookie，同时两个WKWebView页面也不共享cookie。</p>
+<p>所以想要WKWebView使用其他请求的cookie或者前一个WKWebView页面的cookie需要在WKWebView加载前执行一段js代码，将cookie设置进去，而每次WKWebView请求之后获取cookie，将其保存起来。至于存在哪里，<code>NSHTTPCookieStorage</code>和<code>NSUserDefaults</code>都是不错的选择。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-CocoaPods-invalid-byte-sequence-in-UTF-8" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -769,71 +931,6 @@ unset ALL_PROXY
       
         <p class="article-more-link">
           <a  href="/2017/01/13/oh-my-zsh-语义化版本/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS粒子特效" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/14/iOS粒子特效/" class="article-date">
-  	<time datetime="2016-11-14T09:54:36.000Z" itemprop="datePublished">2016-11-14</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/14/iOS粒子特效/">iOS粒子特效</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。</p>
-<h3 id="粒子特效"><a href="#粒子特效" class="headerlink" title="粒子特效"></a>粒子特效</h3><blockquote>
-<p>粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。</p>
-</blockquote>
-<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">点击这里</a>.</p>
-<h3 id="在iOS系统当中的实现"><a href="#在iOS系统当中的实现" class="headerlink" title="在iOS系统当中的实现"></a>在iOS系统当中的实现</h3><p>粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/14/iOS粒子特效/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

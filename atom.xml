@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-26T07:42:26.000Z</updated>
+  <updated>2017-05-27T10:06:34.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,132 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS下的cookies使用</title>
+    <link href="http://yoursite.com/2017/05/27/iOS%E4%B8%8B%E7%9A%84cookies%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2017/05/27/iOS下的cookies使用/</id>
+    <published>2017-05-27T08:21:36.000Z</published>
+    <updated>2017-05-27T10:06:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。</p>
+<h3 id="Cookies简介"><a href="#Cookies简介" class="headerlink" title="Cookies简介"></a>Cookies简介</h3><p>这里有比较详细的介绍，本文就不再赘述了。<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="external">click me</a></p>
+<p>在iOS当中需要注意以下几点：</p>
+<ol>
+<li>不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie</li>
+<li>多个应用之间默认不共享cookie</li>
+<li>临时cookie在应用重启之后就会消失</li>
+<li>持久cookie在应用或系统重启之后不会消失</li>
+<li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
+<li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
+</ol>
+<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。</p>
+<h3 id="Cookies操作"><a href="#Cookies操作" class="headerlink" title="Cookies操作"></a>Cookies操作</h3><p>iOS系统当中的cookies由系统底层实现和使用，同时提供了<code>NSHTTPCookieStorage</code>和<code>NSHTTPCookie</code>来统一操作cookie。<code>NSHTTPCookieStorage</code>是一个单例，我们所有的cookies都存放在这里，当我们发起网络请求时，系统会默认从<code>NSHTTPCookieStorage</code>当中匹配相应cookie并带上去，所以我们只需要操作<code>NSHTTPCookieStorage</code>即可。</p>
+<p>以下是一些简单的使用</p>
+<pre><code>/**
+ *  获得url对应的cookie
+ *
+ *  @param url url
+ *
+ *  @return url对应的cookie
+ */
+- (NSArray *)getCookiesForUrl:(NSString *)url
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:url]];
+
+    return cookies;
+}
+
+/**
+ *  获取应用下所有的cookie
+ *
+ *  @return 所有的cookie
+ */
+- (NSArray *)getAllCookies
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    return sharedHTTPCookieStorage.cookies;
+}
+
+/**
+ *  将cookie数组当中的cookie设置到cookie缓存中
+ *
+ *  @param mArrCookie cookie数组
+ */
+- (void)setCookiesFromArr:(NSArray *)mArrCookie
+{
+    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
+        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSHTTPCookie *cookie in mArrCookie) {
+            [sharedHTTPCookieStorage setCookie:cookie];
+        }
+    }
+}
+
+/**
+ *  为特殊的url设置cookie
+ *
+ *  @param mArrCookie cookie数组
+ *  @param url        地址，此处地址格式需为.baidu.com这样
+ */
+- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSURL *)url
+{
+    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
+        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSHTTPCookie *cookie in mArrCookie) {
+            NSMutableDictionary *cookieDic = [NSMutableDictionary dictionaryWithDictionary:[cookie properties]];
+            [cookieDic setObject:url forKey:@&quot;Domain&quot;];
+            NSHTTPCookie *tempCookie = [NSHTTPCookie cookieWithProperties:cookieDic];
+            [sharedHTTPCookieStorage setCookie:tempCookie];
+        }
+    }
+}
+
+
+//以下是一些将cookies本地化的操作
+
+- (void)saveCacheCookie:(id)sender {
+    NSArray *mArrCookie = [self getAllCookies];
+    NSData *cookieData = [NSKeyedArchiver archivedDataWithRootObject:mArrCookie];
+    [[NSUserDefaults standardUserDefaults] setObject:cookieData forKey:@&quot;cookieData&quot;];
+}
+
+- (void)unzipCookie:(id)sender {
+    NSData *cookieData = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;cookieData&quot;];
+    NSArray *mArrCookie = [NSKeyedUnarchiver unarchiveObjectWithData:cookieData];        
+    [self setCookiesFromArr:mArrCookie];
+}
+</code></pre><h3 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h3><p>针对跨域问题，可以在服务器和客户端分别做处理解决</p>
+<p>服务器：在服务器返回cookie时同时将相关联的其他域的cookie返回</p>
+<p>客户端：在每次请求完成后，对想跨域的域名进行设置，添加对应的cookie</p>
+<p>推荐在服务器配置相关策略</p>
+<h3 id="WKWebView使用cookie"><a href="#WKWebView使用cookie" class="headerlink" title="WKWebView使用cookie"></a>WKWebView使用cookie</h3><p>因为WKWebView没有缓存，不使用<code>NSHTTPCookieStorage</code>，其cookie只存在内存当中，当前页面被释放其cookie也就消失了。因此WKWebView当中的请求不能使用其他请求的cookie，同时两个WKWebView页面也不共享cookie。</p>
+<p>所以想要WKWebView使用其他请求的cookie或者前一个WKWebView页面的cookie需要在WKWebView加载前执行一段js代码，将cookie设置进去，而每次WKWebView请求之后获取cookie，将其保存起来。至于存在哪里，<code>NSHTTPCookieStorage</code>和<code>NSUserDefaults</code>都是不错的选择。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      iOS下的cookies使用
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>CocoaPods invalid byte sequence in UTF-8</title>
@@ -1294,7 +1420,7 @@ sudo rm -rf &lt;filePath&gt;  删除文件目录
 <p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
 <p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
 <p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x61;&#x64;&#x6d;&#105;&#110;&#x40;&#x79;&#111;&#117;&#x72;&#100;&#111;&#x6d;&#97;&#105;&#110;&#x2e;&#99;&#x6f;&#109;&#92;">&#x61;&#x64;&#x6d;&#105;&#110;&#x40;&#x79;&#111;&#117;&#x72;&#100;&#111;&#x6d;&#97;&#105;&#110;&#x2e;&#99;&#x6f;&#109;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x79;&#x6f;&#x75;&#114;&#100;&#111;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#x5c;">&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x79;&#x6f;&#x75;&#114;&#100;&#111;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#99;&#111;&#x6d;&#x5c;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
 <pre><code>git remote -v 查看当前绑定的远程地址
 git remote remove &lt;repo&gt; 移除绑定的远程仓库
 git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
@@ -1421,31 +1547,6 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
       <category term="SVN和Git" scheme="http://yoursite.com/tags/SVN%E5%92%8CGit/"/>
     
       <category term="版本管理" scheme="http://yoursite.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory</title>
-    <link href="http://yoursite.com/2016/06/02/CocoaPods%E6%9B%B4%E6%96%B0%E5%B7%A5%E7%A8%8B%E5%90%8E%E7%BC%96%E8%AF%91%E6%8F%90%E7%A4%BA%E6%97%A0framework%E8%84%9A%E6%9C%AC%E9%94%99%E8%AF%AF/"/>
-    <id>http://yoursite.com/2016/06/02/CocoaPods更新工程后编译提示无framework脚本错误/</id>
-    <published>2016-06-02T06:38:01.000Z</published>
-    <updated>2016-07-21T06:21:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。<br><br>当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。<br><br><a id="more"></a></p>
-<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>经过认真的比较工程前后的差别，发现这是由于在开发过程汇总CocoaPods版本不同造成的问题。<br><br>较高版本的CocoaPods更新工程的时会生成一个文件名为Pods-framework.sh脚本文件，并向工程的.xcodeproj当中添加相关调用脚本的配置，我使用的版本（0.35.0）却不会。当我更新工程时，CocoaPods（0.35.0）只移除了高版本生成的脚本文件，却没有修改配置，导致编译时寻找该文件却找不到，提示错误。<br></p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.最快速有效的解决方法：删除调用Pods-framework.sh的配置<br><img src="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg" alt="DeleteConfig"><br><br>2.最根本的方法：升级CocoaPods，重新更新生成工程</p>
-]]></content>
-    
-    <summary type="html">
-    
-      CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
     
   </entry>
   
