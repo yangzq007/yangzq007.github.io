@@ -265,7 +265,7 @@ sudo rm -rf &lt;filePath&gt;  删除文件目录
 <p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
 <p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
 <p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x61;&#100;&#x6d;&#x69;&#x6e;&#x40;&#121;&#x6f;&#117;&#x72;&#x64;&#111;&#109;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#111;&#109;&#92;">&#x61;&#100;&#x6d;&#x69;&#x6e;&#x40;&#121;&#x6f;&#117;&#x72;&#x64;&#111;&#109;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#111;&#109;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#97;&#x64;&#x6d;&#105;&#110;&#64;&#121;&#111;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#109;&#x5c;">&#97;&#x64;&#x6d;&#105;&#110;&#64;&#121;&#111;&#117;&#114;&#x64;&#x6f;&#109;&#97;&#105;&#x6e;&#x2e;&#x63;&#x6f;&#109;&#x5c;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
 <pre><code>git remote -v 查看当前绑定的远程地址
 git remote remove &lt;repo&gt; 移除绑定的远程仓库
 git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
