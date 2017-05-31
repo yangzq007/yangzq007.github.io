@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/27/iOS下的cookies使用/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="iOS下的cookies使用">
-<meta property="og:updated_time" content="2017-05-27T10:06:34.000Z">
+<meta property="og:updated_time" content="2017-05-31T02:28:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS下的cookies使用">
 <meta name="twitter:description" content="iOS下的cookies使用">
@@ -286,7 +286,7 @@
  *  @param mArrCookie cookie数组
  *  @param url        地址，此处地址格式需为.baidu.com这样
  */
-- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSURL *)url
+- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSString *)url
 {
     if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
         NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -300,6 +300,29 @@
     }
 }
 
+/**
+ 获取特定url相应key的value值
+
+ @param key cookie的key值
+ @param url url，一个完整的url地址，例如https://www.baidu.com/
+ @return 当前url下cookie当中当前key对应的value值
+ */
+- (NSString *)cookieValueWithKey:(NSString *)key forUrl:(NSURL *)url
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:url];
+    for (NSHTTPCookie *item in cookies) {
+        if ([[item name] isEqualToString:key]) {
+            return [NSString stringWithString:[[item value] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    return nil;
+}
 
 //以下是一些将cookies本地化的操作
 

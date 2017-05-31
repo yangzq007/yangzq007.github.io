@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="CocoaPods invalid byte sequence in UTF-8">
-<meta property="og:updated_time" content="2017-05-26T07:42:26.000Z">
+<meta property="og:updated_time" content="2017-05-31T02:29:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods invalid byte sequence in UTF-8">
 <meta name="twitter:description" content="CocoaPods invalid byte sequence in UTF-8">
@@ -224,7 +224,7 @@
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。</p>
+</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。<a id="more"></a></p>
 <h3 id="Podfile文件当中字符错误"><a href="#Podfile文件当中字符错误" class="headerlink" title="Podfile文件当中字符错误"></a>Podfile文件当中字符错误</h3><p>我的错误是<code>pod search</code>时出现的，和Podfile并没有什么关系，但如果你是在<code>pod install</code>或者<code>pod update</code>时出现了这个错误，请检查一下你Podfile当中的引号或者逗号，如果你使用了文本编辑器编辑过Podfile，那么问题就可能出现在这里，毕竟我们不太会注意到文本编辑器的编码。</p>
 <p>这里就有一个<a href="https://github.com/CocoaPods/CocoaPods/issues/4813" target="_blank" rel="external">案例</a>，我感觉应该有蛮多人会犯这个错误吧。</p>
 <h3 id="索引文件错误"><a href="#索引文件错误" class="headerlink" title="索引文件错误"></a>索引文件错误</h3><p>以上方案都未果时，我偶然发现也可以用Homebrew安装CocoaPods，我尝试性的用它重装了一下CocoaPods，结果<code>pod search</code>时还是报错，但是错误变成了<code>incompatible character encodings: UTF-8 and ASCII-8BIT (Encoding::CompatibilityError)</code>。</p>

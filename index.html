@@ -272,7 +272,7 @@
  *  @param mArrCookie cookie数组
  *  @param url        地址，此处地址格式需为.baidu.com这样
  */
-- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSURL *)url
+- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSString *)url
 {
     if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
         NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -286,6 +286,29 @@
     }
 }
 
+/**
+ 获取特定url相应key的value值
+
+ @param key cookie的key值
+ @param url url，一个完整的url地址，例如https://www.baidu.com/
+ @return 当前url下cookie当中当前key对应的value值
+ */
+- (NSString *)cookieValueWithKey:(NSString *)key forUrl:(NSURL *)url
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    }
+
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:url];
+    for (NSHTTPCookie *item in cookies) {
+        if ([[item name] isEqualToString:key]) {
+            return [NSString stringWithString:[[item value] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+    return nil;
+}
 
 //以下是一些将cookies本地化的操作
 
@@ -372,15 +395,7 @@
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。</p>
-<h3 id="Podfile文件当中字符错误"><a href="#Podfile文件当中字符错误" class="headerlink" title="Podfile文件当中字符错误"></a>Podfile文件当中字符错误</h3><p>我的错误是<code>pod search</code>时出现的，和Podfile并没有什么关系，但如果你是在<code>pod install</code>或者<code>pod update</code>时出现了这个错误，请检查一下你Podfile当中的引号或者逗号，如果你使用了文本编辑器编辑过Podfile，那么问题就可能出现在这里，毕竟我们不太会注意到文本编辑器的编码。</p>
-<p>这里就有一个<a href="https://github.com/CocoaPods/CocoaPods/issues/4813" target="_blank" rel="external">案例</a>，我感觉应该有蛮多人会犯这个错误吧。</p>
-<h3 id="索引文件错误"><a href="#索引文件错误" class="headerlink" title="索引文件错误"></a>索引文件错误</h3><p>以上方案都未果时，我偶然发现也可以用Homebrew安装CocoaPods，我尝试性的用它重装了一下CocoaPods，结果<code>pod search</code>时还是报错，但是错误变成了<code>incompatible character encodings: UTF-8 and ASCII-8BIT (Encoding::CompatibilityError)</code>。</p>
-<p>接着我又在网上找了一下，发现了下面这么一条issue。</p>
-<p><a href="https://github.com/CocoaPods/CocoaPods/issues/5338" target="_blank" rel="external">https://github.com/CocoaPods/CocoaPods/issues/5338</a></p>
-<p>我按照里面的描述，删除了<code>~/Library/Caches/CocoaPods/search_index.json</code>文件，<code>pod search</code>奇迹般的可以了。</p>
-<p>其中也大概提到出现这个问题的原因，可能是CocoaPods在创建索引时，我们<code>ctrl+c</code>取消了这个操作，这导致索引生成的某些字符有问题，所以我们删除索引文件，重新生成即可。</p>
-
+</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。
       
     </div>
     
@@ -393,6 +408,10 @@ export LANG=en_US.UTF-8
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
