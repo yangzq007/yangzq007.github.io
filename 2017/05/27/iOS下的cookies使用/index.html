@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/27/iOS下的cookies使用/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="iOS下的cookies使用">
-<meta property="og:updated_time" content="2017-05-31T02:28:50.000Z">
+<meta property="og:updated_time" content="2017-06-20T11:54:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS下的cookies使用">
 <meta name="twitter:description" content="iOS下的cookies使用">
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 13.33px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 13.33px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 16.67px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 13.33px;">博客历程</a> <a href="/tags/工具/" style="font-size: 16.67px;">工具</a> <a href="/tags/杂谈/" style="font-size: 13.33px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 13.33px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 13.33px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -225,7 +225,7 @@
 <li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
 <li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
 </ol>
-<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。</p>
+<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。<a id="more"></a></p>
 <h3 id="Cookies操作"><a href="#Cookies操作" class="headerlink" title="Cookies操作"></a>Cookies操作</h3><p>iOS系统当中的cookies由系统底层实现和使用，同时提供了<code>NSHTTPCookieStorage</code>和<code>NSHTTPCookie</code>来统一操作cookie。<code>NSHTTPCookieStorage</code>是一个单例，我们所有的cookies都存放在这里，当我们发起网络请求时，系统会默认从<code>NSHTTPCookieStorage</code>当中匹配相应cookie并带上去，所以我们只需要操作<code>NSHTTPCookieStorage</code>即可。</p>
 <p>以下是一些简单的使用</p>
 <pre><code>/**
@@ -351,6 +351,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/06/20/文档网站生成工具docsify/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          文档网站生成工具docsify
+        
+      </div>
+    </a>
   
   
     <a href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/" id="article-nav-older" class="article-nav-link-wrap">
