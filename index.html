@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 10px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,161 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-React-Native之如何写一个ListView" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/05/React-Native之如何写一个ListView/" class="article-date">
+  	<time datetime="2017-07-05T03:11:43.000Z" itemprop="datePublished">2017-07-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/05/React-Native之如何写一个ListView/">React Native之如何写一个ListView</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
+<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
+    };
+  }
+
+  render() {
+    return (
+      &lt;ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+}
+</code></pre><p>以上代码就可以绘制一个简单的ListView了，但是我们需要注意<code>dataSource: ds.cloneWithRows([&#39;row 1&#39;, &#39;row 2&#39;])</code>这一行，因为我们的数据一般都是网络请求来的，所以我们一般可能会写成这样</p>
+<pre><code>listData = [];
+
+constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(this.listData),
+    };
+  }
+
+  ***省略的网络请求***
+  listData = [&apos;row 1&apos;, &apos;row 2&apos;];
+  ***省略的更新state***
+</code></pre><p>然而你发现你的ListView并没有更新，还是一片空白,当我们把<code>dataSource: ds.cloneWithRows(this.listData)</code>这一行改成<code>dataSource: ds.cloneWithRows(this.listData.slice())</code>你会发现问题解决了，why?</p>
+<p>这是因为这样只是一个浅拷贝，虽然数组内容发生了变化，但是<code>ds.cloneWithRows</code>接收到的数据没有发生变，故页面会刷新。当我们用<code>slice</code>时，给它返回一个新值，这样界面就会重新刷新渲染。</p>
+<h3 id="写一个带Section的ListView"><a href="#写一个带Section的ListView" class="headerlink" title="写一个带Section的ListView"></a>写一个带Section的ListView</h3><p>要写一个带Section的ListView主要是针对数据源的改造。</p>
+<p>DataSource构造函数可以接受下列四种参数（都是可选）：</p>
+<pre><code>getRowData(dataBlob, sectionID, rowID);
+getSectionHeaderData(dataBlob, sectionID);
+rowHasChanged(prevRowData, nextRowData);
+sectionHeaderHasChanged(prevSectionData, nextSectionData);
+</code></pre><p>如果不提供getRowData和getSectionHeaderData方法，使用defaultGetRowData和defaultGetSectionHeaderData来提取数据，默认的提取函数可以处理的数据结构如下：</p>
+<pre><code>{ sectionID_1: { rowID_1: rowData1, ... }, ... }
+或者
+{ sectionID_1: [ rowData1, rowData2, ... ], ... }
+或者
+[ [ rowData1, rowData2, ... ], ... ]
+</code></pre><p>我们用第二种数据结构来实现：</p>
+<pre><code>class MyComponent extends Component {
+  constructor() {
+    super();
+
+    listData = { &quot;1&quot;: [ &quot;11&quot;, &quot;12&quot;], &quot;2&quot;: [ &quot;21&quot;, &quot;22&quot;] };
+
+    const ds =  new ListView.DataSource({
+        rowHasChanged: (r1, r2) =&gt; r1 !== r2,
+        sectionHeaderHasChanged: (s1, s2) =&gt; s1 != s2
+    });
+    this.state = {
+      dataSource: ds.cloneWithRowsAndSections(
+              this.listData,
+              Object.keys(this.listData),
+              Object.keys(this.listData).map(
+            (sectionId) =&gt; Object.keys(
+                this.listData[sectionId].slice()
+            )
+        )
+      ),
+    };
+  }
+
+  render() {
+    return (
+      &lt;ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+}
+</code></pre><p>需要注意的是<code>cloneWithRowsAndSections(dataBlob, sectionIdentities, rowIdentities)</code>方法当中的参数也需要是一个新值，所以<code>rowIdentities</code>参数的数据也需要<code>slice()</code>一下，回传一个新值。</p>
+<p>当需要将sectionHeader的样式显示出来，还需要在render当中添加关于header渲染的代码</p>
+<pre><code>render() {
+    return (
+      &lt;ListView
+           renderSectionHeader={
+                (sectionData, sectionID) =&gt; &lt;Text&gt;{sectionID}&lt;/Text&gt;
+        }
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+</code></pre><p>这样一个带section的ListView就写出来了。</p>
+<h3 id="一些注意事项"><a href="#一些注意事项" class="headerlink" title="一些注意事项"></a>一些注意事项</h3><ol>
+<li>React Native不支持随ListView滚动的Header，如果需要，请在每个section当中的第一个Item当中添加</li>
+<li>如果ListView要下拉一下才显示出来，请设置ListView的属性<code>removeClippedSubviews={false}</code></li>
+<li>如果在iOS设备上ListView距离顶部导航栏有距离，请设置ListView的属性<code>automaticallyAdjustContentInsets={false}</code></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-文档网站生成工具docsify" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -776,67 +931,6 @@ unset ALL_PROXY
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-2016年个人总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/22/2016年个人总结/" class="article-date">
-  	<time datetime="2017-01-22T09:26:29.000Z" itemprop="datePublished">2017-01-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/22/2016年个人总结/">2016年个人总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://o84wamnts.bkt.clouddn.com/20170122-1.JPG" alt="20170122-1"></p>
-<p>一转眼马上要过春节了，趁着这个时候我也发个2016年的总结吧，给今年划上一个圆满的句号。
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/01/22/2016年个人总结/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

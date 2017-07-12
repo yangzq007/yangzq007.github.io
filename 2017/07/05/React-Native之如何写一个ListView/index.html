@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>SVN迁移到Git | 那片树海</title>
+  <title>React Native之如何写一个ListView | 那片树海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVN迁移到Git">
-<meta name="keywords" content="iOS,Git,SVN,迁移">
+  <meta name="description" content="React Native写一个ListView">
+<meta name="keywords" content="ReactNative,ListView">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVN迁移到Git">
-<meta property="og:url" content="http://yoursite.com/2016/06/15/SVN迁移到Git/index.html">
+<meta property="og:title" content="React Native之如何写一个ListView">
+<meta property="og:url" content="http://yoursite.com/2017/07/05/React-Native之如何写一个ListView/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="SVN迁移到Git">
-<meta property="og:updated_time" content="2017-05-25T02:57:40.000Z">
+<meta property="og:description" content="React Native写一个ListView">
+<meta property="og:updated_time" content="2017-07-12T08:01:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SVN迁移到Git">
-<meta name="twitter:description" content="SVN迁移到Git">
+<meta name="twitter:title" content="React Native之如何写一个ListView">
+<meta name="twitter:description" content="React Native写一个ListView">
   
     <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
   
@@ -177,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-SVN迁移到Git" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-React-Native之如何写一个ListView" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/15/SVN迁移到Git/" class="article-date">
-  	<time datetime="2016-06-15T03:13:23.000Z" itemprop="datePublished">2016-06-15</time>
+      <a href="/2017/07/05/React-Native之如何写一个ListView/" class="article-date">
+  	<time datetime="2017-07-05T03:11:43.000Z" itemprop="datePublished">2017-07-05</time>
 </a>
     </div>
   
@@ -194,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SVN迁移到Git
+      React Native之如何写一个ListView
     </h1>
   
 
@@ -203,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVN和Git/">SVN和Git</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
 	</div>
 
         
@@ -214,65 +214,105 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="external">Git模型点击这里</a>）<br><a id="more"></a><br>下面我们来介绍迁移过程，整个过程大致分为两步：</p>
-<ol>
-<li>搭建新的版本管理模型</li>
-<li>旧代码和提交信息的迁移</li>
+        <p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
+<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
+    };
+  }
+
+  render() {
+    return (
+      &lt;ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+}
+</code></pre><p>以上代码就可以绘制一个简单的ListView了，但是我们需要注意<code>dataSource: ds.cloneWithRows([&#39;row 1&#39;, &#39;row 2&#39;])</code>这一行，因为我们的数据一般都是网络请求来的，所以我们一般可能会写成这样</p>
+<pre><code>listData = [];
+
+constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(this.listData),
+    };
+  }
+
+  ***省略的网络请求***
+  listData = [&apos;row 1&apos;, &apos;row 2&apos;];
+  ***省略的更新state***
+</code></pre><p>然而你发现你的ListView并没有更新，还是一片空白,当我们把<code>dataSource: ds.cloneWithRows(this.listData)</code>这一行改成<code>dataSource: ds.cloneWithRows(this.listData.slice())</code>你会发现问题解决了，why?</p>
+<p>这是因为这样只是一个浅拷贝，虽然数组内容发生了变化，但是<code>ds.cloneWithRows</code>接收到的数据没有发生变，故页面会刷新。当我们用<code>slice</code>时，给它返回一个新值，这样界面就会重新刷新渲染。</p>
+<h3 id="写一个带Section的ListView"><a href="#写一个带Section的ListView" class="headerlink" title="写一个带Section的ListView"></a>写一个带Section的ListView</h3><p>要写一个带Section的ListView主要是针对数据源的改造。</p>
+<p>DataSource构造函数可以接受下列四种参数（都是可选）：</p>
+<pre><code>getRowData(dataBlob, sectionID, rowID);
+getSectionHeaderData(dataBlob, sectionID);
+rowHasChanged(prevRowData, nextRowData);
+sectionHeaderHasChanged(prevSectionData, nextSectionData);
+</code></pre><p>如果不提供getRowData和getSectionHeaderData方法，使用defaultGetRowData和defaultGetSectionHeaderData来提取数据，默认的提取函数可以处理的数据结构如下：</p>
+<pre><code>{ sectionID_1: { rowID_1: rowData1, ... }, ... }
+或者
+{ sectionID_1: [ rowData1, rowData2, ... ], ... }
+或者
+[ [ rowData1, rowData2, ... ], ... ]
+</code></pre><p>我们用第二种数据结构来实现：</p>
+<pre><code>class MyComponent extends Component {
+  constructor() {
+    super();
+
+    listData = { &quot;1&quot;: [ &quot;11&quot;, &quot;12&quot;], &quot;2&quot;: [ &quot;21&quot;, &quot;22&quot;] };
+
+    const ds =  new ListView.DataSource({
+        rowHasChanged: (r1, r2) =&gt; r1 !== r2,
+        sectionHeaderHasChanged: (s1, s2) =&gt; s1 != s2
+    });
+    this.state = {
+      dataSource: ds.cloneWithRowsAndSections(
+              this.listData,
+              Object.keys(this.listData),
+              Object.keys(this.listData).map(
+            (sectionId) =&gt; Object.keys(
+                this.listData[sectionId].slice()
+            )
+        )
+      ),
+    };
+  }
+
+  render() {
+    return (
+      &lt;ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+}
+</code></pre><p>需要注意的是<code>cloneWithRowsAndSections(dataBlob, sectionIdentities, rowIdentities)</code>方法当中的参数也需要是一个新值，所以<code>rowIdentities</code>参数的数据也需要<code>slice()</code>一下，回传一个新值。</p>
+<p>当需要将sectionHeader的样式显示出来，还需要在render当中添加关于header渲染的代码</p>
+<pre><code>render() {
+    return (
+      &lt;ListView
+           renderSectionHeader={
+                (sectionData, sectionID) =&gt; &lt;Text&gt;{sectionID}&lt;/Text&gt;
+        }
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+      /&gt;
+    );
+  }
+</code></pre><p>这样一个带section的ListView就写出来了。</p>
+<h3 id="一些注意事项"><a href="#一些注意事项" class="headerlink" title="一些注意事项"></a>一些注意事项</h3><ol>
+<li>React Native不支持随ListView滚动的Header，如果需要，请在每个section当中的第一个Item当中添加</li>
+<li>如果ListView要下拉一下才显示出来，请设置ListView的属性<code>removeClippedSubviews={false}</code></li>
+<li>如果在iOS设备上ListView距离顶部导航栏有距离，请设置ListView的属性<code>automaticallyAdjustContentInsets={false}</code></li>
 </ol>
-<h3 id="搭建新的版本管理模型"><a href="#搭建新的版本管理模型" class="headerlink" title="搭建新的版本管理模型"></a>搭建新的版本管理模型</h3><p>因为SVN和Git的版本管理模型不同，而且可能一部分公司在使用SVN的过程中模型也不是很规范，所以需要重新搭建Git模型，如果之前在SVN上的使用的比较规范且模型和Git类似，可以直接在第二步（旧代码和提交信息的迁移）上迁移出来的仓库上开发。<br><br>我们需要做的操作如下：<br><br>1.在GitLab上建立一个新的代码仓库，并clone远程仓库到本地，文件夹名称为XXX<br><br>2.将需要迁移的最新版本的SVN代码（此处是工程的最新版本的代码，并不是SVN上对应仓库的全部代码）更新下来，并复制到XXX文件下<br><br>3.将XXX文件下的代码提交，并推送到Git远程仓库，然后按照之前的Git模型管理即可</p>
-<p>以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a>、<a href="http://www.smartsvn.com/" target="_blank" rel="external">SmartSVN</a>等神器。<br><br>在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。<br></p>
-<h3 id="旧代码和提交信息的迁移"><a href="#旧代码和提交信息的迁移" class="headerlink" title="旧代码和提交信息的迁移"></a>旧代码和提交信息的迁移</h3><p>下面我们着重介绍旧代码和旧的提交信息的迁移，因为这部分只是用作对历史提交的记录，因此需要新建一个仓库用来存储，而且后续也不在此仓库上开发。<br></p>
-<h4 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h4><p>假设想要将SVN项目检出到myGit文件夹下<br><br>1.在要迁移的文件夹下添加SVN用户到Git用的映射文件，文件名为：userinfo.txt.</p>
-<p>文件内容为：（[SVN上的名字] = [Git上的名字] &lt;[Git上的email]&gt;，下面第一行必需）</p>
-<pre><code>VisualSVN Server = Visual SVN Server\&lt;admin@showjoy.com\&gt;
-shuhai=shuhai\&lt;shuhai@showjoy.com\&gt;
-</code></pre><p>2.使用git svn clone命令克隆一个Git版本库，包含SVN里面的trunk、branches和tags。</p>
-<pre><code>git svn clone &lt;SVN地址&gt; --no-metadata --authors-file=userinfo.txt --trunk= trunk --tags=tags --branches=branches --ignore-refs=&lt;忽视的分支&gt; gitName
-
-参数–no-metadata表示阻止Git导出SVN包含的一些无用信息
-参数–authors-file表示SVN账号映射到Git账号文件，所有svn作者都要做映射
-参数–trunk表示主开发项目
-参数–branches表示分支项目
-参数–ignore-refs表示不包含后面的分支项目（可缺省）
-参数gitName表示Git项目名称
-</code></pre><p>3.上述步骤成功，则可通过git log 查看项目提交的历史记录，包括作者，日照，和提交注释信息等，证明SVN相应的提交信息已经被克隆到本地仓库<br><br>4.将SVN上的tags分支转为tags</p>
-<pre><code>git tag mobile_1.0.0 tags/mobile_1.0.0
-git tag mobile_1.0.1 tags/mobile_1.0.1
-</code></pre><p>5.将多余的branches删除掉</p>
-<pre><code>git branch -r -d tags/mobile_1.0.0
-Deleted remote branch tags/mobile_1.0.0 (was d50002b).
-git branch -r -d tags/mobile_1.0.1
-Deleted remote branch tags/mobile_1.0.1 (was e7b78a2).
-</code></pre><p>6.列出并检查当前所有分支（此步骤可缺省）</p>
-<pre><code>git branch -r
-</code></pre><p>7.建立Git仓库并初始化版本库（克隆后默认初始化，可缺省，若遇到没初始化的情况，请在仓库文件夹下cd .git初始化，该文件为隐藏文件）</p>
-<pre><code>cd .git
-git init --bare
-</code></pre><p>8.添加远程Git服务器地址（建议先在远程建立好对应的仓库）</p>
-<pre><code>git remote add origin git@git.showjoy.net:showjoyios/tashow.git
-</code></pre><p>9.使用git push命令推送全部的分支和标签信息到git服务器上面</p>
-<pre><code>git push origin master --tags
-</code></pre><p>10.推送代码完成后就可以在服务器上看到对应的代码和提交记录了，其他人员就可以克隆使用Git仓库了<br></p>
-<h4 id="可能会用到"><a href="#可能会用到" class="headerlink" title="可能会用到"></a>可能会用到</h4><p>1.相关shell命令</p>
-<pre><code>mkdir &lt;filename&gt;  建立文件夹
-出现Permission denied提示时请在命令前加sudo以管理员权限执行
-
-sudo rm -rf &lt;filePath&gt;  删除文件目录
--r 就是向下递归，不管有多少级目录，一并删除
--f 就是直接强行删除，不作任何提示的意思
-</code></pre><p>2.ssh方式使用git<br><br>a.输入命令<code>cat ~/.ssh/id_rsa.pub</code>检查本地是否有SSH Key，如果有可以跳过b、c两步</p>
-<p>b.输入命令<code>ssh-keygen -t rsa -C &quot;&lt;git邮箱&gt;&quot;</code>生成SSH Key</p>
-<p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
-<p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
-<p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x61;&#x64;&#109;&#x69;&#x6e;&#x40;&#121;&#x6f;&#x75;&#x72;&#x64;&#x6f;&#109;&#97;&#105;&#110;&#x2e;&#x63;&#111;&#x6d;&#92;">&#x61;&#x64;&#109;&#x69;&#x6e;&#x40;&#121;&#x6f;&#x75;&#x72;&#x64;&#x6f;&#109;&#97;&#105;&#110;&#x2e;&#x63;&#111;&#x6d;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
-<pre><code>git remote -v 查看当前绑定的远程地址
-git remote remove &lt;repo&gt; 移除绑定的远程仓库
-git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
-git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加仓库远程地址
-</code></pre><p>3.错误Write failed: Broken pipe; git error: pack-objects died of signal 13<br><br>同错误4，采用ssh方式上传即可，如果还是不行，重启一下电脑吧，有奇效（据说是终端长时间打开会造成网络连接失败）<br><br>4.错误fatal: The remote end hung up unexpectedly，单个文件过大超出gitlab限制<br><br>采用ssh方式上传即可<br><br>5.错误Warning: Permanently added the RSA host key for IP address ‘222.186.133.56’ to the list of known hosts.    </p>
-<p>Permission denied (publickey).</p>
-<p>fatal: Could not read from remote repository.<br><br>ssh公钥key未配置</p>
 
       
     </div>
@@ -282,18 +322,9 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
     
 <nav id="article-nav">
   
-    <a href="/2016/06/23/通话状态下的UI优化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          通话状态下的UI优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/06/14/[转]一个成功的Git分支模型/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">[转]一个成功的Git分支模型</div>
+    <a href="/2017/06/20/文档网站生成工具docsify/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">文档网站生成工具docsify</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -328,7 +359,7 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="SVN迁移到Git" data-title="SVN迁移到Git" data-url="http://yoursite.com/2016/06/15/SVN迁移到Git/"></div>
+	<div class="ds-thread" data-thread-key="React-Native之如何写一个ListView" data-title="React Native之如何写一个ListView" data-url="http://yoursite.com/2017/07/05/React-Native之如何写一个ListView/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
