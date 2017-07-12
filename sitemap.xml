@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2017-07-12T08:07:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/07/05/React-Native%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAListView/</loc>
     
     <lastmod>2017-07-12T08:01:18.000Z</lastmod>
@@ -124,13 +131,6 @@
     <loc>http://yoursite.com/2016/10/24/iOS%E6%BB%9A%E5%8A%A8%E8%A7%86%E5%9B%BE%E4%B8%8B%E5%8E%8B%E5%85%A8%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2016-11-01T07:36:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2016-09-08T11:30:58.000Z</lastmod>
     
   </url>
   
