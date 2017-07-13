@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 10px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,71 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-移除SourceTree无用远程分支" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/06/移除SourceTree无用远程分支/" class="article-date">
+  	<time datetime="2017-02-06T02:25:57.000Z" itemprop="datePublished">2017-02-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/06/移除SourceTree无用远程分支/">移除SourceTree无用远程分支</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。</p>
+<p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
+<p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="http://o84wamnts.bkt.clouddn.com/20170206-2.png" alt="20170206-2"></li>
+<li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
+<li>重启SourceTree即可。</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-2016年个人总结" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -735,66 +800,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/07/18/如何自定义一个不规则的Button/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-通话状态下的UI优化" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/23/通话状态下的UI优化/" class="article-date">
-  	<time datetime="2016-06-23T07:51:06.000Z" itemprop="datePublished">2016-06-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/23/通话状态下的UI优化/">通话状态下的UI优化</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在开发过程中遇到一个比较特殊的优化点，在通话过程中APP UI会有下压被部分遮盖的问题。<br><br>以前偶尔在使用别的APP的时候也会遇到这个问题，但是当时并没有太在意，因为UI下移了一小块并不太影响操作，而且这种情况只有在你语音通话过程中才会出现，场景也比较特定。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS优化/">iOS优化</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/23/通话状态下的UI优化/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

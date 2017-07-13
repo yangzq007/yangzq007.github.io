@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 10px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,116 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-React-Native之mobx绑定" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/12/React-Native之mobx绑定/" class="article-date">
+  	<time datetime="2017-07-12T08:53:33.000Z" itemprop="datePublished">2017-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/12/React-Native之mobx绑定/">React Native之mobx绑定</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为一个iOS开发，想必大家都经历过把很多状态和逻辑放到Controller当中的时候，当Controller逐渐变大，数据处理逻辑、视图展示逻辑和状态控制逻辑混在一起会导致代码越来越难维护，RN当中的State也会存在这样的问题，我们引入mobx就是为了解决这样的问题。</p>
+<blockquote>
+<p>MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展。</p>
+</blockquote>
+<p>mobx通过响应式的结构将数据和视图的处理逻辑进行分离，比较好的解决了状态维护的问题，再将数据处理分离出去就是一个标准的MVVM的结构，开发者在VM当中对数据和视图进行了绑定后就可以只关心视图的渲染和数据的处理了，这样也更容易理解。</p>
+<h3 id="mobx的使用"><a href="#mobx的使用" class="headerlink" title="mobx的使用"></a>mobx的使用</h3><p>使用前，首先我们要安装下</p>
+<pre><code>npm install mobx --save
+npm install mobx-react --save    //React 绑定库
+</code></pre><p>然后是分别在数据绑定文件和视图文件当中中添加装饰器绑定，下面是部分示例代码</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
+
+class IndexStore {
+    @observable listData = [];
+}
+
+//视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+import IndexStore from &apos;indexStore&apos;;
+
+@observer
+class Index extends Component {
+    constructor() {
+        super();
+        this.store = new IndexStore();
+    }
+
+    render() {
+    return (
+        &lt;MainItem dataSource={this.store.listData}
+        renderHeader={
+            () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;
+        } /&gt;
+    )
+}
+</code></pre><h3 id="mobx的绑定过程"><a href="#mobx的绑定过程" class="headerlink" title="mobx的绑定过程"></a>mobx的绑定过程</h3><p>mobx在建立绑定时先将视图的render()走一遍，收集视图和被观察数据的关联，并将这些关联储存起来。当数据源发生变化之后，mbox就根据这些对应的关联，刷新对应的视图。</p>
+<p>需要注意的是以下两种情况，对应的视图和关联不会被收集到：</p>
+<p>1.赋值给属性的函数当中的关联不会在当前视图中收集</p>
+<p>比如上面实例当中的renderHeader属性赋值的函数<code>() =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;</code>，因为Item作为返回值返回，并不属于该视图当中的渲染。不过store当中的数据可以在Item当中的渲染中绑定，但需要你在Item中添加@observer.</p>
+<p>2.直接使用被观察变量的值，未出现对应的引用</p>
+<p>比如在Item当中添加了@observer，但是直接将被被观测变量的值赋值给了Item也是无法建立关联的，比如下面这种写法</p>
+<pre><code>renderHeader={
+    () =&gt; &lt;Item data={this.store.listData}&gt;&lt;/Item&gt;
+}
+</code></pre><p>这样被观测变量的值赋了过去，在Item的render当中并没有被观察变量引用，这样mobx认为是没有被观察数据使用的。正确的方法是像实例当中那样把被观测数据的父级引用传递过去，在Item当中使用父级引用来引用被观察变量来使用。</p>
+<p>只要注意了以上两种情况，mobx的绑定基本就没有什么大问题了，接下来就是享受mobx给你带来的便利了。</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>绑定建立完成后，需要注意被观察的变量引用发生变化时必须是一个新值，指向一个新的地址，直接修改变量当中的值并不会让被观察变量的值发生变化，界面并不会刷新。</p>
+<pre><code>class IndexStore {
+    //this.listData的值没有变化，界面不会刷新
+    this.listData[0] = &quot;1&quot;;
+
+    //this.listData是一个新值，界面刷新
+    this.listData = [&quot;1&quot;];
+}
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-React-Native之如何写一个ListView" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -862,71 +972,6 @@ unset ALL_PROXY
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/热修复/">热修复</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/那些坑/">那些坑</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-移除SourceTree无用远程分支" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/06/移除SourceTree无用远程分支/" class="article-date">
-  	<time datetime="2017-02-06T02:25:57.000Z" itemprop="datePublished">2017-02-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/06/移除SourceTree无用远程分支/">移除SourceTree无用远程分支</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。</p>
-<p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
-<p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
-<li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="http://o84wamnts.bkt.clouddn.com/20170206-2.png" alt="20170206-2"></li>
-<li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
-<li>重启SourceTree即可。</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
 	</div>
 
       

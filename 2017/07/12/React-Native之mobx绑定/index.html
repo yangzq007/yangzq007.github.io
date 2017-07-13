@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Archives: 2017/7 | 那片树海</title>
+  <title>React Native之mobx绑定 | 那片树海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="那片树海">
-<meta property="og:url" content="http://yoursite.com/archives/2017/07/index.html">
+  <meta name="description" content="React Native之mobx绑定过程和一些坑">
+<meta name="keywords" content="ReactNative,mobx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native之mobx绑定">
+<meta property="og:url" content="http://yoursite.com/2017/07/12/React-Native之mobx绑定/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="React Native之mobx绑定过程和一些坑">
+<meta property="og:updated_time" content="2017-07-13T07:03:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="那片树海">
+<meta name="twitter:title" content="React Native之mobx绑定">
+<meta name="twitter:description" content="React Native之mobx绑定过程和一些坑">
   
     <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
   
@@ -172,84 +177,162 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-React-Native之mobx绑定" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/12/React-Native之mobx绑定/" class="archive-article-date">
-  	<time datetime="2017-07-12T08:53:33.000Z" itemprop="datePublished">Jul 12</time>
+    <div class="article-meta">
+      <a href="/2017/07/12/React-Native之mobx绑定/" class="article-date">
+  	<time datetime="2017-07-12T08:53:33.000Z" itemprop="datePublished">2017-07-12</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/12/React-Native之mobx绑定/">React Native之mobx绑定</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React Native之mobx绑定
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      </div>
+      
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/05/React-Native之如何写一个ListView/" class="archive-article-date">
-  	<time datetime="2017-07-05T03:11:43.000Z" itemprop="datePublished">Jul 5</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/05/React-Native之如何写一个ListView/">React Native之如何写一个ListView</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为一个iOS开发，想必大家都经历过把很多状态和逻辑放到Controller当中的时候，当Controller逐渐变大，数据处理逻辑、视图展示逻辑和状态控制逻辑混在一起会导致代码越来越难维护，RN当中的State也会存在这样的问题，我们引入mobx就是为了解决这样的问题。</p>
+<blockquote>
+<p>MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展。</p>
+</blockquote>
+<p>mobx通过响应式的结构将数据和视图的处理逻辑进行分离，比较好的解决了状态维护的问题，再将数据处理分离出去就是一个标准的MVVM的结构，开发者在VM当中对数据和视图进行了绑定后就可以只关心视图的渲染和数据的处理了，这样也更容易理解。</p>
+<h3 id="mobx的使用"><a href="#mobx的使用" class="headerlink" title="mobx的使用"></a>mobx的使用</h3><p>使用前，首先我们要安装下</p>
+<pre><code>npm install mobx --save
+npm install mobx-react --save    //React 绑定库
+</code></pre><p>然后是分别在数据绑定文件和视图文件当中中添加装饰器绑定，下面是部分示例代码</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
+class IndexStore {
+    @observable listData = [];
+}
+
+//视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+import IndexStore from &apos;indexStore&apos;;
+
+@observer
+class Index extends Component {
+    constructor() {
+        super();
+        this.store = new IndexStore();
+    }
+
+    render() {
+    return (
+        &lt;MainItem dataSource={this.store.listData}
+        renderHeader={
+            () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;
+        } /&gt;
+    )
+}
+</code></pre><h3 id="mobx的绑定过程"><a href="#mobx的绑定过程" class="headerlink" title="mobx的绑定过程"></a>mobx的绑定过程</h3><p>mobx在建立绑定时先将视图的render()走一遍，收集视图和被观察数据的关联，并将这些关联储存起来。当数据源发生变化之后，mbox就根据这些对应的关联，刷新对应的视图。</p>
+<p>需要注意的是以下两种情况，对应的视图和关联不会被收集到：</p>
+<p>1.赋值给属性的函数当中的关联不会在当前视图中收集</p>
+<p>比如上面实例当中的renderHeader属性赋值的函数<code>() =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;</code>，因为Item作为返回值返回，并不属于该视图当中的渲染。不过store当中的数据可以在Item当中的渲染中绑定，但需要你在Item中添加@observer.</p>
+<p>2.直接使用被观察变量的值，未出现对应的引用</p>
+<p>比如在Item当中添加了@observer，但是直接将被被观测变量的值赋值给了Item也是无法建立关联的，比如下面这种写法</p>
+<pre><code>renderHeader={
+    () =&gt; &lt;Item data={this.store.listData}&gt;&lt;/Item&gt;
+}
+</code></pre><p>这样被观测变量的值赋了过去，在Item的render当中并没有被观察变量引用，这样mobx认为是没有被观察数据使用的。正确的方法是像实例当中那样把被观测数据的父级引用传递过去，在Item当中使用父级引用来引用被观察变量来使用。</p>
+<p>只要注意了以上两种情况，mobx的绑定基本就没有什么大问题了，接下来就是享受mobx给你带来的便利了。</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>绑定建立完成后，需要注意被观察的变量引用发生变化时必须是一个新值，指向一个新的地址，直接修改变量当中的值并不会让被观察变量的值发生变化，界面并不会刷新。</p>
+<pre><code>class IndexStore {
+    //this.listData的值没有变化，界面不会刷新
+    this.listData[0] = &quot;1&quot;;
+
+    //this.listData是一个新值，界面刷新
+    this.listData = [&quot;1&quot;];
+}
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/05/React-Native之如何写一个ListView/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React Native之如何写一个ListView</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="React-Native之mobx绑定" data-title="React Native之mobx绑定" data-url="http://yoursite.com/2017/07/12/React-Native之mobx绑定/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shuhai"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -275,8 +358,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
