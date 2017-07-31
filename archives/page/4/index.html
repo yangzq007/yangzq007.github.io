@@ -4,21 +4,14 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory | 那片树海</title>
+  <title>Archives | 那片树海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
-<meta name="keywords" content="iOS,CocoaPods">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
-<meta property="og:url" content="http://yoursite.com/2016/06/02/CocoaPods更新工程后编译提示无framework脚本错误/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="那片树海">
+<meta property="og:url" content="http://yoursite.com/archives/page/4/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg">
-<meta property="og:updated_time" content="2016-07-21T06:21:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
-<meta name="twitter:description" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg">
+<meta name="twitter:title" content="那片树海">
   
     <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
   
@@ -179,120 +172,57 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-CocoaPods更新工程后编译提示无framework脚本错误" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
   
-    <div class="article-meta">
-      <a href="/2016/06/02/CocoaPods更新工程后编译提示无framework脚本错误/" class="article-date">
-  	<time datetime="2016-06-02T06:38:01.000Z" itemprop="datePublished">2016-06-02</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2015/12/04/第一篇文章-那片树海的Hello World/" class="archive-article-date">
+  	<time datetime="2015-12-04T09:52:19.000Z" itemprop="datePublished">Dec 4</time>
 </a>
-    </div>
+        </div>
+    	 
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/12/04/第一篇文章-那片树海的Hello World/">第一篇文章-那片树海的Hello World</a>
     </h1>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客历程/">博客历程</a></li></ul>
 	</div>
 
-        
+          
 
+        </div>
         <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。<br><br>当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。<br><br><a id="more"></a></p>
-<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>经过认真的比较工程前后的差别，发现这是由于在开发过程汇总CocoaPods版本不同造成的问题。<br><br>较高版本的CocoaPods更新工程的时会生成一个文件名为Pods-framework.sh脚本文件，并向工程的.xcodeproj当中添加相关调用脚本的配置，我使用的版本（0.35.0）却不会。当我更新工程时，CocoaPods（0.35.0）只移除了高版本生成的脚本文件，却没有修改配置，导致编译时寻找该文件却找不到，提示错误。<br></p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.最快速有效的解决方法：删除调用Pods-framework.sh的配置<br><img src="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg" alt="DeleteConfig"><br><br>2.最根本的方法：升级CocoaPods，重新更新生成工程</p>
-
-      
-    </div>
-    
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/06/14/[转]一个成功的Git分支模型/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          [转]一个成功的Git分支模型
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/05/19/WKWebView的那些坑/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">WKWebView的那些坑</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
 
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
-    <a class="jiathis_button_plus"></a> 
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="CocoaPods更新工程后编译提示无framework脚本错误" data-title="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory" data-url="http://yoursite.com/2016/06/02/CocoaPods更新工程后编译提示无framework脚本错误/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"shuhai"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/page/3/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
 
 </div>
       <footer id="footer">
@@ -318,8 +248,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false

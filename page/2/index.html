@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 12.5px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,68 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-JSPatch的一些坑" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/08/JSPatch的一些坑/" class="article-date">
+  	<time datetime="2017-02-08T06:50:56.000Z" itemprop="datePublished">2017-02-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/08/JSPatch的一些坑/">JSPatch的一些坑</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。</p>
+<h3 id="2017-02-08更新"><a href="#2017-02-08更新" class="headerlink" title="2017.02.08更新"></a>2017.02.08更新</h3><p>1.一些无法直接调用的常量应该怎么写，特别是系统定义的？</p>
+<p>使用NSLog将对应常量值输出，直接使用输出的常量值替代<br><br>2.在JS当中发现不能调用方法，导致JS文件执行中断，使用console.log输出，发现为[NSObject object]</p>
+<p>这种情况说明当前对象没有序列化，需转换成JS对象使用，调用toJS()即可</p>
+<pre><code>var temp = registrationID.toJS();
+</code></pre><p>更多问题详见JSPatch官方文档，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatch 基础用法</a>，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" target="_blank" rel="external">JSPatch 常见问题</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/热修复/">热修复</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/那些坑/">那些坑</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-移除SourceTree无用远程分支" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -758,69 +820,9 @@
 
 
   
-    <article id="post-如何自定义一个不规则的Button" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/18/如何自定义一个不规则的Button/" class="article-date">
-  	<time datetime="2016-07-18T08:39:30.000Z" itemprop="datePublished">2016-07-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/18/如何自定义一个不规则的Button/">如何自定义一个不规则的Button</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有些时候我们会碰到自定义不规则button的需求，我们会采用设置button图片的方式来解决，但是这种方式针对饼状图按钮或者其他复杂的样式实现起来就会有困难，而且这种方式在响应区域上也存在一定的问题。下面我就和大家分享一个比较好的方法。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/18/如何自定义一个不规则的Button/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
