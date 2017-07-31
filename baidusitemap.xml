@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/07/31/iOS%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/</loc>
+    <lastmod>2017-07-31T06:52:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS工程文件整理</title>
+        <pubTime>2017-07-31T02:17:30.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Xcode</tag>
+         
+        <tag>脚本</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/07/12/React-Native%E4%B9%8Bmobx%E7%BB%91%E5%AE%9A/</loc>
     <lastmod>2017-07-31T06:38:34.000Z</lastmod>
     <data>
@@ -29,27 +50,6 @@
         <pubTime>2017-07-05T03:11:43.000Z</pubTime>
         
         <tag>ReactNative</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/07/31/iOS%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/</loc>
-    <lastmod>2017-07-31T06:35:57.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS工程文件整理</title>
-        <pubTime>2017-07-31T02:17:30.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>Xcode</tag>
-         
-        <tag>脚本</tag>
          
          
            
