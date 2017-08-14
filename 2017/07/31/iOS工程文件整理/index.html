@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="python脚本将Xcode工程文件物理位置对应">
 <meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170731-1.png">
-<meta property="og:updated_time" content="2017-07-31T06:52:32.000Z">
+<meta property="og:updated_time" content="2017-08-14T07:58:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS工程文件整理">
 <meta name="twitter:description" content="python脚本将Xcode工程文件物理位置对应">
@@ -222,7 +222,7 @@
 <li>多余的未被工程引用的文件</li>
 </ol>
 <p>这两个问题在工程变得比较大的时候，对工程的影响就比较让人难受了，于是我决定对工程进行整理。</p>
-<p>因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。</p>
+<p>因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。<a id="more"></a></p>
 <h3 id="文件物理位置不对应的原因"><a href="#文件物理位置不对应的原因" class="headerlink" title="文件物理位置不对应的原因"></a>文件物理位置不对应的原因</h3><p>说到这个问题，我们就需要提一下project.pbxproj文件了，对，就是那个每次合并冲突都让人头疼的文件。</p>
 <p><a href="http://www.monobjc.net/xcode-project-file-format.html" target="_blank" rel="external">project.pbxproj</a>文件本质上是一种旧风格的plist，因为可读性不是很好，逐渐被弃用，但是苹果却一直沿用，在这个文件当中包含了Xcode工程的各项配置和参数。project.pbxproj文件采用UDID作为key索引来保证文件的唯一性，同时又在value当中指定其对应子节点的UDID值，这样就将一个树形结构的数据用列表形式表示了出来（UDID是根据硬件和时间戳生成的唯一标识，这里不再详细解释其过程），工程的虚拟文件目录就是这么来的。</p>
 <p>下面是一个转换成标准plist的结构，我们可以看到它的引用方式</p>
@@ -362,6 +362,15 @@ else:
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/08/11/一个优雅的水波动画/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          一个优雅的水波动画
+        
+      </div>
+    </a>
   
   
     <a href="/2017/07/12/React-Native之mobx绑定/" id="article-nav-older" class="article-nav-link-wrap">

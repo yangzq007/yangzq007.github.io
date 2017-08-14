@@ -174,6 +174,69 @@
 
       <div class="body-wrap">
   
+    <article id="post-一个优雅的水波动画" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/11/一个优雅的水波动画/" class="article-date">
+  	<time datetime="2017-08-11T02:51:04.000Z" itemprop="datePublished">2017-08-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/11/一个优雅的水波动画/">一个优雅的水波动画</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
+<p>如何实现一个如下图的动画呢？</p>
+<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-1.gif" alt="20170811-1"></p>
+<p>下面我们就来一步步的实现它。
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/11/一个优雅的水波动画/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-iOS工程文件整理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -206,139 +269,7 @@
 <li>多余的未被工程引用的文件</li>
 </ol>
 <p>这两个问题在工程变得比较大的时候，对工程的影响就比较让人难受了，于是我决定对工程进行整理。</p>
-<p>因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。</p>
-<h3 id="文件物理位置不对应的原因"><a href="#文件物理位置不对应的原因" class="headerlink" title="文件物理位置不对应的原因"></a>文件物理位置不对应的原因</h3><p>说到这个问题，我们就需要提一下project.pbxproj文件了，对，就是那个每次合并冲突都让人头疼的文件。</p>
-<p><a href="http://www.monobjc.net/xcode-project-file-format.html" target="_blank" rel="external">project.pbxproj</a>文件本质上是一种旧风格的plist，因为可读性不是很好，逐渐被弃用，但是苹果却一直沿用，在这个文件当中包含了Xcode工程的各项配置和参数。project.pbxproj文件采用UDID作为key索引来保证文件的唯一性，同时又在value当中指定其对应子节点的UDID值，这样就将一个树形结构的数据用列表形式表示了出来（UDID是根据硬件和时间戳生成的唯一标识，这里不再详细解释其过程），工程的虚拟文件目录就是这么来的。</p>
-<p>下面是一个转换成标准plist的结构，我们可以看到它的引用方式</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170731-1.png" alt="20170731-1"></p>
-<p>因此我们解决物理位置不对应的问题只需要读取project.pbxproj的虚拟目录，并检查当前目录下是否有该文件，如果没有，到其对应的物理路径下，将其剪切过来即可。</p>
-<p>针对第二个问题，我们可以扫描工程的整个物理目录，将每个文件去虚拟目录当中查找，如果没有被引用，直接删除即可。</p>
-<h3 id="脚本的编写"><a href="#脚本的编写" class="headerlink" title="脚本的编写"></a>脚本的编写</h3><p>我们使用python来完成这次的任务，为什么不用shell？因为bash 3不支持key-value结构，要升级到bash 4才可以，而python比较方便，就使用它了，推荐使用python 3，因为它简化了蛮多操作的，比如编码什么的，不推荐使用预装的python 2。</p>
-<p>1.读取project.pbxproj</p>
-<p>我们先需要使用以下命令将project.pbxproj转换成标准的plist，然后使用python库<code>biplist</code>读取</p>
-<pre><code>value=`plutil -convert xml1 -o - project.pbxproj` &amp;&amp; echo $value &gt;mPlistPath
-</code></pre><p>2.检查虚拟目录下对应的文件是否存在，并进行相应操作</p>
-<p>3.扫描工程物理路径，检查文件是否被引用，并进行操作</p>
-<p>脚本如下：</p>
-<pre><code># !/usr/bin/python
-# coding=utf-8
-
-from biplist import *
-import os
-
-global rootObjects
-global rootArr
-global plistPath
-
-####################变量设置区#################################
-rootPath= &quot;/Users/yzq/Desktop/Test/Test&quot;
-projectFilePath = &quot;/Users/yzq/Desktop/Test/Test.xcodeproj&quot;
-plistPath = &quot;/Users/yzq/Desktop/123.plist&quot;
-##############################################################
-
-def checkfile(filePath,filekey):
-    global rootObjects
-
-    dic = rootObjects[filekey]
-    # print(filekey) 
-
-    strPath = &quot;&quot;
-    if &quot;path&quot; in dic:
-        strPath = dic[&quot;path&quot;]
-    else:
-        strPath = dic[&quot;name&quot;]
-
-    path = filePath + &quot;/&quot; + strPath
-    if &quot;children&quot; in dic:
-        if len(dic[&quot;children&quot;]) &lt; 1:
-            print(&quot;空文件夹&quot;+&quot;------&quot;+path)
-        else:
-            for item in dic[&quot;children&quot;]:
-                checkfile(path,item)
-    else:
-        if os.path.exists(path) == False:
-            print(&quot;文件不存在&quot;+path)
-
-
-def startCheckFile(mRootPath):
-    global rootObjects
-    global plistPath
-
-    plist = readPlist(plistPath)
-    rootObjects = plist[&quot;objects&quot;]
-
-    for dic in rootObjects.values():
-        if (&quot;name&quot; in dic) and dic[&quot;name&quot;] == &quot;dfc_v3&quot;:
-            rootArr = dic[&quot;children&quot;]
-            break
-
-    print(rootArr)
-
-    for item in rootArr:
-        print(&quot;开始检查item&quot;+item+&quot;-------------------------------&quot;)
-        checkfile(mRootPath,item)
-
-
-def checkFileIsInProject(mPlistObject, mFileName, mFilePath):
-    for item in mPlistObject.values():
-        if ((&quot;path&quot; in item) and (item[&quot;path&quot;] == mFileName)) or ((&quot;name&quot; in item) and (item[&quot;name&quot;] == mFileName)):
-            # print(&quot;发现文件引用&quot;+mFileName)
-            return
-    print(&quot;未发现文件应用：&quot;+mFileName)
-    print(mFilePath)
-
-
-def checkProject(mPlistObject, mFilePath):
-    dirList = os.listdir(mFilePath)
-    for item in dirList:
-        itemPath = os.path.join(mFilePath,item)
-        if os.path.isfile(itemPath):
-            checkFileIsInProject(mPlistObject,item,itemPath)
-        elif os.path.isdir(itemPath):
-            checkProject(mPlistObject,itemPath)
-        else:
-            print(&quot;当前路径出错:&quot;+itemPath)
-
-
-def startCheckProject(mRootPath):
-    global plistPath
-
-    plist = readPlist(plistPath)
-    rootObjects = plist[&quot;objects&quot;]
-
-    checkProject(rootObjects,mRootPath)
-
-
-def getPlist(mProjectFilePath,mPlistPath):
-    command = &quot;rm -rf &quot;+mPlistPath
-    os.system(command)
-    command = &quot;value=`plutil -convert xml1 -o - &quot;+mProjectFilePath+&quot;/project.pbxproj` &amp;&amp; echo $value &gt;&quot;+mPlistPath
-    os.system(command)
-    print(&quot;生成plist文件:&quot;+mPlistPath)
-
-
-print(&quot;这是一个帮你检查工程文件的脚本，请输入以下数字选项执行&quot;)
-print(&quot;0.准备工作&quot;)
-print(&quot;1.检查工程列表当中的文件是否在对应的物理位置&quot;)
-print(&quot;2.检查工程当中是否有文件未加入引用&quot;)
-choice = input(&quot;请输入:&quot;)
-if choice == &quot;0&quot;:
-    print(&quot;请设置脚本rootPath、projectFilePath、plistPath三个变量的路径值&quot;)
-    print(&quot;rootPath：工程根目录，dfc_v2的那个文件夹目录&quot;)
-    print(&quot;projectFilePath：工程文件目录,dfc_v2.xcodeproj文件目录&quot;)
-    print(&quot;plistPath：生成plist文件所在位置，该位置任意，具备读写权限即可&quot;)
-elif choice == &quot;1&quot;:
-    getPlist(projectFilePath,plistPath)
-    startCheckFile(rootPath)
-elif choice == &quot;2&quot;:
-    getPlist(projectFilePath,plistPath)
-    startCheckProject(rootPath)
-else:
-    print(&quot;未输入正确的操作&quot;)
-</code></pre><p>因为贸然的使用脚本改动工程有一定的风险，所以我在脚本当中把有问题的文件及其目录输出，手动去改动。</p>
-<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><p>执行脚本，让后根据输出的结果修改工程，因为<code>Supporting Files</code>下的文件直接是在主目录下的，它下面的文件直接忽略即可。</p>
-<pre><code>python3 my.py
-</code></pre>
+<p>因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。
       
     </div>
     
@@ -351,6 +282,10 @@ else:
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/31/iOS工程文件整理/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -920,71 +855,6 @@ unset ALL_PROXY
       
         <p class="article-more-link">
           <a  href="/2017/03/29/终端翻墙/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-使用Shell脚本批量压缩图片" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/08/使用Shell脚本批量压缩图片/" class="article-date">
-  	<time datetime="2017-02-08T09:00:03.000Z" itemprop="datePublished">2017-02-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/08/使用Shell脚本批量压缩图片/">使用Shell脚本批量压缩图片</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。</p>
-<p>在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。</p>
-<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/" target="_blank" rel="external">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
-<p>不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。</p>
-<p>shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。</p>
-<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/02/08/使用Shell脚本批量压缩图片/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -174,6 +174,71 @@
 
       <div class="body-wrap">
   
+    <article id="post-使用Shell脚本批量压缩图片" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/08/使用Shell脚本批量压缩图片/" class="article-date">
+  	<time datetime="2017-02-08T09:00:03.000Z" itemprop="datePublished">2017-02-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/08/使用Shell脚本批量压缩图片/">使用Shell脚本批量压缩图片</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。</p>
+<p>在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。</p>
+<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/" target="_blank" rel="external">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
+<p>不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。</p>
+<p>shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。</p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/02/08/使用Shell脚本批量压缩图片/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-JSPatch的一些坑" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -734,74 +799,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/07/29/H5与原生交互的两种方式/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-从Octopress迁移到Hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/21/从Octopress迁移到Hexo/" class="article-date">
-  	<time datetime="2016-07-21T08:29:15.000Z" itemprop="datePublished">2016-07-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/21/从Octopress迁移到Hexo/">从Octopress迁移到Hexo</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前看到有挺多人弃用Octopress投奔了Hexo，刚好赶上前段时间稍微宽松点，就自己搭建了下试试。</p>
-<p>以下是自己的几点使用感受：</p>
-<ol>
-<li>generate生成的速度确实是蛮快的</li>
-<li>相关命令使用比较顺手</li>
-<li>文件结构比较合理</li>
-<li>从Octopress迁移成本小</li>
-</ol>
-<p>所以我就把自己的博客也迁移到了Hexo。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客历程/">博客历程</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/07/21/从Octopress迁移到Hexo/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
