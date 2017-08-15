@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-14T07:58:54.000Z</updated>
+  <updated>2017-08-15T02:06:27.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/"/>
     <id>http://yoursite.com/2017/08/11/一个优雅的水波动画/</id>
     <published>2017-08-11T02:51:04.000Z</published>
-    <updated>2017-08-14T07:58:54.000Z</updated>
+    <updated>2017-08-15T02:06:27.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
 <p>如何实现一个如下图的动画呢？</p>
@@ -122,7 +122,8 @@ _firstWaveLayer.path = [self getFirstCurrentWavePath];
 const static float FirstWaveAmplitude = 20.0f;//振幅比例
 const static float FirstWaveNum = 1;//容纳曲线循环个数
 const static float FirstWaveSpeed = 0.05f;//波浪速度
-</code></pre>]]></content>
+</code></pre><p>源码：<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="external">https://github.com/yangzq007/SHDemo</a>-&gt;水波动画</p>
+]]></content>
     
     <summary type="html">
     
