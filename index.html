@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 12.5px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,101 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-一行命令搞定工程图片浏览查找" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/12/一行命令搞定工程图片浏览查找/" class="article-date">
+  	<time datetime="2017-09-12T06:26:59.000Z" itemprop="datePublished">2017-09-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/一行命令搞定工程图片浏览查找/">一行命令搞定工程图片浏览查找</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在项目开发过程中随着项目的逐渐增大，项目当中的图片资源会越来越多，而且有些时候因为命名不规范和人员的变动等原因会造成项目当中重复的图片资源越来越多，而且Xcode查看图片的方式也不集中，查找起来也不方便，这种情况下我们往往会更倾向于添加一个新的图片资源，从而更加剧了图片资源重复的问题。</p>
+<p>为了解决这个问题，我们打算来写一个脚本，把工程当中图片数据扫描一遍，然后用html集中显示出来，这样就方便我们来查找了。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>我们基本上需要解决以下3个问题</p>
+<ol>
+<li>工程资源文件扫描脚本的编写</li>
+<li>html展示页面的编写</li>
+<li>html页面和扫描脚本的数据交互</li>
+</ol>
+<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>脚本采用python实现，是一个递归查找并记录的过程，代码整体逻辑并不复杂，表现层的html也都是比较简单的原生html代码和js代码，这里就不做详细介绍了，我们简单的看下检查依赖和数据交互的逻辑。</p>
+<p>下面这段代码就是检查依赖的方法，以前都是在文档当中提示使用者手动安装，现在我们可以用这样一个方法检索用户的特定库的安装列表，如果没有安装相应库，则执行相应命令帮其安装。</p>
+<pre><code>def checkDepend():
+    print &quot;检查依赖库...&quot;
+    isHavePillow = False
+    r = os.popen(&quot;pip freeze&quot;)
+    x = r.readlines()
+    for line in x:
+        if line.startswith(&quot;Pillow=&quot;):
+            isHavePillow = True
+    if isHavePillow:
+        print &quot;依赖库存在&quot;
+    else:
+        print &quot;依赖库不存在，安装依赖库...&quot;
+        os.system(&quot;sudo pip install Pillow&quot;)
+        print &quot;依赖库安装完成&quot;
+</code></pre><p>下面这个方法就是将检索到数据生成js的方法，我们可以看到它是直接将数组当中的内容转化为json并拼接成一个赋值给imageData变量的字符串，利用python的文件操作，将此字符串写入一个名为imageData.js的文件当中，这样就可以被html引用并操作imageData变量了。</p>
+<pre><code>def generateJSFile(mArrImageData):
+    if os.path.exists(&quot;./imageData.js&quot;):
+        os.remove(&quot;./imageData.js&quot;)
+    f = open(&quot;./imageData.js&quot;, &apos;w&apos;)
+    strJson = json.dumps({&quot;data&quot;:mArrImageData})
+    strDes = &quot;var imageData = &quot; + strJson
+    # print strJson
+    f.write(strDes)
+    f.close()
+</code></pre><p>源代码请戳这里<a href="https://github.com/yangzq007/SHScript/tree/master/FindImage" target="_blank" rel="external">FindImage</a>。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>将源代码clone或者下载到本地，并根据README当中提示修改<code>path</code>为自己的工程目录，然后执行下面命令，脚本便会帮你检索并打开相应的浏览页面，轻松一行命令搞定。</p>
+<pre><code>python findImage.py
+</code></pre><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>html5提供了读取文件的API——FileReader，利用它来实现数据交互也是一个不错的选择。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-一个优雅的水波动画" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -775,86 +870,6 @@ export LANG=en_US.UTF-8
       
         <p class="article-more-link">
           <a  href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-终端翻墙" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/29/终端翻墙/" class="article-date">
-  	<time datetime="2017-03-29T06:45:05.000Z" itemprop="datePublished">2017-03-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/终端翻墙/">终端翻墙</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。</p>
-<p>翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。</p>
-<p>我们可以终端当中输入以下命令使终端的请求走相应的代理</p>
-<pre><code>//设置http和https请求代理
-export http_proxy=http://127.0.0.1:8118
-export https_proxy=http://127.0.0.1:8118
-
-//sock5协议请使用
-export http_proxy=socks5://127.0.0.1:1080
-export https_proxy=socks5://127.0.0.1:1080
-
-//移除配置
-unset http_proxy
-unset https_proxy
-</code></pre><p>我们拉取的时候有的时候可能会用到ssh，我们可以这样配置</p>
-<pre><code>//设置所有协议代理
-export ALL_PROXY=socks5://127.0.0.1:1080
-
-//移除配置
-unset ALL_PROXY
-</code></pre><p>当前这些配置只对当前终端有效<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/03/29/终端翻墙/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

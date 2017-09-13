@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-15T02:06:27.000Z</updated>
+  <updated>2017-09-13T06:47:50.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一行命令搞定工程图片浏览查找</title>
+    <link href="http://yoursite.com/2017/09/12/%E4%B8%80%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%90%9E%E5%AE%9A%E5%B7%A5%E7%A8%8B%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88%E6%9F%A5%E6%89%BE/"/>
+    <id>http://yoursite.com/2017/09/12/一行命令搞定工程图片浏览查找/</id>
+    <published>2017-09-12T06:26:59.000Z</published>
+    <updated>2017-09-13T06:47:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在项目开发过程中随着项目的逐渐增大，项目当中的图片资源会越来越多，而且有些时候因为命名不规范和人员的变动等原因会造成项目当中重复的图片资源越来越多，而且Xcode查看图片的方式也不集中，查找起来也不方便，这种情况下我们往往会更倾向于添加一个新的图片资源，从而更加剧了图片资源重复的问题。</p>
+<p>为了解决这个问题，我们打算来写一个脚本，把工程当中图片数据扫描一遍，然后用html集中显示出来，这样就方便我们来查找了。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>我们基本上需要解决以下3个问题</p>
+<ol>
+<li>工程资源文件扫描脚本的编写</li>
+<li>html展示页面的编写</li>
+<li>html页面和扫描脚本的数据交互</li>
+</ol>
+<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>脚本采用python实现，是一个递归查找并记录的过程，代码整体逻辑并不复杂，表现层的html也都是比较简单的原生html代码和js代码，这里就不做详细介绍了，我们简单的看下检查依赖和数据交互的逻辑。</p>
+<p>下面这段代码就是检查依赖的方法，以前都是在文档当中提示使用者手动安装，现在我们可以用这样一个方法检索用户的特定库的安装列表，如果没有安装相应库，则执行相应命令帮其安装。</p>
+<pre><code>def checkDepend():
+    print &quot;检查依赖库...&quot;
+    isHavePillow = False
+    r = os.popen(&quot;pip freeze&quot;)
+    x = r.readlines()
+    for line in x:
+        if line.startswith(&quot;Pillow=&quot;):
+            isHavePillow = True
+    if isHavePillow:
+        print &quot;依赖库存在&quot;
+    else:
+        print &quot;依赖库不存在，安装依赖库...&quot;
+        os.system(&quot;sudo pip install Pillow&quot;)
+        print &quot;依赖库安装完成&quot;
+</code></pre><p>下面这个方法就是将检索到数据生成js的方法，我们可以看到它是直接将数组当中的内容转化为json并拼接成一个赋值给imageData变量的字符串，利用python的文件操作，将此字符串写入一个名为imageData.js的文件当中，这样就可以被html引用并操作imageData变量了。</p>
+<pre><code>def generateJSFile(mArrImageData):
+    if os.path.exists(&quot;./imageData.js&quot;):
+        os.remove(&quot;./imageData.js&quot;)
+    f = open(&quot;./imageData.js&quot;, &apos;w&apos;)
+    strJson = json.dumps({&quot;data&quot;:mArrImageData})
+    strDes = &quot;var imageData = &quot; + strJson
+    # print strJson
+    f.write(strDes)
+    f.close()
+</code></pre><p>源代码请戳这里<a href="https://github.com/yangzq007/SHScript/tree/master/FindImage" target="_blank" rel="external">FindImage</a>。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>将源代码clone或者下载到本地，并根据README当中提示修改<code>path</code>为自己的工程目录，然后执行下面命令，脚本便会帮你检索并打开相应的浏览页面，轻松一行命令搞定。</p>
+<pre><code>python findImage.py
+</code></pre><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>html5提供了读取文件的API——FileReader，利用它来实现数据交互也是一个不错的选择。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      用脚本实现图片的浏览查找
+    
+    </summary>
+    
+    
+      <category term="脚本" scheme="http://yoursite.com/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
   
   <entry>
     <title>一个优雅的水波动画</title>
@@ -1518,142 +1577,6 @@ NSLog(@&quot;imageFileSize:%ld&quot;,(long)imageData.length);
     
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>H5与原生交互的两种方式</title>
-    <link href="http://yoursite.com/2016/07/29/H5%E4%B8%8E%E5%8E%9F%E7%94%9F%E4%BA%A4%E4%BA%92%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
-    <id>http://yoursite.com/2016/07/29/H5与原生交互的两种方式/</id>
-    <published>2016-07-29T03:11:47.000Z</published>
-    <updated>2016-08-11T09:34:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。</p>
-<p>H5和iOS原生交互现在主流的有两种方式：</p>
-<ol>
-<li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
-<li>通过JavaScriptCore来实现</li>
-</ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。<a id="more"></a></p>
-<h3 id="拦截请求方式"><a href="#拦截请求方式" class="headerlink" title="拦截请求方式"></a>拦截请求方式</h3><p><strong>原生调用H5</strong></p>
-<p>原生调用H5比较简单，直接调用UIWebView（WKWebView同理）当中的</p>
-<pre><code>- (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-</code></pre><p>方法即可。同时WKWebView当中还增加了一个异步调用的方法</p>
-<pre><code>- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ __nullable)(__nullable id, NSError * __nullable error))completionHandler;
-</code></pre><p><strong>H5调用原生</strong></p>
-<p>H5调用原生通过在UIWebView（WKWebView同理）的</p>
-<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-</code></pre><p>方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>）</p>
-<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (webView != _webView) { return YES; }
-    NSURL *url = [request URL];
-    __strong WVJB_WEBVIEW_DELEGATE_TYPE* strongDelegate = _webViewDelegate;
-    if ([_base isCorrectProcotocolScheme:url]) {
-        if ([_base isBridgeLoadedURL:url]) {
-            [_base injectJavascriptFile];
-        } else if ([_base isQueueMessageURL:url]) {
-            NSString *messageQueueString = [self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]];
-            [_base flushMessageQueue:messageQueueString];
-        } else {
-            [_base logUnkownMessage:url];
-        }
-        return NO;
-    } else if (strongDelegate &amp;&amp; [strongDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
-        return [strongDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-    } else {
-        return YES;
-    }
-}
-</code></pre><p>以上代码通过<code>isCorrectProcotocolScheme:</code>、<code>isBridgeLoadedURL:</code>和<code>isQueueMessageURL:</code>三个方法对拦截的url进行判断需要执行哪个原生的方法。</p>
-<p>一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>则是将需要获取的数据放到js对象当中，让原生通过<code>[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]</code>调用js去取到数据。</p>
-<h3 id="JavaScriptCore方式"><a href="#JavaScriptCore方式" class="headerlink" title="JavaScriptCore方式"></a>JavaScriptCore方式</h3><p>JavaScriptCore是iOS7之后添加的库，这个库使H5和原生的交互变得比较简单。</p>
-<p><strong>原生调用H5</strong></p>
-<pre><code>JSContext *context = [self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
-NSString *textJS = @&quot;showAlert(&apos;这里是JS中alert弹出的message&apos;)&quot;;
-[context evaluateScript:textJS];
-</code></pre><p><strong>H5调用原生</strong></p>
-<p>JavaScriptCore方式H5和原生交互更像是将一个原生对象注册到H5的js当中，通过js来调用。</p>
-<p>js直接调用方法</p>
-<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];    
-    context[@&quot;test&quot;] = ^() {
-        //此处获得方法传过来的参数，参数数量不固定，由js在调用时传递个数决定  
-        NSArray *args = [JSContext currentArguments];  
-        for (id obj in args) {  
-            NSLog(@&quot;%@&quot;,obj);  
-        }  
-    };    
-}
-
-//我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&quot;test()&quot;;  
-[context evaluateScript:jsStr1];  
-NSString *jsStr2=@&quot;test(&apos;参数1&apos;)&quot;;  
-[context evaluateScript:jsStr2];  
-NSString *jsStr3=@&quot;test(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
-[context evaluateScript:jsStr3]; 
-</code></pre><p>js通过对象调用方法，此时需要向js当中传递一个实现了JSExport协议的对象，通过该对象调用在协议中声明并实现的自定义方法。</p>
-<pre><code>创建一个继承JSExport协议的协议，并添加自定义方法
-@protocol TestProtocol &lt;JSExport&gt;  
-//无参数  
--(void)test;
-//一个参数  
--(void)testOne:(NSString *)one;
-//两个参数  
--(void)testOne:(NSString *)one two:(NSString *)two;  
-@end
-
-//在需要调用的对象当中实现这个协议
-@interface TestJSObject : NSObject&lt;TestProtocol&gt;  
-
-@end
-
-@implementation TestJSObject  
-
--(void)test  
-{  
-    NSLog(@&quot;this is a test&quot;);  
-}
-
--(void)testOne:(NSString *)one  
-{  
-    NSLog(@&quot;this is a test,one=%@&quot;,one);  
-}  
--(void)testOne:(NSString *)one two:(NSString *)two  
-{
-    NSLog(@&quot;this is a test,one=%@,two=%@&quot;,one,two);  
-}
-
-@end
-
-//将实现TestProtocol协议的对象注册进js当中即可
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];   
-    TestJSObject *testJS=[[TestJSObject alloc] init];  
-    context[@&quot;testJS&quot;]=testJS;
-}
-</code></pre><p>在js当中调用时需要注意当调用多个参数的方法时需要需要将方法名拼接起来调用，比如我们写的两个参数调用就需要写成<code>testJS.testOnetwo(‘参数1’,’参数2’)</code>，如下：</p>
-<pre><code>//我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&quot;testJS.test()&quot;;  
-[context evaluateScript:jsStr1];  
-NSString *jsStr2=@&quot;testJS.testOne(&apos;参数1&apos;)&quot;;  
-[context evaluateScript:jsStr2];  
-NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
-[context evaluateScript:jsStr3]; 
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      H5与原生交互
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="H5" scheme="http://yoursite.com/tags/H5/"/>
     
   </entry>
   
