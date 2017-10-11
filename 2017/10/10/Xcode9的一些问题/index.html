@@ -4,19 +4,22 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>oh my zsh &amp; 语义化版本 | 那片树海</title>
+  <title>Xcode9的一些问题 | 那片树海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="自定义不规则button">
-<meta name="keywords" content="iOS,不规则,Button">
+  <meta name="description" content="Xcode9使用过程中的一些问题总结">
+<meta name="keywords" content="Xcode9,问题,图片显示不出来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="oh my zsh &amp; 语义化版本">
-<meta property="og:url" content="http://yoursite.com/2017/01/13/oh-my-zsh-语义化版本/index.html">
+<meta property="og:title" content="Xcode9的一些问题">
+<meta property="og:url" content="http://yoursite.com/2017/10/10/Xcode9的一些问题/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="自定义不规则button">
-<meta property="og:updated_time" content="2017-02-08T11:15:09.000Z">
+<meta property="og:description" content="Xcode9使用过程中的一些问题总结">
+<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-1.png">
+<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-3.png">
+<meta property="og:updated_time" content="2017-10-11T03:28:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="oh my zsh &amp; 语义化版本">
-<meta name="twitter:description" content="自定义不规则button">
+<meta name="twitter:title" content="Xcode9的一些问题">
+<meta name="twitter:description" content="Xcode9使用过程中的一些问题总结">
+<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20171011-1.png">
   
     <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
   
@@ -177,11 +180,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-oh-my-zsh-语义化版本" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Xcode9的一些问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/13/oh-my-zsh-语义化版本/" class="article-date">
-  	<time datetime="2017-01-13T07:22:15.000Z" itemprop="datePublished">2017-01-13</time>
+      <a href="/2017/10/10/Xcode9的一些问题/" class="article-date">
+  	<time datetime="2017-10-10T09:55:37.000Z" itemprop="datePublished">2017-10-10</time>
 </a>
     </div>
   
@@ -194,7 +197,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      oh my zsh &amp; 语义化版本
+      Xcode9的一些问题
     </h1>
   
 
@@ -203,7 +206,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本管理/">版本管理</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
 	</div>
 
         
@@ -214,43 +217,39 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。</p>
-<h3 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h3><p>oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。</p>
-<p>后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。</p>
-<p><strong>zsh和oh my zsh</strong></p>
-<p>zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。</p>
-<p><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。<a id="more"></a></p>
-<p><strong>zsh安装</strong></p>
-<p>macOS一般都预装了zsh，使用<code>zsh --version</code>命令可以查看zsh版本</p>
-<p>如果是老版本的系统，可以使用<code>brew install zsh zsh-completions</code>安装zsh</p>
-<p><strong>oh my zsh安装</strong></p>
-<p>直接执行下面的命令即可</p>
-<pre><code>通过curl方式
-sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+        <p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
+<p>用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码</p>
+<pre><code>post_install do |installer|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+end
 
-或者wget方式
-sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
-</code></pre><p>安装完成之后重新启动下终端就可以愉快的使用了</p>
-<p>如果你想要更多的插件和主题<a href="https://github.com/robbyrussell/oh-my-zsh/wiki" target="_blank" rel="external">点击这里</a></p>
-<h3 id="语义化版本"><a href="#语义化版本" class="headerlink" title="语义化版本"></a>语义化版本</h3><p>目前工作当中使用的开发模式是基于Git和CocoaPods的组件化开发，使用这种开发模式就会存在各种组件的相互依赖，随着业务的丰富、工程的增大，就会逐渐出现一种叫做“依赖地狱”问题，就是各个组件不同版本的相互依赖，最后造成某个组件版本冲突锁死的问题。</p>
-<p>语义化版本，就是为了解决这种问题提出的，我想大多数开发者都或多或少的听说过，在开发过程中按照这种方式来控制版本，就可以尽可能避免“依赖地狱”了。</p>
-<p><strong>版本规则</strong></p>
-<p>语义化版本2.0.0是这样定义的</p>
-<blockquote>
-<p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
-<ol>
-<li><p>主版本号：当你做了不兼容的 API 修改，</p>
-</li>
-<li><p>次版本号：当你做了向下兼容的功能性新增，</p>
-</li>
-<li><p>修订号：当你做了向下兼容的问题修正。</p>
-</li>
-</ol>
-<p>先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
-</blockquote>
-<p>更加详细的介绍<a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">点击这里</a>，英文版<a href="http://semver.org/" target="_blank" rel="external">click me</a></p>
-<p><strong>版本引用</strong></p>
-<p>我们在引用的时候使用大于等于次版本号但不超过的主版本号的版本即<code>&#39;~&gt; 2.0&#39;</code>这样，这样既可以保证使用最新的组件，又可以避免因为不兼容API造成的错误。</p>
+//如果有多个TARGETS，遍历执行即可
+post_install do |installer|
+  installer.aggregate_targets.each do |target|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+  end
+end
+</code></pre><p>2.替换或者新添加文件时工程找不到文件</p>
+<p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
+<h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
+<p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
+<p>2.移除模拟器边框</p>
+<p>取消勾选Simulator-&gt;Window-&gt;Show Device Bezels</p>
+<p>3.单击跳转方法定义</p>
+<p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-1.png" alt="20171011-1"></p>
+<p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p>
+<p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-3.png" alt="20171011-3"></p>
 
       
     </div>
@@ -260,18 +259,9 @@ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mast
     
 <nav id="article-nav">
   
-    <a href="/2017/01/22/2016年个人总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          2016年个人总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/11/14/iOS粒子特效/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS粒子特效</div>
+    <a href="/2017/09/12/一行命令搞定工程图片浏览查找/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一行命令搞定工程图片浏览查找</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -306,7 +296,7 @@ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mast
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="oh-my-zsh-语义化版本" data-title="oh my zsh &amp; 语义化版本" data-url="http://yoursite.com/2017/01/13/oh-my-zsh-语义化版本/"></div>
+	<div class="ds-thread" data-thread-key="Xcode9的一些问题" data-title="Xcode9的一些问题" data-url="http://yoursite.com/2017/10/10/Xcode9的一些问题/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/09/12/一行命令搞定工程图片浏览查找/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="用脚本实现图片的浏览查找">
-<meta property="og:updated_time" content="2017-09-13T06:47:50.000Z">
+<meta property="og:updated_time" content="2017-10-11T03:30:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一行命令搞定工程图片浏览查找">
 <meta name="twitter:description" content="用脚本实现图片的浏览查找">
@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -222,7 +222,7 @@
 <li>html展示页面的编写</li>
 <li>html页面和扫描脚本的数据交互</li>
 </ol>
-<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。</p>
+<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。<a id="more"></a></p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>脚本采用python实现，是一个递归查找并记录的过程，代码整体逻辑并不复杂，表现层的html也都是比较简单的原生html代码和js代码，这里就不做详细介绍了，我们简单的看下检查依赖和数据交互的逻辑。</p>
 <p>下面这段代码就是检查依赖的方法，以前都是在文档当中提示使用者手动安装，现在我们可以用这样一个方法检索用户的特定库的安装列表，如果没有安装相应库，则执行相应命令帮其安装。</p>
 <pre><code>def checkDepend():
@@ -261,6 +261,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/10/10/Xcode9的一些问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Xcode9的一些问题
+        
+      </div>
+    </a>
   
   
     <a href="/2017/08/11/一个优雅的水波动画/" id="article-nav-older" class="article-nav-link-wrap">

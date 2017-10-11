@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-13T06:47:50.000Z</updated>
+  <updated>2017-10-11T03:28:03.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,66 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Xcode9的一些问题</title>
+    <link href="http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2017/10/10/Xcode9的一些问题/</id>
+    <published>2017-10-10T09:55:37.000Z</published>
+    <updated>2017-10-11T03:28:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
+<p>用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码</p>
+<pre><code>post_install do |installer|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+end
+
+//如果有多个TARGETS，遍历执行即可
+post_install do |installer|
+  installer.aggregate_targets.each do |target|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+  end
+end
+</code></pre><p>2.替换或者新添加文件时工程找不到文件</p>
+<p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
+<h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
+<p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
+<p>2.移除模拟器边框</p>
+<p>取消勾选Simulator-&gt;Window-&gt;Show Device Bezels</p>
+<p>3.单击跳转方法定义</p>
+<p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-1.png" alt="20171011-1"></p>
+<p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p>
+<p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-3.png" alt="20171011-3"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      Xcode9使用过程中的一些问题总结
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一行命令搞定工程图片浏览查找</title>
     <link href="http://yoursite.com/2017/09/12/%E4%B8%80%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%90%9E%E5%AE%9A%E5%B7%A5%E7%A8%8B%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88%E6%9F%A5%E6%89%BE/"/>
     <id>http://yoursite.com/2017/09/12/一行命令搞定工程图片浏览查找/</id>
     <published>2017-09-12T06:26:59.000Z</published>
-    <updated>2017-09-13T06:47:50.000Z</updated>
+    <updated>2017-10-11T03:30:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>在项目开发过程中随着项目的逐渐增大，项目当中的图片资源会越来越多，而且有些时候因为命名不规范和人员的变动等原因会造成项目当中重复的图片资源越来越多，而且Xcode查看图片的方式也不集中，查找起来也不方便，这种情况下我们往往会更倾向于添加一个新的图片资源，从而更加剧了图片资源重复的问题。</p>
 <p>为了解决这个问题，我们打算来写一个脚本，把工程当中图片数据扫描一遍，然后用html集中显示出来，这样就方便我们来查找了。</p>
@@ -30,7 +85,7 @@
 <li>html展示页面的编写</li>
 <li>html页面和扫描脚本的数据交互</li>
 </ol>
-<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。</p>
+<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。<a id="more"></a></p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>脚本采用python实现，是一个递归查找并记录的过程，代码整体逻辑并不复杂，表现层的html也都是比较简单的原生html代码和js代码，这里就不做详细介绍了，我们简单的看下检查依赖和数据交互的逻辑。</p>
 <p>下面这段代码就是检查依赖的方法，以前都是在文档当中提示使用者手动安装，现在我们可以用这样一个方法检索用户的特定库的安装列表，如果没有安装相应库，则执行相应命令帮其安装。</p>
 <pre><code>def checkDepend():
@@ -1481,97 +1536,6 @@ burst.birthRate = 1.0f/rocketLifeTime;
     <summary type="html">
     
       iOS滚动视图内容下压上移解析
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>教你获取图片的尺寸和文件大小</title>
-    <link href="http://yoursite.com/2016/09/22/%E6%95%99%E4%BD%A0%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%9A%84%E5%B0%BA%E5%AF%B8%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F/"/>
-    <id>http://yoursite.com/2016/09/22/教你获取图片的尺寸和文件大小/</id>
-    <published>2016-09-22T10:26:00.000Z</published>
-    <updated>2016-11-02T12:58:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>有些时候我们会有这样的一些需求：需要获得一张图片的具体尺寸和所占的存储空间，这张图片可能来自网络、本地，也可能是在内存当中的UIImage对象。</p>
-<p>基本思路：图片文件的本质是一些二进制数据，他们按照一定的规则存储在磁盘或内存当中，我们只需要在相应的位置取出我们需要的数据即可。不同格式的图片存储方式不同，数据所在的位置也不同，所幸的是前人已经帮我们做好了封装，我们只需要调用相关API即可。针对图片文件的大小，我们还可以通过计算数据的长度的方式来计算。<a id="more"></a></p>
-<h3 id="网络图片和本地图片"><a href="#网络图片和本地图片" class="headerlink" title="网络图片和本地图片"></a>网络图片和本地图片</h3><p>对于计算机系统而言，本地和网络都是计算机系统外部某个位置，所以这两种存储方式的方法是一致的。</p>
-<p><strong>图片的尺寸</strong></p>
-<pre><code>//需导入头文件#import &lt;ImageIO/ImageIO.h&gt;
-
-- (CGSize)getImageSizeWithURL:(NSURL *)url
-{
-    NSURL * mUrl = nil;
-    if ([url isKindOfClass:[NSURL class]]) {
-        mUrl = url;
-    }
-    if (!mUrl) {
-        return CGSizeZero;
-    }
-
-    CGFloat width = 0, height = 0;
-    CGImageSourceRef imageSourceRef = CGImageSourceCreateWithURL((CFURLRef)mUrl, NULL);
-    if (imageSourceRef) {
-        CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, NULL);
-        if (imageProperties != NULL) {
-            CFNumberRef widthNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
-            if (widthNumberRef != NULL) {
-                CFNumberGetValue(widthNumberRef, kCFNumberFloat64Type, &amp;width);
-            }
-            CFNumberRef heightNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
-            if (heightNumberRef != NULL) {
-                CFNumberGetValue(heightNumberRef, kCFNumberFloat64Type, &amp;height);
-            }
-            CFRelease(imageProperties);
-        }
-        CFRelease(imageSourceRef);
-    }
-    return CGSizeMake(width, height);
-}
-</code></pre><p><strong>图片大小</strong></p>
-<pre><code>//需导入头文件#import &lt;ImageIO/ImageIO.h&gt;
-
-- (CGFloat)getImageFileSizeWithURL:(NSURL *)url
-{
-    NSURL *mUrl = nil;
-    if ([url isKindOfClass:[NSURL class]]) {
-        mUrl = url;
-    }
-    if (!mUrl) {
-        return 0.0f;
-    }
-
-    CGFloat fileSize = 0;
-    CGImageSourceRef imageSourceRef = CGImageSourceCreateWithURL((CFURLRef)mUrl, NULL);
-    if (imageSourceRef) {
-        CFDictionaryRef imageProperties = CGImageSourceCopyProperties(imageSourceRef, NULL);
-        if (imageProperties != NULL) {
-            CFNumberRef fileSizeNumberRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyFileSize);
-            if (fileSizeNumberRef != NULL) {
-                CFNumberGetValue(fileSizeNumberRef, kCFNumberFloat64Type, &amp;fileSize);
-            }
-            CFRelease(imageProperties);
-        }
-        CFRelease(imageSourceRef);
-    }
-    return fileSize;
-}
-</code></pre><h3 id="内存当中的UIImage对象"><a href="#内存当中的UIImage对象" class="headerlink" title="内存当中的UIImage对象"></a>内存当中的UIImage对象</h3><p><strong>图片尺寸</strong></p>
-<pre><code>UIImage *tempImage = [UIImage imageNamed:@&quot;paperPlane&quot;];
-NSLog(@&quot;imageSize:%f,%f&quot;,tempImage.size.width,tempImage.size.height);
-</code></pre><p><strong>图片大小</strong></p>
-<pre><code>UIImage *tempImage = [UIImage imageNamed:@&quot;paperPlane&quot;];
-NSData *imageData = UIImagePNGRepresentation(tempImage);
-NSLog(@&quot;imageFileSize:%ld&quot;,(long)imageData.length);
-</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>网络和本地图片也可以通过IO读入计算，但需要拿到图片的全部数据，不推荐。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      获取图片的尺寸和文件大小
     
     </summary>
     

@@ -5,13 +5,32 @@
     
   <url>
     <loc>http://yoursite.com/2017/09/12/%E4%B8%80%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%90%9E%E5%AE%9A%E5%B7%A5%E7%A8%8B%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88%E6%9F%A5%E6%89%BE/</loc>
-    <lastmod>2017-09-13T06:47:50.000Z</lastmod>
+    <lastmod>2017-10-11T03:30:26.000Z</lastmod>
     <data>
         <display>
         <title>一行命令搞定工程图片浏览查找</title>
         <pubTime>2017-09-12T06:26:59.000Z</pubTime>
         
         <tag>脚本</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2017-10-11T03:28:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>Xcode9的一些问题</title>
+        <pubTime>2017-10-10T09:55:37.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Xcode</tag>
          
          
            
