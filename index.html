@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -174,6 +174,189 @@
 
       <div class="body-wrap">
   
+    <article id="post-MobX绑定过程和其中的一些坑的总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/" class="article-date">
+  	<time datetime="2017-10-19T07:03:15.000Z" itemprop="datePublished">2017-10-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/">MobX绑定过程和其中的一些坑的总结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://o84wamnts.bkt.clouddn.com/20171019-1.png" alt="20171019-1"></p>
+<p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p>
+<blockquote>
+<p>MobX 会对在追踪函数执行过程中读取现存的可观察属性做出反应。</p>
+</blockquote>
+<p>MobX的官方文档将MobX的绑定及相应过程总结为这么一句话，并标出了“读取”、“追踪函数”和“过程”三个关键字。</p>
+<h3 id="Mobx会收集哪些地方的绑定"><a href="#Mobx会收集哪些地方的绑定" class="headerlink" title="Mobx会收集哪些地方的绑定"></a>Mobx会收集哪些地方的绑定</h3><blockquote>
+<p>“追踪函数” 是 <code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法和 <code>when</code>、<code>reaction</code> 和 <code>autorun</code> 的第一个入参函数。</p>
+</blockquote>
+<p>文档说明的也比较清楚，会对文件当中的<code>@computed</code>修饰的方法、<code>render()</code>方法、<code>when</code>方法的第一个入参函数、<code>reaction</code>方法的第一个入参函数、<code>autorun</code>方法的第一个入参函数这些地方收集，MobX会在页面加载执行前扫描所有的文件，收集这些地方的绑定。</p>
+<p>以下调用和赋值<code>this.store.listA</code>的地方，MobX都会去收集绑定，其它的地方则不会去收集。</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
+
+class IndexStore {
+    @observable listA = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;];
+    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
+
+    @computed get dataA() {
+        return this.listA;
+    }
+}
+
+//Index视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+import IndexStore from &apos;indexStore&apos;;
+
+@observer
+class Index extends Component {
+    constructor() {
+        super();
+        this.store = new IndexStore();
+        when(
+            () =&gt; this.store.listA.length == 0,
+            () =&gt; console.log(&quot;listA none&quot;)
+        );
+    }
+
+    const autorun1 = autorun(() =&gt; {
+        console.log(this.store.listA);
+    })
+
+    const reaction2 = reaction(
+        () =&gt; this.store.listA,
+        listA =&gt; console.log(listA.join(&quot;, &quot;))
+    )
+
+    render() {
+        return (
+            &lt;MainItem dataSource={this.store.listA}
+            renderHeader={
+                () =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;
+            } /&gt;
+        )
+    }
+}
+</code></pre><h3 id="MobX会收集哪些绑定"><a href="#MobX会收集哪些绑定" class="headerlink" title="MobX会收集哪些绑定"></a>MobX会收集哪些绑定</h3><blockquote>
+<p>“过程(during)” 意味着只追踪那些在函数执行时被读取的 <code>observable</code> 。这些值是否由追踪函数直接或间接使用并不重要。</p>
+</blockquote>
+<p>这句话解释了MobX收集哪些绑定，是那些在函数执行时被读取的<code>observable</code>，例如上面实例代码<code>&lt;MainItem dataSource={this.store.listA}/&gt;</code>中的<code>this.store.listA</code>，它在<code>render()</code>函数执行时被调用，用于作为<code>MainItem</code>的数据源，所以这个绑定就被收集到了，<code>render()</code>函数和<code>listA</code>之间就建立了联系，当<code>listA</code>发生变化时，<code>render()</code>函数就会被调用，界面也就从新渲染刷新了。同理，上面的一些log也会调用，会在控制台输出相应信息。</p>
+<p>需要注意的是上面实例代码中的<code>renderHeader={() =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;}</code>当中的<code>this.store.listB</code>并不会被收集到，为什么呢？因为<code>renderHeader</code>作为一个属性传入<code>MainItem</code>，<code>renderHeader</code>当中的<code>this.store.listB</code>并没有在<code>Index</code>的<code>render()</code>去使用，而是在<code>Item</code>当中使用了它，所以<code>Index</code>的<code>render()</code>并没有与<code>listB</code>之间建立连接，当<code>listB</code>发生变化就不会调用<code>Index</code>的<code>render()</code>，界面也就不会重新渲染刷新。</p>
+<p>我们想在修改<code>listB</code>时让界面刷新作出相应，我们该怎么办呢？我们需要在<code>Item</code>当中添加<code>@observer</code>去捕获这个绑定，因为<code>listB</code>在<code>Item</code>的<code>render()</code>当中进行了调用，所以正确的写法如下：</p>
+<pre><code>//Index视图文件
+render() {
+    return (
+        &lt;MainItem dataSource={this.store.listA}
+             renderHeader={
+                   () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;
+         } /&gt;
+    )
+}
+
+//Item视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+
+@observer
+class Item extends Component {
+    constructor() {
+        super();
+    }
+
+    render() {
+        return (
+            &lt;Text&gt;{this.props.data.listB[0]}&lt;/Text&gt;
+        )
+    }
+}
+</code></pre><p>Tips：当我们修改<code>listB</code>时，<code>Item</code>就会重新调用其<code>render()</code>函数重新渲染，我们重新渲染<code>Item</code>比重新渲染整个<code>Index</code>所消耗的资源会更少，虽然MobX已经有机制帮我们减少不必要的渲染，但是这样还是会消耗更少的资源，所以官方推荐我们绑定粒度越细越好。</p>
+<p>细心的同学可能会注意到为什么<code>Item</code>的<code>data</code>当中是<code>this.store</code>而不是我们认为的<code>this.store.listB</code>，是写错了吗，并不是，这恰恰是正确的写法，下面我们就来讨论下这个问题。</p>
+<h3 id="MobX绑定了什么"><a href="#MobX绑定了什么" class="headerlink" title="MobX绑定了什么"></a>MobX绑定了什么</h3><blockquote>
+<p>“读取” 是对象属性的间接引用，可以用过 <code>.</code> (例如 <code>user.name</code>) 或者 <code>[]</code> (例如 <code>user[&#39;name&#39;]</code>) 的形式完成。</p>
+</blockquote>
+<p>这句话解释了MobX绑定了什么，它绑定的是可观察对象的引用，例如上面提到的<code>listA</code>，MobX并不是将<code>listA</code>的内容<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>与<code>render()</code>函数绑定，而是将<code>listA</code>变量对<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>的引用与<code>render()</code>函数绑定绑定，所以只有当<code>listA</code>对值的引用发生变化时，<code>render()</code>函数才会调用。（也可以理解为c/c++当中的指针的概念，<code>render()</code>函数是与<code>listA</code>变量的指针值绑定）</p>
+<p>所以针对上面的<code>listA</code>，你只修改数组的内容，render()函数是不会调用的，界面也是不会刷新的。下面这种写法，界面并不会刷新：</p>
+<pre><code>//数据绑定文件
+modifyListA1() {
+    this.listA[0] = &quot;4&quot;;
+}
+
+//此处只是数组[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]的内容发生了变化，listA的引用却没有发生变化
+</code></pre><p>正确的写法</p>
+<pre><code>//数据绑定文件
+modifyListA2() {
+    this.listA = [&quot;4&quot;,&quot;2&quot;,&quot;3&quot;];
+}
+
+//此处listA被赋值了一个新数组[&quot;4&quot;,&quot;2&quot;,&quot;3&quot;]，listA的引用发生了变化
+</code></pre><p>我们再回到<code>listB</code>的问题上，如果我们是<code>&lt;Item data={this.store.listB}&gt;&lt;/Item&gt;</code>这种写法，我们相当于把<code>[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</code>这个值传递给了<code>Item</code>当中的<code>data</code>，通过<code>data</code>对数组的操作，并未出现<code>listB</code>的引用，也就无法建立绑定。而我们将整个<code>store</code>传递过去，<code>data</code>就被赋值了<code>store</code>的内容，当<code>data</code>引用<code>listB</code>时，也就出现了<code>listB</code>的引用，这样绑定才建立了起来。</p>
+<p>所以针对子组件，需要将被观察属性的父级传递过去，这样才能在子组件中出现被观察属性的引用，才能建立绑定。</p>
+<h3 id="MobX绑定过程"><a href="#MobX绑定过程" class="headerlink" title="MobX绑定过程"></a>MobX绑定过程</h3><p>了解了以上三个概念，MobX的绑定过程就比较清晰了。MobX在代码编译时/代码执行之前扫描代码中的<code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法等地方，将这些方法中出现的直接调用的观察属性的引用和这些方法绑定起来，这就是MobX的绑定过程。绑定完成之后，当这些引用发生变化时，相应的绑定方法就调用，界面就会刷新重新渲染或者相应的逻辑就会执行。</p>
+<h3 id="observable和-observable"><a href="#observable和-observable" class="headerlink" title="observable和@observable"></a>observable和@observable</h3><p>上面我们<code>modifyListA1</code>提到的修改并不会触发绑定的界面刷新操作，需要我们使用<code>modifyListA2</code>当中的修改方式，给<code>listA</code>提供一个新数组，改变它的引用值。那有没有方法可以让<code>listA</code>只修改一个值（如<code>modifyListA1</code>当中的操作）就触发界面的刷新呢，答案是肯定的，我们只需要将<code>listA</code>初始的赋值方式改成如下方式即可：</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
+
+class IndexStore {
+    listA = observable([&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]);
+    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
+
+    @computed get dataA() {
+        return this.listA;
+    }
+}
+</code></pre><p>为什么这种方式就可以呢？因为<code>observable</code>默认情况下会递归应用，相比较<code>@observable</code>细粒度的观察，只监测<code>listA</code>的引用，<code>observable</code>则会递归这些观察，将<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用都作为监测对象，这样<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用就和<code>render()</code>函数建立起了绑定，当<code>listA[0]</code>被赋值，引用发生变化时，<code>render()</code>也就被调用了，界面也就刷新了。</p>
+<p>如果需要一个数据源的内部数据发生变化引起相应操作，我们可以使用<code>observable</code>，然而<code>observable</code>也有它的弊端，它会建立起来比较多的冗余绑定，也会使后续的维护变得复杂，总体上我们推荐使用<code>@observable</code>这样细粒度的控制，它会使我们的项目更加清晰便于维护，同时也会大大的降低那些莫名其妙的bug的概率。</p>
+<h3 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a>了解更多</h3><p>详情参考官方文档</p>
+<p><a href="http://cn.mobx.js.org/best/react.html" target="_blank" rel="external">MobX 会对什么作出反应?</a></p>
+<p><a href="http://cn.mobx.js.org/best/pitfalls.html" target="_blank" rel="external">常见陷阱与最佳实践</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Xcode9的一些问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -223,17 +406,7 @@ post_install do |installer|
     File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
   end
 end
-</code></pre><p>2.替换或者新添加文件时工程找不到文件</p>
-<p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
-<h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
-<p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
-<p>2.移除模拟器边框</p>
-<p>取消勾选Simulator-&gt;Window-&gt;Show Device Bezels</p>
-<p>3.单击跳转方法定义</p>
-<p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-1.png" alt="20171011-1"></p>
-<p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p>
-<p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-3.png" alt="20171011-3"></p>
-
+</code></pre>
       
     </div>
     
@@ -246,6 +419,10 @@ end
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/10/10/Xcode9的一些问题/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -791,68 +968,6 @@ export LANG=en_US.UTF-8
       
         <p class="article-more-link">
           <a  href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-简单说下tintColor" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/23/简单说下tintColor/" class="article-date">
-  	<time datetime="2017-05-23T07:20:17.000Z" itemprop="datePublished">2017-05-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/23/简单说下tintColor/">简单说下tintColor</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170523-2.png" alt="20170523-2"></p>
-<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/23/简单说下tintColor/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

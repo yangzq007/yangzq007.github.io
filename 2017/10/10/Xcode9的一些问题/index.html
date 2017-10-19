@@ -15,7 +15,7 @@
 <meta property="og:description" content="Xcode9使用过程中的一些问题总结">
 <meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-1.png">
 <meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-3.png">
-<meta property="og:updated_time" content="2017-10-11T03:28:03.000Z">
+<meta property="og:updated_time" content="2017-10-19T07:24:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode9的一些问题">
 <meta name="twitter:description" content="Xcode9使用过程中的一些问题总结">
@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 12.5px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -240,7 +240,8 @@ post_install do |installer|
     File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
   end
 end
-</code></pre><p>2.替换或者新添加文件时工程找不到文件</p>
+</code></pre><a id="more"></a>
+<p>2.替换或者新添加文件时工程找不到文件</p>
 <p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
 <h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
 <p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
@@ -258,6 +259,15 @@ end
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          MobX绑定过程和其中的一些坑的总结
+        
+      </div>
+    </a>
   
   
     <a href="/2017/09/12/一行命令搞定工程图片浏览查找/" id="article-nav-older" class="article-nav-link-wrap">

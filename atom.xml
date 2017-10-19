@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-11T03:28:03.000Z</updated>
+  <updated>2017-10-19T07:39:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,158 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MobX绑定过程和其中的一些坑的总结</title>
+    <link href="http://yoursite.com/2017/10/19/MobX%E7%BB%91%E5%AE%9A%E8%BF%87%E7%A8%8B%E5%92%8C%E5%85%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91%E7%9A%84%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2017/10/19/MobX绑定过程和其中的一些坑的总结/</id>
+    <published>2017-10-19T07:03:15.000Z</published>
+    <updated>2017-10-19T07:39:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20171019-1.png" alt="20171019-1"></p>
+<p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p>
+<blockquote>
+<p>MobX 会对在追踪函数执行过程中读取现存的可观察属性做出反应。</p>
+</blockquote>
+<p>MobX的官方文档将MobX的绑定及相应过程总结为这么一句话，并标出了“读取”、“追踪函数”和“过程”三个关键字。</p>
+<h3 id="Mobx会收集哪些地方的绑定"><a href="#Mobx会收集哪些地方的绑定" class="headerlink" title="Mobx会收集哪些地方的绑定"></a>Mobx会收集哪些地方的绑定</h3><blockquote>
+<p>“追踪函数” 是 <code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法和 <code>when</code>、<code>reaction</code> 和 <code>autorun</code> 的第一个入参函数。</p>
+</blockquote>
+<p>文档说明的也比较清楚，会对文件当中的<code>@computed</code>修饰的方法、<code>render()</code>方法、<code>when</code>方法的第一个入参函数、<code>reaction</code>方法的第一个入参函数、<code>autorun</code>方法的第一个入参函数这些地方收集，MobX会在页面加载执行前扫描所有的文件，收集这些地方的绑定。</p>
+<p>以下调用和赋值<code>this.store.listA</code>的地方，MobX都会去收集绑定，其它的地方则不会去收集。</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
+
+class IndexStore {
+    @observable listA = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;];
+    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
+
+    @computed get dataA() {
+        return this.listA;
+    }
+}
+
+//Index视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+import IndexStore from &apos;indexStore&apos;;
+
+@observer
+class Index extends Component {
+    constructor() {
+        super();
+        this.store = new IndexStore();
+        when(
+            () =&gt; this.store.listA.length == 0,
+            () =&gt; console.log(&quot;listA none&quot;)
+        );
+    }
+
+    const autorun1 = autorun(() =&gt; {
+        console.log(this.store.listA);
+    })
+
+    const reaction2 = reaction(
+        () =&gt; this.store.listA,
+        listA =&gt; console.log(listA.join(&quot;, &quot;))
+    )
+
+    render() {
+        return (
+            &lt;MainItem dataSource={this.store.listA}
+            renderHeader={
+                () =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;
+            } /&gt;
+        )
+    }
+}
+</code></pre><h3 id="MobX会收集哪些绑定"><a href="#MobX会收集哪些绑定" class="headerlink" title="MobX会收集哪些绑定"></a>MobX会收集哪些绑定</h3><blockquote>
+<p>“过程(during)” 意味着只追踪那些在函数执行时被读取的 <code>observable</code> 。这些值是否由追踪函数直接或间接使用并不重要。</p>
+</blockquote>
+<p>这句话解释了MobX收集哪些绑定，是那些在函数执行时被读取的<code>observable</code>，例如上面实例代码<code>&lt;MainItem dataSource={this.store.listA}/&gt;</code>中的<code>this.store.listA</code>，它在<code>render()</code>函数执行时被调用，用于作为<code>MainItem</code>的数据源，所以这个绑定就被收集到了，<code>render()</code>函数和<code>listA</code>之间就建立了联系，当<code>listA</code>发生变化时，<code>render()</code>函数就会被调用，界面也就从新渲染刷新了。同理，上面的一些log也会调用，会在控制台输出相应信息。</p>
+<p>需要注意的是上面实例代码中的<code>renderHeader={() =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;}</code>当中的<code>this.store.listB</code>并不会被收集到，为什么呢？因为<code>renderHeader</code>作为一个属性传入<code>MainItem</code>，<code>renderHeader</code>当中的<code>this.store.listB</code>并没有在<code>Index</code>的<code>render()</code>去使用，而是在<code>Item</code>当中使用了它，所以<code>Index</code>的<code>render()</code>并没有与<code>listB</code>之间建立连接，当<code>listB</code>发生变化就不会调用<code>Index</code>的<code>render()</code>，界面也就不会重新渲染刷新。</p>
+<p>我们想在修改<code>listB</code>时让界面刷新作出相应，我们该怎么办呢？我们需要在<code>Item</code>当中添加<code>@observer</code>去捕获这个绑定，因为<code>listB</code>在<code>Item</code>的<code>render()</code>当中进行了调用，所以正确的写法如下：</p>
+<pre><code>//Index视图文件
+render() {
+    return (
+        &lt;MainItem dataSource={this.store.listA}
+             renderHeader={
+                   () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;
+         } /&gt;
+    )
+}
+
+//Item视图文件
+import { observer } from &apos;mobx-react/native&apos;;
+
+@observer
+class Item extends Component {
+    constructor() {
+        super();
+    }
+
+    render() {
+        return (
+            &lt;Text&gt;{this.props.data.listB[0]}&lt;/Text&gt;
+        )
+    }
+}
+</code></pre><p>Tips：当我们修改<code>listB</code>时，<code>Item</code>就会重新调用其<code>render()</code>函数重新渲染，我们重新渲染<code>Item</code>比重新渲染整个<code>Index</code>所消耗的资源会更少，虽然MobX已经有机制帮我们减少不必要的渲染，但是这样还是会消耗更少的资源，所以官方推荐我们绑定粒度越细越好。</p>
+<p>细心的同学可能会注意到为什么<code>Item</code>的<code>data</code>当中是<code>this.store</code>而不是我们认为的<code>this.store.listB</code>，是写错了吗，并不是，这恰恰是正确的写法，下面我们就来讨论下这个问题。</p>
+<h3 id="MobX绑定了什么"><a href="#MobX绑定了什么" class="headerlink" title="MobX绑定了什么"></a>MobX绑定了什么</h3><blockquote>
+<p>“读取” 是对象属性的间接引用，可以用过 <code>.</code> (例如 <code>user.name</code>) 或者 <code>[]</code> (例如 <code>user[&#39;name&#39;]</code>) 的形式完成。</p>
+</blockquote>
+<p>这句话解释了MobX绑定了什么，它绑定的是可观察对象的引用，例如上面提到的<code>listA</code>，MobX并不是将<code>listA</code>的内容<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>与<code>render()</code>函数绑定，而是将<code>listA</code>变量对<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>的引用与<code>render()</code>函数绑定绑定，所以只有当<code>listA</code>对值的引用发生变化时，<code>render()</code>函数才会调用。（也可以理解为c/c++当中的指针的概念，<code>render()</code>函数是与<code>listA</code>变量的指针值绑定）</p>
+<p>所以针对上面的<code>listA</code>，你只修改数组的内容，render()函数是不会调用的，界面也是不会刷新的。下面这种写法，界面并不会刷新：</p>
+<pre><code>//数据绑定文件
+modifyListA1() {
+    this.listA[0] = &quot;4&quot;;
+}
+
+//此处只是数组[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]的内容发生了变化，listA的引用却没有发生变化
+</code></pre><p>正确的写法</p>
+<pre><code>//数据绑定文件
+modifyListA2() {
+    this.listA = [&quot;4&quot;,&quot;2&quot;,&quot;3&quot;];
+}
+
+//此处listA被赋值了一个新数组[&quot;4&quot;,&quot;2&quot;,&quot;3&quot;]，listA的引用发生了变化
+</code></pre><p>我们再回到<code>listB</code>的问题上，如果我们是<code>&lt;Item data={this.store.listB}&gt;&lt;/Item&gt;</code>这种写法，我们相当于把<code>[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</code>这个值传递给了<code>Item</code>当中的<code>data</code>，通过<code>data</code>对数组的操作，并未出现<code>listB</code>的引用，也就无法建立绑定。而我们将整个<code>store</code>传递过去，<code>data</code>就被赋值了<code>store</code>的内容，当<code>data</code>引用<code>listB</code>时，也就出现了<code>listB</code>的引用，这样绑定才建立了起来。</p>
+<p>所以针对子组件，需要将被观察属性的父级传递过去，这样才能在子组件中出现被观察属性的引用，才能建立绑定。</p>
+<h3 id="MobX绑定过程"><a href="#MobX绑定过程" class="headerlink" title="MobX绑定过程"></a>MobX绑定过程</h3><p>了解了以上三个概念，MobX的绑定过程就比较清晰了。MobX在代码编译时/代码执行之前扫描代码中的<code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法等地方，将这些方法中出现的直接调用的观察属性的引用和这些方法绑定起来，这就是MobX的绑定过程。绑定完成之后，当这些引用发生变化时，相应的绑定方法就调用，界面就会刷新重新渲染或者相应的逻辑就会执行。</p>
+<h3 id="observable和-observable"><a href="#observable和-observable" class="headerlink" title="observable和@observable"></a>observable和@observable</h3><p>上面我们<code>modifyListA1</code>提到的修改并不会触发绑定的界面刷新操作，需要我们使用<code>modifyListA2</code>当中的修改方式，给<code>listA</code>提供一个新数组，改变它的引用值。那有没有方法可以让<code>listA</code>只修改一个值（如<code>modifyListA1</code>当中的操作）就触发界面的刷新呢，答案是肯定的，我们只需要将<code>listA</code>初始的赋值方式改成如下方式即可：</p>
+<pre><code>//数据绑定文件
+import { computed, observable } from &apos;mobx&apos;;
+
+class IndexStore {
+    listA = observable([&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]);
+    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
+
+    @computed get dataA() {
+        return this.listA;
+    }
+}
+</code></pre><p>为什么这种方式就可以呢？因为<code>observable</code>默认情况下会递归应用，相比较<code>@observable</code>细粒度的观察，只监测<code>listA</code>的引用，<code>observable</code>则会递归这些观察，将<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用都作为监测对象，这样<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用就和<code>render()</code>函数建立起了绑定，当<code>listA[0]</code>被赋值，引用发生变化时，<code>render()</code>也就被调用了，界面也就刷新了。</p>
+<p>如果需要一个数据源的内部数据发生变化引起相应操作，我们可以使用<code>observable</code>，然而<code>observable</code>也有它的弊端，它会建立起来比较多的冗余绑定，也会使后续的维护变得复杂，总体上我们推荐使用<code>@observable</code>这样细粒度的控制，它会使我们的项目更加清晰便于维护，同时也会大大的降低那些莫名其妙的bug的概率。</p>
+<h3 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a>了解更多</h3><p>详情参考官方文档</p>
+<p><a href="http://cn.mobx.js.org/best/react.html" target="_blank" rel="external">MobX 会对什么作出反应?</a></p>
+<p><a href="http://cn.mobx.js.org/best/pitfalls.html" target="_blank" rel="external">常见陷阱与最佳实践</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      MobX绑定过程和其中的一些坑的总结
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Xcode9的一些问题</title>
     <link href="http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2017/10/10/Xcode9的一些问题/</id>
     <published>2017-10-10T09:55:37.000Z</published>
-    <updated>2017-10-11T03:28:03.000Z</updated>
+    <updated>2017-10-19T07:24:35.000Z</updated>
     
     <content type="html"><![CDATA[<p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
 <h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
@@ -45,7 +192,8 @@ post_install do |installer|
     File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
   end
 end
-</code></pre><p>2.替换或者新添加文件时工程找不到文件</p>
+</code></pre><a id="more"></a>
+<p>2.替换或者新添加文件时工程找不到文件</p>
 <p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
 <h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
 <p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
@@ -1499,48 +1647,6 @@ burst.birthRate = 1.0f/rocketLifeTime;
     
     
       <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS滚动视图下压上移全解析</title>
-    <link href="http://yoursite.com/2016/10/24/iOS%E6%BB%9A%E5%8A%A8%E8%A7%86%E5%9B%BE%E4%B8%8B%E5%8E%8B%E5%85%A8%E8%A7%A3%E6%9E%90/"/>
-    <id>http://yoursite.com/2016/10/24/iOS滚动视图下压全解析/</id>
-    <published>2016-10-24T09:15:03.000Z</published>
-    <updated>2016-11-01T07:36:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。</p>
-<h3 id="影响视图偏移的属性"><a href="#影响视图偏移的属性" class="headerlink" title="影响视图偏移的属性"></a>影响视图偏移的属性</h3><p><strong>translucent(UINavigationBar)</strong></p>
-<p>导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。</p>
-<p><strong>automaticallyAdjustsScrollViewInsets(UIViewController)</strong></p>
-<p>该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容</p>
-<p><strong>extendedLayoutIncludesOpaqueBars(UIViewController)</strong></p>
-<p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）<a id="more"></a></p>
-<p>所以滚动视图只有在translucent为NO且extendedLayoutIncludesOpaqueBars为NO时滚动视图位置会下移64个像素，其他情况都是正常的，只需根据情况调整视图内容偏移属性即可。</p>
-<p>以下是所述几种情况的UI调试</p>
-<p>translucent为YES，automaticallyAdjustsScrollViewInsets为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-1.png" alt="TYAY"></p>
-<p>translucent为YES，automaticallyAdjustsScrollViewInsets为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-2.png" alt="TYAN"></p>
-<p>translucent为NO，extendedLayoutIncludesOpaqueBars为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-3.png" alt="TNEN"></p>
-<p>translucent为NO，extendedLayoutIncludesOpaqueBars为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-4.png" alt="TNEY"></p>
-<h3 id="滚动视图内容偏移的条件"><a href="#滚动视图内容偏移的条件" class="headerlink" title="滚动视图内容偏移的条件"></a>滚动视图内容偏移的条件</h3><p>想要以上属性定义的滚动视图内容下移64个像素有效需要该滚动视图在其父视图堆栈当中处于最底层，也就是说滚动视图下面不能有其他子视图</p>
-<p>鉴于这个限制条件有一个取巧的方法，当不能改动上述属性又必须让滚动视图内容不下移的时候可以在滚动视图前面add一个填充视图，这个视图的大小和颜色等属性都没有限制，因此你可以设置frame很小而且透明，这样就轻松的解决了一个难题。</p>
-<h3 id="iOS-8-UITabBarController的遗留问题"><a href="#iOS-8-UITabBarController的遗留问题" class="headerlink" title="iOS 8 UITabBarController的遗留问题"></a>iOS 8 UITabBarController的遗留问题</h3><p>UITabBarController下挂载的UIViewController的automaticallyAdjustsScrollViewInsets和extendedLayoutIncludesOpaqueBars无效，在translucent为YES时所有滚动视图位置正常，滚动视图内容向下偏移64个像素，translucent为NO时所有滚动视图位置下移64个像素，滚动视图内容位置正常。</p>
-<p>但是在iOS 8系统当中，在translucent为YES时只会针对UITabBarController下第一个出现的视图进行滚动视图内容下压，这就造成了第一个出现的视图和其他视图的偏移显示不一致。针对这个问题，如果不能改动translucent为NO的话就需要用到我们第二部分提到的方法，我们需要在UITabBarController下的所有视图当中insert一个填充视图，让所有的滚动视图内容都不发生偏移，这个样就可以正常显示了。</p>
-<h3 id="补充：解决UIViewController的View下移导致的偏移"><a href="#补充：解决UIViewController的View下移导致的偏移" class="headerlink" title="补充：解决UIViewController的View下移导致的偏移"></a>补充：解决UIViewController的View下移导致的偏移</h3><p>如果大家细心的话，可以发现我把UIViewController当中的View的颜色也设置成了红色。在translucent为NO、extendedLayoutIncludesOpaqueBars也为NO的时候发现View下移了64个像素（详情可以比较上面四种情况的UI调试）。如果是因为UIViewController的View下移导致视图偏移，我们可以</p>
-<ol>
-<li>设置navigationBar的translucent为YES（工程整体风格，一般不允许修改）</li>
-<li>设置extendedLayoutIncludesOpaqueBars为YES（只影响当前视图，推荐）</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      iOS滚动视图内容下压上移解析
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
