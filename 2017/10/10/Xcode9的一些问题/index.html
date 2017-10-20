@@ -15,7 +15,7 @@
 <meta property="og:description" content="Xcode9使用过程中的一些问题总结">
 <meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-1.png">
 <meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20171011-3.png">
-<meta property="og:updated_time" content="2017-10-19T07:24:35.000Z">
+<meta property="og:updated_time" content="2017-10-20T09:27:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode9的一些问题">
 <meta name="twitter:description" content="Xcode9使用过程中的一些问题总结">
@@ -243,6 +243,13 @@ end
 </code></pre><a id="more"></a>
 <p>2.替换或者新添加文件时工程找不到文件</p>
 <p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p>
+<p>3.打包导出（Export）失败</p>
+<p>表现为点击Xcode的导出（Export）时提示<code>The data couldn’t be read because it isn’t in the correct format.</code>或者使用Jenkins等用脚本打包提示如下错误：</p>
+<pre><code>2017-10-20 11:42:44.254 xcodebuild[6983:599869] [MT] IDEDistribution: Step failed: &lt;IDEDistributionSigningAssetsStep: 0x7fa541fd34a0&gt;: Error Domain=IDEDistributionSigningAssetStepErrorDomain Code=0 &quot;Locating signing assets failed.&quot; UserInfo={NSLocalizedDescription=Locating signing assets failed.,
+IDEDistributionSigningAssetStepUnderlyingErrors=(
+    &quot;Error Domain=IDEProvisioningErrorDomain Code=9 \&quot;\&quot;PrePublish.app\&quot; requires a provisioning profile with the Push Notifications feature.\&quot; UserInfo={NSLocalizedDescription=\&quot;PrePublish.app\&quot; requires a provisioning profile with the Push Notifications feature., NSLocalizedRecoverySuggestion=Add a profile to the \&quot;provisioningProfiles\&quot; dictionary in your Export Options property list.}&quot;
+)}
+</code></pre><p>原因是Xcode9帮你添加了一个<code>Code Signing Style</code>的配置字段，该字段需要和<code>Automatically manage signing</code>对应，使用<code>Automatically manage signing</code>时该字段的值需要为<code>Automatic</code>，不使用<code>Automatically manage signing</code>时该字段的值需要为<code>Manual</code>，上述错误就是因为配置不对应导致的，修改对应即可。</p>
 <h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
 <p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p>
 <p>2.移除模拟器边框</p>
