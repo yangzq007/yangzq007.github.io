@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>SVN迁移到Git | 那片树海</title>
+  <title>2017年个人总结 | 那片树海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVN迁移到Git">
-<meta name="keywords" content="iOS,Git,SVN,迁移">
+  <meta name="description" content="2017年个人总结">
+<meta name="keywords" content="2017,个人总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SVN迁移到Git">
-<meta property="og:url" content="http://yoursite.com/2016/06/15/SVN迁移到Git/index.html">
+<meta property="og:title" content="2017年个人总结">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/2017年个人总结/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="SVN迁移到Git">
-<meta property="og:updated_time" content="2017-05-25T02:57:40.000Z">
+<meta property="og:description" content="2017年个人总结">
+<meta property="og:updated_time" content="2018-01-09T12:13:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SVN迁移到Git">
-<meta name="twitter:description" content="SVN迁移到Git">
+<meta name="twitter:title" content="2017年个人总结">
+<meta name="twitter:description" content="2017年个人总结">
   
     <link rel="alternative" href="/atom.xml" title="那片树海" type="application/atom+xml">
   
@@ -177,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-SVN迁移到Git" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-2017年个人总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/15/SVN迁移到Git/" class="article-date">
-  	<time datetime="2016-06-15T03:13:23.000Z" itemprop="datePublished">2016-06-15</time>
+      <a href="/2018/01/09/2017年个人总结/" class="article-date">
+  	<time datetime="2018-01-09T10:06:59.000Z" itemprop="datePublished">2018-01-09</time>
 </a>
     </div>
   
@@ -194,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SVN迁移到Git
+      2017年个人总结
     </h1>
   
 
@@ -203,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVN和Git/">SVN和Git</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
 	</div>
 
         
@@ -214,65 +214,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="external">Git模型点击这里</a>）<br><a id="more"></a><br>下面我们来介绍迁移过程，整个过程大致分为两步：</p>
-<ol>
-<li>搭建新的版本管理模型</li>
-<li>旧代码和提交信息的迁移</li>
-</ol>
-<h3 id="搭建新的版本管理模型"><a href="#搭建新的版本管理模型" class="headerlink" title="搭建新的版本管理模型"></a>搭建新的版本管理模型</h3><p>因为SVN和Git的版本管理模型不同，而且可能一部分公司在使用SVN的过程中模型也不是很规范，所以需要重新搭建Git模型，如果之前在SVN上的使用的比较规范且模型和Git类似，可以直接在第二步（旧代码和提交信息的迁移）上迁移出来的仓库上开发。<br><br>我们需要做的操作如下：<br><br>1.在GitLab上建立一个新的代码仓库，并clone远程仓库到本地，文件夹名称为XXX<br><br>2.将需要迁移的最新版本的SVN代码（此处是工程的最新版本的代码，并不是SVN上对应仓库的全部代码）更新下来，并复制到XXX文件下<br><br>3.将XXX文件下的代码提交，并推送到Git远程仓库，然后按照之前的Git模型管理即可</p>
-<p>以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a>、<a href="http://www.smartsvn.com/" target="_blank" rel="external">SmartSVN</a>等神器。<br><br>在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。<br></p>
-<h3 id="旧代码和提交信息的迁移"><a href="#旧代码和提交信息的迁移" class="headerlink" title="旧代码和提交信息的迁移"></a>旧代码和提交信息的迁移</h3><p>下面我们着重介绍旧代码和旧的提交信息的迁移，因为这部分只是用作对历史提交的记录，因此需要新建一个仓库用来存储，而且后续也不在此仓库上开发。<br></p>
-<h4 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h4><p>假设想要将SVN项目检出到myGit文件夹下<br><br>1.在要迁移的文件夹下添加SVN用户到Git用的映射文件，文件名为：userinfo.txt.</p>
-<p>文件内容为：（[SVN上的名字] = [Git上的名字] &lt;[Git上的email]&gt;，下面第一行必需）</p>
-<pre><code>VisualSVN Server = Visual SVN Server\&lt;admin@showjoy.com\&gt;
-shuhai=shuhai\&lt;shuhai@showjoy.com\&gt;
-</code></pre><p>2.使用git svn clone命令克隆一个Git版本库，包含SVN里面的trunk、branches和tags。</p>
-<pre><code>git svn clone &lt;SVN地址&gt; --no-metadata --authors-file=userinfo.txt --trunk= trunk --tags=tags --branches=branches --ignore-refs=&lt;忽视的分支&gt; gitName
-
-参数–no-metadata表示阻止Git导出SVN包含的一些无用信息
-参数–authors-file表示SVN账号映射到Git账号文件，所有svn作者都要做映射
-参数–trunk表示主开发项目
-参数–branches表示分支项目
-参数–ignore-refs表示不包含后面的分支项目（可缺省）
-参数gitName表示Git项目名称
-</code></pre><p>3.上述步骤成功，则可通过git log 查看项目提交的历史记录，包括作者，日照，和提交注释信息等，证明SVN相应的提交信息已经被克隆到本地仓库<br><br>4.将SVN上的tags分支转为tags</p>
-<pre><code>git tag mobile_1.0.0 tags/mobile_1.0.0
-git tag mobile_1.0.1 tags/mobile_1.0.1
-</code></pre><p>5.将多余的branches删除掉</p>
-<pre><code>git branch -r -d tags/mobile_1.0.0
-Deleted remote branch tags/mobile_1.0.0 (was d50002b).
-git branch -r -d tags/mobile_1.0.1
-Deleted remote branch tags/mobile_1.0.1 (was e7b78a2).
-</code></pre><p>6.列出并检查当前所有分支（此步骤可缺省）</p>
-<pre><code>git branch -r
-</code></pre><p>7.建立Git仓库并初始化版本库（克隆后默认初始化，可缺省，若遇到没初始化的情况，请在仓库文件夹下cd .git初始化，该文件为隐藏文件）</p>
-<pre><code>cd .git
-git init --bare
-</code></pre><p>8.添加远程Git服务器地址（建议先在远程建立好对应的仓库）</p>
-<pre><code>git remote add origin git@git.showjoy.net:showjoyios/tashow.git
-</code></pre><p>9.使用git push命令推送全部的分支和标签信息到git服务器上面</p>
-<pre><code>git push origin master --tags
-</code></pre><p>10.推送代码完成后就可以在服务器上看到对应的代码和提交记录了，其他人员就可以克隆使用Git仓库了<br></p>
-<h4 id="可能会用到"><a href="#可能会用到" class="headerlink" title="可能会用到"></a>可能会用到</h4><p>1.相关shell命令</p>
-<pre><code>mkdir &lt;filename&gt;  建立文件夹
-出现Permission denied提示时请在命令前加sudo以管理员权限执行
-
-sudo rm -rf &lt;filePath&gt;  删除文件目录
--r 就是向下递归，不管有多少级目录，一并删除
--f 就是直接强行删除，不作任何提示的意思
-</code></pre><p>2.ssh方式使用git<br><br>a.输入命令<code>cat ~/.ssh/id_rsa.pub</code>检查本地是否有SSH Key，如果有可以跳过b、c两步</p>
-<p>b.输入命令<code>ssh-keygen -t rsa -C &quot;&lt;git邮箱&gt;&quot;</code>生成SSH Key</p>
-<p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
-<p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
-<p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#97;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#x75;&#114;&#x64;&#x6f;&#109;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#109;&#92;">&#97;&#100;&#109;&#x69;&#110;&#64;&#x79;&#x6f;&#x75;&#114;&#x64;&#x6f;&#109;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#109;&#92;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
-<pre><code>git remote -v 查看当前绑定的远程地址
-git remote remove &lt;repo&gt; 移除绑定的远程仓库
-git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
-git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加仓库远程地址
-</code></pre><p>3.错误Write failed: Broken pipe; git error: pack-objects died of signal 13<br><br>同错误4，采用ssh方式上传即可，如果还是不行，重启一下电脑吧，有奇效（据说是终端长时间打开会造成网络连接失败）<br><br>4.错误fatal: The remote end hung up unexpectedly，单个文件过大超出gitlab限制<br><br>采用ssh方式上传即可<br><br>5.错误Warning: Permanently added the RSA host key for IP address ‘222.186.133.56’ to the list of known hosts.    </p>
-<p>Permission denied (publickey).</p>
-<p>fatal: Could not read from remote repository.<br><br>ssh公钥key未配置</p>
+        <p>最近手头事情终于不是那么多了，也可以静下来做个2017年的总结了，给自己打个tag，也希望自己新的一年能够继续努力。</p>
+<h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>今年工作没有太大的变动，整体比较稳定，在这过去的一年中，感觉自己收获还是蛮大的。ReactNative的使用让自己对编程语言有了新的认识，对工程结构的调整和优化也让自己在编程思想和架构方面有了更深一步的理解。对前端和逆向的进一步了解也扩宽了自己的知识面。</p>
+<h3 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h3><p>好的方面：</p>
+<p>作息比以前规律了<br>自己开始做饭了</p>
+<p>坏的方面：</p>
+<p>打羽毛球的习惯冬天中断了</p>
+<p>希望天气稍微转暖之后可以恢复打球活动，另外再加强一下其他锻炼，毕竟身体是革命的本钱。同时也希望自己多去其他地方走走，收获一些不同的体验和感受。</p>
+<h3 id="关于阅读"><a href="#关于阅读" class="headerlink" title="关于阅读"></a>关于阅读</h3><ul>
+<li>《人类简史》</li>
+</ul>
+<p>今年的人文阅读似乎有点少，希望18年可以稍微改进下，但是也不打算强迫自己，这种东西随性就好，毕竟记忆和感受才是重点。</p>
+<h3 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h3><p>转眼博客已经走过了两年，希望自己能再接再厉，把这个好习惯坚持下去，也希望将来有一天它能见证自己这一路走来的足迹。</p>
+<h3 id="其他感慨"><a href="#其他感慨" class="headerlink" title="其他感慨"></a>其他感慨</h3><p>今年过的好快……</p>
 
       
     </div>
@@ -282,18 +236,9 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
     
 <nav id="article-nav">
   
-    <a href="/2016/06/23/通话状态下的UI优化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          通话状态下的UI优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/06/14/[转]一个成功的Git分支模型/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">[转]一个成功的Git分支模型</div>
+    <a href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MobX绑定过程和其中的一些坑的总结</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -328,7 +273,7 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="SVN迁移到Git" data-title="SVN迁移到Git" data-url="http://yoursite.com/2016/06/15/SVN迁移到Git/"></div>
+	<div class="ds-thread" data-thread-key="2017年个人总结" data-title="2017年个人总结" data-url="http://yoursite.com/2018/01/09/2017年个人总结/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
