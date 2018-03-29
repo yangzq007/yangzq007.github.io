@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-01-10T02:55:22.000Z</updated>
+  <updated>2018-03-29T03:15:00.966Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,77 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>从ReactNative到React</title>
+    <link href="http://yoursite.com/2018/03/29/%E4%BB%8EReactNative%E5%88%B0React/"/>
+    <id>http://yoursite.com/2018/03/29/从ReactNative到React/</id>
+    <published>2018-03-29T01:44:31.000Z</published>
+    <updated>2018-03-29T03:15:00.966Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
+<h3 id="安装脚手架和搭建基础工程"><a href="#安装脚手架和搭建基础工程" class="headerlink" title="安装脚手架和搭建基础工程"></a>安装脚手架和搭建基础工程</h3><pre><code>//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
+npm install -g create-react-app
+create-react-app my-app
+
+cd my-app
+npm start
+</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了</p>
+<h3 id="1-自定义字体问题"><a href="#1-自定义字体问题" class="headerlink" title="1.自定义字体问题"></a>1.自定义字体问题</h3><p>自定义字体首先我们需要下载相应的字体并放到工程当中，然后在工程的App.css文件当中添加<code>@font-face</code>，实例如下：</p>
+<pre><code>@font-face
+{
+font-family: EBGaramond;                //EBGaramond为自定义名称
+src: url(&apos;EBGaramond08-Italic.ttf&apos;)
+}
+</code></pre><p>然后我们就可以在App.js当中和其他页面文件当中使用<code>fontFamily: &#39;EBGaramond&#39;</code>了</p>
+<p>我们也可以自己新建一个css文件，但是要记得在App.js和页面文件当中导入</p>
+<h3 id="2-文件重复导入问题"><a href="#2-文件重复导入问题" class="headerlink" title="2.文件重复导入问题"></a>2.文件重复导入问题</h3><pre><code>import &apos;./App.css&apos;;
+import &apos;./Font.css&apos;;
+</code></pre><p>这种导入整个文件的方式导入后是全局的，顶级文件导入后其他地方就不再需要导入了，与导入类不同，导入类需要在每个使用的页面导入</p>
+<h3 id="3-布局方式问题-1"><a href="#3-布局方式问题-1" class="headerlink" title="3.布局方式问题-1"></a>3.布局方式问题-1</h3><p>ReactNative当中默认使用的是flex布局，flex-direction为column，而在Reactjs当中布局方式为一个从上往下的流式布局（该名词有待商榷，因为暂时不了解一些前端术语，故先这么称呼），这就需要我们修改它的布局方式。我的第一反应是在css添加这样一个样式</p>
+<pre><code>.content {
+  display: flex;
+  flex-direction: column
+}
+</code></pre><p>但是这种方式需要每个页面都需要写一个content的选择器，后来我就改成了这种方式</p>
+<pre><code>body *:not(style) {
+  display: flex;
+  flex-direction: column    //Reactjs当中flex-direction默认为row，需要修改
+}
+</code></pre><p>至于为什么是<code>body *:not(style)</code>，那是因为*会把<code>header</code>，<code>body</code>，<code>footer</code>当中的所有内容都会当做html元素，所以我们只需要让body当中的所有内容使用flex布局即可，至于为什么有<code>not(style)</code>，那是因为它还会把body当中的style作为html元素，所以要除开。</p>
+<h3 id="4-布局方式问题-2"><a href="#4-布局方式问题-2" class="headerlink" title="4.布局方式问题-2"></a>4.布局方式问题-2</h3><p>在使用了flex布局之后，你会发现当一行元素填充满的时候，这些元素并不会换行，那是因为在Reactjs当中flexWrap默认为nowrap，需要设置为wrap</p>
+<pre><code>body *:not(style) {
+      display: flex;
+      flex-direction: column;    //Reactjs当中flex-direction默认为row，需要修改
+      flexWrap: wrap
+}
+</code></pre><p>在js样式文件中为</p>
+<pre><code>const styles = {
+    content: {
+        flexWrap: &apos;wrap&apos;
+    }
+};
+</code></pre><h3 id="其他后续更新中"><a href="#其他后续更新中" class="headerlink" title="其他后续更新中"></a>其他后续更新中</h3><p>……</p>
+]]></content>
+    
+    <summary type="html">
+    
+      从ReactNative到React的一些经验
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2017年个人总结</title>
     <link href="http://yoursite.com/2018/01/09/2017%E5%B9%B4%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2018/01/09/2017年个人总结/</id>
     <published>2018-01-09T10:06:59.000Z</published>
-    <updated>2018-01-10T02:55:22.000Z</updated>
+    <updated>2018-03-29T03:21:02.217Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20180109-1.jpg" alt="20180109-1"></p>
+<a id="more"></a>
 <p>最近手头事情终于不是那么多了，也可以静下来做个2017年的总结了，给自己打个tag，也希望自己新的一年能够继续努力。</p>
 <h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>工作内容大致有以下几点：</p>
 <ul>
@@ -65,9 +129,10 @@
     <link href="http://yoursite.com/2017/10/19/MobX%E7%BB%91%E5%AE%9A%E8%BF%87%E7%A8%8B%E5%92%8C%E5%85%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91%E7%9A%84%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/10/19/MobX绑定过程和其中的一些坑的总结/</id>
     <published>2017-10-19T07:03:15.000Z</published>
-    <updated>2017-10-19T07:39:32.000Z</updated>
+    <updated>2018-03-29T03:20:51.839Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20171019-1.png" alt="20171019-1"></p>
+<a id="more"></a>
 <p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p>
 <blockquote>
 <p>MobX 会对在追踪函数执行过程中读取现存的可观察属性做出反应。</p>
@@ -1485,189 +1550,9 @@ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mast
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="版本管理" scheme="http://yoursite.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
     
-  </entry>
-  
-  <entry>
-    <title>iOS粒子特效</title>
-    <link href="http://yoursite.com/2016/11/14/iOS%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/"/>
-    <id>http://yoursite.com/2016/11/14/iOS粒子特效/</id>
-    <published>2016-11-14T09:54:36.000Z</published>
-    <updated>2016-11-16T02:40:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。</p>
-<h3 id="粒子特效"><a href="#粒子特效" class="headerlink" title="粒子特效"></a>粒子特效</h3><blockquote>
-<p>粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。</p>
-</blockquote>
-<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">点击这里</a>.</p>
-<h3 id="在iOS系统当中的实现"><a href="#在iOS系统当中的实现" class="headerlink" title="在iOS系统当中的实现"></a>在iOS系统当中的实现</h3><p>粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。<a id="more"></a></p>
-<p>具体使用可以查看以下代码：</p>
-<pre><code>//雪花动画
-- (void)snow {
-
-    //粒子发射器
-    CAEmitterLayer *snowEmitter = [CAEmitterLayer layer];
-    //粒子发射的位置
-    snowEmitter.emitterPosition = CGPointMake(100, 30);
-    //发射源的大小
-    snowEmitter.emitterSize = CGSizeMake(self.view.bounds.size.width, 0.0);
-    //发射模式
-    snowEmitter.emitterMode = kCAEmitterLayerOutline;
-    //发射源的形状
-    snowEmitter.emitterShape = kCAEmitterLayerLine;
-
-    //创建雪花粒子
-    CAEmitterCell *snowflake = [CAEmitterCell emitterCell];
-    //粒子的名称
-    snowflake.name = @&quot;snow&quot;;
-    //粒子参数的速度乘数因子。越大出现的越快
-    snowflake.birthRate = 1.0;
-    //存活时间
-    snowflake.lifetime = 120.0;
-    //粒子速度
-    snowflake.velocity = -10;                // falling down slowly
-    //粒子速度范围
-    snowflake.velocityRange = 10;
-    //粒子y方向的加速度分量
-    snowflake.yAcceleration = 2;
-      //周围发射角度
-    snowflake.emissionRange = 0.5 * M_PI;        // some variation in angle
-    //子旋转角度范围
-    snowflake.spinRange = 0.25 * M_PI;        // slow spin
-    //粒子图片
-    snowflake.contents = (id)[[UIImage imageNamed:@&quot;DazFlake&quot;] CGImage];
-    //粒子颜色
-    snowflake.color = [[UIColor redColor] CGColor];
-
-    //设置阴影
-    snowEmitter.shadowOpacity = 1.0;
-    snowEmitter.shadowRadius = 0.0;
-    snowEmitter.shadowOffset = CGSizeMake(0.0, 1.0);
-    snowEmitter.shadowColor = [[UIColor whiteColor] CGColor];
-
-    // 将粒子添加到粒子发射器上
-    snowEmitter.emitterCells = [NSArray arrayWithObject:snowflake];
-    [self.view.layer insertSublayer:snowEmitter atIndex:0];
-}
-
-//烟花动画
-- (void)fireworks {
-    // Cells spawn in the bottom, moving up
-
-    //分为3种粒子，子弹粒子，爆炸粒子，散开粒子
-    CAEmitterLayer *fireworksEmitter = [CAEmitterLayer layer];
-    CGRect viewBounds = self.view.layer.bounds;
-    fireworksEmitter.emitterPosition = CGPointMake(viewBounds.size.width/2.0, viewBounds.size.height);
-    fireworksEmitter.emitterSize = CGSizeMake(viewBounds.size.width/2.0, 0.0);
-    fireworksEmitter.emitterMode = kCAEmitterLayerOutline;
-    fireworksEmitter.emitterShape = kCAEmitterLayerLine;
-    fireworksEmitter.renderMode = kCAEmitterLayerAdditive;
-    fireworksEmitter.seed = (arc4random()%100)+1;
-
-    // Create the rocket
-    CAEmitterCell *rocket = [CAEmitterCell emitterCell];
-
-    rocket.birthRate = 1.0;
-    rocket.emissionRange = 0.25 * M_PI;  // some variation in angle
-    rocket.velocity = 380;
-    rocket.velocityRange = 100;
-    rocket.yAcceleration = 75;
-    rocket.lifetime = 1.02;    // we cannot set the birthrate &lt; 1.0 for the burst
-
-    //小圆球图片
-    rocket.contents = (id)[[UIImage imageNamed:@&quot;DazRing&quot;] CGImage];
-    rocket.scale = 0.2;
-    rocket.color = [[UIColor redColor] CGColor];
-    rocket.greenRange = 1.0;        // different colors
-    rocket.redRange = 1.0;
-    rocket.blueRange = 1.0;
-    rocket.spinRange = M_PI;        // slow spin
-
-
-
-    // the burst object cannot be seen, but will spawn the sparks
-    // we change the color here, since the sparks inherit its value
-    CAEmitterCell *burst = [CAEmitterCell emitterCell];
-
-    burst.birthRate = 1.0;        // at the end of travel
-    burst.velocity = 0;        //速度为0
-    burst.scale = 2.5;      //大小
-    burst.redSpeed =-1.5;        // shifting
-    burst.blueSpeed =+1.5;        // shifting
-    burst.greenSpeed =+1.0;        // shifting
-    burst.lifetime = 0.35;     //存在时间
-
-    // and finally, the sparks
-    CAEmitterCell *spark = [CAEmitterCell emitterCell];
-
-    spark.birthRate = 400;
-    spark.velocity = 125;
-    spark.emissionRange = 2* M_PI;    // 360 度
-    spark.yAcceleration = 75;        // gravity
-    spark.lifetime = 3;
-    //星星图片
-    spark.contents = (id)[[UIImage imageNamed:@&quot;DazStarOutline&quot;] CGImage];
-    spark.scaleSpeed = -0.2;
-    spark.greenSpeed = -0.1;
-    spark.redSpeed = 0.4;
-    spark.blueSpeed =-0.1;
-    spark.alphaSpeed =-0.25;
-    spark.spin = 2* M_PI;
-    spark.spinRange = 2* M_PI;
-
-    // 3种粒子组合，可以根据顺序，依次烟花弹－烟花弹粒子爆炸－爆炸散开粒子
-    fireworksEmitter.emitterCells = [NSArray arrayWithObject:rocket];
-    rocket.emitterCells = [NSArray arrayWithObject:burst];
-    burst.emitterCells = [NSArray arrayWithObject:spark];
-    [self.view.layer addSublayer:fireworksEmitter];
-}
-</code></pre><h3 id="粒子特效的叠加"><a href="#粒子特效的叠加" class="headerlink" title="粒子特效的叠加"></a>粒子特效的叠加</h3><p>通过上面的代码和注释、以及苹果的注释，我相信大部分人都已掌握了粒子效果的基本使用，下面我们来谈谈粒子特效叠加的问题。</p>
-<p>在CAEmitterCell.h当中我们可以看到这样一段描述</p>
-<pre><code>/* An array containing the sub-cells of this cell, or nil (the default
- * value). When non-nil each particle emitted by the cell will act as
- * an emitter for each of the cell&apos;s sub-cells. The emission point is
- * the current particle position and the emission angle is relative to
- * the current direction of the particle. Animatable. */
-
-@property(nullable, copy) NSArray&lt;CAEmitterCell *&gt; *emitterCells;
-</code></pre><p>这段描述说明了当设置粒子单元（CAEmitterCell *）的emitterCells时，每个粒子会充当一个发射器的角色，发射对应粒子，形成粒子特效的叠加。</p>
-<p>将<code>rocket.emitterCells = [NSArray arrayWithObject:burst];</code>修改为<code>rocket.emitterCells = [NSArray arrayWithObject: spark];</code>就可以看到如下图对应的叠加效果了。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-1.gif" alt="粒子特效叠加"></p>
-<h3 id="取消叠加"><a href="#取消叠加" class="headerlink" title="取消叠加"></a>取消叠加</h3><p>看了粒子特效的叠加，你可能还会有这样一个想法，我能不能取消某个时间段的叠加，只让发射的粒子在最后的时间作为发射器产生粒子效果呢，类似于发射一颗礼炮，在礼炮到达空中时爆炸，而不是像现在这样一路炸上天呢。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-2.gif" alt="取消叠加"></p>
-<p><strong>实例代码的fireworks部分就实现了这样的效果，下面我们来分析一下他的思路</strong></p>
-<p>fireworks部分的基本思路是这样的，给发射的粒子A附加一个新的粒子效果B，B的效果是在A生命周期的结尾发射<strong>一个</strong>生命周期极短的粒子，在B粒子极短的生命周期内，发射爆炸效果的粒子C，这样看起来的效果就是A被发射出去，在其生命周期的结尾发射了一个爆炸的粒子C，用户并没有意识到B粒子的存在，从而达到取消叠加的效果。</p>
-<p><strong>如何在代码中实现这种取消叠加的效果</strong></p>
-<p><code>birthRate</code>粒子每秒钟产生粒子的个数，决定了粒子产生的间隔，而且并不是一开始就发射粒子，而是要从开始过相应的时间间隔才发送粒子。所以我们只需要将B粒子的生成间隔设定为A粒子的生存长度即可，这样就实现了在A粒子即将结束的时候发射B粒子。</p>
-<p>fireworks部分的代码也可以这样表示</p>
-<pre><code>burst.birthRate = 1.0/rocket.lifetime;
-</code></pre><h3 id="取消叠加的坑"><a href="#取消叠加的坑" class="headerlink" title="取消叠加的坑"></a>取消叠加的坑</h3><p>你做了取消叠加部分的操作，发现A粒子生命周期结束时并没有出现爆炸效果的粒子C，这个时候问题出现在哪里呢？</p>
-<p>原因就是刚好在A生命周期的结尾要发射单个粒子B的时候，A died，然后B就没发射出来……</p>
-<p>这个时候你需要将A的生命周期比原来加长一点，要比B的生成间隔时间长那么一小点，代码实现上为：</p>
-<pre><code>CGFloat rocketLifeTime = 1.0f;
-rocket.lifetime = rocketLifeTime + 0.01f;
-…
-burst.birthRate = 1.0f/rocketLifeTime;
-</code></pre><p>或者</p>
-<pre><code>burst.birthRate = 1.0f/(rocket.lifetime-0.01f);
-</code></pre><h3 id="补充：粒子属性的继承"><a href="#补充：粒子属性的继承" class="headerlink" title="补充：粒子属性的继承"></a>补充：粒子属性的继承</h3><p>如果发射器是粒子的话，它的相应属性，会继承给它发射出的子粒子。比如说粒子A设置了redSpeed属性，粒子B redSpeed的默认值会和A相同，除非B自己设置一个redSpeed的数值。</p>
-<hr>
-<p>参考博文：</p>
-<p><a href="http://www.jianshu.com/p/6f5d7cfdae2f" target="_blank" rel="external">iOS粒子效果</a></p>
-<p><a href="http://blog.csdn.net/wwmusic/article/details/8901398" target="_blank" rel="external">CAEmitterLayer（粒子系统）学习笔记</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      iOS粒子特效
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   

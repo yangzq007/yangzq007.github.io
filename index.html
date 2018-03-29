@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
+						<a href="/tags/CocoaPods/" style="font-size: 12.5px;">CocoaPods</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/ReactNative/" style="font-size: 12.5px;">ReactNative</a> <a href="/tags/SVN和Git/" style="font-size: 12.5px;">SVN和Git</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Xcode/" style="font-size: 15px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS优化/" style="font-size: 15px;">iOS优化</a> <a href="/tags/前端/" style="font-size: 12.5px;">前端</a> <a href="/tags/博客历程/" style="font-size: 12.5px;">博客历程</a> <a href="/tags/工具/" style="font-size: 17.5px;">工具</a> <a href="/tags/杂谈/" style="font-size: 15px;">杂谈</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/版本管理/" style="font-size: 12.5px;">版本管理</a> <a href="/tags/网络安全/" style="font-size: 10px;">网络安全</a> <a href="/tags/脚本/" style="font-size: 15px;">脚本</a> <a href="/tags/证书/" style="font-size: 10px;">证书</a> <a href="/tags/那些坑/" style="font-size: 12.5px;">那些坑</a>
 					</div>
 				</section>
 				
@@ -174,6 +174,105 @@
 
       <div class="body-wrap">
   
+    <article id="post-从ReactNative到React" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/29/从ReactNative到React/" class="article-date">
+  	<time datetime="2018-03-29T01:44:31.000Z" itemprop="datePublished">2018-03-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/29/从ReactNative到React/">从ReactNative到React</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
+<h3 id="安装脚手架和搭建基础工程"><a href="#安装脚手架和搭建基础工程" class="headerlink" title="安装脚手架和搭建基础工程"></a>安装脚手架和搭建基础工程</h3><pre><code>//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
+npm install -g create-react-app
+create-react-app my-app
+
+cd my-app
+npm start
+</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了</p>
+<h3 id="1-自定义字体问题"><a href="#1-自定义字体问题" class="headerlink" title="1.自定义字体问题"></a>1.自定义字体问题</h3><p>自定义字体首先我们需要下载相应的字体并放到工程当中，然后在工程的App.css文件当中添加<code>@font-face</code>，实例如下：</p>
+<pre><code>@font-face
+{
+font-family: EBGaramond;                //EBGaramond为自定义名称
+src: url(&apos;EBGaramond08-Italic.ttf&apos;)
+}
+</code></pre><p>然后我们就可以在App.js当中和其他页面文件当中使用<code>fontFamily: &#39;EBGaramond&#39;</code>了</p>
+<p>我们也可以自己新建一个css文件，但是要记得在App.js和页面文件当中导入</p>
+<h3 id="2-文件重复导入问题"><a href="#2-文件重复导入问题" class="headerlink" title="2.文件重复导入问题"></a>2.文件重复导入问题</h3><pre><code>import &apos;./App.css&apos;;
+import &apos;./Font.css&apos;;
+</code></pre><p>这种导入整个文件的方式导入后是全局的，顶级文件导入后其他地方就不再需要导入了，与导入类不同，导入类需要在每个使用的页面导入</p>
+<h3 id="3-布局方式问题-1"><a href="#3-布局方式问题-1" class="headerlink" title="3.布局方式问题-1"></a>3.布局方式问题-1</h3><p>ReactNative当中默认使用的是flex布局，flex-direction为column，而在Reactjs当中布局方式为一个从上往下的流式布局（该名词有待商榷，因为暂时不了解一些前端术语，故先这么称呼），这就需要我们修改它的布局方式。我的第一反应是在css添加这样一个样式</p>
+<pre><code>.content {
+  display: flex;
+  flex-direction: column
+}
+</code></pre><p>但是这种方式需要每个页面都需要写一个content的选择器，后来我就改成了这种方式</p>
+<pre><code>body *:not(style) {
+  display: flex;
+  flex-direction: column    //Reactjs当中flex-direction默认为row，需要修改
+}
+</code></pre><p>至于为什么是<code>body *:not(style)</code>，那是因为*会把<code>header</code>，<code>body</code>，<code>footer</code>当中的所有内容都会当做html元素，所以我们只需要让body当中的所有内容使用flex布局即可，至于为什么有<code>not(style)</code>，那是因为它还会把body当中的style作为html元素，所以要除开。</p>
+<h3 id="4-布局方式问题-2"><a href="#4-布局方式问题-2" class="headerlink" title="4.布局方式问题-2"></a>4.布局方式问题-2</h3><p>在使用了flex布局之后，你会发现当一行元素填充满的时候，这些元素并不会换行，那是因为在Reactjs当中flexWrap默认为nowrap，需要设置为wrap</p>
+<pre><code>body *:not(style) {
+      display: flex;
+      flex-direction: column;    //Reactjs当中flex-direction默认为row，需要修改
+      flexWrap: wrap
+}
+</code></pre><p>在js样式文件中为</p>
+<pre><code>const styles = {
+    content: {
+        flexWrap: &apos;wrap&apos;
+    }
+};
+</code></pre><h3 id="其他后续更新中"><a href="#其他后续更新中" class="headerlink" title="其他后续更新中"></a>其他后续更新中</h3><p>……</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-2017年个人总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -201,31 +300,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="http://o84wamnts.bkt.clouddn.com/20180109-1.jpg" alt="20180109-1"></p>
-<p>最近手头事情终于不是那么多了，也可以静下来做个2017年的总结了，给自己打个tag，也希望自己新的一年能够继续努力。</p>
-<h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>工作内容大致有以下几点：</p>
-<ul>
-<li>日常Native </li>
-<li>ReactNative及前端相关</li>
-<li>工程结构调整和优化</li>
-<li>脚本工具</li>
-</ul>
-<p>一些计划：</p>
-<ul>
-<li>逆向</li>
-</ul>
-<p>今年工作没有太大的变动，整体比较稳定，在这过去的一年中，感觉自己收获还是蛮大的。</p>
-<h3 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h3><p>好的方面：</p>
-<p>作息比以前规律了<br>自己开始做饭了</p>
-<p>坏的方面：</p>
-<p>打羽毛球的习惯冬天中断了</p>
-<p>希望天气稍微转暖之后可以恢复打球活动，另外再加强一下其他锻炼，毕竟身体是革命的本钱。同时也希望自己多去其他地方走走，收获一些不同的体验和感受。</p>
-<h3 id="关于阅读"><a href="#关于阅读" class="headerlink" title="关于阅读"></a>关于阅读</h3><ul>
-<li>《人类简史》</li>
-</ul>
-<p>今年的人文阅读似乎有点少，希望18年可以稍微改进下，但是也不打算强迫自己，这种东西随性就好，毕竟记忆和感受才是重点。</p>
-<h3 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h3><p>转眼博客已经走过了两年，希望自己能再接再厉，把这个好习惯坚持下去，也希望将来有一天它能见证自己这一路走来的足迹。</p>
-<h3 id="其他感慨"><a href="#其他感慨" class="headerlink" title="其他感慨"></a>其他感慨</h3><p>今年过的好快……</p>
-
       
     </div>
     
@@ -238,6 +312,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2018/01/09/2017年个人总结/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -282,133 +360,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="http://o84wamnts.bkt.clouddn.com/20171019-1.png" alt="20171019-1"></p>
-<p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p>
-<blockquote>
-<p>MobX 会对在追踪函数执行过程中读取现存的可观察属性做出反应。</p>
-</blockquote>
-<p>MobX的官方文档将MobX的绑定及相应过程总结为这么一句话，并标出了“读取”、“追踪函数”和“过程”三个关键字。</p>
-<h3 id="Mobx会收集哪些地方的绑定"><a href="#Mobx会收集哪些地方的绑定" class="headerlink" title="Mobx会收集哪些地方的绑定"></a>Mobx会收集哪些地方的绑定</h3><blockquote>
-<p>“追踪函数” 是 <code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法和 <code>when</code>、<code>reaction</code> 和 <code>autorun</code> 的第一个入参函数。</p>
-</blockquote>
-<p>文档说明的也比较清楚，会对文件当中的<code>@computed</code>修饰的方法、<code>render()</code>方法、<code>when</code>方法的第一个入参函数、<code>reaction</code>方法的第一个入参函数、<code>autorun</code>方法的第一个入参函数这些地方收集，MobX会在页面加载执行前扫描所有的文件，收集这些地方的绑定。</p>
-<p>以下调用和赋值<code>this.store.listA</code>的地方，MobX都会去收集绑定，其它的地方则不会去收集。</p>
-<pre><code>//数据绑定文件
-import { computed, observable } from &apos;mobx&apos;;
-
-class IndexStore {
-    @observable listA = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;];
-    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
-
-    @computed get dataA() {
-        return this.listA;
-    }
-}
-
-//Index视图文件
-import { observer } from &apos;mobx-react/native&apos;;
-import IndexStore from &apos;indexStore&apos;;
-
-@observer
-class Index extends Component {
-    constructor() {
-        super();
-        this.store = new IndexStore();
-        when(
-            () =&gt; this.store.listA.length == 0,
-            () =&gt; console.log(&quot;listA none&quot;)
-        );
-    }
-
-    const autorun1 = autorun(() =&gt; {
-        console.log(this.store.listA);
-    })
-
-    const reaction2 = reaction(
-        () =&gt; this.store.listA,
-        listA =&gt; console.log(listA.join(&quot;, &quot;))
-    )
-
-    render() {
-        return (
-            &lt;MainItem dataSource={this.store.listA}
-            renderHeader={
-                () =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;
-            } /&gt;
-        )
-    }
-}
-</code></pre><h3 id="MobX会收集哪些绑定"><a href="#MobX会收集哪些绑定" class="headerlink" title="MobX会收集哪些绑定"></a>MobX会收集哪些绑定</h3><blockquote>
-<p>“过程(during)” 意味着只追踪那些在函数执行时被读取的 <code>observable</code> 。这些值是否由追踪函数直接或间接使用并不重要。</p>
-</blockquote>
-<p>这句话解释了MobX收集哪些绑定，是那些在函数执行时被读取的<code>observable</code>，例如上面实例代码<code>&lt;MainItem dataSource={this.store.listA}/&gt;</code>中的<code>this.store.listA</code>，它在<code>render()</code>函数执行时被调用，用于作为<code>MainItem</code>的数据源，所以这个绑定就被收集到了，<code>render()</code>函数和<code>listA</code>之间就建立了联系，当<code>listA</code>发生变化时，<code>render()</code>函数就会被调用，界面也就从新渲染刷新了。同理，上面的一些log也会调用，会在控制台输出相应信息。</p>
-<p>需要注意的是上面实例代码中的<code>renderHeader={() =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;}</code>当中的<code>this.store.listB</code>并不会被收集到，为什么呢？因为<code>renderHeader</code>作为一个属性传入<code>MainItem</code>，<code>renderHeader</code>当中的<code>this.store.listB</code>并没有在<code>Index</code>的<code>render()</code>去使用，而是在<code>Item</code>当中使用了它，所以<code>Index</code>的<code>render()</code>并没有与<code>listB</code>之间建立连接，当<code>listB</code>发生变化就不会调用<code>Index</code>的<code>render()</code>，界面也就不会重新渲染刷新。</p>
-<p>我们想在修改<code>listB</code>时让界面刷新作出相应，我们该怎么办呢？我们需要在<code>Item</code>当中添加<code>@observer</code>去捕获这个绑定，因为<code>listB</code>在<code>Item</code>的<code>render()</code>当中进行了调用，所以正确的写法如下：</p>
-<pre><code>//Index视图文件
-render() {
-    return (
-        &lt;MainItem dataSource={this.store.listA}
-             renderHeader={
-                   () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;
-         } /&gt;
-    )
-}
-
-//Item视图文件
-import { observer } from &apos;mobx-react/native&apos;;
-
-@observer
-class Item extends Component {
-    constructor() {
-        super();
-    }
-
-    render() {
-        return (
-            &lt;Text&gt;{this.props.data.listB[0]}&lt;/Text&gt;
-        )
-    }
-}
-</code></pre><p>Tips：当我们修改<code>listB</code>时，<code>Item</code>就会重新调用其<code>render()</code>函数重新渲染，我们重新渲染<code>Item</code>比重新渲染整个<code>Index</code>所消耗的资源会更少，虽然MobX已经有机制帮我们减少不必要的渲染，但是这样还是会消耗更少的资源，所以官方推荐我们绑定粒度越细越好。</p>
-<p>细心的同学可能会注意到为什么<code>Item</code>的<code>data</code>当中是<code>this.store</code>而不是我们认为的<code>this.store.listB</code>，是写错了吗，并不是，这恰恰是正确的写法，下面我们就来讨论下这个问题。</p>
-<h3 id="MobX绑定了什么"><a href="#MobX绑定了什么" class="headerlink" title="MobX绑定了什么"></a>MobX绑定了什么</h3><blockquote>
-<p>“读取” 是对象属性的间接引用，可以用过 <code>.</code> (例如 <code>user.name</code>) 或者 <code>[]</code> (例如 <code>user[&#39;name&#39;]</code>) 的形式完成。</p>
-</blockquote>
-<p>这句话解释了MobX绑定了什么，它绑定的是可观察对象的引用，例如上面提到的<code>listA</code>，MobX并不是将<code>listA</code>的内容<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>与<code>render()</code>函数绑定，而是将<code>listA</code>变量对<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>的引用与<code>render()</code>函数绑定绑定，所以只有当<code>listA</code>对值的引用发生变化时，<code>render()</code>函数才会调用。（也可以理解为c/c++当中的指针的概念，<code>render()</code>函数是与<code>listA</code>变量的指针值绑定）</p>
-<p>所以针对上面的<code>listA</code>，你只修改数组的内容，render()函数是不会调用的，界面也是不会刷新的。下面这种写法，界面并不会刷新：</p>
-<pre><code>//数据绑定文件
-modifyListA1() {
-    this.listA[0] = &quot;4&quot;;
-}
-
-//此处只是数组[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]的内容发生了变化，listA的引用却没有发生变化
-</code></pre><p>正确的写法</p>
-<pre><code>//数据绑定文件
-modifyListA2() {
-    this.listA = [&quot;4&quot;,&quot;2&quot;,&quot;3&quot;];
-}
-
-//此处listA被赋值了一个新数组[&quot;4&quot;,&quot;2&quot;,&quot;3&quot;]，listA的引用发生了变化
-</code></pre><p>我们再回到<code>listB</code>的问题上，如果我们是<code>&lt;Item data={this.store.listB}&gt;&lt;/Item&gt;</code>这种写法，我们相当于把<code>[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</code>这个值传递给了<code>Item</code>当中的<code>data</code>，通过<code>data</code>对数组的操作，并未出现<code>listB</code>的引用，也就无法建立绑定。而我们将整个<code>store</code>传递过去，<code>data</code>就被赋值了<code>store</code>的内容，当<code>data</code>引用<code>listB</code>时，也就出现了<code>listB</code>的引用，这样绑定才建立了起来。</p>
-<p>所以针对子组件，需要将被观察属性的父级传递过去，这样才能在子组件中出现被观察属性的引用，才能建立绑定。</p>
-<h3 id="MobX绑定过程"><a href="#MobX绑定过程" class="headerlink" title="MobX绑定过程"></a>MobX绑定过程</h3><p>了解了以上三个概念，MobX的绑定过程就比较清晰了。MobX在代码编译时/代码执行之前扫描代码中的<code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法等地方，将这些方法中出现的直接调用的观察属性的引用和这些方法绑定起来，这就是MobX的绑定过程。绑定完成之后，当这些引用发生变化时，相应的绑定方法就调用，界面就会刷新重新渲染或者相应的逻辑就会执行。</p>
-<h3 id="observable和-observable"><a href="#observable和-observable" class="headerlink" title="observable和@observable"></a>observable和@observable</h3><p>上面我们<code>modifyListA1</code>提到的修改并不会触发绑定的界面刷新操作，需要我们使用<code>modifyListA2</code>当中的修改方式，给<code>listA</code>提供一个新数组，改变它的引用值。那有没有方法可以让<code>listA</code>只修改一个值（如<code>modifyListA1</code>当中的操作）就触发界面的刷新呢，答案是肯定的，我们只需要将<code>listA</code>初始的赋值方式改成如下方式即可：</p>
-<pre><code>//数据绑定文件
-import { computed, observable } from &apos;mobx&apos;;
-
-class IndexStore {
-    listA = observable([&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]);
-    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];
-
-    @computed get dataA() {
-        return this.listA;
-    }
-}
-</code></pre><p>为什么这种方式就可以呢？因为<code>observable</code>默认情况下会递归应用，相比较<code>@observable</code>细粒度的观察，只监测<code>listA</code>的引用，<code>observable</code>则会递归这些观察，将<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用都作为监测对象，这样<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用就和<code>render()</code>函数建立起了绑定，当<code>listA[0]</code>被赋值，引用发生变化时，<code>render()</code>也就被调用了，界面也就刷新了。</p>
-<p>如果需要一个数据源的内部数据发生变化引起相应操作，我们可以使用<code>observable</code>，然而<code>observable</code>也有它的弊端，它会建立起来比较多的冗余绑定，也会使后续的维护变得复杂，总体上我们推荐使用<code>@observable</code>这样细粒度的控制，它会使我们的项目更加清晰便于维护，同时也会大大的降低那些莫名其妙的bug的概率。</p>
-<h3 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a>了解更多</h3><p>详情参考官方文档</p>
-<p><a href="http://cn.mobx.js.org/best/react.html" target="_blank" rel="external">MobX 会对什么作出反应?</a></p>
-<p><a href="http://cn.mobx.js.org/best/pitfalls.html" target="_blank" rel="external">常见陷阱与最佳实践</a></p>
-
       
     </div>
     
@@ -421,6 +372,10 @@ class IndexStore {
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -909,77 +864,6 @@ end
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-iOS下的cookies使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/27/iOS下的cookies使用/" class="article-date">
-  	<time datetime="2017-05-27T08:21:36.000Z" itemprop="datePublished">2017-05-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/27/iOS下的cookies使用/">iOS下的cookies使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。</p>
-<h3 id="Cookies简介"><a href="#Cookies简介" class="headerlink" title="Cookies简介"></a>Cookies简介</h3><p>这里有比较详细的介绍，本文就不再赘述了。<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="external">click me</a></p>
-<p>在iOS当中需要注意以下几点：</p>
-<ol>
-<li>不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie</li>
-<li>多个应用之间默认不共享cookie</li>
-<li>临时cookie在应用重启之后就会消失</li>
-<li>持久cookie在应用或系统重启之后不会消失</li>
-<li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
-<li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
-</ol>
-<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/27/iOS下的cookies使用/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
