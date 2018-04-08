@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-04T02:41:06.021Z</updated>
+  <updated>2018-04-08T02:40:59.991Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>主题替换为NexT</title>
+    <link href="http://yoursite.com/2018/04/04/%E4%B8%BB%E9%A2%98%E6%9B%BF%E6%8D%A2%E4%B8%BANexT/"/>
+    <id>http://yoursite.com/2018/04/04/主题替换为NexT/</id>
+    <published>2018-04-04T08:28:10.000Z</published>
+    <updated>2018-04-08T02:40:59.991Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前一直觉得博客的主题在显示比较多的文字和代码的时候略显凌乱，而且不太方便阅读，所以就把博客主题替换成了NexT。NexT在文字排版上比较清晰，而且界面元素也不多，可以使自己把更多的关注点放在内容上。</p>
+<p>NexT主题地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a></p>
+<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>1.NexT有4个scheme，每个scheme对应一个不同的布局，可以在<code>_config.yml</code>当中设置</p>
+<pre><code># ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+
+# Schemes
+scheme: Muse
+# scheme: Mist
+#scheme: Pisces
+</code></pre><p>2.大于5.0.1小于6.0.0版本的NexT在<code>sudo hexo generate</code>时速度会特别慢，不知道是不是个例，在使用的时候注意一下</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前一直觉得博客的主题在显示比较多的文字和代码的时候略显凌乱，而且不太方便阅读，所以就把博客主题替换成了NexT。NexT在文字排版上比较清晰，而且界面元素也不多，可以使自己把更多的关注点放在内容上。&lt;/p&gt;
+&lt;p&gt;NexT主题地址：&lt;a href=&quot;https://git
+    
+    </summary>
+    
+    
+      <category term="博客历程" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>从ReactNative到React</title>
@@ -1628,72 +1661,6 @@ main
     
     
       <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>oh my zsh &amp; 语义化版本</title>
-    <link href="http://yoursite.com/2017/01/13/oh-my-zsh-%E8%AF%AD%E4%B9%89%E5%8C%96%E7%89%88%E6%9C%AC/"/>
-    <id>http://yoursite.com/2017/01/13/oh-my-zsh-语义化版本/</id>
-    <published>2017-01-13T07:22:15.000Z</published>
-    <updated>2018-04-04T07:05:43.936Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。</p>
-<h3 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h3><p>oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。</p>
-<p>后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。</p>
-<p><strong>zsh和oh my zsh</strong></p>
-<p>zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。</p>
-<p><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。<a id="more"></a></p>
-<p><strong>zsh安装</strong></p>
-<p>macOS一般都预装了zsh，使用<code>zsh --version</code>命令可以查看zsh版本</p>
-<p>如果是老版本的系统，可以使用<code>brew install zsh zsh-completions</code>安装zsh</p>
-<p><strong>oh my zsh安装</strong></p>
-<p>直接执行下面的命令即可</p>
-<pre><code>通过curl方式
-sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
-
-或者wget方式
-sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;
-</code></pre><p>安装完成之后重新启动下终端就可以愉快的使用了</p>
-<p>如果你想要更多的插件和主题<a href="https://github.com/robbyrussell/oh-my-zsh/wiki" target="_blank" rel="external">点击这里</a></p>
-<h3 id="语义化版本"><a href="#语义化版本" class="headerlink" title="语义化版本"></a>语义化版本</h3><p>目前工作当中使用的开发模式是基于Git和CocoaPods的组件化开发，使用这种开发模式就会存在各种组件的相互依赖，随着业务的丰富、工程的增大，就会逐渐出现一种叫做“依赖地狱”问题，就是各个组件不同版本的相互依赖，最后造成某个组件版本冲突锁死的问题。</p>
-<p>语义化版本，就是为了解决这种问题提出的，我想大多数开发者都或多或少的听说过，在开发过程中按照这种方式来控制版本，就可以尽可能避免“依赖地狱”了。</p>
-<p><strong>版本规则</strong></p>
-<p>语义化版本2.0.0是这样定义的</p>
-<blockquote>
-<p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
-<ol>
-<li><p>主版本号：当你做了不兼容的 API 修改，</p>
-</li>
-<li><p>次版本号：当你做了向下兼容的功能性新增，</p>
-</li>
-<li><p>修订号：当你做了向下兼容的问题修正。</p>
-</li>
-</ol>
-<p>先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
-</blockquote>
-<p>更加详细的介绍<a href="http://semver.org/lang/zh-CN/" target="_blank" rel="external">点击这里</a>，英文版<a href="http://semver.org/" target="_blank" rel="external">click me</a></p>
-<p><strong>版本引用</strong></p>
-<p>我们在引用的时候使用大于等于次版本号但不超过的主版本号的版本即<code>&#39;~&gt; 2.0&#39;</code>这样，这样既可以保证使用最新的组件，又可以避免因为不兼容API造成的错误。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。&lt;/p&gt;
-&lt;h3 id=&quot;oh-my-zsh&quot;&gt;&lt;a href=&quot;#oh-my-zsh&quot; class=&quot;headerlink&quot; title=&quot;oh my zsh&quot;&gt;&lt;/a&gt;oh my zsh&lt;/h3&gt;&lt;p&gt;oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。&lt;/p&gt;
-&lt;p&gt;后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;zsh和oh my zsh&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;oh my zsh&lt;/a&gt;是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="版本管理" scheme="http://yoursite.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
