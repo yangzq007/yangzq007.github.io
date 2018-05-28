@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-08T02:40:59.991Z</updated>
+  <updated>2018-05-28T10:30:29.956Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS Archive之后出现Other Items无法导出</title>
+    <link href="http://yoursite.com/2018/05/28/iOS-Archive%E4%B9%8B%E5%90%8E%E5%87%BA%E7%8E%B0Other-Items%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA/"/>
+    <id>http://yoursite.com/2018/05/28/iOS-Archive之后出现Other-Items无法导出/</id>
+    <published>2018-05-28T09:58:30.000Z</published>
+    <updated>2018-05-28T10:30:29.956Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。</p>
+<p>这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：</p>
+<p>1.依赖工程的skip install设置为Yes，Build Settings-&gt;Deployment-&gt;Skip Install</p>
+<p>2.依赖工程Build Phases-&gt;Copy Headers中所有的头文件拉到Project下，即Public和Private下不能有文件</p>
+<p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
+<p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
+<p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。&lt;/p&gt;
+&lt;p&gt;这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：&lt;/p&gt;
+&lt;p&gt;1.依赖工程的skip insta
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CocoaPods重复生成UUID的问题</title>
+    <link href="http://yoursite.com/2018/05/28/CocoaPods%E9%87%8D%E5%A4%8D%E7%94%9F%E6%88%90UUID%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/05/28/CocoaPods重复生成UUID的问题/</id>
+    <published>2018-05-28T09:39:14.000Z</published>
+    <updated>2018-05-28T09:51:37.519Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近使用CocoaPods在<code>pod install</code>或者<code>pod update</code>时会出现<code>[!] [Xcodeproj] Generated duplicate UUIDs:</code>的错误，大段的warning占满整个终端。</p>
+<p>解决方案：</p>
+<p>终端执行如下命令</p>
+<pre><code>export COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=YES
+</code></pre><p>后续CocoaPods已经把该配置移入到Podfile当中，执行上面命令无效的可以在Podfile当中添加如下配置即可：</p>
+<pre><code>//建议放在文件开始或者source之后    
+install! &apos;cocoapods&apos;, :deterministic_uuids =&gt; false
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近使用CocoaPods在&lt;code&gt;pod install&lt;/code&gt;或者&lt;code&gt;pod update&lt;/code&gt;时会出现&lt;code&gt;[!] [Xcodeproj] Generated duplicate UUIDs:&lt;/code&gt;的错误，大段的warning占
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
   
   <entry>
     <title>主题替换为NexT</title>
@@ -1583,84 +1643,6 @@ main
       <category term="那些坑" scheme="http://yoursite.com/tags/%E9%82%A3%E4%BA%9B%E5%9D%91/"/>
     
       <category term="热修复" scheme="http://yoursite.com/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>移除SourceTree无用远程分支</title>
-    <link href="http://yoursite.com/2017/02/06/%E7%A7%BB%E9%99%A4SourceTree%E6%97%A0%E7%94%A8%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF/"/>
-    <id>http://yoursite.com/2017/02/06/移除SourceTree无用远程分支/</id>
-    <published>2017-02-06T02:25:57.000Z</published>
-    <updated>2018-04-04T07:04:52.001Z</updated>
-    
-    <content type="html"><![CDATA[<p>在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。</p>
-<p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
-<p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
-<li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="http://o84wamnts.bkt.clouddn.com/20170206-2.png" alt="20170206-2"></li>
-<li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
-<li>重启SourceTree即可。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。&lt;/p&gt;
-&lt;p&gt;使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。&lt;/p&gt;
-&lt;p&gt;&lt;img sr
-    
-    </summary>
-    
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2016年个人总结</title>
-    <link href="http://yoursite.com/2017/01/22/2016%E5%B9%B4%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2017/01/22/2016年个人总结/</id>
-    <published>2017-01-22T09:26:29.000Z</published>
-    <updated>2018-04-04T07:05:23.498Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20170122-1.JPG" alt="20170122-1"></p>
-<p>一转眼马上要过春节了，趁着这个时候我也发个2016年的总结吧，给今年划上一个圆满的句号。<a id="more"></a></p>
-<h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>今年经历了一次工作变动，算是意料之外的，这次变动整体上没有造成特别大的影响，自己也从这次经历当中学到了很多。</p>
-<p>在今年的工作当中结识了很多有意思的小伙伴，也经历了很多有趣的事情。之前公司的小伙伴能经常聚下，这也实在是一件难得的事情，现在一起相处的同事和朋友也都非常友好和有才华，让我从不同的角度了解这个世界，挺好。</p>
-<p>同事有句话说的很好</p>
-<blockquote>
-<p>聚是一团火,散是满天星。</p>
-</blockquote>
-<p>工作内容上主要还是以基础开发为主，对安全和直播这两块的涉及还是蛮让人振奋的，在脚本和架构方面的一些拓展也算是达成了自己进阶的一部分计划。</p>
-<h3 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h3><p>生活依旧是平淡无奇的大日常。</p>
-<p>好的方面：</p>
-<p>加强了锻炼，经常参加各种体育活动，户外活动还是蛮多的。</p>
-<p>坏的方面：</p>
-<p>作息不太规律，这个好像是通病，在努力调整中。</p>
-<p>今年杭城开了G20，我也刚好趁着这个假期去了云南，体验了那里的山清水秀，也算是完成了自己的一个小心愿。至于后来的黄山之行算是个小惊喜吧。</p>
-<h3 id="关于阅读"><a href="#关于阅读" class="headerlink" title="关于阅读"></a>关于阅读</h3><ul>
-<li>《平凡的世界》</li>
-<li>《活着》</li>
-<li>《追风筝的人》</li>
-<li>《围城》</li>
-<li>《人生》</li>
-<li>《圣经的故事》</li>
-<li>《解忧杂货店》</li>
-</ul>
-<p>老实说，能完成这样的阅读量有点出乎我的意料，也因为这些书籍让我对历史和宗教产生了一些的兴趣。</p>
-<h3 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h3><p>博客是15年末16年初慢慢搭建起来的，已经走过了一个完整的年头，在这里也希望自己能够继续坚持下去，更多的分享自己的体会和心得。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170122-1.JPG&quot; alt=&quot;20170122-1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;一转眼马上要过春节了，趁着这个时候我也发个2016年的总结吧，给今年划上一个圆满的句号。
-    
-    </summary>
-    
-    
-      <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   

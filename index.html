@@ -252,6 +252,206 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/28/iOS-Archive之后出现Other-Items无法导出/" itemprop="url">
+                  iOS Archive之后出现Other Items无法导出
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T17:58:30+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。</p>
+<p>这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：</p>
+<p>1.依赖工程的skip install设置为Yes，Build Settings-&gt;Deployment-&gt;Skip Install</p>
+<p>2.依赖工程Build Phases-&gt;Copy Headers中所有的头文件拉到Project下，即Public和Private下不能有文件</p>
+<p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
+<p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
+<p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/28/CocoaPods重复生成UUID的问题/" itemprop="url">
+                  CocoaPods重复生成UUID的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T17:39:14+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近使用CocoaPods在<code>pod install</code>或者<code>pod update</code>时会出现<code>[!] [Xcodeproj] Generated duplicate UUIDs:</code>的错误，大段的warning占满整个终端。</p>
+<p>解决方案：</p>
+<p>终端执行如下命令</p>
+<pre><code>export COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=YES
+</code></pre><p>后续CocoaPods已经把该配置移入到Podfile当中，执行上面命令无效的可以在Podfile当中添加如下配置即可：</p>
+<pre><code>//建议放在文件开始或者source之后    
+install! &apos;cocoapods&apos;, :deterministic_uuids =&gt; false
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/04/04/主题替换为NexT/" itemprop="url">
                   主题替换为NexT
                 </a>
@@ -1088,221 +1288,6 @@ end
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/12/React-Native之mobx绑定/" itemprop="url">
-                  React Native之mobx绑定
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-12T16:53:33+08:00" content="2017-07-12">
-              2017-07-12
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>作为一个iOS开发，想必大家都经历过把很多状态和逻辑放到Controller当中的时候，当Controller逐渐变大，数据处理逻辑、视图展示逻辑和状态控制逻辑混在一起会导致代码越来越难维护，RN当中的State也会存在这样的问题，我们引入mobx就是为了解决这样的问题。</p>
-<blockquote>
-<p>MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展。</p>
-</blockquote>
-<p>mobx通过响应式的结构将数据和视图的处理逻辑进行分离，比较好的解决了状态维护的问题，再将数据处理分离出去就是一个标准的MVVM的结构，开发者在VM当中对数据和视图进行了绑定后就可以只关心视图的渲染和数据的处理了，这样也更容易理解。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/12/React-Native之mobx绑定/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/05/React-Native之如何写一个ListView/" itemprop="url">
-                  React Native之如何写一个ListView
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-05T11:11:43+08:00" content="2017-07-05">
-              2017-07-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
-<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/05/React-Native之如何写一个ListView/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1348,7 +1333,7 @@ end
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

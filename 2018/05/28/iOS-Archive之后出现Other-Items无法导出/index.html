@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,H5,Hybird" />
+  <meta name="keywords" content="iOS,Archive,Other Items" />
 
 
 
@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。 H5和iOS原生交互现在主流的有两种方式：  通过Webview拦截url请求和Webview的执行js方法来实现 通过JavaScriptCore来实现  目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为WebViewJavascriptBridge这个框架，它是采用第一种方">
-<meta name="keywords" content="iOS,H5,Hybird">
+<meta name="description" content="最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。 这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案： 1.依赖工程的skip install设置为Yes，Build Settings-&amp;gt;Deployment-&amp;gt;Skip Install 2.依赖工程Build Phases-&amp;g">
+<meta name="keywords" content="iOS,Archive,Other Items">
 <meta property="og:type" content="article">
-<meta property="og:title" content="H5与原生交互的两种方式">
-<meta property="og:url" content="http://yoursite.com/2016/07/29/H5与原生交互的两种方式/index.html">
+<meta property="og:title" content="iOS Archive之后出现Other Items无法导出">
+<meta property="og:url" content="http://yoursite.com/2018/05/28/iOS-Archive之后出现Other-Items无法导出/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。 H5和iOS原生交互现在主流的有两种方式：  通过Webview拦截url请求和Webview的执行js方法来实现 通过JavaScriptCore来实现  目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为WebViewJavascriptBridge这个框架，它是采用第一种方">
-<meta property="og:updated_time" content="2018-04-04T07:06:53.086Z">
+<meta property="og:description" content="最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。 这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案： 1.依赖工程的skip install设置为Yes，Build Settings-&amp;gt;Deployment-&amp;gt;Skip Install 2.依赖工程Build Phases-&amp;g">
+<meta property="og:updated_time" content="2018-05-28T10:30:29.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="H5与原生交互的两种方式">
-<meta name="twitter:description" content="之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。 H5和iOS原生交互现在主流的有两种方式：  通过Webview拦截url请求和Webview的执行js方法来实现 通过JavaScriptCore来实现  目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为WebViewJavascriptBridge这个框架，它是采用第一种方">
+<meta name="twitter:title" content="iOS Archive之后出现Other Items无法导出">
+<meta name="twitter:description" content="最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。 这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案： 1.依赖工程的skip install设置为Yes，Build Settings-&amp;gt;Deployment-&amp;gt;Skip Install 2.依赖工程Build Phases-&amp;g">
 
 
 
@@ -114,7 +114,7 @@
   };
 </script>
 
-  <title> H5与原生交互的两种方式 | 那片树海 </title>
+  <title> iOS Archive之后出现Other Items无法导出 | 那片树海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -254,7 +254,7 @@
             
             
               
-                H5与原生交互的两种方式
+                iOS Archive之后出现Other Items无法导出
               
             
           </h1>
@@ -266,8 +266,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T11:11:47+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2018-05-28T17:58:30+08:00" content="2018-05-28">
+              2018-05-28
             </time>
           </span>
 
@@ -294,121 +294,14 @@
       
 
       
-        <p>之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。</p>
-<p>H5和iOS原生交互现在主流的有两种方式：</p>
-<ol>
-<li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
-<li>通过JavaScriptCore来实现</li>
-</ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。<a id="more"></a></p>
-<h3 id="拦截请求方式"><a href="#拦截请求方式" class="headerlink" title="拦截请求方式"></a>拦截请求方式</h3><p><strong>原生调用H5</strong></p>
-<p>原生调用H5比较简单，直接调用UIWebView（WKWebView同理）当中的</p>
-<pre><code>- (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-</code></pre><p>方法即可。同时WKWebView当中还增加了一个异步调用的方法</p>
-<pre><code>- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ __nullable)(__nullable id, NSError * __nullable error))completionHandler;
-</code></pre><p><strong>H5调用原生</strong></p>
-<p>H5调用原生通过在UIWebView（WKWebView同理）的</p>
-<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-</code></pre><p>方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>）</p>
-<pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (webView != _webView) { return YES; }
-    NSURL *url = [request URL];
-    __strong WVJB_WEBVIEW_DELEGATE_TYPE* strongDelegate = _webViewDelegate;
-    if ([_base isCorrectProcotocolScheme:url]) {
-        if ([_base isBridgeLoadedURL:url]) {
-            [_base injectJavascriptFile];
-        } else if ([_base isQueueMessageURL:url]) {
-            NSString *messageQueueString = [self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]];
-            [_base flushMessageQueue:messageQueueString];
-        } else {
-            [_base logUnkownMessage:url];
-        }
-        return NO;
-    } else if (strongDelegate &amp;&amp; [strongDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)]) {
-        return [strongDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-    } else {
-        return YES;
-    }
-}
-</code></pre><p>以上代码通过<code>isCorrectProcotocolScheme:</code>、<code>isBridgeLoadedURL:</code>和<code>isQueueMessageURL:</code>三个方法对拦截的url进行判断需要执行哪个原生的方法。</p>
-<p>一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>则是将需要获取的数据放到js对象当中，让原生通过<code>[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]</code>调用js去取到数据。</p>
-<h3 id="JavaScriptCore方式"><a href="#JavaScriptCore方式" class="headerlink" title="JavaScriptCore方式"></a>JavaScriptCore方式</h3><p>JavaScriptCore是iOS7之后添加的库，这个库使H5和原生的交互变得比较简单。</p>
-<p><strong>原生调用H5</strong></p>
-<pre><code>JSContext *context = [self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
-NSString *textJS = @&quot;showAlert(&apos;这里是JS中alert弹出的message&apos;)&quot;;
-[context evaluateScript:textJS];
-</code></pre><p><strong>H5调用原生</strong></p>
-<p>JavaScriptCore方式H5和原生交互更像是将一个原生对象注册到H5的js当中，通过js来调用。</p>
-<p>js直接调用方法</p>
-<pre><code>- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];    
-    context[@&quot;test&quot;] = ^() {
-        //此处获得方法传过来的参数，参数数量不固定，由js在调用时传递个数决定  
-        NSArray *args = [JSContext currentArguments];  
-        for (id obj in args) {  
-            NSLog(@&quot;%@&quot;,obj);  
-        }  
-    };    
-}
+        <p>最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。</p>
+<p>这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：</p>
+<p>1.依赖工程的skip install设置为Yes，Build Settings-&gt;Deployment-&gt;Skip Install</p>
+<p>2.依赖工程Build Phases-&gt;Copy Headers中所有的头文件拉到Project下，即Public和Private下不能有文件</p>
+<p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
+<p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
+<p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
 
-//我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&quot;test()&quot;;  
-[context evaluateScript:jsStr1];  
-NSString *jsStr2=@&quot;test(&apos;参数1&apos;)&quot;;  
-[context evaluateScript:jsStr2];  
-NSString *jsStr3=@&quot;test(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
-[context evaluateScript:jsStr3]; 
-</code></pre><p>js通过对象调用方法，此时需要向js当中传递一个实现了JSExport协议的对象，通过该对象调用在协议中声明并实现的自定义方法。</p>
-<pre><code>创建一个继承JSExport协议的协议，并添加自定义方法
-@protocol TestProtocol &lt;JSExport&gt;  
-//无参数  
--(void)test;
-//一个参数  
--(void)testOne:(NSString *)one;
-//两个参数  
--(void)testOne:(NSString *)one two:(NSString *)two;  
-@end
-
-//在需要调用的对象当中实现这个协议
-@interface TestJSObject : NSObject&lt;TestProtocol&gt;  
-
-@end
-
-@implementation TestJSObject  
-
--(void)test  
-{  
-    NSLog(@&quot;this is a test&quot;);  
-}
-
--(void)testOne:(NSString *)one  
-{  
-    NSLog(@&quot;this is a test,one=%@&quot;,one);  
-}  
--(void)testOne:(NSString *)one two:(NSString *)two  
-{
-    NSLog(@&quot;this is a test,one=%@,two=%@&quot;,one,two);  
-}
-
-@end
-
-//将实现TestProtocol协议的对象注册进js当中即可
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];   
-    TestJSObject *testJS=[[TestJSObject alloc] init];  
-    context[@&quot;testJS&quot;]=testJS;
-}
-</code></pre><p>在js当中调用时需要注意当调用多个参数的方法时需要需要将方法名拼接起来调用，比如我们写的两个参数调用就需要写成<code>testJS.testOnetwo(‘参数1’,’参数2’)</code>，如下：</p>
-<pre><code>//我们模拟一下H5当中的js调用  
-NSString *jsStr1=@&quot;testJS.test()&quot;;  
-[context evaluateScript:jsStr1];  
-NSString *jsStr2=@&quot;testJS.testOne(&apos;参数1&apos;)&quot;;  
-[context evaluateScript:jsStr2];  
-NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos;)&quot;;  
-[context evaluateScript:jsStr3]; 
-</code></pre>
       
     </div>
 
@@ -431,7 +324,7 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
           
             <a href="/tags/iOS/" rel="tag">#iOS</a>
           
-            <a href="/tags/H5/" rel="tag">#H5</a>
+            <a href="/tags/CocoaPods/" rel="tag">#CocoaPods</a>
           
         </div>
       
@@ -440,17 +333,13 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/从Octopress迁移到Hexo/" rel="next" title="从Octopress迁移到Hexo">
-                <i class="fa fa-chevron-left"></i> 从Octopress迁移到Hexo
+              <a href="/2018/05/28/CocoaPods重复生成UUID的问题/" rel="next" title="CocoaPods重复生成UUID的问题">
+                <i class="fa fa-chevron-left"></i> CocoaPods重复生成UUID的问题
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/22/教你获取图片的尺寸和文件大小/" rel="prev" title="教你获取图片的尺寸和文件大小">
-                教你获取图片的尺寸和文件大小 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -584,7 +473,7 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截请求方式"><span class="nav-number">1.</span> <span class="nav-text">拦截请求方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScriptCore方式"><span class="nav-number">2.</span> <span class="nav-text">JavaScriptCore方式</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
