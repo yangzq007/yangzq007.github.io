@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-28T10:30:29.956Z</updated>
+  <updated>2018-05-28T10:46:04.085Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2018/05/28/iOS-Archive%E4%B9%8B%E5%90%8E%E5%87%BA%E7%8E%B0Other-Items%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA/"/>
     <id>http://yoursite.com/2018/05/28/iOS-Archive之后出现Other-Items无法导出/</id>
     <published>2018-05-28T09:58:30.000Z</published>
-    <updated>2018-05-28T10:30:29.956Z</updated>
+    <updated>2018-05-28T10:46:04.085Z</updated>
     
     <content type="html"><![CDATA[<p>最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。</p>
 <p>这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：</p>
@@ -29,6 +29,7 @@
 <p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
 <p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
 <p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
+<p>另外苹果官方有个文档，虽然比较旧，也可以参考下<br><a href="https://developer.apple.com/library/content/technotes/tn2215/_index.html" target="_blank" rel="external">https://developer.apple.com/library/content/technotes/tn2215/_index.html</a></p>
 ]]></content>
     
     <summary type="html">
