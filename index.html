@@ -252,6 +252,107 @@
             
               
                 
+                <a class="post-title-link" href="/2018/07/09/Cocoapods-transitive-dependencies-that-include-static-frameworks/" itemprop="url">
+                  Cocoapods target has transitive dependencies that include static frameworks
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-07-09T15:35:17+08:00" content="2018-07-09">
+              2018-07-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在写一个新的Swift工程，在引用旧的objective-c的pod时开启了<code>use_frameworks!</code>配置项，结果在<code>pod install</code>和<code>pod update</code>出现了这么一个问题</p>
+<pre><code>target has transitive dependencies that include static frameworks: (AAA)
+</code></pre><h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>Podfile中不使用use_frameworks!时是会生成相应的.a（静态链接库）文件，然后通过static libraries来管理pod代码，在Linked时会包含该pod引用的其他的pod的.a文件</p>
+<p>Podfile中使用use_frameworks!时是会生成相应的.framework文件（动态链接库：实际内容为Header+动态链接库+资源文件），然后通过dynamic frameworks的方式来管理pod代码，在Linked时会包含该pod引用的其他的pod的.framework文件</p>
+<p>我们开启了use_frameworks!以动态framework的方式引用了AAA，然而AAA实际上是一个静态库，需要拷贝并链接到该pod中，然而dynamic frameworks方式并不会这么做，所以就报错了。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在引用AAA的pod的podspec文件当中开启static_framework配置</p>
+<pre><code>s.static_framework = true
+</code></pre><p>把该pod作为一个静态framework来编译链接，这样AAA就会被拷贝链接到到该pod的framework当中，这样就能正常引用了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/05/28/iOS-Archive之后出现Other-Items无法导出/" itemprop="url">
                   iOS Archive之后出现Other Items无法导出
                 </a>
@@ -1187,113 +1288,11 @@ end
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/31/iOS工程文件整理/" itemprop="url">
-                  iOS工程文件整理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-31T10:17:30+08:00" content="2017-07-31">
-              2017-07-31
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在iOS开发过程的当中不知道大家有没有遇到过这样的问题</p>
-<ol>
-<li>文件的物理位置不对应</li>
-<li>多余的未被工程引用的文件</li>
-</ol>
-<p>这两个问题在工程变得比较大的时候，对工程的影响就比较让人难受了，于是我决定对工程进行整理。</p>
-<p>因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/31/iOS工程文件整理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1334,7 +1333,7 @@ end
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

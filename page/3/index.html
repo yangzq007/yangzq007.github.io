@@ -252,6 +252,105 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/08/JSPatch的一些坑/" itemprop="url">
+                  JSPatch的一些坑
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-08T14:50:56+08:00" content="2017-02-08">
+              2017-02-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。</p>
+<h3 id="2017-02-08更新"><a href="#2017-02-08更新" class="headerlink" title="2017.02.08更新"></a>2017.02.08更新</h3><p>1.一些无法直接调用的常量应该怎么写，特别是系统定义的？</p>
+<p>使用NSLog将对应常量值输出，直接使用输出的常量值替代<br><br>2.在JS当中发现不能调用方法，导致JS文件执行中断，使用console.log输出，发现为[NSObject object]</p>
+<p>这种情况说明当前对象没有序列化，需转换成JS对象使用，调用toJS()即可</p>
+<pre><code>var temp = registrationID.toJS();
+</code></pre><p>更多问题详见JSPatch官方文档，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatch 基础用法</a>，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" target="_blank" rel="external">JSPatch 常见问题</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/02/06/移除SourceTree无用远程分支/" itemprop="url">
                   移除SourceTree无用远程分支
                 </a>
@@ -1141,107 +1240,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/18/如何自定义一个不规则的Button/" itemprop="url">
-                  如何自定义一个不规则的Button
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-18T16:39:30+08:00" content="2016-07-18">
-              2016-07-18
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>有些时候我们会碰到自定义不规则button的需求，我们会采用设置button图片的方式来解决，但是这种方式针对饼状图按钮或者其他复杂的样式实现起来就会有困难，而且这种方式在响应区域上也存在一定的问题。下面我就和大家分享一个比较好的方法。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/18/如何自定义一个不规则的Button/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1282,7 +1285,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

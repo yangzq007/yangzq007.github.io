@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-05-28T10:46:04.085Z</updated>
+  <updated>2018-07-09T08:34:57.566Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Cocoapods target has transitive dependencies that include static frameworks</title>
+    <link href="http://yoursite.com/2018/07/09/Cocoapods-transitive-dependencies-that-include-static-frameworks/"/>
+    <id>http://yoursite.com/2018/07/09/Cocoapods-transitive-dependencies-that-include-static-frameworks/</id>
+    <published>2018-07-09T07:35:17.000Z</published>
+    <updated>2018-07-09T08:34:57.566Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在写一个新的Swift工程，在引用旧的objective-c的pod时开启了<code>use_frameworks!</code>配置项，结果在<code>pod install</code>和<code>pod update</code>出现了这么一个问题</p>
+<pre><code>target has transitive dependencies that include static frameworks: (AAA)
+</code></pre><h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>Podfile中不使用use_frameworks!时是会生成相应的.a（静态链接库）文件，然后通过static libraries来管理pod代码，在Linked时会包含该pod引用的其他的pod的.a文件</p>
+<p>Podfile中使用use_frameworks!时是会生成相应的.framework文件（动态链接库：实际内容为Header+动态链接库+资源文件），然后通过dynamic frameworks的方式来管理pod代码，在Linked时会包含该pod引用的其他的pod的.framework文件</p>
+<p>我们开启了use_frameworks!以动态framework的方式引用了AAA，然而AAA实际上是一个静态库，需要拷贝并链接到该pod中，然而dynamic frameworks方式并不会这么做，所以就报错了。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>在引用AAA的pod的podspec文件当中开启static_framework配置</p>
+<pre><code>s.static_framework = true
+</code></pre><p>把该pod作为一个静态framework来编译链接，这样AAA就会被拷贝链接到到该pod的framework当中，这样就能正常引用了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在写一个新的Swift工程，在引用旧的objective-c的pod时开启了&lt;code&gt;use_frameworks!&lt;/code&gt;配置项，结果在&lt;code&gt;pod install&lt;/code&gt;和&lt;code&gt;pod update&lt;/code&gt;出现了这么一个问题&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS Archive之后出现Other Items无法导出</title>
@@ -1615,35 +1646,6 @@ main
       <category term="脚本" scheme="http://yoursite.com/tags/%E8%84%9A%E6%9C%AC/"/>
     
       <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JSPatch的一些坑</title>
-    <link href="http://yoursite.com/2017/02/08/JSPatch%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"/>
-    <id>http://yoursite.com/2017/02/08/JSPatch的一些坑/</id>
-    <published>2017-02-08T06:50:56.000Z</published>
-    <updated>2018-04-04T07:04:45.585Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。</p>
-<h3 id="2017-02-08更新"><a href="#2017-02-08更新" class="headerlink" title="2017.02.08更新"></a>2017.02.08更新</h3><p>1.一些无法直接调用的常量应该怎么写，特别是系统定义的？</p>
-<p>使用NSLog将对应常量值输出，直接使用输出的常量值替代<br><br>2.在JS当中发现不能调用方法，导致JS文件执行中断，使用console.log输出，发现为[NSObject object]</p>
-<p>这种情况说明当前对象没有序列化，需转换成JS对象使用，调用toJS()即可</p>
-<pre><code>var temp = registrationID.toJS();
-</code></pre><p>更多问题详见JSPatch官方文档，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" target="_blank" rel="external">JSPatch 基础用法</a>，<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" target="_blank" rel="external">JSPatch 常见问题</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近使用JSPatch遇到了一些坑，发出来大家引以为鉴少走弯路吧，后续遇到问题的话会持续更新的。&lt;/p&gt;
-&lt;h3 id=&quot;2017-02-08更新&quot;&gt;&lt;a href=&quot;#2017-02-08更新&quot; class=&quot;headerlink&quot; title=&quot;2017.02.08更新
-    
-    </summary>
-    
-    
-      <category term="那些坑" scheme="http://yoursite.com/tags/%E9%82%A3%E4%BA%9B%E5%9D%91/"/>
-    
-      <category term="热修复" scheme="http://yoursite.com/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/"/>
     
   </entry>
   
