@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-06T07:19:17.602Z</updated>
+  <updated>2018-09-07T09:36:10.787Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="http://yoursite.com/2018/09/05/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Enode%E7%9A%84CLI/"/>
     <id>http://yoursite.com/2018/09/05/编写一个基于node的CLI/</id>
     <published>2018-09-05T09:27:31.000Z</published>
-    <updated>2018-09-06T07:19:17.602Z</updated>
+    <updated>2018-09-07T09:36:10.787Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在前端工程目录下可以直接通过别名执行package.json当中bin下面的js文件，将该工程安装到全局，即可在全局通过别名访问执行</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。</p>
 <pre><code>{
   &quot;name&quot;: &quot;testnode-cli&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
@@ -50,7 +50,9 @@
 <p>2.然后在该文件夹目录下运行<code>npm init</code>命令初始化该工程</p>
 <p>3.添加package.json文件当中bin字段对应的js文件</p>
 <p>4.编写js脚本文件实现命令</p>
-<p>如下是一个简单的js脚本内容，编写完毕后，当你在终端输入<code>testnode</code>时（在CLI项目目录下），就会输出对应的log</p>
+<p>5.使用命令<code>npm install -g</code>将当前项目安装到全局</p>
+<p>6.愉快测试和使用自己编写的命令</p>
+<p>如下是一个简单的js脚本内容，编写安装完毕后，当你在终端输入<code>testnode</code>时，就会输出对应的log</p>
 <pre><code>#!/usr/bin/env node
 
 function show () {
@@ -146,8 +148,6 @@ program
 <pre><code>//我们可以使用execSync来创建一个阻塞node的事件循环的shell客户端来执行我们常用的shell命令
 const execSync = require(&apos;child_process&apos;).execSync;
 execSync(&apos;ls&apos;);
-</code></pre><h3 id="全局使用"><a href="#全局使用" class="headerlink" title="全局使用"></a>全局使用</h3><pre><code>//使用如下命令将当前项目安装到全局，就可以全局使用了
-npm install -g
 </code></pre><h3 id="脚手架实现"><a href="#脚手架实现" class="headerlink" title="脚手架实现"></a>脚手架实现</h3><p>我们常用的前端脚手架的实现思路一般是在远端创建一个模板工程，在创建我们自己的工程时将远端的模板工程克隆到本地，然后通过CLI实现对模板工程相应关键信息的修改来转换成对应的开发工程。</p>
 <p>为了方便实现替换，我们可能需要在模板当中对一些关键信息使用特殊样式的字符替换，例如用&amp;{projectName}&amp;来占位项目名称，这样在替换时就方便检索和替换，避免出现误操作。</p>
 <p>相关的文件处理和文字处理可能还需要特殊的工具，这里不再详细描述。</p>
