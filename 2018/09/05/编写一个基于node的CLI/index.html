@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/09/05/编写一个基于node的CLI/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。 原理当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。 {   &amp;quot;name&amp;quot;: &amp;quot;testnode-cli&amp;quot;,   &amp;quo">
-<meta property="og:updated_time" content="2018-09-07T09:36:10.787Z">
+<meta property="og:updated_time" content="2018-09-13T06:42:08.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编写一个基于node的CLI">
 <meta name="twitter:description" content="最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。 原理当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。 {   &amp;quot;name&amp;quot;: &amp;quot;testnode-cli&amp;quot;,   &amp;quo">
@@ -318,8 +318,8 @@
   }
 }
 </code></pre><p>上面所展示的示例当中<code>testnode</code>字段是别名，命令头也是由这里决定的，执行的入口是<code>./bin/</code>下的index.js文件</p>
-<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件</p>
-<p>2.然后在该文件夹目录下运行<code>npm init</code>命令初始化该工程</p>
+<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件（可以使用<code>npm init</code>命令来创建）</p>
+<p>2.然后在该文件夹目录下运行<code>npm install</code>命令初始化该工程</p>
 <p>3.添加package.json文件当中bin字段对应的js文件</p>
 <p>4.编写js脚本文件实现命令</p>
 <p>5.使用命令<code>npm install -g</code>将当前项目安装到全局</p>

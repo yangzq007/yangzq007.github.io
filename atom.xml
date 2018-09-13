@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-07T09:36:10.787Z</updated>
+  <updated>2018-09-13T06:42:08.561Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2018/09/05/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Enode%E7%9A%84CLI/"/>
     <id>http://yoursite.com/2018/09/05/编写一个基于node的CLI/</id>
     <published>2018-09-05T09:27:31.000Z</published>
-    <updated>2018-09-07T09:36:10.787Z</updated>
+    <updated>2018-09-13T06:42:08.561Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。</p>
@@ -46,8 +46,8 @@
   }
 }
 </code></pre><p>上面所展示的示例当中<code>testnode</code>字段是别名，命令头也是由这里决定的，执行的入口是<code>./bin/</code>下的index.js文件</p>
-<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件</p>
-<p>2.然后在该文件夹目录下运行<code>npm init</code>命令初始化该工程</p>
+<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件（可以使用<code>npm init</code>命令来创建）</p>
+<p>2.然后在该文件夹目录下运行<code>npm install</code>命令初始化该工程</p>
 <p>3.添加package.json文件当中bin字段对应的js文件</p>
 <p>4.编写js脚本文件实现命令</p>
 <p>5.使用命令<code>npm install -g</code>将当前项目安装到全局</p>
