@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-13T06:42:08.561Z</updated>
+  <updated>2018-10-10T10:12:47.160Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xcode 10 library not found for -lstdc++.6</title>
+    <link href="http://yoursite.com/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/"/>
+    <id>http://yoursite.com/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/</id>
+    <published>2018-10-10T09:31:30.000Z</published>
+    <updated>2018-10-10T10:12:47.160Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近升级了Xcode 10，发现编译的时候报如下错误，在Xcode 9上正常：</p>
+<pre><code>library not found for -lstdc++.6
+</code></pre><p>这个是因为iOS 12废弃了libstdc++，也删除了相关的库，改为使用libc++替代</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>将缺失的库拷贝到原来对应的目录下，使Xcode能够引用</p>
+<p>将相应的库拷贝到如下四个目录当中，才能保证模拟器和真机都能用，缺少哪个库拷贝哪个就行，不用全部拷贝</p>
+<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/
+</code></pre><p>文件下载：<a href="https://github.com/yangzq007/Resources/tree/master/libstdc" target="_blank" rel="external">libstdc++</a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>如果拷贝进去之后重启Xcode编译还是报这个错误，建议在TARGETS-&gt;Build Phases-&gt;Link Binary With Libraries当中把当前依赖添加进去</p>
+<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>这种方法虽然可以暂时解决问题，但最好还是升级下相关库，使用新的库和API。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近升级了Xcode 10，发现编译的时候报如下错误，在Xcode 9上正常：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library not found for -lstdc++.6
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个是因为iOS 12废弃了libstdc++，也删除了相关的库，
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>编写一个基于node的CLI</title>
@@ -1598,90 +1632,6 @@ export LANG=en_US.UTF-8
     
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>终端翻墙</title>
-    <link href="http://yoursite.com/2017/03/29/%E7%BB%88%E7%AB%AF%E7%BF%BB%E5%A2%99/"/>
-    <id>http://yoursite.com/2017/03/29/终端翻墙/</id>
-    <published>2017-03-29T06:45:05.000Z</published>
-    <updated>2018-04-04T07:04:33.761Z</updated>
-    
-    <content type="html"><![CDATA[<p>开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。</p>
-<p>翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。</p>
-<p>我们可以终端当中输入以下命令使终端的请求走相应的代理</p>
-<pre><code>//设置http和https请求代理
-export http_proxy=http://127.0.0.1:8118
-export https_proxy=http://127.0.0.1:8118
-
-//sock5协议请使用
-export http_proxy=socks5://127.0.0.1:1080
-export https_proxy=socks5://127.0.0.1:1080
-
-//移除配置
-unset http_proxy
-unset https_proxy
-</code></pre><p>我们拉取的时候有的时候可能会用到ssh，我们可以这样配置</p>
-<pre><code>//设置所有协议代理
-export ALL_PROXY=socks5://127.0.0.1:1080
-
-//移除配置
-unset ALL_PROXY
-</code></pre><p>当前这些配置只对当前终端有效<br><a id="more"></a></p>
-<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>以上方式虽然解决了我们的需求，但是每次输入这些命令不免有些麻烦，所以我们进行了以下改进。</p>
-<p>改进方案大致有以下两种：</p>
-<ol>
-<li>编写shell脚本，需要时运行脚本</li>
-<li>自定义shell命令，简化输入</li>
-</ol>
-<p>相比1需要保存脚本文件来说，2是一个不错的选择</p>
-<p>自定义shell命令需要你打开~/.bashrc文件（如果使用的是zsh，对应文件为.zshrc）</p>
-<pre><code>//终端打开文件
-open ~/.zshrc
-</code></pre><p>然后在文件末尾以以下形式添加命令</p>
-<pre><code>alias {自定义指令名}=&apos;{具体指令}&apos;
-</code></pre><p>以上所有协议代理的命令就可以写作</p>
-<pre><code>//末尾的echo是为了在命令执行完毕输出一个字符串作为提醒，可删除
-alias openproxy=&quot;export ALL_PROXY=socks5://127.0.0.1:1080; echo &apos;HTTP Proxy on&apos;;&quot;
-alias closeproxy=&quot;unset ALL_PROXY; echo &apos;HTTP Proxy off&apos;;&quot;
-</code></pre><p>这样我们就可以使用openproxy和closeproxy方便的在终端打开和关闭代理了</p>
-<h3 id="其他解决方案"><a href="#其他解决方案" class="headerlink" title="其他解决方案"></a>其他解决方案</h3><p>我们最初的目的是为了更快的从GitHub上拿到文件，同事给我提供了另外一个解决方案。</p>
-<p>即对git进行相关配置，使其在请求时走代理。</p>
-<p>配置需要你打开~/.gitconfig文件，在文件末尾添加</p>
-<pre><code>[http &quot;https://github.com&quot;]
-        proxy = socks5://127.0.0.1:1080
-</code></pre><p>这样在Git发起向GitHub上的请求时就会默认走代理了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。&lt;/p&gt;
-&lt;p&gt;翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。&lt;/p&gt;
-&lt;p&gt;我们可以终端当中输入以下命令使终端的请求走相应的代理&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//设置http和https请求代理
-export http_proxy=http://127.0.0.1:8118
-export https_proxy=http://127.0.0.1:8118
-
-//sock5协议请使用
-export http_proxy=socks5://127.0.0.1:1080
-export https_proxy=socks5://127.0.0.1:1080
-
-//移除配置
-unset http_proxy
-unset https_proxy
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们拉取的时候有的时候可能会用到ssh，我们可以这样配置&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;//设置所有协议代理
-export ALL_PROXY=socks5://127.0.0.1:1080
-
-//移除配置
-unset ALL_PROXY
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当前这些配置只对当前终端有效&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   

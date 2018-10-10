@@ -252,6 +252,122 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/29/终端翻墙/" itemprop="url">
+                  终端翻墙
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-29T14:45:05+08:00" content="2017-03-29">
+              2017-03-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。</p>
+<p>翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。</p>
+<p>我们可以终端当中输入以下命令使终端的请求走相应的代理</p>
+<pre><code>//设置http和https请求代理
+export http_proxy=http://127.0.0.1:8118
+export https_proxy=http://127.0.0.1:8118
+
+//sock5协议请使用
+export http_proxy=socks5://127.0.0.1:1080
+export https_proxy=socks5://127.0.0.1:1080
+
+//移除配置
+unset http_proxy
+unset https_proxy
+</code></pre><p>我们拉取的时候有的时候可能会用到ssh，我们可以这样配置</p>
+<pre><code>//设置所有协议代理
+export ALL_PROXY=socks5://127.0.0.1:1080
+
+//移除配置
+unset ALL_PROXY
+</code></pre><p>当前这些配置只对当前终端有效<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/03/29/终端翻墙/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/02/08/使用Shell脚本批量压缩图片/" itemprop="url">
                   使用Shell脚本批量压缩图片
                 </a>
@@ -1135,108 +1251,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/29/H5与原生交互的两种方式/" itemprop="url">
-                  H5与原生交互的两种方式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T11:11:47+08:00" content="2016-07-29">
-              2016-07-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。</p>
-<p>H5和iOS原生交互现在主流的有两种方式：</p>
-<ol>
-<li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
-<li>通过JavaScriptCore来实现</li>
-</ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/H5与原生交互的两种方式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1282,7 +1296,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
