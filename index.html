@@ -428,7 +428,7 @@
 <h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件（可以使用<code>npm init</code>命令来创建）</p>
 <p>2.然后在该文件夹目录下运行<code>npm install</code>命令初始化该工程</p>
 <p>3.添加package.json文件当中bin字段对应的js文件</p>
-<p>4.编写js脚本文件实现命令</p>
+<p>4.编写js脚本文件实现命令（文件内容如下所示）</p>
 <p>5.使用命令<code>npm install -g</code>将当前项目安装到全局</p>
 <p>6.愉快测试和使用自己编写的命令</p>
 <p>如下是一个简单的js脚本内容，编写安装完毕后，当你在终端输入<code>testnode</code>时，就会输出对应的log</p>
@@ -439,7 +439,7 @@ function show () {
 }
 
 show();
-</code></pre><h3 id="添加参数"><a href="#添加参数" class="headerlink" title="添加参数"></a>添加参数</h3><p>我们虽然可以在show方法中添加我们的处理逻辑，但是我们的脚本只能执行这样一个命令，怎么给它加上参数执行多条命令呢，那我们需要给它添加参数处理的逻辑</p>
+</code></pre><h3 id="添加参数"><a href="#添加参数" class="headerlink" title="添加参数"></a>添加参数</h3><p>我们虽然可以在show方法中添加我们的处理逻辑，但是我们的脚本只能执行这样一个命令，怎么给它加上参数执行多条命令呢，比如<code>testnode show</code>、<code>testnode delete</code>、<code>testnode add</code>等来执行不同的操作，那我们需要给它添加参数处理的逻辑</p>
 <p>如下是一个简单的参数处理的逻辑</p>
 <pre><code>#!/usr/bin/env node
 
