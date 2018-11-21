@@ -252,6 +252,121 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/" itemprop="url">
+                  从Signal 10 Bus Error聊聊assign和weak
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-07T16:42:55+08:00" content="2017-04-07">
+              2017-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……</p>
+<p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
+<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="external">中文维基百科的定义</a></p>
+<blockquote>
+<p>存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
+<p>它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="external">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
+<blockquote>
+<p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
+<p>There are at least three main causes of bus errors:</p>
+<ul>
+<li><p>Non-existent address</p>
+</li>
+<li><p>Unaligned access</p>
+</li>
+<li><p>Paging errors</p>
+</li>
+</ul>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/29/终端翻墙/" itemprop="url">
                   终端翻墙
                 </a>
@@ -1154,103 +1269,6 @@ unset ALL_PROXY
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/教你获取图片的尺寸和文件大小/" itemprop="url">
-                  教你获取图片的尺寸和文件大小
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T18:26:00+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>有些时候我们会有这样的一些需求：需要获得一张图片的具体尺寸和所占的存储空间，这张图片可能来自网络、本地，也可能是在内存当中的UIImage对象。</p>
-<p>基本思路：图片文件的本质是一些二进制数据，他们按照一定的规则存储在磁盘或内存当中，我们只需要在相应的位置取出我们需要的数据即可。不同格式的图片存储方式不同，数据所在的位置也不同，所幸的是前人已经帮我们做好了封装，我们只需要调用相关API即可。针对图片文件的大小，我们还可以通过计算数据的长度的方式来计算。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/22/教你获取图片的尺寸和文件大小/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1296,7 +1314,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

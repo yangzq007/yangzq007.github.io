@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-10T10:12:47.160Z</updated>
+  <updated>2018-11-21T03:21:14.689Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次cp错误</title>
+    <link href="http://yoursite.com/2018/11/15/%E8%AE%B0%E4%B8%80%E6%AC%A1cp%E9%94%99%E8%AF%AF/"/>
+    <id>http://yoursite.com/2018/11/15/记一次cp错误/</id>
+    <published>2018-11-15T09:19:03.000Z</published>
+    <updated>2018-11-21T03:21:14.689Z</updated>
+    
+    <content type="html"><![CDATA[<p>前两天在编写脚本时遇到一个奇怪错误</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -r /Users/yzq/a/* /Users/yzq/b
+</code></pre><p>使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复</p>
+<p>a工程编译是没有问题的<br>手动清空b，将a中的文件手动复制到b编译也没有问题</p>
+<p>最初以为是<code>rm -rf /Users/yzq/b/*</code>命令没有清除掉某些缓存或者隐藏文件之类的，后来验证发现和<code>rm</code>无关</p>
+<p>经过文件比较发现报错的framework与正确的framework下某个文件存在差异，正确的是以链接（快捷方式）的方式存在的，而错误的是一个文件夹，文件夹下还有对应的文件，原来这种错误是我们复制时没有保留对应的文件属性导致的，使用<code>cp -a /Users/yzq/a/* /Users/yzq/b</code>进行复制即可解决，因为<code>-a</code>在复制的同时保留了文件的链接及文件属性</p>
+<p>所以正确的命令应该是</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -a /Users/yzq/a/* /Users/yzq/b    
+</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前两天在编写脚本时遇到一个奇怪错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf /Users/yzq/b/*
+cp -r /Users/yzq/a/* /Users/yzq/b
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提
+    
+    </summary>
+    
+    
+      <category term="脚本" scheme="http://yoursite.com/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+      <category term="Shell" scheme="http://yoursite.com/tags/Shell/"/>
+    
+  </entry>
   
   <entry>
     <title>Xcode 10 library not found for -lstdc++.6</title>
@@ -1520,113 +1556,6 @@ export LANG=en_US.UTF-8
       &lt;p&gt;最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170523-2.png&quot; alt=&quot;20170523-2&quot;&gt;&lt;/p&gt;
 &lt;p&gt;起初以为是修改了导航栏的颜色，后来发现是导航栏着色&lt;code&gt;tintColor&lt;/code&gt;渲染模式修改造成的。
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从Signal 10 Bus Error聊聊assign和weak</title>
-    <link href="http://yoursite.com/2017/04/07/%E4%BB%8ESignal-10-Bus-Error%E8%81%8A%E8%81%8Aassign%E5%92%8Cweak/"/>
-    <id>http://yoursite.com/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/</id>
-    <published>2017-04-07T08:42:55.000Z</published>
-    <updated>2018-04-04T07:04:27.171Z</updated>
-    
-    <content type="html"><![CDATA[<p>曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……</p>
-<p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
-<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="external">中文维基百科的定义</a></p>
-<blockquote>
-<p>存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
-<p>它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
-</blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="external">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
-<blockquote>
-<p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
-<p>There are at least three main causes of bus errors:</p>
-<ul>
-<li><p>Non-existent address</p>
-</li>
-<li><p>Unaligned access</p>
-</li>
-<li><p>Paging errors</p>
-</li>
-</ul>
-</blockquote>
-<a id="more"></a>
-<p>上面这段话的大致意思是说在类POSIX平台，Bus errors通常是因为SIGBUS信号被发送到当前线程导致错误。SIGBUS也可以由一些硬件设备错误导致，但是这个几率极低，因此一般都是我们编码错误导致的。Bus errors也可以由特定的分页错误导致。下面是三种主要的导致Bus errors的原因，即</p>
-<ul>
-<li>Non-existent address（访问不存在的内存地址）</li>
-<li>Unaligned access（访问未对齐的内存地址）</li>
-<li>Paging errors（分页错误）</li>
-</ul>
-<p>看了上面的解释，我们就意识到这是一个内存访问错误了。</p>
-<h3 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h3><p>因为这个错误的出现几率不是很高，debug了挺长时间也没有进展，直到我看到了某个delegate的修饰符是assign。作为mrc时代走过来的iOS开发者刚开始对此感觉并没有什么异样，但是后来发现问题就出在这里，需要将delegate的修饰符修改为weak。</p>
-<pre><code>//不安全的写法
-@property (assign, nonatomic) id&lt;VinScanDelegate&gt; delegate;
-
-//安全的写法
-@property (weak, nonatomic) id&lt;VinScanDelegate&gt; delegate;
-</code></pre><p>但是为什么呢？我们来看下assgin和weak的区别</p>
-<h3 id="assgin-amp-weak"><a href="#assgin-amp-weak" class="headerlink" title="assgin&amp;weak"></a>assgin&amp;weak</h3><p>在arc中，assign和weak非常类似，但是他们还是有一些细微的区别的</p>
-<p>weak会在所指向的对象释放消失之后自动置为nil，这样就会避免野指针导致的crash，也就不会导致上面所提到的内存错误了</p>
-<blockquote>
-<p>“The main difference between weak and assign is that the with weak, once the object being pointed to is no longer valid, the pointer is nilled out. Assigning the pointer the value nil avoids many crashes as messages sent to nil are essentially no-ops”</p>
-</blockquote>
-<p>有人写了一个小demo来验证这个问题，如下：</p>
-<pre><code>#import &quot;ViewController.h&quot;
-
-@interface ViewController ()
-@property (nonatomic,weak) id weakPoint;
-@property (nonatomic,assign) id assignPoint;
-@property (nonatomic,strong) id strongPoint;
-@end
-
-@implementation ViewController
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.strongPoint = [NSDate date];
-    NSLog(@&quot;strong属性：%@&quot;,self.strongPoint);
-    self.weakPoint = self.strongPoint;
-    self.assignPoint = self.strongPoint;
-    self.strongPoint = nil;
-    NSLog(@&quot;weak属性：%@&quot;,self.weakPoint);
-    //NSLog(@&quot;assign属性：%@&quot;,self.assignPoint);
-}
-@end
-
-//当程序中的注释被打开时，运行程序有可能会崩溃（有时候不崩溃，你可能需要多运行几次）
-//这是因为当 assign 指针所指向的内存被释放（释放并不等于抹除，只是引用计数为0），不会自动赋值 nil ，
-//这样再引用 self.assignPoint 就会导致野指针操作
-//如果这个操作发生时内存还没有改变内容，依旧可以输出正确的结果
-//而如果发生时内存内容被改变了，就会crash。
-</code></pre><p>所以，在arc情况下，指针类型最好使用strong或者weak来修饰，基本类型和结构体用assign，委托要用weak来修饰。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……&lt;/p&gt;
-&lt;p&gt;这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下&lt;/p&gt;
-&lt;h3 id=&quot;Bus-error&quot;&gt;&lt;a href=&quot;#Bus-error&quot; class=&quot;headerlink&quot; title=&quot;Bus error&quot;&gt;&lt;/a&gt;Bus error&lt;/h3&gt;&lt;p&gt;Bus error即总线错误，以下是&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文维基百科的定义&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。&lt;/p&gt;
-&lt;p&gt;它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bus_error&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;英文维基百科的释义&lt;/a&gt;相对详细一些，也介绍了造成这种错误的原因&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.&lt;/p&gt;
-&lt;p&gt;There are at least three main causes of bus errors:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Non-existent address&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Unaligned access&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Paging errors&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
     
     </summary>
     

@@ -252,6 +252,110 @@
             
               
                 
+                <a class="post-title-link" href="/2018/11/15/记一次cp错误/" itemprop="url">
+                  记一次cp错误
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-11-15T17:19:03+08:00" content="2018-11-15">
+              2018-11-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前两天在编写脚本时遇到一个奇怪错误</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -r /Users/yzq/a/* /Users/yzq/b
+</code></pre><p>使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复</p>
+<p>a工程编译是没有问题的<br>手动清空b，将a中的文件手动复制到b编译也没有问题</p>
+<p>最初以为是<code>rm -rf /Users/yzq/b/*</code>命令没有清除掉某些缓存或者隐藏文件之类的，后来验证发现和<code>rm</code>无关</p>
+<p>经过文件比较发现报错的framework与正确的framework下某个文件存在差异，正确的是以链接（快捷方式）的方式存在的，而错误的是一个文件夹，文件夹下还有对应的文件，原来这种错误是我们复制时没有保留对应的文件属性导致的，使用<code>cp -a /Users/yzq/a/* /Users/yzq/b</code>进行复制即可解决，因为<code>-a</code>在复制的同时保留了文件的链接及文件属性</p>
+<p>所以正确的命令应该是</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -a /Users/yzq/a/* /Users/yzq/b    
+</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/" itemprop="url">
                   Xcode 10 library not found for -lstdc++.6
                 </a>
@@ -1300,125 +1404,6 @@ import &apos;./Font.css&apos;;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/10/Xcode9的一些问题/" itemprop="url">
-                  Xcode9的一些问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-10T17:55:37+08:00" content="2017-10-10">
-              2017-10-10
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
-<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
-<p>用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码</p>
-<pre><code>post_install do |installer|
-    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
-    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
-    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
-    text = File.read(copy_pods_resources_path)
-    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
-    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
-end
-
-//如果有多个TARGETS，遍历执行即可
-post_install do |installer|
-  installer.aggregate_targets.each do |target|
-    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
-    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
-    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
-    text = File.read(copy_pods_resources_path)
-    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
-    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
-  end
-end
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/10/10/Xcode9的一些问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1464,7 +1449,7 @@ end
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

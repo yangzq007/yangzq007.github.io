@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="cp,拷贝,异常" />
 
 
 
@@ -86,12 +86,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="那片树海">
-<meta property="og:url" content="http://yoursite.com/archives/2017/03/index.html">
+<meta name="description" content="前两天在编写脚本时遇到一个奇怪错误 rm -rf /Users/yzq/b/* cp -r /Users/yzq/a/* /Users/yzq/b 使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复 a工程编译是没有问题的手动清空b，将a中的文件手动复制到b编译也没有问题 最初以为是rm -rf /Users/yzq/b/*命令没有清除掉某些缓存或者隐">
+<meta name="keywords" content="cp,拷贝,异常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次cp错误">
+<meta property="og:url" content="http://yoursite.com/2018/11/15/记一次cp错误/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="前两天在编写脚本时遇到一个奇怪错误 rm -rf /Users/yzq/b/* cp -r /Users/yzq/a/* /Users/yzq/b 使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复 a工程编译是没有问题的手动清空b，将a中的文件手动复制到b编译也没有问题 最初以为是rm -rf /Users/yzq/b/*命令没有清除掉某些缓存或者隐">
+<meta property="og:updated_time" content="2018-11-21T03:21:14.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="那片树海">
+<meta name="twitter:title" content="记一次cp错误">
+<meta name="twitter:description" content="前两天在编写脚本时遇到一个奇怪错误 rm -rf /Users/yzq/b/* cp -r /Users/yzq/a/* /Users/yzq/b 使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复 a工程编译是没有问题的手动清空b，将a中的文件手动复制到b编译也没有问题 最初以为是rm -rf /Users/yzq/b/*命令没有清除掉某些缓存或者隐">
 
 
 
@@ -109,7 +114,7 @@
   };
 </script>
 
-  <title> 归档 | 那片树海 </title>
+  <title> 记一次cp错误 | 那片树海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -228,65 +233,133 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 44 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                记一次cp错误
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-11-15T17:19:03+08:00" content="2018-11-15">
+              2018-11-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>前两天在编写脚本时遇到一个奇怪错误</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -r /Users/yzq/a/* /Users/yzq/b
+</code></pre><p>使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复</p>
+<p>a工程编译是没有问题的<br>手动清空b，将a中的文件手动复制到b编译也没有问题</p>
+<p>最初以为是<code>rm -rf /Users/yzq/b/*</code>命令没有清除掉某些缓存或者隐藏文件之类的，后来验证发现和<code>rm</code>无关</p>
+<p>经过文件比较发现报错的framework与正确的framework下某个文件存在差异，正确的是以链接（快捷方式）的方式存在的，而错误的是一个文件夹，文件夹下还有对应的文件，原来这种错误是我们复制时没有保留对应的文件属性导致的，使用<code>cp -a /Users/yzq/a/* /Users/yzq/b</code>进行复制即可解决，因为<code>-a</code>在复制的同时保留了文件的链接及文件属性</p>
+<p>所以正确的命令应该是</p>
+<pre><code>rm -rf /Users/yzq/b/*
+cp -a /Users/yzq/a/* /Users/yzq/b    
+</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本/" rel="tag">#脚本</a>
+          
+            <a href="/tags/Shell/" rel="tag">#Shell</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/" rel="next" title="Xcode 10 library not found for -lstdc++.6">
+                <i class="fa fa-chevron-left"></i> Xcode 10 library not found for -lstdc++.6
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/29/终端翻墙/" itemprop="url">
-              
-                <span itemprop="name">终端翻墙</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-29T14:45:05+08:00"
-              content="2017-03-29" >
-          03-29
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -294,6 +367,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -313,8 +390,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -384,6 +470,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cp命令的一些参数解释"><span class="nav-number">1.</span> <span class="nav-text">cp命令的一些参数解释</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -485,11 +582,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

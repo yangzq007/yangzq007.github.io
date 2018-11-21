@@ -252,6 +252,125 @@
             
               
                 
+                <a class="post-title-link" href="/2017/10/10/Xcode9的一些问题/" itemprop="url">
+                  Xcode9的一些问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-10T17:55:37+08:00" content="2017-10-10">
+              2017-10-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
+<p>用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码</p>
+<pre><code>post_install do |installer|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+end
+
+//如果有多个TARGETS，遍历执行即可
+post_install do |installer|
+  installer.aggregate_targets.each do |target|
+    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;
+    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;
+    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;
+    text = File.read(copy_pods_resources_path)
+    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }
+  end
+end
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/10/10/Xcode9的一些问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/09/12/一行命令搞定工程图片浏览查找/" itemprop="url">
                   一行命令搞定工程图片浏览查找
                 </a>
@@ -1164,121 +1283,6 @@ export LANG=en_US.UTF-8
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/" itemprop="url">
-                  从Signal 10 Bus Error聊聊assign和weak
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-07T16:42:55+08:00" content="2017-04-07">
-              2017-04-07
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>曾经我以为iOS最牛叉的错误是EXC_BAD_ACCESS，直到我遇到了Signal 10 was raised. SIGBUS ……</p>
-<p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
-<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="external">中文维基百科的定义</a></p>
-<blockquote>
-<p>存储器区块错误（英语：Segmentation fault，经常被缩写为segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
-<p>它会出现在当程序企图访问CPU无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
-</blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="external">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
-<blockquote>
-<p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
-<p>There are at least three main causes of bus errors:</p>
-<ul>
-<li><p>Non-existent address</p>
-</li>
-<li><p>Unaligned access</p>
-</li>
-<li><p>Paging errors</p>
-</li>
-</ul>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1324,7 +1328,7 @@ export LANG=en_US.UTF-8
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
