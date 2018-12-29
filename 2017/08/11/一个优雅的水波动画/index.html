@@ -93,15 +93,15 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/11/一个优雅的水波动画/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。 如何实现一个如下图的动画呢？  下面我们就来一步步的实现它。">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170811-1.gif">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170811-2.png">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170811-3.png">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170811-4.gif">
-<meta property="og:updated_time" content="2018-04-04T06:50:31.863Z">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-2.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-3.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-4.gif">
+<meta property="og:updated_time" content="2018-12-29T03:11:38.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个优雅的水波动画">
 <meta name="twitter:description" content="今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。 如何实现一个如下图的动画呢？  下面我们就来一步步的实现它。">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20170811-1.gif">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif">
 
 
 
@@ -301,7 +301,7 @@
       
         <p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
 <p>如何实现一个如下图的动画呢？</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-1.gif" alt="20170811-1"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif" alt="20170811-1"></p>
 <p>下面我们就来一步步的实现它。<a id="more"></a></p>
 <h3 id="动画拆解"><a href="#动画拆解" class="headerlink" title="动画拆解"></a>动画拆解</h3><p>做一个复杂的东西的时候，我们需要将它拆解成若干个容易实现的细节，之后在将这些细节有序的累加起来就可以实现我们最初的复杂的结构，没准当你完成的时候自己都会发出It’s amazing的感叹。</p>
 <p>来看这个动画，我们发现有两个主要元素，一个是晃动水波线，一个是由于水深造成的颜色渐变。那我们得到了第一个容易实现的细节点：</p>
@@ -323,7 +323,7 @@ _firstGradientLayer.frame = CGRectMake(0, sc_screenSize.height-(FirstWaveCenterH
 [_firstGradientLayer setEndPoint:CGPointMake(0, 1)];
 [self.view.layer addSublayer:_firstGradientLayer];
 </code></pre><p>效果如下：</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-2.png" alt="20170811-2"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-2.png" alt="20170811-2"></p>
 <p>对于第2点，就要用到我们高中的知识了，对于屏幕上的每一个x值，计算出对应的y值，并将它们连接起来。其中<code>FirstWaveSpeed*BEI6*_firstWaveTime</code>是为了让波浪曲线随时间变化，产生向右平移运动的效果，<code>_firstVariable</code>这个属性是第3点当中要实现的更好的模拟波浪效果的参数，我们下面再进行介绍。</p>
 <pre><code>- (CGMutablePathRef)getFirstCurrentWavePath
 {
@@ -369,7 +369,7 @@ _firstWaveLayer.fillColor = [UIColor whiteColor].CGColor;
 //当然别忘记把我们计算好的曲线给设置上去
 _firstWaveLayer.path = [self getFirstCurrentWavePath];
 </code></pre><p>这样我们就得到了一个静态的波浪</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-3.png" alt="20170811-3"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-3.png" alt="20170811-3"></p>
 <p>想要波浪动起来，我们要为它加入上面提到的时间变量<code>_firstWaveTime</code>，一般情况下我们加入时间变量都会采用<code>NSTimer</code>来进行计时，但是此处我们使用<code>CADisplayLink</code>来进行定时操作。为什么使用<code>CADisplayLink</code>呢，因为<code>CADisplayLink</code>的调用频率是和屏幕的刷新频率一致的，这样的话不会出现<code>NSTimer</code>那种由于和屏幕刷新时间冲突造成的渲染滞后画面卡顿的现象。</p>
 <pre><code>- (void)initTimer
 {
@@ -392,7 +392,7 @@ _firstWaveLayer.path = [self getFirstCurrentWavePath];
     _firstWaveTime = _firstWaveTime%_firstCircleTime;
 }
 </code></pre><p>这样我们就得到了第一个流动的波浪</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-4.gif" alt="20170811-4"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-4.gif" alt="20170811-4"></p>
 <p>下面只要在重复添加两条线就可以得到我们想要的效果了，不过，需要注意的是第三条波浪的颜色渐变是从左到右的哦，当然这是一个小问题。</p>
 <h3 id="动画调整"><a href="#动画调整" class="headerlink" title="动画调整"></a>动画调整</h3><p>大部分情况下，我们写出来的复杂动画都会和设计师想要的样子有一定差距，当然也不排除能拿到精准参数的情况，但毕竟让一个设计师告诉你正弦曲线的起始位置不太现实，这个时候我们需要把能控制这个动画的一些参数单独写出来，不要用写死的值，其他的参数依赖于这些值，由这些值计算出来。这样我们就可以方便的调整动画的显示了，甚至可以让设计师自己动手调整出想要的样子。</p>
 <pre><code>const static float FirstWaveCenterHeight = 162;

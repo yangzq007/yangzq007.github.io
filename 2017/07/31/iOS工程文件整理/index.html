@@ -93,12 +93,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/31/iOS工程文件整理/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="在iOS开发过程的当中不知道大家有没有遇到过这样的问题  文件的物理位置不对应 多余的未被工程引用的文件  这两个问题在工程变得比较大的时候，对工程的影响就比较让人难受了，于是我决定对工程进行整理。 因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20170731-1.png">
-<meta property="og:updated_time" content="2018-04-04T06:50:48.373Z">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170731-1.png">
+<meta property="og:updated_time" content="2018-12-29T03:11:38.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS工程文件整理">
 <meta name="twitter:description" content="在iOS开发过程的当中不知道大家有没有遇到过这样的问题  文件的物理位置不对应 多余的未被工程引用的文件  这两个问题在工程变得比较大的时候，对工程的影响就比较让人难受了，于是我决定对工程进行整理。 因为我们的业务还是蛮复杂的，工程就特别大，手动查找和整理简直就是一场灾难，于是我决定使用脚本来帮助我完成这项虽然简单但是巨大的工程。">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20170731-1.png">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170731-1.png">
 
 
 
@@ -306,7 +306,7 @@
 <h3 id="文件物理位置不对应的原因"><a href="#文件物理位置不对应的原因" class="headerlink" title="文件物理位置不对应的原因"></a>文件物理位置不对应的原因</h3><p>说到这个问题，我们就需要提一下project.pbxproj文件了，对，就是那个每次合并冲突都让人头疼的文件。</p>
 <p><a href="http://www.monobjc.net/xcode-project-file-format.html" target="_blank" rel="external">project.pbxproj</a>文件本质上是一种旧风格的plist，因为可读性不是很好，逐渐被弃用，但是苹果却一直沿用，在这个文件当中包含了Xcode工程的各项配置和参数。project.pbxproj文件采用UDID作为key索引来保证文件的唯一性，同时又在value当中指定其对应子节点的UDID值，这样就将一个树形结构的数据用列表形式表示了出来（UDID是根据硬件和时间戳生成的唯一标识，这里不再详细解释其过程），工程的虚拟文件目录就是这么来的。</p>
 <p>下面是一个转换成标准plist的结构，我们可以看到它的引用方式</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170731-1.png" alt="20170731-1"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170731-1.png" alt="20170731-1"></p>
 <p>因此我们解决物理位置不对应的问题只需要读取project.pbxproj的虚拟目录，并检查当前目录下是否有该文件，如果没有，到其对应的物理路径下，将其剪切过来即可。</p>
 <p>针对第二个问题，我们可以扫描工程的整个物理目录，将每个文件去虚拟目录当中查找，如果没有被引用，直接删除即可。</p>
 <h3 id="脚本的编写"><a href="#脚本的编写" class="headerlink" title="脚本的编写"></a>脚本的编写</h3><p>我们使用python来完成这次的任务，为什么不用shell？因为bash 3不支持key-value结构，要升级到bash 4才可以，而python比较方便，就使用它了，推荐使用python 3，因为它简化了蛮多操作的，比如编码什么的，不推荐使用预装的python 2。</p>

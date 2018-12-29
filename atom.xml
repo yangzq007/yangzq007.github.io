@@ -247,7 +247,7 @@ execSync(&apos;ls&apos;);
     <link href="http://yoursite.com/2018/07/09/Cocoapods-transitive-dependencies-that-include-static-frameworks/"/>
     <id>http://yoursite.com/2018/07/09/Cocoapods-transitive-dependencies-that-include-static-frameworks/</id>
     <published>2018-07-09T07:35:17.000Z</published>
-    <updated>2018-07-09T08:34:57.566Z</updated>
+    <updated>2018-12-29T03:12:08.537Z</updated>
     
     <content type="html"><![CDATA[<p>最近在写一个新的Swift工程，在引用旧的objective-c的pod时开启了<code>use_frameworks!</code>配置项，结果在<code>pod install</code>和<code>pod update</code>出现了这么一个问题</p>
 <pre><code>target has transitive dependencies that include static frameworks: (AAA)
@@ -310,7 +310,7 @@ execSync(&apos;ls&apos;);
     <link href="http://yoursite.com/2018/05/28/CocoaPods%E9%87%8D%E5%A4%8D%E7%94%9F%E6%88%90UUID%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2018/05/28/CocoaPods重复生成UUID的问题/</id>
     <published>2018-05-28T09:39:14.000Z</published>
-    <updated>2018-05-28T09:51:37.519Z</updated>
+    <updated>2018-12-29T03:12:13.105Z</updated>
     
     <content type="html"><![CDATA[<p>最近使用CocoaPods在<code>pod install</code>或者<code>pod update</code>时会出现<code>[!] [Xcodeproj] Generated duplicate UUIDs:</code>的错误，大段的warning占满整个终端。</p>
 <p>解决方案：</p>
@@ -435,9 +435,9 @@ import &apos;./Font.css&apos;;
     <link href="http://yoursite.com/2018/01/09/2017%E5%B9%B4%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2018/01/09/2017年个人总结/</id>
     <published>2018-01-09T10:06:59.000Z</published>
-    <updated>2018-04-04T02:43:39.086Z</updated>
+    <updated>2018-12-29T03:27:05.496Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20180109-1.jpg" alt="20180109-1"></p>
+    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20180109-1.jpg" alt="20180109-1"></p>
 <a id="more"></a>
 <p>最近手头事情终于不是那么多了，也可以静下来做个2017年的总结了，给自己打个tag，也希望自己新的一年能够继续努力。</p>
 <h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>工作内容大致有以下几点：</p>
@@ -467,7 +467,7 @@ import &apos;./Font.css&apos;;
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20180109-1.jpg&quot; alt=&quot;20180109-1&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20180109-1.jpg&quot; alt=&quot;20180109-1&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -481,9 +481,9 @@ import &apos;./Font.css&apos;;
     <link href="http://yoursite.com/2017/10/19/MobX%E7%BB%91%E5%AE%9A%E8%BF%87%E7%A8%8B%E5%92%8C%E5%85%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91%E7%9A%84%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/10/19/MobX绑定过程和其中的一些坑的总结/</id>
     <published>2017-10-19T07:03:15.000Z</published>
-    <updated>2018-04-04T06:28:22.307Z</updated>
+    <updated>2018-12-29T03:11:38.891Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20171019-1.png" alt="20171019-1"></p>
+    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171019-1.png" alt="20171019-1"></p>
 <a id="more"></a>
 <p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p>
 <blockquote>
@@ -615,7 +615,7 @@ class IndexStore {
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20171019-1.png&quot; alt=&quot;20171019-1&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171019-1.png&quot; alt=&quot;20171019-1&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -629,7 +629,7 @@ class IndexStore {
     <link href="http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2017/10/10/Xcode9的一些问题/</id>
     <published>2017-10-10T09:55:37.000Z</published>
-    <updated>2018-04-04T06:29:27.008Z</updated>
+    <updated>2018-12-29T03:11:38.892Z</updated>
     
     <content type="html"><![CDATA[<p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
 <h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p>
@@ -669,9 +669,9 @@ IDEDistributionSigningAssetStepUnderlyingErrors=(
 <p>2.移除模拟器边框</p>
 <p>取消勾选Simulator-&gt;Window-&gt;Show Device Bezels</p>
 <p>3.单击跳转方法定义</p>
-<p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-1.png" alt="20171011-1"></p>
+<p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-1.png" alt="20171011-1"></p>
 <p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p>
-<p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="http://o84wamnts.bkt.clouddn.com/20171011-3.png" alt="20171011-3"></p>
+<p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-3.png" alt="20171011-3"></p>
 ]]></content>
     
     <summary type="html">
@@ -782,11 +782,11 @@ end
     <link href="http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/"/>
     <id>http://yoursite.com/2017/08/11/一个优雅的水波动画/</id>
     <published>2017-08-11T02:51:04.000Z</published>
-    <updated>2018-04-04T06:50:31.863Z</updated>
+    <updated>2018-12-29T03:11:38.892Z</updated>
     
     <content type="html"><![CDATA[<p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
 <p>如何实现一个如下图的动画呢？</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-1.gif" alt="20170811-1"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif" alt="20170811-1"></p>
 <p>下面我们就来一步步的实现它。<a id="more"></a></p>
 <h3 id="动画拆解"><a href="#动画拆解" class="headerlink" title="动画拆解"></a>动画拆解</h3><p>做一个复杂的东西的时候，我们需要将它拆解成若干个容易实现的细节，之后在将这些细节有序的累加起来就可以实现我们最初的复杂的结构，没准当你完成的时候自己都会发出It’s amazing的感叹。</p>
 <p>来看这个动画，我们发现有两个主要元素，一个是晃动水波线，一个是由于水深造成的颜色渐变。那我们得到了第一个容易实现的细节点：</p>
@@ -808,7 +808,7 @@ _firstGradientLayer.frame = CGRectMake(0, sc_screenSize.height-(FirstWaveCenterH
 [_firstGradientLayer setEndPoint:CGPointMake(0, 1)];
 [self.view.layer addSublayer:_firstGradientLayer];
 </code></pre><p>效果如下：</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-2.png" alt="20170811-2"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-2.png" alt="20170811-2"></p>
 <p>对于第2点，就要用到我们高中的知识了，对于屏幕上的每一个x值，计算出对应的y值，并将它们连接起来。其中<code>FirstWaveSpeed*BEI6*_firstWaveTime</code>是为了让波浪曲线随时间变化，产生向右平移运动的效果，<code>_firstVariable</code>这个属性是第3点当中要实现的更好的模拟波浪效果的参数，我们下面再进行介绍。</p>
 <pre><code>- (CGMutablePathRef)getFirstCurrentWavePath
 {
@@ -854,7 +854,7 @@ _firstWaveLayer.fillColor = [UIColor whiteColor].CGColor;
 //当然别忘记把我们计算好的曲线给设置上去
 _firstWaveLayer.path = [self getFirstCurrentWavePath];
 </code></pre><p>这样我们就得到了一个静态的波浪</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-3.png" alt="20170811-3"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-3.png" alt="20170811-3"></p>
 <p>想要波浪动起来，我们要为它加入上面提到的时间变量<code>_firstWaveTime</code>，一般情况下我们加入时间变量都会采用<code>NSTimer</code>来进行计时，但是此处我们使用<code>CADisplayLink</code>来进行定时操作。为什么使用<code>CADisplayLink</code>呢，因为<code>CADisplayLink</code>的调用频率是和屏幕的刷新频率一致的，这样的话不会出现<code>NSTimer</code>那种由于和屏幕刷新时间冲突造成的渲染滞后画面卡顿的现象。</p>
 <pre><code>- (void)initTimer
 {
@@ -877,7 +877,7 @@ _firstWaveLayer.path = [self getFirstCurrentWavePath];
     _firstWaveTime = _firstWaveTime%_firstCircleTime;
 }
 </code></pre><p>这样我们就得到了第一个流动的波浪</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170811-4.gif" alt="20170811-4"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-4.gif" alt="20170811-4"></p>
 <p>下面只要在重复添加两条线就可以得到我们想要的效果了，不过，需要注意的是第三条波浪的颜色渐变是从左到右的哦，当然这是一个小问题。</p>
 <h3 id="动画调整"><a href="#动画调整" class="headerlink" title="动画调整"></a>动画调整</h3><p>大部分情况下，我们写出来的复杂动画都会和设计师想要的样子有一定差距，当然也不排除能拿到精准参数的情况，但毕竟让一个设计师告诉你正弦曲线的起始位置不太现实，这个时候我们需要把能控制这个动画的一些参数单独写出来，不要用写死的值，其他的参数依赖于这些值，由这些值计算出来。这样我们就可以方便的调整动画的显示了，甚至可以让设计师自己动手调整出想要的样子。</p>
 <pre><code>const static float FirstWaveCenterHeight = 162;
@@ -891,7 +891,7 @@ const static float FirstWaveSpeed = 0.05f;//波浪速度
     
       &lt;p&gt;今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。&lt;/p&gt;
 &lt;p&gt;如何实现一个如下图的动画呢？&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170811-1.gif&quot; alt=&quot;20170811-1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif&quot; alt=&quot;20170811-1&quot;&gt;&lt;/p&gt;
 &lt;p&gt;下面我们就来一步步的实现它。
     
     </summary>
@@ -906,7 +906,7 @@ const static float FirstWaveSpeed = 0.05f;//波浪速度
     <link href="http://yoursite.com/2017/07/31/iOS%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2017/07/31/iOS工程文件整理/</id>
     <published>2017-07-31T02:17:30.000Z</published>
-    <updated>2018-04-04T06:50:48.373Z</updated>
+    <updated>2018-12-29T03:11:38.891Z</updated>
     
     <content type="html"><![CDATA[<p>在iOS开发过程的当中不知道大家有没有遇到过这样的问题</p>
 <ol>
@@ -918,7 +918,7 @@ const static float FirstWaveSpeed = 0.05f;//波浪速度
 <h3 id="文件物理位置不对应的原因"><a href="#文件物理位置不对应的原因" class="headerlink" title="文件物理位置不对应的原因"></a>文件物理位置不对应的原因</h3><p>说到这个问题，我们就需要提一下project.pbxproj文件了，对，就是那个每次合并冲突都让人头疼的文件。</p>
 <p><a href="http://www.monobjc.net/xcode-project-file-format.html" target="_blank" rel="external">project.pbxproj</a>文件本质上是一种旧风格的plist，因为可读性不是很好，逐渐被弃用，但是苹果却一直沿用，在这个文件当中包含了Xcode工程的各项配置和参数。project.pbxproj文件采用UDID作为key索引来保证文件的唯一性，同时又在value当中指定其对应子节点的UDID值，这样就将一个树形结构的数据用列表形式表示了出来（UDID是根据硬件和时间戳生成的唯一标识，这里不再详细解释其过程），工程的虚拟文件目录就是这么来的。</p>
 <p>下面是一个转换成标准plist的结构，我们可以看到它的引用方式</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170731-1.png" alt="20170731-1"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170731-1.png" alt="20170731-1"></p>
 <p>因此我们解决物理位置不对应的问题只需要读取project.pbxproj的虚拟目录，并检查当前目录下是否有该文件，如果没有，到其对应的物理路径下，将其剪切过来即可。</p>
 <p>针对第二个问题，我们可以扫描工程的整个物理目录，将每个文件去虚拟目录当中查找，如果没有被引用，直接删除即可。</p>
 <h3 id="脚本的编写"><a href="#脚本的编写" class="headerlink" title="脚本的编写"></a>脚本的编写</h3><p>我们使用python来完成这次的任务，为什么不用shell？因为bash 3不支持key-value结构，要升级到bash 4才可以，而python比较方便，就使用它了，推荐使用python 3，因为它简化了蛮多操作的，比如编码什么的，不推荐使用预装的python 2。</p>
@@ -1291,9 +1291,9 @@ sectionHeaderHasChanged(prevSectionData, nextSectionData);
     <link href="http://yoursite.com/2017/06/20/%E6%96%87%E6%A1%A3%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7docsify/"/>
     <id>http://yoursite.com/2017/06/20/文档网站生成工具docsify/</id>
     <published>2017-06-20T09:58:08.000Z</published>
-    <updated>2018-04-04T06:53:04.778Z</updated>
+    <updated>2018-12-29T03:11:38.891Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://o84wamnts.bkt.clouddn.com/20170620-1.png" alt="20170620-1"></p>
+    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170620-1.png" alt="20170620-1"></p>
 <p>今天给大家推荐一个非常好用的工具docsify，对，没错，就是上面这个萌萌哒的类似果冻的东西。</p>
 <h3 id="docsify"><a href="#docsify" class="headerlink" title="docsify"></a>docsify</h3><p>docsify是一个非常好用的文档网站生成工具。它能快速的将你存储在Git仓库中的markdown文档生成一个文档网站，而且界面非常美观。</p>
 <p>下面是docsify文档的介绍</p>
@@ -1306,9 +1306,8 @@ sectionHeaderHasChanged(prevSectionData, nextSectionData);
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170620-1.png&quot; alt=&quot;20170620-1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;今天给大家推荐一个非常好用的工具docsify，对，没错，就是上面这个萌萌哒的类似果冻的东西。&lt;/p&gt;
-&lt;
+      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170620-1.png&quot; alt=&quot;20170620-1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天给大家推荐一个非常好用的工具docsify，对，没错，就是上
     
     </summary>
     
@@ -1482,7 +1481,7 @@ sectionHeaderHasChanged(prevSectionData, nextSectionData);
     <link href="http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/"/>
     <id>http://yoursite.com/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/</id>
     <published>2017-05-26T03:22:03.000Z</published>
-    <updated>2018-04-04T07:04:06.827Z</updated>
+    <updated>2018-12-29T03:12:06.290Z</updated>
     
     <content type="html"><![CDATA[<p>CocoaPods作为iOS开发常用的包管理工具一直深受大家的喜爱，但是它出现问题的时候也让我们非常纠结。最近我就遇到这么一个让人纠结的错误<code>ArgumentError - invalid byte sequence in UTF-8</code>，下面就来说下如何解决它。</p>
 <p>我的问题是当你<code>pod search &lt;content&gt;</code>时就会报这个错误，详细的错误提示如下：</p>
@@ -1532,10 +1531,10 @@ export LANG=en_US.UTF-8
     <link href="http://yoursite.com/2017/05/23/%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%8BtintColor/"/>
     <id>http://yoursite.com/2017/05/23/简单说下tintColor/</id>
     <published>2017-05-23T07:20:17.000Z</published>
-    <updated>2018-04-04T07:04:13.539Z</updated>
+    <updated>2018-12-29T03:11:38.892Z</updated>
     
     <content type="html"><![CDATA[<p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20170523-2.png" alt="20170523-2"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170523-2.png" alt="20170523-2"></p>
 <p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。<a id="more"></a></p>
 <h3 id="tintColor"><a href="#tintColor" class="headerlink" title="tintColor"></a>tintColor</h3><p>每个APP基本上都会有一个主色调，这个时候我们一般都会使用<code>tintColor</code>来设置。它比较明显的作用是影响系统默认的返回文字的颜色和一些操作按钮的颜色，这样可以方便的帮我们来设置主色调。</p>
 <p><a href="https://developer.apple.com/reference/uikit/uiview/1622467-tintcolor?language=objc#declarations" target="_blank" rel="external">苹果的文档</a>当中是这样描述的</p>
@@ -1554,7 +1553,7 @@ export LANG=en_US.UTF-8
     <summary type="html">
     
       &lt;p&gt;最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o84wamnts.bkt.clouddn.com/20170523-2.png&quot; alt=&quot;20170523-2&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170523-2.png&quot; alt=&quot;20170523-2&quot;&gt;&lt;/p&gt;
 &lt;p&gt;起初以为是修改了导航栏的颜色，后来发现是导航栏着色&lt;code&gt;tintColor&lt;/code&gt;渲染模式修改造成的。
     
     </summary>

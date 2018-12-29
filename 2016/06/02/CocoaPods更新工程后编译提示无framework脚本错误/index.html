@@ -93,12 +93,12 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/02/CocoaPods更新工程后编译提示无framework脚本错误/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg">
-<meta property="og:updated_time" content="2018-04-04T07:07:48.180Z">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160602-1.jpeg">
+<meta property="og:updated_time" content="2018-12-29T03:12:10.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods更新工程后编译提示Pods-framework.sh:No such file or directory">
 <meta name="twitter:description" content="前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160602-1.jpeg">
 
 
 
@@ -298,7 +298,7 @@
       
         <p>前几天在开发过程中遇到一个比较奇怪的问题，发现CocoPods把引用的库更新一遍之后编译一直报错。错误提示为：Pods-framework.sh:No such file or directory这样一个文件不存在。<br><br>当时以为是工程缓存的问题，clean过，也删过工程缓存，发现没有效果。后来网上搜索相关问题，发现也只有重新生成工程文件（不可用），删除工程配置（可用）等解决方法，并未解释其中的原因。<br><br><a id="more"></a></p>
 <h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>经过认真的比较工程前后的差别，发现这是由于在开发过程汇总CocoaPods版本不同造成的问题。<br><br>较高版本的CocoaPods更新工程的时会生成一个文件名为Pods-framework.sh脚本文件，并向工程的.xcodeproj当中添加相关调用脚本的配置，我使用的版本（0.35.0）却不会。当我更新工程时，CocoaPods（0.35.0）只移除了高版本生成的脚本文件，却没有修改配置，导致编译时寻找该文件却找不到，提示错误。<br></p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.最快速有效的解决方法：删除调用Pods-framework.sh的配置<br><img src="http://o84wamnts.bkt.clouddn.com/20160602-1.jpeg" alt="DeleteConfig"><br><br>2.最根本的方法：升级CocoaPods，重新更新生成工程</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.最快速有效的解决方法：删除调用Pods-framework.sh的配置<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160602-1.jpeg" alt="DeleteConfig"><br><br>2.最根本的方法：升级CocoaPods，重新更新生成工程</p>
 
       
     </div>

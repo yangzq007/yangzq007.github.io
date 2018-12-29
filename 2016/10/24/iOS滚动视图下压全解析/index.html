@@ -93,15 +93,15 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/24/iOS滚动视图下压全解析/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。 影响视图偏移的属性translucent(UINavigationBar) 导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当tran">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161026-1.png">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161026-2.png">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161026-3.png">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161026-4.png">
-<meta property="og:updated_time" content="2018-04-09T11:44:58.481Z">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-1.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-2.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-3.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-4.png">
+<meta property="og:updated_time" content="2018-12-29T03:11:38.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS滚动视图下压上移全解析">
 <meta name="twitter:description" content="最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。 影响视图偏移的属性translucent(UINavigationBar) 导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当tran">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20161026-1.png">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-1.png">
 
 
 
@@ -308,10 +308,10 @@
 <p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）<a id="more"></a></p>
 <p>所以滚动视图只有在translucent为NO且extendedLayoutIncludesOpaqueBars为NO时滚动视图位置会下移64个像素，其他情况都是正常的，只需根据情况调整视图内容偏移属性即可。</p>
 <p>以下是所述几种情况的UI调试</p>
-<p>translucent为YES，automaticallyAdjustsScrollViewInsets为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-1.png" alt="TYAY"></p>
-<p>translucent为YES，automaticallyAdjustsScrollViewInsets为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-2.png" alt="TYAN"></p>
-<p>translucent为NO，extendedLayoutIncludesOpaqueBars为NO时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-3.png" alt="TNEN"></p>
-<p>translucent为NO，extendedLayoutIncludesOpaqueBars为YES时的视图分析<br><img src="http://o84wamnts.bkt.clouddn.com/20161026-4.png" alt="TNEY"></p>
+<p>translucent为YES，automaticallyAdjustsScrollViewInsets为YES时的视图分析<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-1.png" alt="TYAY"></p>
+<p>translucent为YES，automaticallyAdjustsScrollViewInsets为NO时的视图分析<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-2.png" alt="TYAN"></p>
+<p>translucent为NO，extendedLayoutIncludesOpaqueBars为NO时的视图分析<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-3.png" alt="TNEN"></p>
+<p>translucent为NO，extendedLayoutIncludesOpaqueBars为YES时的视图分析<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161026-4.png" alt="TNEY"></p>
 <h3 id="滚动视图内容偏移的条件"><a href="#滚动视图内容偏移的条件" class="headerlink" title="滚动视图内容偏移的条件"></a>滚动视图内容偏移的条件</h3><p>想要以上属性定义的滚动视图内容下移64个像素有效需要该滚动视图在其父视图堆栈当中处于最底层，也就是说滚动视图下面不能有其他子视图</p>
 <p>鉴于这个限制条件有一个取巧的方法，当不能改动上述属性又必须让滚动视图内容不下移的时候可以在滚动视图前面add一个填充视图，这个视图的大小和颜色等属性都没有限制，因此你可以设置frame很小而且透明，这样就轻松的解决了一个难题。</p>
 <h3 id="iOS-8-UITabBarController的遗留问题"><a href="#iOS-8-UITabBarController的遗留问题" class="headerlink" title="iOS 8 UITabBarController的遗留问题"></a>iOS 8 UITabBarController的遗留问题</h3><p>UITabBarController下挂载的UIViewController的automaticallyAdjustsScrollViewInsets和extendedLayoutIncludesOpaqueBars无效，在translucent为YES时所有滚动视图位置正常，滚动视图内容向下偏移64个像素，translucent为NO时所有滚动视图位置下移64个像素，滚动视图内容位置正常。</p>

@@ -93,13 +93,13 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/14/iOS粒子特效/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。 粒子特效 粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161115-1.gif">
-<meta property="og:image" content="http://o84wamnts.bkt.clouddn.com/20161115-2.gif">
-<meta property="og:updated_time" content="2018-04-04T07:05:55.368Z">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161115-1.gif">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161115-2.gif">
+<meta property="og:updated_time" content="2018-12-29T03:11:38.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS粒子特效">
 <meta name="twitter:description" content="最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。 粒子特效 粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流">
-<meta name="twitter:image" content="http://o84wamnts.bkt.clouddn.com/20161115-1.gif">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161115-1.gif">
 
 
 
@@ -434,9 +434,9 @@
 @property(nullable, copy) NSArray&lt;CAEmitterCell *&gt; *emitterCells;
 </code></pre><p>这段描述说明了当设置粒子单元（CAEmitterCell *）的emitterCells时，每个粒子会充当一个发射器的角色，发射对应粒子，形成粒子特效的叠加。</p>
 <p>将<code>rocket.emitterCells = [NSArray arrayWithObject:burst];</code>修改为<code>rocket.emitterCells = [NSArray arrayWithObject: spark];</code>就可以看到如下图对应的叠加效果了。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-1.gif" alt="粒子特效叠加"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161115-1.gif" alt="粒子特效叠加"></p>
 <h3 id="取消叠加"><a href="#取消叠加" class="headerlink" title="取消叠加"></a>取消叠加</h3><p>看了粒子特效的叠加，你可能还会有这样一个想法，我能不能取消某个时间段的叠加，只让发射的粒子在最后的时间作为发射器产生粒子效果呢，类似于发射一颗礼炮，在礼炮到达空中时爆炸，而不是像现在这样一路炸上天呢。</p>
-<p><img src="http://o84wamnts.bkt.clouddn.com/20161115-2.gif" alt="取消叠加"></p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20161115-2.gif" alt="取消叠加"></p>
 <p><strong>实例代码的fireworks部分就实现了这样的效果，下面我们来分析一下他的思路</strong></p>
 <p>fireworks部分的基本思路是这样的，给发射的粒子A附加一个新的粒子效果B，B的效果是在A生命周期的结尾发射<strong>一个</strong>生命周期极短的粒子，在B粒子极短的生命周期内，发射爆炸效果的粒子C，这样看起来的效果就是A被发射出去，在其生命周期的结尾发射了一个爆炸的粒子C，用户并没有意识到B粒子的存在，从而达到取消叠加的效果。</p>
 <p><strong>如何在代码中实现这种取消叠加的效果</strong></p>
