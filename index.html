@@ -295,8 +295,7 @@
 
       
         
-          
-            <p>前两天在编写脚本时遇到一个奇怪错误</p>
+          <p>前两天在编写脚本时遇到一个奇怪错误</p>
 <pre><code>rm -rf /Users/yzq/b/*
 cp -r /Users/yzq/a/* /Users/yzq/b
 </code></pre><p>使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复</p>
@@ -306,9 +305,12 @@ cp -r /Users/yzq/a/* /Users/yzq/b
 <p>所以正确的命令应该是</p>
 <pre><code>rm -rf /Users/yzq/b/*
 cp -a /Users/yzq/a/* /Users/yzq/b    
-</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
-
-          
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/15/记一次cp错误/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -504,8 +506,7 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
       
         
-          
-            <p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
+          <p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。</p>
 <pre><code>{
   &quot;name&quot;: &quot;testnode-cli&quot;,
@@ -528,121 +529,12 @@ cp -a /Users/yzq/a/* /Users/yzq/b
     &quot;commander&quot;: &quot;^2.15.1&quot;
   }
 }
-</code></pre><p>上面所展示的示例当中<code>testnode</code>字段是别名，命令头也是由这里决定的，执行的入口是<code>./bin/</code>下的index.js文件</p>
-<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件（可以使用<code>npm init</code>命令来创建）</p>
-<p>2.然后在该文件夹目录下运行<code>npm install</code>命令初始化该工程</p>
-<p>3.添加package.json文件当中bin字段对应的js文件</p>
-<p>4.编写js脚本文件实现命令（文件内容如下所示）</p>
-<p>5.使用命令<code>npm install -g</code>将当前项目安装到全局</p>
-<p>6.愉快测试和使用自己编写的命令</p>
-<p>如下是一个简单的js脚本内容，编写安装完毕后，当你在终端输入<code>testnode</code>时，就会输出对应的log</p>
-<pre><code>#!/usr/bin/env node
-
-function show () {
-  console.log(&quot;testnode-cli is comming!&quot;);
-}
-
-show();
-</code></pre><h3 id="添加参数"><a href="#添加参数" class="headerlink" title="添加参数"></a>添加参数</h3><p>我们虽然可以在show方法中添加我们的处理逻辑，但是我们的脚本只能执行这样一个命令，怎么给它加上参数执行多条命令呢，比如<code>testnode show</code>、<code>testnode delete</code>、<code>testnode add</code>等来执行不同的操作，那我们需要给它添加参数处理的逻辑</p>
-<p>如下是一个简单的参数处理的逻辑</p>
-<pre><code>#!/usr/bin/env node
-
-var params = {};
-process.argv.slice(2).forEach( function (item) {
-  switch (item) {
-    case &quot;show&quot;:
-      config.show = true;
-      break;
-    case &quot;delete&quot;:
-      config.delete = true;
-      break;
-    case &quot;add&quot;:
-      config.add = true;
-      break;
-    case &quot;-l&quot;:
-      config.log = true;
-      break;
-  }
-});
-
-function show () {
-  console.log(&quot;testnode-cli is comming!&quot;);
-}
-
-function delete () {
-    console.log(&quot;do some delete&quot;);
-    config.log &amp;&amp; console.log(&quot;delete logging&quot;);
-}
-
-function add () {
-    console.log(&quot;do some add&quot;);
-    config.log &amp;&amp; console.log(&quot;add logging&quot;);
-}
-
-config.show &amp;&amp; show();
-config.delete &amp;&amp; delete();
-config.add &amp;&amp; add();
-</code></pre><p>或者我们可以使用commander插件来帮我们处理参数，这样效率会更高，commander在开头的package.json文件当中已经引入,实现大致如下</p>
-<pre><code>#!/usr/bin/env node
-
-function show () {
-  console.log(&quot;testnode-cli is comming!&quot;);
-}
-
-function delete () {
-    console.log(&quot;do some delete&quot;);
-}
-
-function add (name)) {
-    console.log(`do some add, name:${name}`);
-}
-
-var program = require(&apos;commander&apos;);
-
-program
-  .version(require(&apos;../package.json&apos;).version);
-
-program
-  .command(&apos;show&apos;)              //命令
-  .description(&apos;展示相关描述&apos;)    //命令描述
-  .action(function() {
-    show();                     //命令动作
-  }).on(&apos;--help&apos;,function() {
-    console.log(&apos;展示相关信息&apos;);  //选项
-  });
-
-program
-  .command(&apos;delete&apos;)
-  .description(&apos;删除相关文件&apos;)
-  .action(function() {
-    delete();
-  });
-
-program
-  .command(&apos;add [name]&apos;)        //带参数的处理
-  .description(&apos;添加相关文件&apos;)
-  .action(function(name) {
-    add(name);
-  });
-
-  program.parse(process.argv);
-</code></pre><p>commander更详细的用法介绍参考<a href="https://github.com/tj/commander.js" target="_blank" rel="external">https://github.com/tj/commander.js</a></p>
-<h3 id="命令实现"><a href="#命令实现" class="headerlink" title="命令实现"></a>命令实现</h3><p>上面的操作已经基本实现了一个CLI的结构，我们剩下要做的就是实现命令的具体内容了，我们可以通过一些现有的工具来方便实现我们的操作。</p>
-<pre><code>//我们可以使用execSync来创建一个阻塞node的事件循环的shell客户端来执行我们常用的shell命令
-const execSync = require(&apos;child_process&apos;).execSync;
-execSync(&apos;ls&apos;);
-</code></pre><h3 id="脚手架实现"><a href="#脚手架实现" class="headerlink" title="脚手架实现"></a>脚手架实现</h3><p>我们常用的前端脚手架的实现思路一般是在远端创建一个模板工程，在创建我们自己的工程时将远端的模板工程克隆到本地，然后通过CLI实现对模板工程相应关键信息的修改来转换成对应的开发工程。</p>
-<p>为了方便实现替换，我们可能需要在模板当中对一些关键信息使用特殊样式的字符替换，例如用&amp;{projectName}&amp;来占位项目名称，这样在替换时就方便检索和替换，避免出现误操作。</p>
-<p>相关的文件处理和文字处理可能还需要特殊的工具，这里不再详细描述。</p>
-<h3 id="解释器声明"><a href="#解释器声明" class="headerlink" title="解释器声明"></a>解释器声明</h3><p>你可能注意到脚本文件的头一行有个声明，这个是表示用node来执行这个文件，如果没有这句声明，就会用默认的文本编辑器打开相应的js脚本文件。</p>
-<p>windows</p>
-<pre><code>#! node
-</code></pre><p>linux/unix/mac</p>
-<pre><code>#!/usr/bin/env node
-</code></pre><p> #!/usr/bin node和#!/usr/bin/env node的区别</p>
-<p>这个在unix类的操作系统才有意义。#!/usr/bin node是告诉操作系统执行这个脚本的时候，调用/usr/bin下的node解释器，#!/usr/bin/env node这种用法是为了防止操作系统用户没有将node装在默认的/usr/bin路径里。当系统看到这一行的时候，首先会到env设置里查找node的安装路径，再调用对应路径下的解释器程序完成操作。</p>
-
-          
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/09/05/编写一个基于node的CLI/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1140,52 +1032,19 @@ scheme: Muse
 
       
         
-          
-            <p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
+          <p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
 <h3 id="安装脚手架和搭建基础工程"><a href="#安装脚手架和搭建基础工程" class="headerlink" title="安装脚手架和搭建基础工程"></a>安装脚手架和搭建基础工程</h3><pre><code>//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
 npm install -g create-react-app
 create-react-app my-app
 
 cd my-app
 npm start
-</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了</p>
-<h3 id="1-自定义字体问题"><a href="#1-自定义字体问题" class="headerlink" title="1.自定义字体问题"></a>1.自定义字体问题</h3><p>自定义字体首先我们需要下载相应的字体并放到工程当中，然后在工程的App.css文件当中添加<code>@font-face</code>，实例如下：</p>
-<pre><code>@font-face
-{
-font-family: EBGaramond;                //EBGaramond为自定义名称
-src: url(&apos;EBGaramond08-Italic.ttf&apos;)
-}
-</code></pre><p>然后我们就可以在App.js当中和其他页面文件当中使用<code>fontFamily: &#39;EBGaramond&#39;</code>了</p>
-<p>我们也可以自己新建一个css文件，但是要记得在App.js和页面文件当中导入</p>
-<h3 id="2-文件重复导入问题"><a href="#2-文件重复导入问题" class="headerlink" title="2.文件重复导入问题"></a>2.文件重复导入问题</h3><pre><code>import &apos;./App.css&apos;;
-import &apos;./Font.css&apos;;
-</code></pre><p>这种导入整个文件的方式导入后是全局的，顶级文件导入后其他地方就不再需要导入了，与导入类不同，导入类需要在每个使用的页面导入</p>
-<h3 id="3-布局方式问题-1"><a href="#3-布局方式问题-1" class="headerlink" title="3.布局方式问题-1"></a>3.布局方式问题-1</h3><p>ReactNative当中默认使用的是flex布局，flex-direction为column，而在Reactjs当中布局方式为一个从上往下的流式布局（该名词有待商榷，因为暂时不了解一些前端术语，故先这么称呼），这就需要我们修改它的布局方式。我的第一反应是在css添加这样一个样式</p>
-<pre><code>.content {
-  display: flex;
-  flex-direction: column
-}
-</code></pre><p>但是这种方式需要每个页面都需要写一个content的选择器，后来我就改成了这种方式</p>
-<pre><code>body *:not(style) {
-  display: flex;
-  flex-direction: column    //Reactjs当中flex-direction默认为row，需要修改
-}
-</code></pre><p>至于为什么是<code>body *:not(style)</code>，那是因为*会把<code>header</code>，<code>body</code>，<code>footer</code>当中的所有内容都会当做html元素，所以我们只需要让body当中的所有内容使用flex布局即可，至于为什么有<code>not(style)</code>，那是因为它还会把body当中的style作为html元素，所以要除开。</p>
-<h3 id="4-布局方式问题-2"><a href="#4-布局方式问题-2" class="headerlink" title="4.布局方式问题-2"></a>4.布局方式问题-2</h3><p>在使用了flex布局之后，你会发现当一行元素填充满的时候，这些元素并不会换行，那是因为在Reactjs当中flexWrap默认为nowrap，需要设置为wrap</p>
-<pre><code>body *:not(style) {
-      display: flex;
-      flex-direction: column;    //Reactjs当中flex-direction默认为row，需要修改
-      flexWrap: wrap
-}
-</code></pre><p>在js样式文件中为</p>
-<pre><code>const styles = {
-    content: {
-        flexWrap: &apos;wrap&apos;
-    }
-};
-</code></pre><h3 id="其他后续更新中"><a href="#其他后续更新中" class="headerlink" title="其他后续更新中"></a>其他后续更新中</h3><p>……</p>
-
-          
+</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/03/29/从ReactNative到React/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

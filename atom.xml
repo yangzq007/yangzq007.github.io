@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-21T03:21:14.689Z</updated>
+  <updated>2018-12-29T06:23:37.872Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2018/11/15/%E8%AE%B0%E4%B8%80%E6%AC%A1cp%E9%94%99%E8%AF%AF/"/>
     <id>http://yoursite.com/2018/11/15/记一次cp错误/</id>
     <published>2018-11-15T09:19:03.000Z</published>
-    <updated>2018-11-21T03:21:14.689Z</updated>
+    <updated>2018-12-29T06:23:37.872Z</updated>
     
     <content type="html"><![CDATA[<p>前两天在编写脚本时遇到一个奇怪错误</p>
 <pre><code>rm -rf /Users/yzq/b/*
@@ -32,7 +32,8 @@ cp -r /Users/yzq/a/* /Users/yzq/b
 <p>所以正确的命令应该是</p>
 <pre><code>rm -rf /Users/yzq/b/*
 cp -a /Users/yzq/a/* /Users/yzq/b    
-</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
+</code></pre><a id="more"></a>
+<h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
 ]]></content>
     
     <summary type="html">
@@ -40,7 +41,14 @@ cp -a /Users/yzq/a/* /Users/yzq/b
       &lt;p&gt;前两天在编写脚本时遇到一个奇怪错误&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;rm -rf /Users/yzq/b/*
 cp -r /Users/yzq/a/* /Users/yzq/b
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复&lt;/p&gt;
+&lt;p&gt;a工程编译是没有问题的&lt;br&gt;手动清空b，将a中的文件手动复制到b编译也没有问题&lt;/p&gt;
+&lt;p&gt;最初以为是&lt;code&gt;rm -rf /Users/yzq/b/*&lt;/code&gt;命令没有清除掉某些缓存或者隐藏文件之类的，后来验证发现和&lt;code&gt;rm&lt;/code&gt;无关&lt;/p&gt;
+&lt;p&gt;经过文件比较发现报错的framework与正确的framework下某个文件存在差异，正确的是以链接（快捷方式）的方式存在的，而错误的是一个文件夹，文件夹下还有对应的文件，原来这种错误是我们复制时没有保留对应的文件属性导致的，使用&lt;code&gt;cp -a /Users/yzq/a/* /Users/yzq/b&lt;/code&gt;进行复制即可解决，因为&lt;code&gt;-a&lt;/code&gt;在复制的同时保留了文件的链接及文件属性&lt;/p&gt;
+&lt;p&gt;所以正确的命令应该是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rm -rf /Users/yzq/b/*
+cp -a /Users/yzq/a/* /Users/yzq/b    
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -90,7 +98,7 @@ cp -r /Users/yzq/a/* /Users/yzq/b
     <link href="http://yoursite.com/2018/09/05/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Enode%E7%9A%84CLI/"/>
     <id>http://yoursite.com/2018/09/05/编写一个基于node的CLI/</id>
     <published>2018-09-05T09:27:31.000Z</published>
-    <updated>2018-10-26T07:06:46.218Z</updated>
+    <updated>2018-12-29T06:22:48.249Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。</p>
@@ -115,7 +123,8 @@ cp -r /Users/yzq/a/* /Users/yzq/b
     &quot;commander&quot;: &quot;^2.15.1&quot;
   }
 }
-</code></pre><p>上面所展示的示例当中<code>testnode</code>字段是别名，命令头也是由这里决定的，执行的入口是<code>./bin/</code>下的index.js文件</p>
+</code></pre><a id="more"></a>
+<p>上面所展示的示例当中<code>testnode</code>字段是别名，命令头也是由这里决定的，执行的入口是<code>./bin/</code>下的index.js文件</p>
 <h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>1.创建一个CLI项目文件夹，并在项目目录当中创建一个如上的package.json文件（可以使用<code>npm init</code>命令来创建）</p>
 <p>2.然后在该文件夹目录下运行<code>npm install</code>命令初始化该工程</p>
 <p>3.添加package.json文件当中bin字段对应的js文件</p>
@@ -233,7 +242,29 @@ execSync(&apos;ls&apos;);
     <summary type="html">
     
       &lt;p&gt;最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。&lt;/p&gt;
-&lt;h3 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/
+&lt;h3 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h3&gt;&lt;p&gt;当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;name&amp;quot;: &amp;quot;testnode-cli&amp;quot;,
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;CLI测试&amp;quot;,
+  &amp;quot;main&amp;quot;: &amp;quot;index.js&amp;quot;,
+  &amp;quot;bin&amp;quot;: {
+    &amp;quot;testnode&amp;quot;: &amp;quot;./bin/index.js&amp;quot;
+  },
+  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;test&amp;quot;: &amp;quot;echo \&amp;quot;Error: no test specified\&amp;quot; &amp;amp;&amp;amp; exit 1&amp;quot;
+  },
+  &amp;quot;repository&amp;quot;: {
+    &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+    &amp;quot;url&amp;quot;: &amp;quot;git@github.com:yangzq007/testnode-cli.git&amp;quot;
+  },
+  &amp;quot;author&amp;quot;: &amp;quot;yangzq007@126.com&amp;quot;,
+  &amp;quot;license&amp;quot;: &amp;quot;ISC&amp;quot;,
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;commander&amp;quot;: &amp;quot;^2.15.1&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -372,7 +403,7 @@ scheme: Muse
     <link href="http://yoursite.com/2018/03/29/%E4%BB%8EReactNative%E5%88%B0React/"/>
     <id>http://yoursite.com/2018/03/29/从ReactNative到React/</id>
     <published>2018-03-29T01:44:31.000Z</published>
-    <updated>2018-04-04T02:41:06.021Z</updated>
+    <updated>2018-12-29T06:21:57.250Z</updated>
     
     <content type="html"><![CDATA[<p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
 <h3 id="安装脚手架和搭建基础工程"><a href="#安装脚手架和搭建基础工程" class="headerlink" title="安装脚手架和搭建基础工程"></a>安装脚手架和搭建基础工程</h3><pre><code>//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
@@ -381,7 +412,7 @@ create-react-app my-app
 
 cd my-app
 npm start
-</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了</p>
+</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了<a id="more"></a></p>
 <h3 id="1-自定义字体问题"><a href="#1-自定义字体问题" class="headerlink" title="1.自定义字体问题"></a>1.自定义字体问题</h3><p>自定义字体首先我们需要下载相应的字体并放到工程当中，然后在工程的App.css文件当中添加<code>@font-face</code>，实例如下：</p>
 <pre><code>@font-face
 {
@@ -421,7 +452,14 @@ import &apos;./Font.css&apos;;
     
     <summary type="html">
     
-      &lt;p&gt;最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此
+      &lt;p&gt;最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。&lt;/p&gt;
+&lt;h3 id=&quot;安装脚手架和搭建基础工程&quot;&gt;&lt;a href=&quot;#安装脚手架和搭建基础工程&quot; class=&quot;headerlink&quot; title=&quot;安装脚手架和搭建基础工程&quot;&gt;&lt;/a&gt;安装脚手架和搭建基础工程&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
+npm install -g create-react-app
+create-react-app my-app
+
+cd my-app
+npm start
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了
     
     </summary>
     

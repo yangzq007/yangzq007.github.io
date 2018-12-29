@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/11/15/记一次cp错误/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="前两天在编写脚本时遇到一个奇怪错误 rm -rf /Users/yzq/b/* cp -r /Users/yzq/a/* /Users/yzq/b 使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复 a工程编译是没有问题的手动清空b，将a中的文件手动复制到b编译也没有问题 最初以为是rm -rf /Users/yzq/b/*命令没有清除掉某些缓存或者隐">
-<meta property="og:updated_time" content="2018-11-21T03:21:14.689Z">
+<meta property="og:updated_time" content="2018-12-29T06:23:37.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次cp错误">
 <meta name="twitter:description" content="前两天在编写脚本时遇到一个奇怪错误 rm -rf /Users/yzq/b/* cp -r /Users/yzq/a/* /Users/yzq/b 使用这两个命令将a下面的工程拷贝的b中，然后编译b却始终报错，提示某个framework文件重复 a工程编译是没有问题的手动清空b，将a中的文件手动复制到b编译也没有问题 最初以为是rm -rf /Users/yzq/b/*命令没有清除掉某些缓存或者隐">
@@ -304,7 +304,8 @@ cp -r /Users/yzq/a/* /Users/yzq/b
 <p>所以正确的命令应该是</p>
 <pre><code>rm -rf /Users/yzq/b/*
 cp -a /Users/yzq/a/* /Users/yzq/b    
-</code></pre><h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
+</code></pre><a id="more"></a>
+<h3 id="cp命令的一些参数解释"><a href="#cp命令的一些参数解释" class="headerlink" title="cp命令的一些参数解释"></a>cp命令的一些参数解释</h3><p>-a：此选项通常在复制目录时使用，它保留链接、文件属性，并递归复制目录下的所有内容。其作用等于-dpr参数组合。<br>-d：复制时保留链接（快捷方式）。<br>-f：覆盖已经存在的目标文件而不给出提示。<br>-i：与-f选项相反，在覆盖目标文件之前给出提示，要求用户确认是否覆盖，回答”y”时目标文件将被覆盖。<br>-p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中。<br>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。<br>-l：不复制文件，只是生成链接文件。</p>
 
       
     </div>
