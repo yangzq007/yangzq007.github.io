@@ -126,7 +126,7 @@ This may happen when test cases are constructed and invoked independently of sta
     <link href="http://yoursite.com/2019/01/09/iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2019/01/09/iOS单元测试-代码实现/</id>
     <published>2019-01-09T08:09:18.000Z</published>
-    <updated>2019-01-18T02:35:21.731Z</updated>
+    <updated>2019-01-18T08:36:18.570Z</updated>
     
     <content type="html"><![CDATA[<p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
 <h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）</p>
@@ -234,7 +234,8 @@ XCTAssertEqual(expression1, expression2, ...)        相等时通过
 XCTAssertNotEqual(expression1, expression2, ...)    不相等时通过
 
 更多的可以查看系统XCTestAssertions.h文件当中的注释
-</code></pre>]]></content>
+</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>在编写单元测试时如果遇到问题可以参考<a href="http://yangzq007.com/2019/01/09/iOS单元测试-各种问题/" target="_blank" rel="external">iOS单元测试-各种问题</a></p>
+]]></content>
     
     <summary type="html">
     
