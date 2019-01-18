@@ -252,6 +252,205 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/19/WKWebView的那些坑/" itemprop="url">
+                  WKWebView的那些坑
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-19T15:57:19+08:00" content="2016-05-19">
+              2016-05-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="为什么要用WKWebView"><a href="#为什么要用WKWebView" class="headerlink" title="为什么要用WKWebView"></a>为什么要用WKWebView</h3><p>WKWebView有以下优点：</p>
+<ol>
+<li>采用Nitro JavaScript引擎，运行JavaScript会更快更高效</li>
+<li>WKWebView没有缓存，内存占用比较低，对内存压力比较大的APP是一个好消息</li>
+</ol>
+<p>是不是心动了呢，别急，请注意以下这些坑<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/19/WKWebView的那些坑/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/02/29/一个优化程序效率的调试小技巧/" itemprop="url">
+                  一个优化程序效率的调试小技巧
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-29T16:41:22+08:00" content="2016-02-29">
+              2016-02-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>笔者最近在做一个相机相册自定义的组件，功能是全部开发出来了，但是效率比较低，满满的无奈啊。哎，慢慢优化吧。</p>
+<p>说到优化，以前笔者都是凭借个人的经验判断代码当中哪一部分执行效率低，哪一部分耗时长，没有什么具体的方法，有时候也没办法定位到具体的某一行或者某一处代码。虽说问题解决了，但总是觉得好像还是少点什么，怎么查看某段代码的具体执行时间呢？于是我上网查了一下，发现了一个不错的方法，现在推荐给大家。</p>
+<pre><code>#define TICK   NSDate *startTime = [NSDate date];
+#define TOCK   NSLog(@&quot;Time: %f&quot;, -[startTime timeIntervalSinceNow]);
+</code></pre><p>定义这样的两个宏，在你需要调试的代码块的首尾分别加上这两个宏，执行程序，你就可以查看该段代码的执行耗时了。另外还可以添加多个TOCK，也是挺方便的。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/02/29/16.02春节后苹果证书无效问题解决方案/" itemprop="url">
                   16.02春节后苹果证书无效问题解决方案
                 </a>
@@ -663,7 +862,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -737,7 +936,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -252,6 +252,210 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/" itemprop="url">
+                  CocoaPods invalid byte sequence in UTF-8
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-26T11:22:03+08:00" content="2017-05-26">
+              2017-05-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>CocoaPods作为iOS开发常用的包管理工具一直深受大家的喜爱，但是它出现问题的时候也让我们非常纠结。最近我就遇到这么一个让人纠结的错误<code>ArgumentError - invalid byte sequence in UTF-8</code>，下面就来说下如何解决它。</p>
+<p>我的问题是当你<code>pod search &lt;content&gt;</code>时就会报这个错误，详细的错误提示如下：</p>
+<pre><code>/Users/yzq/.rvm/gems/ruby-2.4.1@global/gems/cocoapods-1.2.1/lib/cocoapods/user_interface/error_report.rb:135:in `error_from_podfile&apos;: invalid byte sequence in UTF-8 (ArgumentError)
+</code></pre><p>期间我尝试了重新下载repo、重新安装CocoaPods、甚至重新安装Ruby环境都没有解决，手动摊手。</p>
+<p>当你Google这个错误或者在CocoaPods的issues里面搜索之后，你大致会发现以下几种解决方案。</p>
+<h3 id="字符集错误"><a href="#字符集错误" class="headerlink" title="字符集错误"></a>字符集错误</h3><p>这种方法认为你本地字符集没有配置好，需要配置成标准的<code>en_US.UTF-8</code>，执行以下命令即可，或者将以下命令添加的相应的shell配置文件当中，例如：~/.bashrc或者~/.zshrc。</p>
+<pre><code>//使用命令locale可以查看本地字符集
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+</code></pre><p>然而这种方法并没有解决我的问题，我使用<code>locale</code>命令查看同事的电脑的字符集，发现和我一样是<code>zh_CN.UTF-8</code>，然而他的CocoaPods却没有问题，所以断定不是字符集的问题。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/23/简单说下tintColor/" itemprop="url">
+                  简单说下tintColor
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-23T15:20:17+08:00" content="2017-05-23">
+              2017-05-23
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近遇到了一个问题，弹窗消失之后，APP导航栏的颜色变暗，弹框样式如下：</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170523-2.png" alt="20170523-2"></p>
+<p>起初以为是修改了导航栏的颜色，后来发现是导航栏着色<code>tintColor</code>渲染模式修改造成的。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/05/23/简单说下tintColor/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/" itemprop="url">
                   从Signal 10 Bus Error聊聊assign和weak
                 </a>
@@ -1063,212 +1267,6 @@ unset ALL_PROXY
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/07/关于二维码的一些想法/" itemprop="url">
-                  关于二维码的一些想法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-07T10:50:46+08:00" content="2016-11-07">
-              2016-11-07
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前有段时间一直有一个关于二维码传输比较大信息量来解决某个问题的想法，当时觉得这个想法还不错可以快速交换信息，但是后来看到一段话之后恍然大悟，放弃了这个想法。</p>
-<p>这个问题也引发了我的一些思考，作为一名技术人员，我们往往更倾向于用技术的思维去思考和解决问题而忽略了用户的一些使用场景和需求，帮助用户更快更好的解决问题才是我们的初衷。</p>
-<blockquote>
-<p>对于普通二维码，包含的信息越多，二维码的图案就会越复杂。</p>
-<p>所以在过去，一个二维码包含大量的信息并不是应该追求的目标。</p>
-<p>就好比一张纸理论上你可以写下无数个字，但是关键是要便于阅读。</p>
-<p>二维码也是这样。</p>
-<p>一个信息量大，但是图案密密麻麻的二维码，如果根本扫描不出，又有什么用呢？</p>
-<p>如果你拿着手机打开微信扫一扫对着二维码，来来回回几分钟，这个码还解不出来，谁还会有耐心关注码后面隐藏着什么内容？</p>
-<p>真正好地二维码，应该是打开摄像头，对准条码，哔-！搞定。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/24/iOS滚动视图下压全解析/" itemprop="url">
-                  iOS滚动视图下压上移全解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-24T17:15:03+08:00" content="2016-10-24">
-              2016-10-24
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。</p>
-<h3 id="影响视图偏移的属性"><a href="#影响视图偏移的属性" class="headerlink" title="影响视图偏移的属性"></a>影响视图偏移的属性</h3><p><strong>translucent(UINavigationBar)</strong></p>
-<p>导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。</p>
-<p><strong>automaticallyAdjustsScrollViewInsets(UIViewController)</strong></p>
-<p>该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容</p>
-<p><strong>extendedLayoutIncludesOpaqueBars(UIViewController)</strong></p>
-<p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/24/iOS滚动视图下压全解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1314,7 +1312,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1388,7 +1386,7 @@ unset ALL_PROXY
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -1,0 +1,722 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,单元测试,XCTest" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta name="keywords" content="iOS,单元测试,XCTest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS单元测试-代码实现">
+<meta property="og:url" content="http://yoursite.com/2019/01/09/iOS单元测试-代码实现/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-4.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png">
+<meta property="og:updated_time" content="2019-01-18T02:35:21.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS单元测试-代码实现">
+<meta name="twitter:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> iOS单元测试-代码实现 | 那片树海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">那片树海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">用心做一件工艺品</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS单元测试-代码实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-01-09T16:09:18+08:00" content="2019-01-09">
+              2019-01-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
+<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png" alt="20190109-1"></p>
+<p>2.为单元测试Target添加测试文件</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png" alt="20190109-2"></p>
+<p>3.编写测试逻辑</p>
+<pre><code>//每个用例方法执行前会执行的方法，为用例准备环境
+- (void)setUp {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+}
+
+//每个用例方法执行后会执行的方法，对环境进行清洁或者重置
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+//以test开头的方法是一个可执行的测试用例方法，我们通过这些方法来跑不同的用例
+- (void)testExample {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    NSInteger i = 1;
+    NSInteger j = 1;
+    NSInteger k = i + j;
+    XCTAssertEqual(k, 2, @&quot;k的值应该等于2&quot;);
+    //使用XCTAssert断言来判断执行的结果是否通过
+}
+</code></pre><p>4.执行单元测试</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png" alt="20190109-3"></p>
+<p>5.查看测试结果</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-4.png" alt="20190109-4"></p>
+<h4 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h4><p>针对异步执行的代码我们需要这样写</p>
+<pre><code>- (void)setUp {
+    //超时时间，单位为秒
+    self.timeout = 20;
+}
+
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testExample {
+    NSString *username = @&quot;shuhai&quot;;
+    NSString *password = @&quot;123&quot;;
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
+
+    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
+        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
+        [expectation fulfill];
+    }];
+    //waitForExpectationsWithTimeout:handler:方法会阻塞当前测试线程，直到所有的XCTestExpectation fulfill
+    [self waitForExpectationsWithTimeout:self.timeout handler:nil];
+}
+</code></pre><p>另外waitForExpectations:timeout:方法可以等待多个特定的XCTestExpectation</p>
+<pre><code>- (void)setUp {
+    //超时时间，单位为秒
+    self.timeout = 20;
+}
+
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testExample {
+    NSString *username = @&quot;shuhai&quot;;
+    NSString *password = @&quot;123&quot;;
+
+    XCTestExpectation *noticeExpectation = [self expectationWithDescription:@&quot;登录通知返回&quot;];
+    [SHUserCenter registerNotice:SHUCenterNoticeTypeLoginSuccess handle:^(NSDictionary *data) {
+    XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
+    [noticeExpectation fulfill];
+}];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
+    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
+        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
+        [expectation fulfill];
+    }];
+    [self waitForExpectations:@[noticeExpectation,expectation] timeout:self.timeout];
+}
+</code></pre><p>笔者推荐使用waitForExpectationsWithTimeout:handler:方法。</p>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>需要了解一段代码执行了多长时间，可以采用如下方法</p>
+<pre><code>- (void)testPerformanceExample {
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+        sleep(5);
+    }];
+}
+</code></pre><p>这个方法<code>measureBlock</code>在执行时会执行10次，并且在执行完时会告诉你执行10次的时间。第一次执行<code>testPerformanceExample</code>完时会提示你输入一个该方法执行时间的参考值（baseline）作为参考。同时你也可以点击数字查看每次具体执行的结果，如下图：</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png" alt="20190109-7"></p>
+<h3 id="查看单测覆盖率"><a href="#查看单测覆盖率" class="headerlink" title="查看单测覆盖率"></a>查看单测覆盖率</h3><p>首先在Edit scheme-&gt;Test-&gt;Options下勾选Code Coverage</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png" alt="20190109-5"></p>
+<p>然后运行一次单元测试，在report navigator上选择刚刚单测的Coverage选项，就可以看到单元测试覆盖率了</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png" alt="20190109-6"></p>
+<h3 id="常用的XCTAssert断言"><a href="#常用的XCTAssert断言" class="headerlink" title="常用的XCTAssert断言"></a>常用的XCTAssert断言</h3><pre><code>XCTFail(...)    强制失败断言
+XCTAssertNil(expression, ...)        为nil时通过
+XCTAssertNotNil(expression, ...)    不为nil时通过
+XCTAssertTrue(expression, ...)    为true时通过
+XCTAssertFalse(expression, ...)    为false时通过
+XCTAssertEqualObjects(expression1, expression2, ...)    两个对象相等时通过
+XCTAssertNotEqualObjects(expression1, expression2, ...)    两个对象不相等时通过
+XCTAssertEqual(expression1, expression2, ...)        相等时通过
+XCTAssertNotEqual(expression1, expression2, ...)    不相等时通过
+
+更多的可以查看系统XCTestAssertions.h文件当中的注释
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/15/记一次cp错误/" rel="next" title="记一次cp错误">
+                <i class="fa fa-chevron-left"></i> 记一次cp错误
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/09/iOS单元测试-各种问题/" rel="prev" title="iOS单元测试-各种问题">
+                iOS单元测试-各种问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="树海" />
+          <p class="site-author-name" itemprop="name">树海</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑测试"><span class="nav-number">1.</span> <span class="nav-text">逻辑测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异步测试"><span class="nav-number">1.1.</span> <span class="nav-text">异步测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能测试"><span class="nav-number">2.</span> <span class="nav-text">性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看单测覆盖率"><span class="nav-number">3.</span> <span class="nav-text">查看单测覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的XCTAssert断言"><span class="nav-number">4.</span> <span class="nav-text">常用的XCTAssert断言</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+<div class="host-by">
+  Hosted by <a class="theme-link" href="https://pages.coding.me">
+    Coding Pages
+  </a>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
