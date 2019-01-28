@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-18T08:28:11.811Z</updated>
+  <updated>2019-01-28T09:00:01.824Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,17 +16,66 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>2018年个人总结</title>
+    <link href="http://yoursite.com/2019/01/28/2018%E5%B9%B4%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/01/28/2018年个人总结/</id>
+    <published>2019-01-28T06:20:29.000Z</published>
+    <updated>2019-01-28T09:00:01.824Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190128-1.JPG" alt="20190128-1"></p>
+<a id="more"></a>
+<p>作为一个中国人，感觉农历春节不过好像就不算过年，所以在离春节放假前的这几天才来做2018年的个人总结。</p>
+<h3 id="关于工作"><a href="#关于工作" class="headerlink" title="关于工作"></a>关于工作</h3><p>工作内容：</p>
+<ul>
+<li>日常原生维护</li>
+<li>ReactNative跨平台开发</li>
+<li>公司业务架构的整理和优化</li>
+<li>持续集成平台的搭建</li>
+<li>线上保障平台的搭建</li>
+<li>iot平台设计</li>
+</ul>
+<p>19年计划：</p>
+<ul>
+<li>架构及平台设计能力</li>
+<li>安全及逆向</li>
+</ul>
+<p>今年的工作内容有挺大的跨度，年初那参加了一个较大的项目之后，便慢慢开始做业务架构和平台搭建方面的工作，在技术和思想上收获挺多的，也让自己有了许多新的认知。逆向这块去年有所涉及，但是不够深入，希望19年自己在空闲时间能在逆向及安全这块多一些了解。</p>
+<h3 id="关于生活"><a href="#关于生活" class="headerlink" title="关于生活"></a>关于生活</h3><p>好的方面：</p>
+<p>比以往有更清晰的目标<br>作息规律了不少</p>
+<p>坏的方面：</p>
+<p>最近收纳的习惯不好<br>体育锻炼及户外活动比较少</p>
+<h3 id="关于阅读"><a href="#关于阅读" class="headerlink" title="关于阅读"></a>关于阅读</h3><ul>
+<li>《三体》三部曲</li>
+<li>《流浪地球》</li>
+<li>《亲密关系》</li>
+</ul>
+<h3 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h3><p>今年发现挺多博客停更的，这个好习惯我希望自己能坚持下来，希望自己将来能很自豪的回看这一篇篇的文章。博客内容会继续以比较实用的内容和开发过程当中碰到的问题为主，当然也有可能会添加一些形而上的介绍之类的。</p>
+<h3 id="其他感慨"><a href="#其他感慨" class="headerlink" title="其他感慨"></a>其他感慨</h3><p>年初从业务当中脱离出来之后就一直在搞业务架构和平台相关的东西，感觉这一年在内容上跑的太快，很容易就忽略了一些本质上的东西，我们给自己的定位是什么？我们想要什么？又能给予什么？</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190128-1.JPG&quot; alt=&quot;20190128-1&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>iOS单元测试-各种问题</title>
     <link href="http://yoursite.com/2019/01/09/iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95-%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2019/01/09/iOS单元测试-各种问题/</id>
     <published>2019-01-09T08:09:57.000Z</published>
-    <updated>2019-01-18T08:28:11.811Z</updated>
+    <updated>2019-01-28T09:02:15.285Z</updated>
     
     <content type="html"><![CDATA[<h3 id="编写用例时注意"><a href="#编写用例时注意" class="headerlink" title="编写用例时注意"></a>编写用例时注意</h3><p>1.用例只针对SDK对外开放的入口</p>
 <p>2.注意异常情况和边界值</p>
 <p>3.注意用例之间的依赖情况</p>
 <h3 id="单测用例如何按照顺序执行"><a href="#单测用例如何按照顺序执行" class="headerlink" title="单测用例如何按照顺序执行"></a>单测用例如何按照顺序执行</h3><p>测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &gt; - (void)test002Example &gt; - (void)testExample</p>
-<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。</p>
+<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。<a id="more"></a></p>
 <h3 id="用例依赖的情况如何处理"><a href="#用例依赖的情况如何处理" class="headerlink" title="用例依赖的情况如何处理"></a>用例依赖的情况如何处理</h3><p>当你的用例需要按照顺序执行就说明你的用例存在依赖，针对这种情况就需要进行拆分，放到不同的组（测试文件）当中来执行，比如说存在a，b，c三个用例，b和c都依赖于a，那么比较合理的做法就是将a提到另外一个文件当中进行测试，b和c放到另外一个文件中，在b和c的文件中将a放入setUp方法用作b、c执行的前提，这样就能比较好的进行测试，也减少了大量的冗余代码。</p>
 <h3 id="multiple-calls-made-to-XCTestExpectation-fulfill"><a href="#multiple-calls-made-to-XCTestExpectation-fulfill" class="headerlink" title="multiple calls made to -[XCTestExpectation fulfill]"></a>multiple calls made to -[XCTestExpectation fulfill]</h3><p>出现这种情况是因为写在回调当中的XCTestExpectation被多次调用导致的，解决这个错误，网上目前有以下三种解决方案，可以根据自己的情况进行选择：</p>
 <p>1.使用__weak修饰XCTestExpectation。</p>
@@ -112,7 +161,9 @@ This may happen when test cases are constructed and invoked independently of sta
     
       &lt;h3 id=&quot;编写用例时注意&quot;&gt;&lt;a href=&quot;#编写用例时注意&quot; class=&quot;headerlink&quot; title=&quot;编写用例时注意&quot;&gt;&lt;/a&gt;编写用例时注意&lt;/h3&gt;&lt;p&gt;1.用例只针对SDK对外开放的入口&lt;/p&gt;
 &lt;p&gt;2.注意异常情况和边界值&lt;/p&gt;
-&lt;p&gt;3.注意用
+&lt;p&gt;3.注意用例之间的依赖情况&lt;/p&gt;
+&lt;h3 id=&quot;单测用例如何按照顺序执行&quot;&gt;&lt;a href=&quot;#单测用例如何按照顺序执行&quot; class=&quot;headerlink&quot; title=&quot;单测用例如何按照顺序执行&quot;&gt;&lt;/a&gt;单测用例如何按照顺序执行&lt;/h3&gt;&lt;p&gt;测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample&lt;/p&gt;
+&lt;p&gt;理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。
     
     </summary>
     
@@ -126,10 +177,10 @@ This may happen when test cases are constructed and invoked independently of sta
     <link href="http://yoursite.com/2019/01/09/iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2019/01/09/iOS单元测试-代码实现/</id>
     <published>2019-01-09T08:09:18.000Z</published>
-    <updated>2019-01-18T08:36:18.570Z</updated>
+    <updated>2019-01-28T09:06:40.080Z</updated>
     
     <content type="html"><![CDATA[<p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
-<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）</p>
+<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）<a id="more"></a></p>
 <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png" alt="20190109-1"></p>
 <p>2.为单元测试Target添加测试文件</p>
 <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png" alt="20190109-2"></p>
@@ -240,7 +291,7 @@ XCTAssertNotEqual(expression1, expression2, ...)    不相等时通过
     <summary type="html">
     
       &lt;p&gt;iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。&lt;/p&gt;
-&lt;h3 id=&quot;逻辑测试&quot;&gt;&lt;a href=&quot;#逻辑测试&quot; class=&quot;headerlink&quot; title=&quot;逻辑测试&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;逻辑测试&quot;&gt;&lt;a href=&quot;#逻辑测试&quot; class=&quot;headerlink&quot; title=&quot;逻辑测试&quot;&gt;&lt;/a&gt;逻辑测试&lt;/h3&gt;&lt;p&gt;1.为工程添加一个单元测试的Target（已经有的可以略过这一步）
     
     </summary>
     
@@ -707,7 +758,7 @@ npm start
     <link href="http://yoursite.com/2018/01/09/2017%E5%B9%B4%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2018/01/09/2017年个人总结/</id>
     <published>2018-01-09T10:06:59.000Z</published>
-    <updated>2018-12-29T03:27:05.496Z</updated>
+    <updated>2019-01-28T08:20:35.753Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20180109-1.jpg" alt="20180109-1"></p>
 <a id="more"></a>
@@ -1585,166 +1636,6 @@ sectionHeaderHasChanged(prevSectionData, nextSectionData);
     
     
       <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS下的cookies使用</title>
-    <link href="http://yoursite.com/2017/05/27/iOS%E4%B8%8B%E7%9A%84cookies%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2017/05/27/iOS下的cookies使用/</id>
-    <published>2017-05-27T08:21:36.000Z</published>
-    <updated>2018-04-04T07:01:45.987Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。</p>
-<h3 id="Cookies简介"><a href="#Cookies简介" class="headerlink" title="Cookies简介"></a>Cookies简介</h3><p>这里有比较详细的介绍，本文就不再赘述了。<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="external">click me</a></p>
-<p>在iOS当中需要注意以下几点：</p>
-<ol>
-<li>不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie</li>
-<li>多个应用之间默认不共享cookie</li>
-<li>临时cookie在应用重启之后就会消失</li>
-<li>持久cookie在应用或系统重启之后不会消失</li>
-<li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
-<li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
-</ol>
-<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。<a id="more"></a></p>
-<h3 id="Cookies操作"><a href="#Cookies操作" class="headerlink" title="Cookies操作"></a>Cookies操作</h3><p>iOS系统当中的cookies由系统底层实现和使用，同时提供了<code>NSHTTPCookieStorage</code>和<code>NSHTTPCookie</code>来统一操作cookie。<code>NSHTTPCookieStorage</code>是一个单例，我们所有的cookies都存放在这里，当我们发起网络请求时，系统会默认从<code>NSHTTPCookieStorage</code>当中匹配相应cookie并带上去，所以我们只需要操作<code>NSHTTPCookieStorage</code>即可。</p>
-<p>以下是一些简单的使用</p>
-<pre><code>/**
- *  获得url对应的cookie
- *
- *  @param url url
- *
- *  @return url对应的cookie
- */
-- (NSArray *)getCookiesForUrl:(NSString *)url
-{
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    }
-
-    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:url]];
-
-    return cookies;
-}
-
-/**
- *  获取应用下所有的cookie
- *
- *  @return 所有的cookie
- */
-- (NSArray *)getAllCookies
-{
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    }
-
-    return sharedHTTPCookieStorage.cookies;
-}
-
-/**
- *  将cookie数组当中的cookie设置到cookie缓存中
- *
- *  @param mArrCookie cookie数组
- */
-- (void)setCookiesFromArr:(NSArray *)mArrCookie
-{
-    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
-        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-        for (NSHTTPCookie *cookie in mArrCookie) {
-            [sharedHTTPCookieStorage setCookie:cookie];
-        }
-    }
-}
-
-/**
- *  为特殊的url设置cookie
- *
- *  @param mArrCookie cookie数组
- *  @param url        地址，此处地址格式需为.baidu.com这样
- */
-- (void)setCookie:(NSArray *)mArrCookie forUrl:(NSString *)url
-{
-    if (mArrCookie != nil &amp;&amp; [mArrCookie count]&gt;0) {
-        NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-        for (NSHTTPCookie *cookie in mArrCookie) {
-            NSMutableDictionary *cookieDic = [NSMutableDictionary dictionaryWithDictionary:[cookie properties]];
-            [cookieDic setObject:url forKey:@&quot;Domain&quot;];
-            NSHTTPCookie *tempCookie = [NSHTTPCookie cookieWithProperties:cookieDic];
-            [sharedHTTPCookieStorage setCookie:tempCookie];
-        }
-    }
-}
-
-/**
- 获取特定url相应key的value值
-
- @param key cookie的key值
- @param url url，一个完整的url地址，例如https://www.baidu.com/
- @return 当前url下cookie当中当前key对应的value值
- */
-- (NSString *)cookieValueWithKey:(NSString *)key forUrl:(NSURL *)url
-{
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-    if ([sharedHTTPCookieStorage cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    }
-
-    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:url];
-    for (NSHTTPCookie *item in cookies) {
-        if ([[item name] isEqualToString:key]) {
-            return [NSString stringWithString:[[item value] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }
-    }
-    return nil;
-}
-
-//以下是一些将cookies本地化的操作
-
-- (void)saveCacheCookie:(id)sender {
-    NSArray *mArrCookie = [self getAllCookies];
-    NSData *cookieData = [NSKeyedArchiver archivedDataWithRootObject:mArrCookie];
-    [[NSUserDefaults standardUserDefaults] setObject:cookieData forKey:@&quot;cookieData&quot;];
-}
-
-- (void)unzipCookie:(id)sender {
-    NSData *cookieData = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;cookieData&quot;];
-    NSArray *mArrCookie = [NSKeyedUnarchiver unarchiveObjectWithData:cookieData];        
-    [self setCookiesFromArr:mArrCookie];
-}
-</code></pre><h3 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h3><p>针对跨域问题，可以在服务器和客户端分别做处理解决</p>
-<p>服务器：在服务器返回cookie时同时将相关联的其他域的cookie返回</p>
-<p>客户端：在每次请求完成后，对想跨域的域名进行设置，添加对应的cookie</p>
-<p>推荐在服务器配置相关策略</p>
-<h3 id="WKWebView使用cookie"><a href="#WKWebView使用cookie" class="headerlink" title="WKWebView使用cookie"></a>WKWebView使用cookie</h3><p>因为WKWebView没有缓存，不使用<code>NSHTTPCookieStorage</code>，其cookie只存在内存当中，当前页面被释放其cookie也就消失了。因此WKWebView当中的请求不能使用其他请求的cookie，同时两个WKWebView页面也不共享cookie。</p>
-<p>所以想要WKWebView使用其他请求的cookie或者前一个WKWebView页面的cookie需要在WKWebView加载前执行一段js代码，将cookie设置进去，而每次WKWebView请求之后获取cookie，将其保存起来。至于存在哪里，<code>NSHTTPCookieStorage</code>和<code>NSUserDefaults</code>都是不错的选择。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。&lt;/p&gt;
-&lt;h3 id=&quot;Cookies简介&quot;&gt;&lt;a href=&quot;#Cookies简介&quot; class=&quot;headerlink&quot; title=&quot;Cookies简介&quot;&gt;&lt;/a&gt;Cookies简介&lt;/h3&gt;&lt;p&gt;这里有比较详细的介绍，本文就不再赘述了。&lt;a href=&quot;http://blog.csdn.net/fangaoxin/article/details/6952954&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;click me&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在iOS当中需要注意以下几点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie&lt;/li&gt;
-&lt;li&gt;多个应用之间默认不共享cookie&lt;/li&gt;
-&lt;li&gt;临时cookie在应用重启之后就会消失&lt;/li&gt;
-&lt;li&gt;持久cookie在应用或系统重启之后不会消失&lt;/li&gt;
-&lt;li&gt;cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域&lt;/li&gt;
-&lt;li&gt;WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   

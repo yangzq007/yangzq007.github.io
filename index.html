@@ -252,6 +252,102 @@
             
               
                 
+                <a class="post-title-link" href="/2019/01/28/2018年个人总结/" itemprop="url">
+                  2018年个人总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-01-28T14:20:29+08:00" content="2019-01-28">
+              2019-01-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190128-1.JPG" alt="20190128-1"></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/01/28/2018年个人总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/01/09/iOS单元测试-各种问题/" itemprop="url">
                   iOS单元测试-各种问题
                 </a>
@@ -295,93 +391,16 @@
 
       
         
-          
-            <h3 id="编写用例时注意"><a href="#编写用例时注意" class="headerlink" title="编写用例时注意"></a>编写用例时注意</h3><p>1.用例只针对SDK对外开放的入口</p>
+          <h3 id="编写用例时注意"><a href="#编写用例时注意" class="headerlink" title="编写用例时注意"></a>编写用例时注意</h3><p>1.用例只针对SDK对外开放的入口</p>
 <p>2.注意异常情况和边界值</p>
 <p>3.注意用例之间的依赖情况</p>
 <h3 id="单测用例如何按照顺序执行"><a href="#单测用例如何按照顺序执行" class="headerlink" title="单测用例如何按照顺序执行"></a>单测用例如何按照顺序执行</h3><p>测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &gt; - (void)test002Example &gt; - (void)testExample</p>
-<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。</p>
-<h3 id="用例依赖的情况如何处理"><a href="#用例依赖的情况如何处理" class="headerlink" title="用例依赖的情况如何处理"></a>用例依赖的情况如何处理</h3><p>当你的用例需要按照顺序执行就说明你的用例存在依赖，针对这种情况就需要进行拆分，放到不同的组（测试文件）当中来执行，比如说存在a，b，c三个用例，b和c都依赖于a，那么比较合理的做法就是将a提到另外一个文件当中进行测试，b和c放到另外一个文件中，在b和c的文件中将a放入setUp方法用作b、c执行的前提，这样就能比较好的进行测试，也减少了大量的冗余代码。</p>
-<h3 id="multiple-calls-made-to-XCTestExpectation-fulfill"><a href="#multiple-calls-made-to-XCTestExpectation-fulfill" class="headerlink" title="multiple calls made to -[XCTestExpectation fulfill]"></a>multiple calls made to -[XCTestExpectation fulfill]</h3><p>出现这种情况是因为写在回调当中的XCTestExpectation被多次调用导致的，解决这个错误，网上目前有以下三种解决方案，可以根据自己的情况进行选择：</p>
-<p>1.使用__weak修饰XCTestExpectation。</p>
-<p><code>[expectation fulfill]</code>执行一次后方法执行完毕，局部变量expectation被释放，当回调再次调起时，expectation已被释放置nil，执行<code>fulfill</code>不会报错。</p>
-<pre><code>- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    __weak XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-        [expectation fulfill];
-    }];
-    [self waitForExpectationsWithTimeout:self.timeout handler:nil];
-}
-</code></pre><p>但是该种方法存在一个问题，就是当有多个XCTestExpectation时，靠前的expectation执行<code>fulfill</code>时，该方法并不一定结束，导致再次调用<code>fulfill</code>报错，如下当noticeExpectation所在的回调被第二次调用时，expectation可能并未<code>fulfill</code>，变回导致noticeExpectation多次<code>fulfill</code>报错。</p>
-<pre><code>- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    __weak XCTestExpectation *noticeExpectation = [self expectationWithDescription:@&quot;登录通知返回&quot;];
-    [SHUserCenter registerNotice:SHUCenterNoticeTypeLoginSuccess handle:^(NSDictionary *data) {
-    XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-    [noticeExpectation fulfill];
-}];
-
-    __weak XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-        [expectation fulfill];
-    }];
-    [self waitForExpectations:@[noticeExpectation,expectation] timeout:self.timeout];
-}
-</code></pre><p>2.使用__block修饰XCTestExpectation并在fulfill之后置为nil</p>
-<p>当XCTestExpectation对象执行过<code>fulfill</code>之后被置为了nil，再次调用<code>fulfill</code>则不会报错。</p>
-<pre><code>- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-        [expectation fulfill];
-        expectation = nil;
-    }];
-    [self waitForExpectationsWithTimeout:self.timeout handler:nil];
-}
-</code></pre><p>这种方法在大部分情况可以可以解决问题，有种特殊的情况我们后面再讨论</p>
-<p>3.移除回调的多次调用逻辑。</p>
-<p>查找并移除回调多次调用的逻辑是从根本上解决这种问题的方法，但是某些业务场景下我们可能是需要回调多次调用的，针对这种情况，我们就可以采用第二种方法来解决问题。</p>
-<h3 id="超时之后fulfill错误无法上报"><a href="#超时之后fulfill错误无法上报" class="headerlink" title="超时之后fulfill错误无法上报"></a>超时之后fulfill错误无法上报</h3><p>这种错误是因为等待XCTestExpectation超时测试方法执行完毕后，回调调用（比如网络不好超时的情况），而且返回了一个错误的结果，在回调当中的断言失败却无法上报错误导致的崩溃，错误信息大致如下：</p>
-<pre><code>Terminating app due to uncaught exception &apos;NSInternalInconsistencyException&apos;, 
-reason: &apos;Unable to report test assertion failure &apos;((data) != nil) 
-failed: throwing &quot;Unable to report test assertion failure &apos;((data) != nil) failed&apos; from /Users/yzq/Documents/Component/CHLUserCenter/Example/Tests/CHLUserCenterNoDataTests.m:31 because it was raised inside test case -[CHLUserCenterNoDataTests test001] which has no associated XCTestRun object. 
-This may happen when test cases are constructed and invoked independently of standard XCTest infrastructure, or when the test has already finished.&quot;
-&apos; from /Users/yzq/Documents/Component/CHLUserCenter/Example/Tests/CHLUserCenterNoDataTests.m:31 because it was raised inside test case -[CHLUserCenterNoDataTests test001] which has no associated XCTestRun object. 
-This may happen when test cases are constructed and invoked independently of standard XCTest infrastructure, or when the test has already finished.&apos;
-</code></pre><p>这种错误在上面提到的使用__block的情况下也不能幸免，解决方案就是使用一个__block修饰的变量，将回调当中要获取的值取出来，然后再外层进行数据判断，这样就不会导致断言在回调当中崩溃了。</p>
-<pre><code>- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    __block XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-    __block NSDictionary *returnData = nil;
-
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        returnData = data;
-        [expectation fulfill];
-        expectation = nil;
-    }];
-    [self waitForExpectationsWithTimeout:self.timeout handler:nil];
-    XCTAssertNotNil([returnData objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-}
-</code></pre><h3 id="Assertion-failure-in-XCTestExpectation-fulfill"><a href="#Assertion-failure-in-XCTestExpectation-fulfill" class="headerlink" title="Assertion failure in -[XCTestExpectation fulfill]"></a>Assertion failure in -[XCTestExpectation fulfill]</h3><p>这个错误是当有多个XCTestExpectation时使用<code>waitForExpectations:timeout:</code>等待Expectation导致，导致错误的具体原因目前还不是很明确，有了解具体原因的同学可以告诉我下。</p>
-<p>针对这个问题，我们可以使用<code>waitForExpectationsWithTimeout:handler:</code>来等待Expectation，这样就不会报错了。</p>
-<h3 id="attempt-to-insert-nil-object-from-objects-0"><a href="#attempt-to-insert-nil-object-from-objects-0" class="headerlink" title="attempt to insert nil object from objects[0]"></a>attempt to insert nil object from objects[0]</h3><p>这个错误是因为我们在前面使用__block修饰XCTestExpectation并置为nil操作的解决方案时同时使用了<code>waitForExpectations:timeout:</code>来等待Expectation，向数组中插入了nil。</p>
-<p>这个问题的解决方案同上，使用<code>waitForExpectationsWithTimeout:handler:</code>来替换即可。所以针对大多数啊情况推荐使用<code>waitForExpectationsWithTimeout:handler:</code>来等待XCTestExpectation。</p>
-
-          
+<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/01/09/iOS单元测试-各种问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -472,116 +491,13 @@ This may happen when test cases are constructed and invoked independently of sta
 
       
         
-          
-            <p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
-<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png" alt="20190109-1"></p>
-<p>2.为单元测试Target添加测试文件</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png" alt="20190109-2"></p>
-<p>3.编写测试逻辑</p>
-<pre><code>//每个用例方法执行前会执行的方法，为用例准备环境
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-//每个用例方法执行后会执行的方法，对环境进行清洁或者重置
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
-//以test开头的方法是一个可执行的测试用例方法，我们通过这些方法来跑不同的用例
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-    NSInteger i = 1;
-    NSInteger j = 1;
-    NSInteger k = i + j;
-    XCTAssertEqual(k, 2, @&quot;k的值应该等于2&quot;);
-    //使用XCTAssert断言来判断执行的结果是否通过
-}
-</code></pre><p>4.执行单元测试</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png" alt="20190109-3"></p>
-<p>5.查看测试结果</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-4.png" alt="20190109-4"></p>
-<h4 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h4><p>针对异步执行的代码我们需要这样写</p>
-<pre><code>- (void)setUp {
-    //超时时间，单位为秒
-    self.timeout = 20;
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
-- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-        [expectation fulfill];
-    }];
-    //waitForExpectationsWithTimeout:handler:方法会阻塞当前测试线程，直到所有的XCTestExpectation fulfill
-    [self waitForExpectationsWithTimeout:self.timeout handler:nil];
-}
-</code></pre><p>另外waitForExpectations:timeout:方法可以等待多个特定的XCTestExpectation</p>
-<pre><code>- (void)setUp {
-    //超时时间，单位为秒
-    self.timeout = 20;
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
-- (void)testExample {
-    NSString *username = @&quot;shuhai&quot;;
-    NSString *password = @&quot;123&quot;;
-
-    XCTestExpectation *noticeExpectation = [self expectationWithDescription:@&quot;登录通知返回&quot;];
-    [SHUserCenter registerNotice:SHUCenterNoticeTypeLoginSuccess handle:^(NSDictionary *data) {
-    XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-    [noticeExpectation fulfill];
-}];
-
-    XCTestExpectation *expectation = [self expectationWithDescription:@&quot;登录请求返回&quot;];
-    [SHUserCenter loginWithUserName: username password: password callback:^(NSDictionary *data) {
-        XCTAssertNotNil([data objectForKey:@&quot;data&quot;],@&quot;返回结果不能为nil&quot;);
-        [expectation fulfill];
-    }];
-    [self waitForExpectations:@[noticeExpectation,expectation] timeout:self.timeout];
-}
-</code></pre><p>笔者推荐使用waitForExpectationsWithTimeout:handler:方法。</p>
-<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>需要了解一段代码执行了多长时间，可以采用如下方法</p>
-<pre><code>- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-        sleep(5);
-    }];
-}
-</code></pre><p>这个方法<code>measureBlock</code>在执行时会执行10次，并且在执行完时会告诉你执行10次的时间。第一次执行<code>testPerformanceExample</code>完时会提示你输入一个该方法执行时间的参考值（baseline）作为参考。同时你也可以点击数字查看每次具体执行的结果，如下图：</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png" alt="20190109-7"></p>
-<h3 id="查看单测覆盖率"><a href="#查看单测覆盖率" class="headerlink" title="查看单测覆盖率"></a>查看单测覆盖率</h3><p>首先在Edit scheme-&gt;Test-&gt;Options下勾选Code Coverage</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png" alt="20190109-5"></p>
-<p>然后运行一次单元测试，在report navigator上选择刚刚单测的Coverage选项，就可以看到单元测试覆盖率了</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png" alt="20190109-6"></p>
-<h3 id="常用的XCTAssert断言"><a href="#常用的XCTAssert断言" class="headerlink" title="常用的XCTAssert断言"></a>常用的XCTAssert断言</h3><pre><code>XCTFail(...)    强制失败断言
-XCTAssertNil(expression, ...)        为nil时通过
-XCTAssertNotNil(expression, ...)    不为nil时通过
-XCTAssertTrue(expression, ...)    为true时通过
-XCTAssertFalse(expression, ...)    为false时通过
-XCTAssertEqualObjects(expression1, expression2, ...)    两个对象相等时通过
-XCTAssertNotEqualObjects(expression1, expression2, ...)    两个对象不相等时通过
-XCTAssertEqual(expression1, expression2, ...)        相等时通过
-XCTAssertNotEqual(expression1, expression2, ...)    不相等时通过
-
-更多的可以查看系统XCTestAssertions.h文件当中的注释
-</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>在编写单元测试时如果遇到问题可以参考<a href="http://yangzq007.com/2019/01/09/iOS单元测试-各种问题/" target="_blank" rel="external">iOS单元测试-各种问题</a></p>
-
-          
+          <p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
+<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/01/09/iOS单元测试-代码实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1345,109 +1261,6 @@ scheme: Muse
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/03/29/从ReactNative到React/" itemprop="url">
-                  从ReactNative到React
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-03-29T09:44:31+08:00" content="2018-03-29">
-              2018-03-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在写自己的一个前端小Demo，因为之前在工作中使用了ReactNative，就选择了React作为技术选型，也就走上了这么一条自上而下的路。本文主要内容为ReactNative和Reactjs的一些不同以及从ReactNative到Reactjs的一些开发中的经验，因此适合从原生转向前端或者对前端有些兴趣的同学，希望能帮大家少踩一些坑，少费一些力。</p>
-<h3 id="安装脚手架和搭建基础工程"><a href="#安装脚手架和搭建基础工程" class="headerlink" title="安装脚手架和搭建基础工程"></a>安装脚手架和搭建基础工程</h3><pre><code>//-g是将create-react-app安装到全局，该电脑的任何用户都可以使用
-npm install -g create-react-app
-create-react-app my-app
-
-cd my-app
-npm start
-</code></pre><p>这样我们就有一个基础的工程和基础的页面了，下面我们就开始讨论详细的问题了
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2018/03/29/从ReactNative到React/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1493,7 +1306,7 @@ npm start
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

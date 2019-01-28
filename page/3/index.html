@@ -252,6 +252,113 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/27/iOS下的cookies使用/" itemprop="url">
+                  iOS下的cookies使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-27T16:21:36+08:00" content="2017-05-27">
+              2017-05-27
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>今天无意间翻到了以前有关cookies的代码，就顺便整理了一下，和大家分享下。</p>
+<h3 id="Cookies简介"><a href="#Cookies简介" class="headerlink" title="Cookies简介"></a>Cookies简介</h3><p>这里有比较详细的介绍，本文就不再赘述了。<a href="http://blog.csdn.net/fangaoxin/article/details/6952954" target="_blank" rel="external">click me</a></p>
+<p>在iOS当中需要注意以下几点：</p>
+<ol>
+<li>不管是NSURLConnection还是UIWebView都会保留并传递服务端的cookie，就是说基本所有的网络请求都会使用cookie</li>
+<li>多个应用之间默认不共享cookie</li>
+<li>临时cookie在应用重启之后就会消失</li>
+<li>持久cookie在应用或系统重启之后不会消失</li>
+<li>cookie不能跨域，像.baidu.com和image.baidu.com这种也是跨域</li>
+<li>WKWebView因为没有缓存，不能使用cookie，想要使用，需做特殊处理。</li>
+</ol>
+<p>注：cookie不能跨域是通用的，在所有情况下都是这样，并非在iOS系统上如此。.baidu.com和image.baidu.com可以使用彼此的cookie是因为服务端做了特殊的处理。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/05/27/iOS下的cookies使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/26/CocoaPods-invalid-byte-sequence-in-UTF-8/" itemprop="url">
                   CocoaPods invalid byte sequence in UTF-8
                 </a>
@@ -1166,107 +1273,6 @@ unset ALL_PROXY
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/14/iOS粒子特效/" itemprop="url">
-                  iOS粒子特效
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T17:54:36+08:00" content="2016-11-14">
-              2016-11-14
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最早接触这个概念是在去年的圣诞节的时候，那个时候手机淘宝首页出了一个页面下雪的动画，当时觉得蛮炫酷的，而且以为实现起来蛮难的，后来自己查了资料才知道“粒子特效”这个概念，今天就来简单聊聊它吧。</p>
-<h3 id="粒子特效"><a href="#粒子特效" class="headerlink" title="粒子特效"></a>粒子特效</h3><blockquote>
-<p>粒子系统表示三维计算机图形学中模拟一些特定的模糊现象的技术，而这些现象用其它传统的渲染技术难以实现的真实感的游戏图形。经常使用粒子系统模拟的现象有火、爆炸、烟、水流、火花、落叶、云、雾、雪、尘、流星尾迹或者象发光轨迹这样的抽象视觉效果等等。</p>
-</blockquote>
-<p>以上定义来自维基百科，详细的解释<a href="https://zh.wikipedia.org/wiki/%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">点击这里</a>.</p>
-<h3 id="在iOS系统当中的实现"><a href="#在iOS系统当中的实现" class="headerlink" title="在iOS系统当中的实现"></a>在iOS系统当中的实现</h3><p>粒子特效由两个部分组成，一个是发射器，主要负责粒子的生成和发射，另一个是粒子单元，用于描述粒子的状态。在iOS系统当中这两部分分别由CAEmitterLayer（发射器）和CAEmitterCell（组成）。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/14/iOS粒子特效/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1312,7 +1318,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

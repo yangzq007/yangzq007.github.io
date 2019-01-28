@@ -86,13 +86,13 @@
 
 
 
-<meta name="description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta name="description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）">
 <meta name="keywords" content="iOS,单元测试,XCTest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS单元测试-代码实现">
 <meta property="og:url" content="http://yoursite.com/2019/01/09/iOS单元测试-代码实现/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta property="og:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png">
@@ -100,10 +100,10 @@
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png">
-<meta property="og:updated_time" content="2019-01-18T08:36:18.570Z">
+<meta property="og:updated_time" content="2019-01-28T09:06:40.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS单元测试-代码实现">
-<meta name="twitter:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）  2.为单元测试Target添加测试文件  3.编写测试逻辑 //每个用例方法执行前会执行的方法，为用例准备环境 - (void)setUp {     // Put setup code">
+<meta name="twitter:description" content="iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的Target（已经有的可以略过这一步）">
 <meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
 
 
@@ -303,7 +303,7 @@
 
       
         <p>iOS的单元测试代码我们使用Xcode自带的XCTest，XCTest可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
-<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）</p>
+<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的Target（已经有的可以略过这一步）<a id="more"></a></p>
 <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png" alt="20190109-1"></p>
 <p>2.为单元测试Target添加测试文件</p>
 <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png" alt="20190109-2"></p>
@@ -517,7 +517,7 @@ XCTAssertNotEqual(expression1, expression2, ...)    不相等时通过
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

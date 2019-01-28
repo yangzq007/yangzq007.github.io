@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/01/09/iOS单元测试-各种问题/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="编写用例时注意1.用例只针对SDK对外开放的入口 2.注意异常情况和边界值 3.注意用例之间的依赖情况 单测用例如何按照顺序执行测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample 理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对">
-<meta property="og:updated_time" content="2019-01-18T08:28:11.811Z">
+<meta property="og:updated_time" content="2019-01-28T09:02:15.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS单元测试-各种问题">
 <meta name="twitter:description" content="编写用例时注意1.用例只针对SDK对外开放的入口 2.注意异常情况和边界值 3.注意用例之间的依赖情况 单测用例如何按照顺序执行测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample 理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对">
@@ -298,7 +298,7 @@
 <p>2.注意异常情况和边界值</p>
 <p>3.注意用例之间的依赖情况</p>
 <h3 id="单测用例如何按照顺序执行"><a href="#单测用例如何按照顺序执行" class="headerlink" title="单测用例如何按照顺序执行"></a>单测用例如何按照顺序执行</h3><p>测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &gt; - (void)test002Example &gt; - (void)testExample</p>
-<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。</p>
+<p>理论上单元测试不应该控制用例的执行顺序，每个case都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。<a id="more"></a></p>
 <h3 id="用例依赖的情况如何处理"><a href="#用例依赖的情况如何处理" class="headerlink" title="用例依赖的情况如何处理"></a>用例依赖的情况如何处理</h3><p>当你的用例需要按照顺序执行就说明你的用例存在依赖，针对这种情况就需要进行拆分，放到不同的组（测试文件）当中来执行，比如说存在a，b，c三个用例，b和c都依赖于a，那么比较合理的做法就是将a提到另外一个文件当中进行测试，b和c放到另外一个文件中，在b和c的文件中将a放入setUp方法用作b、c执行的前提，这样就能比较好的进行测试，也减少了大量的冗余代码。</p>
 <h3 id="multiple-calls-made-to-XCTestExpectation-fulfill"><a href="#multiple-calls-made-to-XCTestExpectation-fulfill" class="headerlink" title="multiple calls made to -[XCTestExpectation fulfill]"></a>multiple calls made to -[XCTestExpectation fulfill]</h3><p>出现这种情况是因为写在回调当中的XCTestExpectation被多次调用导致的，解决这个错误，网上目前有以下三种解决方案，可以根据自己的情况进行选择：</p>
 <p>1.使用__weak修饰XCTestExpectation。</p>
@@ -416,6 +416,10 @@ This may happen when test cases are constructed and invoked independently of sta
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/28/2018年个人总结/" rel="prev" title="2018年个人总结">
+                2018年个人总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -482,7 +486,7 @@ This may happen when test cases are constructed and invoked independently of sta
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
