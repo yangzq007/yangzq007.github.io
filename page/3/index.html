@@ -563,6 +563,109 @@ export LANG=en_US.UTF-8
             
               
                 
+                <a class="post-title-link" href="/2017/04/11/Hexo博客绑定域名/" itemprop="url">
+                  Hexo博客绑定域名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-11T15:07:02+08:00" content="2017-04-11">
+              2017-04-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>我们通过CNAME的方式来绑定我们购买的域名</p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><p>1.在hexo目录下的source文件夹中创建一个文件CNAME</p>
+<p>CNAME文件不要有后缀，建议使用<code>touch CNAME</code>命令创建</p>
+<p>2.将你的域名写到CNAME文件当中</p>
+<p>尽量不要有空格换行等冗余内容</p>
+<p>3.重新生成部署你的博客</p>
+<pre><code>sudo hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+</code></pre><p>如上操作完成之后，你访问对应的github.io或者coding.me的地址时就会重定向到你购买的域名
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/04/11/Hexo博客绑定域名/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/" itemprop="url">
                   从Signal 10 Bus Error聊聊assign和weak
                 </a>
@@ -1172,107 +1275,6 @@ unset ALL_PROXY
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/13/oh-my-zsh-语义化版本/" itemprop="url">
-                  oh my zsh & 语义化版本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-13T15:22:15+08:00" content="2017-01-13">
-              2017-01-13
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近断断续续忙了一个多月，终于有空坐下来总结一下，写点东西。下面就简单介绍下自己最近遇到的两个坑。</p>
-<h3 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh my zsh"></a>oh my zsh</h3><p>oh my zsh，为什么要介绍这个呢？起因是在开发过程中，为了修改一个线上bug，需要切换到其他分支，我就git stash暂存了一下当前未提交的代码。当我修改完bug回到当前分支时，咦，我暂存的代码呢？后来发现是不小心命令敲错了，请允许我做一个悲伤的表情。</p>
-<p>后来同事就给我推荐了oh my zsh，有git命令补全等强大功能，很好用。</p>
-<p><strong>zsh和oh my zsh</strong></p>
-<p>zsh是一个功能强大的shell命令解释器，和默认的bash类似，配置较为繁琐，所以用的人也不多。</p>
-<p><a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh my zsh</a>是国外一个程序员开发出的帮助你快速上手使用zsh的项目，可以让你轻松使用zsh。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/13/oh-my-zsh-语义化版本/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1318,7 +1320,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
