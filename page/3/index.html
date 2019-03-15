@@ -252,121 +252,6 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/05/React-Native之如何写一个ListView/" itemprop="url">
-                  React Native之如何写一个ListView
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-05T11:11:43+08:00" content="2017-07-05">
-              2017-07-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
-<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/05/React-Native之如何写一个ListView/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2017/06/20/文档网站生成工具docsify/" itemprop="url">
                   文档网站生成工具docsify
                 </a>
@@ -1293,6 +1178,108 @@ unset ALL_PROXY
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/06/移除SourceTree无用远程分支/" itemprop="url">
+                  移除SourceTree无用远程分支
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-06T10:25:57+08:00" content="2017-02-06">
+              2017-02-06
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在开发过程中我们很多时候都需要将当前分支推送到远程仓库，该分支完成其使命之后再将其删除。</p>
+<p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
+<p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170206-2.png" alt="20170206-2"></li>
+<li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
+<li>重启SourceTree即可。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1338,7 +1325,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

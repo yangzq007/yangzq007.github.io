@@ -252,118 +252,6 @@
             
               
                 
-                <a class="post-title-link" href="/2019/03/15/CocoaPods的AppIcon错误/" itemprop="url">
-                  CocoaPods的AppIcon错误
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-03-15T14:17:58+08:00" content="2019-03-15">
-              2019-03-15
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>不知道大家在<code>pod sepc lint</code>或者<code>pod repo push</code>验证或者推自己的podspec时有没有遇到这个错误</p>
-<pre><code>error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;
-</code></pre><p>当初我使用的还是1.4.0的版本，要使用一个新特性，更新到了1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在1.5.x和1.6.x的版本中都没有解决，现在有1.7.0的beta版了，不知道这个问题修复没有，等release版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
-<ol>
-<li>拿到podspec文件强推到podspec仓库</li>
-<li>注掉CocoaPods校验逻辑</li>
-<li>在你的pod当中添加一个冗余的Images.xcassets</li>
-<li>不同版本的CocoaPods配合使用</li>
-</ol>
-<p>第1、2两种解决方案简单粗暴且有效，应急可以偶尔使用，但不推荐，第3种解决方案会造成文件冗余，建议不要使用。第4种解决方案强烈推荐，你只需安装两个版本的CocoaPods，然后在使用时通过命令控制调用不同的版本即可，大致操作如下：</p>
-<pre><code>//安装校验不报错的1.4.0版本
-gem install cocoapods --version 1.4.0
-
-//调用1.4.0版本的命令
-pod _1.4.0_ repo push
-</code></pre><p>这样就完美解决了在使用新版本时校验不通过的问题了。</p>
-<p>当我们安装了两个版本的CocoaPods时，默认会调用高版本的那个</p>
-<pre><code>pod --version
-//输出1.6.1
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2019/03/15/给你的哈希算法加点“盐”/" itemprop="url">
                   给你的哈希算法加点“盐”
                 </a>
@@ -1267,6 +1155,106 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/28/CocoaPods重复生成UUID的问题/" itemprop="url">
+                  CocoaPods重复生成UUID的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T17:39:14+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近使用CocoaPods在<code>pod install</code>或者<code>pod update</code>时会出现<code>[!] [Xcodeproj] Generated duplicate UUIDs:</code>的错误，大段的warning占满整个终端。</p>
+<p>解决方案：</p>
+<p>终端执行如下命令</p>
+<pre><code>export COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=YES
+</code></pre><p>后续CocoaPods已经把该配置移入到Podfile当中，执行上面命令无效的可以在Podfile当中添加如下配置即可：</p>
+<pre><code>//建议放在文件开始或者source之后    
+install! &apos;cocoapods&apos;, :deterministic_uuids =&gt; false
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1312,7 +1300,7 @@ cp -a /Users/yzq/a/* /Users/yzq/b
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
