@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-15T06:58:47.626Z</updated>
+  <updated>2019-03-15T07:08:39.966Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Cocoapods的AppIcon错误</title>
-    <link href="http://yoursite.com/2019/03/15/Cocoapods%E7%9A%84AppIcon%E9%94%99%E8%AF%AF/"/>
-    <id>http://yoursite.com/2019/03/15/Cocoapods的AppIcon错误/</id>
+    <title>CocoaPods的AppIcon错误</title>
+    <link href="http://yoursite.com/2019/03/15/CocoaPods%E7%9A%84AppIcon%E9%94%99%E8%AF%AF/"/>
+    <id>http://yoursite.com/2019/03/15/CocoaPods的AppIcon错误/</id>
     <published>2019-03-15T06:17:58.000Z</published>
-    <updated>2019-03-15T06:58:47.626Z</updated>
+    <updated>2019-03-15T07:08:39.966Z</updated>
     
     <content type="html"><![CDATA[<p>不知道大家在<code>pod sepc lint</code>或者<code>pod repo push</code>验证或者推自己的podspec时有没有遇到这个错误</p>
 <pre><code>error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;
