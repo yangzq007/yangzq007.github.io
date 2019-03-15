@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-28T09:00:01.824Z</updated>
+  <updated>2019-03-15T06:58:47.626Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,110 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Cocoapods的AppIcon错误</title>
+    <link href="http://yoursite.com/2019/03/15/Cocoapods%E7%9A%84AppIcon%E9%94%99%E8%AF%AF/"/>
+    <id>http://yoursite.com/2019/03/15/Cocoapods的AppIcon错误/</id>
+    <published>2019-03-15T06:17:58.000Z</published>
+    <updated>2019-03-15T06:58:47.626Z</updated>
+    
+    <content type="html"><![CDATA[<p>不知道大家在<code>pod sepc lint</code>或者<code>pod repo push</code>验证或者推自己的podspec时有没有遇到这个错误</p>
+<pre><code>error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;
+</code></pre><p>当初我使用的还是1.4.0的版本，要使用一个新特性，更新到了1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在1.5.x和1.6.x的版本中都没有解决，现在有1.7.0的beta版了，不知道这个问题修复没有，等release版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
+<ol>
+<li>拿到podspec文件强推到podspec仓库</li>
+<li>注掉CocoaPods校验逻辑</li>
+<li>在你的pod当中添加一个冗余的Images.xcassets</li>
+<li>不同版本的CocoaPods配合使用</li>
+</ol>
+<p>第1、2两种解决方案简单粗暴且有效，应急可以偶尔使用，但不推荐，第3种解决方案会造成文件冗余，建议不要使用。第4种解决方案强烈推荐，你只需安装两个版本的CocoaPods，然后在使用时通过命令控制调用不同的版本即可，大致操作如下：</p>
+<pre><code>//安装校验不报错的1.4.0版本
+gem install cocoapods --version 1.4.0
+
+//调用1.4.0版本的命令
+pod _1.4.0_ repo push
+</code></pre><p>这样就完美解决了在使用新版本时校验不通过的问题了。</p>
+<p>当我们安装了两个版本的CocoaPods时，默认会调用高版本的那个</p>
+<pre><code>pod --version
+//输出1.6.1
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;不知道大家在&lt;code&gt;pod sepc lint&lt;/code&gt;或者&lt;code&gt;pod repo push&lt;/code&gt;验证或者推自己的podspec时有没有遇到这个错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;error: None of the input catalogs co
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>给你的哈希算法加点“盐”</title>
+    <link href="http://yoursite.com/2019/03/15/%E7%BB%99%E4%BD%A0%E7%9A%84%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E5%8A%A0%E7%82%B9%E2%80%9C%E7%9B%90%E2%80%9D/"/>
+    <id>http://yoursite.com/2019/03/15/给你的哈希算法加点“盐”/</id>
+    <published>2019-03-15T03:12:48.000Z</published>
+    <updated>2019-03-15T07:05:45.662Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。</p>
+<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="external">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
+<p>注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。</p>
+<p>Hmac算法（Keyed-Hashing for Message Authentication）是一个将盐加入哈希计算的标准算法，它会在计算过程中将salt混入计算过程中，而且它针对所有的哈希算法都通用，相比较我们自己的实现更标准也更安全。<a id="more"></a></p>
+<p>系统也为我们提供了相关API，我们仍以sha1算法为例，不加盐的调用如下：</p>
+<pre><code>#import &quot;NSString+Encryption.h&quot;
+
+#import &lt;CommonCrypto/CommonDigest.h&gt;
+#import &lt;CommonCrypto/CommonHMAC.h&gt;
+
+- (NSString *)sha1
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH*2];
+    for (int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++) {
+        [output appendFormat:@&quot;%02x&quot;,digest[i]];
+    }
+    return output;
+}
+</code></pre><p>加盐的调用如下：</p>
+<pre><code>#import &quot;NSString+Encryption.h&quot;
+
+#import &lt;CommonCrypto/CommonDigest.h&gt;
+#import &lt;CommonCrypto/CommonHMAC.h&gt;
+
+- (NSString *)hmacSha1:(NSString *)key
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    const char *cKey = [key cStringUsingEncoding:NSUTF8StringEncoding];
+
+    unsigned char *digest = malloc(CC_SHA1_DIGEST_LENGTH);
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), [data bytes], [data length], digest);
+
+    NSData *desData = [NSData dataWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
+    return [desData base64EncodedStringWithOptions:0];
+}
+</code></pre><p>其他的算法也可以找到相关的API，这里就不再赘述了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。&lt;/p&gt;
+&lt;p&gt;但是黑客可以通过&lt;a href=&quot;https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;彩虹表&lt;/a&gt;反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是&lt;code&gt;sha1(message+salt)&lt;/code&gt;这个样子。&lt;/p&gt;
+&lt;p&gt;注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。&lt;/p&gt;
+&lt;p&gt;Hmac算法（Keyed-Hashing for Message Authentication）是一个将盐加入哈希计算的标准算法，它会在计算过程中将salt混入计算过程中，而且它针对所有的哈希算法都通用，相比较我们自己的实现更标准也更安全。
+    
+    </summary>
+    
+    
+      <category term="安全加密" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
   
   <entry>
     <title>2018年个人总结</title>
@@ -1467,175 +1571,6 @@ class Index extends Component {
     
     
       <category term="ReactNative" scheme="http://yoursite.com/tags/ReactNative/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native之如何写一个ListView</title>
-    <link href="http://yoursite.com/2017/07/05/React-Native%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAListView/"/>
-    <id>http://yoursite.com/2017/07/05/React-Native之如何写一个ListView/</id>
-    <published>2017-07-05T03:11:43.000Z</published>
-    <updated>2018-04-04T06:52:38.483Z</updated>
-    
-    <content type="html"><![CDATA[<p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
-<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre><a id="more"></a>
-<p>以上代码就可以绘制一个简单的ListView了，但是我们需要注意<code>dataSource: ds.cloneWithRows([&#39;row 1&#39;, &#39;row 2&#39;])</code>这一行，因为我们的数据一般都是网络请求来的，所以我们一般可能会写成这样</p>
-<pre><code>listData = [];
-
-constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.listData),
-    };
-  }
-
-  ***省略的网络请求***
-  listData = [&apos;row 1&apos;, &apos;row 2&apos;];
-  ***省略的更新state***
-</code></pre><p>然而你发现你的ListView并没有更新，还是一片空白,当我们把<code>dataSource: ds.cloneWithRows(this.listData)</code>这一行改成<code>dataSource: ds.cloneWithRows(this.listData.slice())</code>你会发现问题解决了，why?</p>
-<p>这是因为这样只是一个浅拷贝，虽然数组内容发生了变化，但是<code>ds.cloneWithRows</code>接收到的数据没有发生变，故页面会刷新。当我们用<code>slice</code>时，给它返回一个新值，这样界面就会重新刷新渲染。</p>
-<h3 id="写一个带Section的ListView"><a href="#写一个带Section的ListView" class="headerlink" title="写一个带Section的ListView"></a>写一个带Section的ListView</h3><p>要写一个带Section的ListView主要是针对数据源的改造。</p>
-<p>DataSource构造函数可以接受下列四种参数（都是可选）：</p>
-<pre><code>getRowData(dataBlob, sectionID, rowID);
-getSectionHeaderData(dataBlob, sectionID);
-rowHasChanged(prevRowData, nextRowData);
-sectionHeaderHasChanged(prevSectionData, nextSectionData);
-</code></pre><p>如果不提供getRowData和getSectionHeaderData方法，使用defaultGetRowData和defaultGetSectionHeaderData来提取数据，默认的提取函数可以处理的数据结构如下：</p>
-<pre><code>{ sectionID_1: { rowID_1: rowData1, ... }, ... }
-或者
-{ sectionID_1: [ rowData1, rowData2, ... ], ... }
-或者
-[ [ rowData1, rowData2, ... ], ... ]
-</code></pre><p>我们用第二种数据结构来实现：</p>
-<pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-
-    listData = { &quot;1&quot;: [ &quot;11&quot;, &quot;12&quot;], &quot;2&quot;: [ &quot;21&quot;, &quot;22&quot;] };
-
-    const ds =  new ListView.DataSource({
-        rowHasChanged: (r1, r2) =&gt; r1 !== r2,
-        sectionHeaderHasChanged: (s1, s2) =&gt; s1 != s2
-    });
-    this.state = {
-      dataSource: ds.cloneWithRowsAndSections(
-              this.listData,
-              Object.keys(this.listData),
-              Object.keys(this.listData).map(
-            (sectionId) =&gt; Object.keys(
-                this.listData[sectionId].slice()
-            )
-        )
-      ),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre><p>需要注意的是<code>cloneWithRowsAndSections(dataBlob, sectionIdentities, rowIdentities)</code>方法当中的参数也需要是一个新值，所以<code>rowIdentities</code>参数的数据也需要<code>slice()</code>一下，回传一个新值。</p>
-<p>当需要将sectionHeader的样式显示出来，还需要在render当中添加关于header渲染的代码</p>
-<pre><code>render() {
-    return (
-      &lt;ListView
-           renderSectionHeader={
-                (sectionData, sectionID) =&gt; &lt;Text&gt;{sectionID}&lt;/Text&gt;
-        }
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-</code></pre><p>这样一个带section的ListView就写出来了。</p>
-<h3 id="一些注意事项"><a href="#一些注意事项" class="headerlink" title="一些注意事项"></a>一些注意事项</h3><ol>
-<li>React Native不支持随ListView滚动的Header，如果需要，请在每个section当中的第一个Item当中添加</li>
-<li>如果ListView要下拉一下才显示出来，请设置ListView的属性<code>removeClippedSubviews={false}</code></li>
-<li>如果在iOS设备上ListView距离顶部导航栏有距离，请设置ListView的属性<code>automaticallyAdjustContentInsets={false}</code></li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。&lt;/p&gt;
-&lt;h3 id=&quot;写一个简单的ListView&quot;&gt;&lt;a href=&quot;#写一个简单的ListView&quot; class=&quot;headerlink&quot; title=&quot;写一个简单的ListView&quot;&gt;&lt;/a&gt;写一个简单的ListView&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&amp;gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&amp;apos;row 1&amp;apos;, &amp;apos;row 2&amp;apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &amp;lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&amp;gt; &amp;lt;Text&amp;gt;{rowData}&amp;lt;/Text&amp;gt;}
-      /&amp;gt;
-    );
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-      <category term="ReactNative" scheme="http://yoursite.com/tags/ReactNative/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文档网站生成工具docsify</title>
-    <link href="http://yoursite.com/2017/06/20/%E6%96%87%E6%A1%A3%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7docsify/"/>
-    <id>http://yoursite.com/2017/06/20/文档网站生成工具docsify/</id>
-    <published>2017-06-20T09:58:08.000Z</published>
-    <updated>2018-12-29T03:11:38.891Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170620-1.png" alt="20170620-1"></p>
-<p>今天给大家推荐一个非常好用的工具docsify，对，没错，就是上面这个萌萌哒的类似果冻的东西。</p>
-<h3 id="docsify"><a href="#docsify" class="headerlink" title="docsify"></a>docsify</h3><p>docsify是一个非常好用的文档网站生成工具。它能快速的将你存储在Git仓库中的markdown文档生成一个文档网站，而且界面非常美观。</p>
-<p>下面是docsify文档的介绍</p>
-<blockquote>
-<p>docsify 是一个动态生成文档网站的工具。不同于 GitBook、Hexo 的地方是它不会生成将 .md 转成 .html 文件，所有转换工作都是在运行时进行。</p>
-<p>这将非常实用，如果只是需要快速的搭建一个小型的文档网站，或者不想因为生成的一堆 .html 文件“污染” commit 记录，只需要创建一个 index.html 就可以开始写文档而且直接部署在 GitHub Pages。</p>
-</blockquote>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>直接点击<a href="https://docsify.js.org/#/" target="_blank" rel="external">这里</a>查看其官方文档即可，里面非常详细的介绍了如何使用。另外<a href="https://docsify.js.org/#/zh-cn/" target="_blank" rel="external">docsify文档</a>也是一个实例demo。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170620-1.png&quot; alt=&quot;20170620-1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;今天给大家推荐一个非常好用的工具docsify，对，没错，就是上
-    
-    </summary>
-    
-    
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
