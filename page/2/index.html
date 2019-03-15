@@ -252,6 +252,106 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/28/CocoaPods重复生成UUID的问题/" itemprop="url">
+                  CocoaPods重复生成UUID的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T17:39:14+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近使用CocoaPods在<code>pod install</code>或者<code>pod update</code>时会出现<code>[!] [Xcodeproj] Generated duplicate UUIDs:</code>的错误，大段的warning占满整个终端。</p>
+<p>解决方案：</p>
+<p>终端执行如下命令</p>
+<pre><code>export COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=YES
+</code></pre><p>后续CocoaPods已经把该配置移入到Podfile当中，执行上面命令无效的可以在Podfile当中添加如下配置即可：</p>
+<pre><code>//建议放在文件开始或者source之后    
+install! &apos;cocoapods&apos;, :deterministic_uuids =&gt; false
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/04/04/主题替换为NexT/" itemprop="url">
                   主题替换为NexT
                 </a>
@@ -1155,121 +1255,6 @@ end
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/05/React-Native之如何写一个ListView/" itemprop="url">
-                  React Native之如何写一个ListView
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-05T11:11:43+08:00" content="2017-07-05">
-              2017-07-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
-<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/05/React-Native之如何写一个ListView/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1315,7 +1300,7 @@ end
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

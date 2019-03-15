@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-15T07:05:45.662Z</updated>
+  <updated>2019-03-15T07:34:43.858Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CocoaPods的AppIcon错误</title>
+    <link href="http://yoursite.com/2019/03/15/CocoaPods%E7%9A%84AppIcon%E9%94%99%E8%AF%AF/"/>
+    <id>http://yoursite.com/2019/03/15/CocoaPods的AppIcon错误/</id>
+    <published>2019-03-15T06:17:58.000Z</published>
+    <updated>2019-03-15T07:34:43.858Z</updated>
+    
+    <content type="html"><![CDATA[<p>不知道大家在<code>pod sepc lint</code>或者<code>pod repo push</code>验证或者推自己的podspec时有没有遇到这个错误</p>
+<pre><code>error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;
+</code></pre><p>当初我使用的还是1.4.0的版本，要使用一个新特性，更新到了1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在1.5.x和1.6.x的版本中都没有解决，现在有1.7.0的beta版了，不知道这个问题修复没有，等release版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
+<ol>
+<li>拿到podspec文件强推到podspec仓库</li>
+<li>注掉CocoaPods校验逻辑</li>
+<li>在你的pod当中添加一个冗余的Images.xcassets</li>
+<li>不同版本的CocoaPods配合使用</li>
+</ol>
+<p>第1、2两种解决方案简单粗暴且有效，应急可以偶尔使用，但不推荐，第3种解决方案会造成文件冗余，建议不要使用。第4种解决方案强烈推荐，你只需安装两个版本的CocoaPods，然后在使用时通过命令控制调用不同的版本即可，大致操作如下：</p>
+<pre><code>//安装校验不报错的1.4.0版本
+gem install cocoapods --version 1.4.0
+
+//调用1.4.0版本的命令
+pod _1.4.0_ repo push
+</code></pre><p>这样就完美解决了在使用新版本时校验不通过的问题了。</p>
+<p>当我们安装了两个版本的CocoaPods时，默认会调用高版本的那个</p>
+<pre><code>pod --version
+//输出1.6.1
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;不知道大家在&lt;code&gt;pod sepc lint&lt;/code&gt;或者&lt;code&gt;pod repo push&lt;/code&gt;验证或者推自己的podspec时有没有遇到这个错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;error: None of the input catalogs co
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+  </entry>
   
   <entry>
     <title>给你的哈希算法加点“盐”</title>
@@ -1524,145 +1566,6 @@ class Index extends Component {
 &lt;p&gt;MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;mobx通过响应式的结构将数据和视图的处理逻辑进行分离，比较好的解决了状态维护的问题，再将数据处理分离出去就是一个标准的MVVM的结构，开发者在VM当中对数据和视图进行了绑定后就可以只关心视图的渲染和数据的处理了，这样也更容易理解。
-    
-    </summary>
-    
-    
-      <category term="ReactNative" scheme="http://yoursite.com/tags/ReactNative/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Native之如何写一个ListView</title>
-    <link href="http://yoursite.com/2017/07/05/React-Native%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAListView/"/>
-    <id>http://yoursite.com/2017/07/05/React-Native之如何写一个ListView/</id>
-    <published>2017-07-05T03:11:43.000Z</published>
-    <updated>2018-04-04T06:52:38.483Z</updated>
-    
-    <content type="html"><![CDATA[<p>写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。</p>
-<h3 id="写一个简单的ListView"><a href="#写一个简单的ListView" class="headerlink" title="写一个简单的ListView"></a>写一个简单的ListView</h3><pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&apos;row 1&apos;, &apos;row 2&apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre><a id="more"></a>
-<p>以上代码就可以绘制一个简单的ListView了，但是我们需要注意<code>dataSource: ds.cloneWithRows([&#39;row 1&#39;, &#39;row 2&#39;])</code>这一行，因为我们的数据一般都是网络请求来的，所以我们一般可能会写成这样</p>
-<pre><code>listData = [];
-
-constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.listData),
-    };
-  }
-
-  ***省略的网络请求***
-  listData = [&apos;row 1&apos;, &apos;row 2&apos;];
-  ***省略的更新state***
-</code></pre><p>然而你发现你的ListView并没有更新，还是一片空白,当我们把<code>dataSource: ds.cloneWithRows(this.listData)</code>这一行改成<code>dataSource: ds.cloneWithRows(this.listData.slice())</code>你会发现问题解决了，why?</p>
-<p>这是因为这样只是一个浅拷贝，虽然数组内容发生了变化，但是<code>ds.cloneWithRows</code>接收到的数据没有发生变，故页面会刷新。当我们用<code>slice</code>时，给它返回一个新值，这样界面就会重新刷新渲染。</p>
-<h3 id="写一个带Section的ListView"><a href="#写一个带Section的ListView" class="headerlink" title="写一个带Section的ListView"></a>写一个带Section的ListView</h3><p>要写一个带Section的ListView主要是针对数据源的改造。</p>
-<p>DataSource构造函数可以接受下列四种参数（都是可选）：</p>
-<pre><code>getRowData(dataBlob, sectionID, rowID);
-getSectionHeaderData(dataBlob, sectionID);
-rowHasChanged(prevRowData, nextRowData);
-sectionHeaderHasChanged(prevSectionData, nextSectionData);
-</code></pre><p>如果不提供getRowData和getSectionHeaderData方法，使用defaultGetRowData和defaultGetSectionHeaderData来提取数据，默认的提取函数可以处理的数据结构如下：</p>
-<pre><code>{ sectionID_1: { rowID_1: rowData1, ... }, ... }
-或者
-{ sectionID_1: [ rowData1, rowData2, ... ], ... }
-或者
-[ [ rowData1, rowData2, ... ], ... ]
-</code></pre><p>我们用第二种数据结构来实现：</p>
-<pre><code>class MyComponent extends Component {
-  constructor() {
-    super();
-
-    listData = { &quot;1&quot;: [ &quot;11&quot;, &quot;12&quot;], &quot;2&quot;: [ &quot;21&quot;, &quot;22&quot;] };
-
-    const ds =  new ListView.DataSource({
-        rowHasChanged: (r1, r2) =&gt; r1 !== r2,
-        sectionHeaderHasChanged: (s1, s2) =&gt; s1 != s2
-    });
-    this.state = {
-      dataSource: ds.cloneWithRowsAndSections(
-              this.listData,
-              Object.keys(this.listData),
-              Object.keys(this.listData).map(
-            (sectionId) =&gt; Object.keys(
-                this.listData[sectionId].slice()
-            )
-        )
-      ),
-    };
-  }
-
-  render() {
-    return (
-      &lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-}
-</code></pre><p>需要注意的是<code>cloneWithRowsAndSections(dataBlob, sectionIdentities, rowIdentities)</code>方法当中的参数也需要是一个新值，所以<code>rowIdentities</code>参数的数据也需要<code>slice()</code>一下，回传一个新值。</p>
-<p>当需要将sectionHeader的样式显示出来，还需要在render当中添加关于header渲染的代码</p>
-<pre><code>render() {
-    return (
-      &lt;ListView
-           renderSectionHeader={
-                (sectionData, sectionID) =&gt; &lt;Text&gt;{sectionID}&lt;/Text&gt;
-        }
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
-      /&gt;
-    );
-  }
-</code></pre><p>这样一个带section的ListView就写出来了。</p>
-<h3 id="一些注意事项"><a href="#一些注意事项" class="headerlink" title="一些注意事项"></a>一些注意事项</h3><ol>
-<li>React Native不支持随ListView滚动的Header，如果需要，请在每个section当中的第一个Item当中添加</li>
-<li>如果ListView要下拉一下才显示出来，请设置ListView的属性<code>removeClippedSubviews={false}</code></li>
-<li>如果在iOS设备上ListView距离顶部导航栏有距离，请设置ListView的属性<code>automaticallyAdjustContentInsets={false}</code></li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;写RN也有段时间了，今天抽空就对RN当中的ListView进行一个简单介绍，主要介绍使用当中的一些坑。&lt;/p&gt;
-&lt;h3 id=&quot;写一个简单的ListView&quot;&gt;&lt;a href=&quot;#写一个简单的ListView&quot; class=&quot;headerlink&quot; title=&quot;写一个简单的ListView&quot;&gt;&lt;/a&gt;写一个简单的ListView&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;class MyComponent extends Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&amp;gt; r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows([&amp;apos;row 1&amp;apos;, &amp;apos;row 2&amp;apos;]),
-    };
-  }
-
-  render() {
-    return (
-      &amp;lt;ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =&amp;gt; &amp;lt;Text&amp;gt;{rowData}&amp;lt;/Text&amp;gt;}
-      /&amp;gt;
-    );
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     

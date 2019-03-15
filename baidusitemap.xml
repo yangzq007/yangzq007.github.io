@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://yoursite.com/2019/03/15/CocoaPods%E7%9A%84AppIcon%E9%94%99%E8%AF%AF/</loc>
+    <lastmod>2019-03-15T07:34:43.858Z</lastmod>
+    <data>
+        <display>
+        <title>CocoaPods的AppIcon错误</title>
+        <pubTime>2019-03-15T06:17:58.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>CocoaPods</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2019/03/15/%E7%BB%99%E4%BD%A0%E7%9A%84%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E5%8A%A0%E7%82%B9%E2%80%9C%E7%9B%90%E2%80%9D/</loc>
     <lastmod>2019-03-15T07:05:45.662Z</lastmod>
     <data>
@@ -360,6 +379,23 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/</loc>
+    <lastmod>2018-12-29T03:11:38.892Z</lastmod>
+    <data>
+        <display>
+        <title>一个优雅的水波动画</title>
+        <pubTime>2017-08-11T02:51:04.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2018-12-29T03:11:38.892Z</lastmod>
     <data>
@@ -370,23 +406,6 @@
         <tag>iOS</tag>
          
         <tag>Xcode</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/</loc>
-    <lastmod>2018-12-29T03:11:38.892Z</lastmod>
-    <data>
-        <display>
-        <title>一个优雅的水波动画</title>
-        <pubTime>2017-08-11T02:51:04.000Z</pubTime>
-        
-        <tag>iOS</tag>
          
          
            

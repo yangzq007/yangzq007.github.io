@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="CocoaPods,AppIcon,error" />
 
 
 
@@ -86,12 +86,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="那片树海">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+<meta name="description" content="不知道大家在pod sepc lint或者pod repo push验证或者推自己的podspec时有没有遇到这个错误 error: None of the input catalogs contained a matching stickers icon set or app icon set named &amp;quot;AppIcon&amp;quot; 当初我使用的还是1.4.0的版本，要使用一个新特性">
+<meta name="keywords" content="CocoaPods,AppIcon,error">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaPods的AppIcon错误">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/CocoaPods的AppIcon错误/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="不知道大家在pod sepc lint或者pod repo push验证或者推自己的podspec时有没有遇到这个错误 error: None of the input catalogs contained a matching stickers icon set or app icon set named &amp;quot;AppIcon&amp;quot; 当初我使用的还是1.4.0的版本，要使用一个新特性">
+<meta property="og:updated_time" content="2019-03-15T07:34:43.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="那片树海">
+<meta name="twitter:title" content="CocoaPods的AppIcon错误">
+<meta name="twitter:description" content="不知道大家在pod sepc lint或者pod repo push验证或者推自己的podspec时有没有遇到这个错误 error: None of the input catalogs contained a matching stickers icon set or app icon set named &amp;quot;AppIcon&amp;quot; 当初我使用的还是1.4.0的版本，要使用一个新特性">
 
 
 
@@ -109,7 +114,7 @@
   };
 </script>
 
-  <title> 归档 | 那片树海 </title>
+  <title> CocoaPods的AppIcon错误 | 那片树海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -228,65 +233,141 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 50 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CocoaPods的AppIcon错误
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-15T14:17:58+08:00" content="2019-03-15">
+              2019-03-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>不知道大家在<code>pod sepc lint</code>或者<code>pod repo push</code>验证或者推自己的podspec时有没有遇到这个错误</p>
+<pre><code>error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;
+</code></pre><p>当初我使用的还是1.4.0的版本，要使用一个新特性，更新到了1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在1.5.x和1.6.x的版本中都没有解决，现在有1.7.0的beta版了，不知道这个问题修复没有，等release版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
+<ol>
+<li>拿到podspec文件强推到podspec仓库</li>
+<li>注掉CocoaPods校验逻辑</li>
+<li>在你的pod当中添加一个冗余的Images.xcassets</li>
+<li>不同版本的CocoaPods配合使用</li>
+</ol>
+<p>第1、2两种解决方案简单粗暴且有效，应急可以偶尔使用，但不推荐，第3种解决方案会造成文件冗余，建议不要使用。第4种解决方案强烈推荐，你只需安装两个版本的CocoaPods，然后在使用时通过命令控制调用不同的版本即可，大致操作如下：</p>
+<pre><code>//安装校验不报错的1.4.0版本
+gem install cocoapods --version 1.4.0
+
+//调用1.4.0版本的命令
+pod _1.4.0_ repo push
+</code></pre><p>这样就完美解决了在使用新版本时校验不通过的问题了。</p>
+<p>当我们安装了两个版本的CocoaPods时，默认会调用高版本的那个</p>
+<pre><code>pod --version
+//输出1.6.1
+</code></pre>
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/CocoaPods/" rel="tag">#CocoaPods</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/给你的哈希算法加点“盐”/" rel="next" title="给你的哈希算法加点“盐”">
+                <i class="fa fa-chevron-left"></i> 给你的哈希算法加点“盐”
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/15/记一次cp错误/" itemprop="url">
-              
-                <span itemprop="name">记一次cp错误</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-11-15T17:19:03+08:00"
-              content="2018-11-15" >
-          11-15
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -294,6 +375,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -313,8 +398,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -384,6 +478,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -485,11 +590,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
