@@ -252,6 +252,107 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/28/iOS-Archive之后出现Other-Items无法导出/" itemprop="url">
+                  iOS Archive之后出现Other Items无法导出
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T17:58:30+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在iOS打包时碰到了无法导出为ipa的情况，问题表现为打包之后包出现在Other Items下而不是iOS Apps下。</p>
+<p>这是因为打包的项目中某些配置导致打出来的包多了一些文件，网上大致有以下几种解决方案：</p>
+<p>1.依赖工程的skip install设置为Yes，Build Settings-&gt;Deployment-&gt;Skip Install</p>
+<p>2.依赖工程Build Phases-&gt;Copy Headers中所有的头文件拉到Project下，即Public和Private下不能有文件</p>
+<p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
+<p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
+<p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
+<p>另外苹果官方有个文档，虽然比较旧，也可以参考下<br><a href="https://developer.apple.com/library/content/technotes/tn2215/_index.html" target="_blank" rel="external">https://developer.apple.com/library/content/technotes/tn2215/_index.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/05/28/CocoaPods重复生成UUID的问题/" itemprop="url">
                   CocoaPods重复生成UUID的问题
                 </a>
@@ -1155,111 +1256,11 @@ end
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/12/React-Native之mobx绑定/" itemprop="url">
-                  React Native之mobx绑定
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-12T16:53:33+08:00" content="2017-07-12">
-              2017-07-12
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>作为一个iOS开发，想必大家都经历过把很多状态和逻辑放到Controller当中的时候，当Controller逐渐变大，数据处理逻辑、视图展示逻辑和状态控制逻辑混在一起会导致代码越来越难维护，RN当中的State也会存在这样的问题，我们引入mobx就是为了解决这样的问题。</p>
-<blockquote>
-<p>MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展。</p>
-</blockquote>
-<p>mobx通过响应式的结构将数据和视图的处理逻辑进行分离，比较好的解决了状态维护的问题，再将数据处理分离出去就是一个标准的MVVM的结构，开发者在VM当中对数据和视图进行了绑定后就可以只关心视图的渲染和数据的处理了，这样也更容易理解。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/12/React-Native之mobx绑定/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1300,7 +1301,7 @@ end
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/03/15/CocoaPods的AppIcon错误/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="不知道大家在pod sepc lint或者pod repo push验证或者推自己的podspec时有没有遇到这个错误 error: None of the input catalogs contained a matching stickers icon set or app icon set named &amp;quot;AppIcon&amp;quot; 当初我使用的还是1.4.0的版本，要使用一个新特性">
-<meta property="og:updated_time" content="2019-03-15T07:34:43.858Z">
+<meta property="og:updated_time" content="2019-04-02T08:12:29.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods的AppIcon错误">
 <meta name="twitter:description" content="不知道大家在pod sepc lint或者pod repo push验证或者推自己的podspec时有没有遇到这个错误 error: None of the input catalogs contained a matching stickers icon set or app icon set named &amp;quot;AppIcon&amp;quot; 当初我使用的还是1.4.0的版本，要使用一个新特性">
@@ -301,7 +301,7 @@
 <li>拿到podspec文件强推到podspec仓库</li>
 <li>注掉CocoaPods校验逻辑</li>
 <li>在你的pod当中添加一个冗余的Images.xcassets</li>
-<li>不同版本的CocoaPods配合使用</li>
+<li>不同版本的CocoaPods配合使用<a id="more"></a></li>
 </ol>
 <p>第1、2两种解决方案简单粗暴且有效，应急可以偶尔使用，但不推荐，第3种解决方案会造成文件冗余，建议不要使用。第4种解决方案强烈推荐，你只需安装两个版本的CocoaPods，然后在使用时通过命令控制调用不同的版本即可，大致操作如下：</p>
 <pre><code>//安装校验不报错的1.4.0版本
@@ -352,6 +352,10 @@ pod _1.4.0_ repo push
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/02/如何绘制好iPhone上的1像素/" rel="prev" title="如何绘制好iPhone上的1像素">
+                如何绘制好iPhone上的1像素 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -419,7 +423,7 @@ pod _1.4.0_ repo push
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
