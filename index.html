@@ -349,6 +349,105 @@
             
               
                 
+                <a class="post-title-link" href="/2019/05/27/应用程序无法打开或文件损坏/" itemprop="url">
+                  应用程序无法打开或文件损坏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-05-27T16:07:44+08:00" content="2019-05-27">
+              2019-05-27
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mac在使用非App Store下载的应用时，经常会遇到提示 ““xxx.app”已损坏，打不开。您应该将它移动到废纸篓” 或者 “打不开“xxx.app”，因为它来自身份不明的开发者”。</p>
+<p>解决方案：将 “系统偏好设置-&gt;安全性与隐私-&gt;通用” 下面的 “允许从以下位置下载的App” 修改为 “任何来源”</p>
+<p>问题1：不能修改设置<br>点击安全性与隐私面板左下角的 “🔐点按锁按钮以进行更改”，输入电脑管理员密码，即可修改</p>
+<p>问题2：“允许从以下位置下载的App” 下没有 “任何来源” 选项<br>打开终端，输入<code>sudo spctl --master-disable</code>回车，然后输入电脑管理员密码回车执行，就可以在设置面板上看到 “任何来源” 选项了</p>
+<p>问题3：提示 “无法打开“xxx”，因为无法确认开发者的身份”<br>右键应用程序、打开或者按住control点击应用程序</p>
+<p>问题4：已经开启任何来源，但还是打不开（macOS Catalina 10.15以上会遇到）<br>打开终端，输入以下命令<code>sudo xattr -d com.apple.quarantine /Applications/xxxx.app</code>，重启应用即可。<br>如果应用名字有空格，请在命令当中转义，或者先修改应用程序名称，可以打开后再改回来。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/04/02/如何绘制好iPhone上的1像素/" itemprop="url">
                   如何绘制好iPhone上的1像素
                 </a>
@@ -1165,125 +1264,6 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/09/05/编写一个基于node的CLI/" itemprop="url">
-                  编写一个基于node的CLI
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-09-05T17:27:31+08:00" content="2018-09-05">
-              2018-09-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近因为需要给其他同事提供一些方便开发的工具，就写了一个基于node的CLI，下面给大家分享下怎么自己去动手写一个基于node的CLI。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当前端工程安装到全局目录下之后，可以直接通过别名来执行package.json当中bin下面的js文件，我们就是通过编写这个js文件来实现相应命令。</p>
-<pre><code>{
-  &quot;name&quot;: &quot;testnode-cli&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;CLI测试&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;bin&quot;: {
-    &quot;testnode&quot;: &quot;./bin/index.js&quot;
-  },
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;repository&quot;: {
-    &quot;type&quot;: &quot;git&quot;,
-    &quot;url&quot;: &quot;git@github.com:yangzq007/testnode-cli.git&quot;
-  },
-  &quot;author&quot;: &quot;yangzq007@126.com&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;commander&quot;: &quot;^2.15.1&quot;
-  }
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2018/09/05/编写一个基于node的CLI/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1329,7 +1309,7 @@ cp -a /Users/yzq/a/* /Users/yzq/b
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
