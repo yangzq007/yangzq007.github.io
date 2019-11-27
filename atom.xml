@@ -41,27 +41,6 @@
   </entry>
   
   <entry>
-    <title>写在离开搜车之后</title>
-    <link href="http://yoursite.com/2019/08/21/%E5%86%99%E5%9C%A8%E7%A6%BB%E5%BC%80%E6%90%9C%E8%BD%A6%E4%B9%8B%E5%90%8E/"/>
-    <id>http://yoursite.com/2019/08/21/写在离开搜车之后/</id>
-    <published>2019-08-21T12:15:53.000Z</published>
-    <updated>2019-08-26T08:37:49.025Z</updated>
-    
-    <content type="html"><![CDATA[<p>2016年中旬入职大搜车<br>2019年中旬从大搜车离职<br>将近3年的时间<br>收获很多<br>感触也很多<br>没有拿到3年的纪念币略微有些遗憾<br>其他的感觉都还好<br>不同的人会有不同的选择<br>也会走不同的路<br>但我相信<br>我们还会再相遇<br>在此感谢一起奋斗的小伙伴<br>也祝搜车越来越好</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;2016年中旬入职大搜车&lt;br&gt;2019年中旬从大搜车离职&lt;br&gt;将近3年的时间&lt;br&gt;收获很多&lt;br&gt;感触也很多&lt;br&gt;没有拿到3年的纪念币略微有些遗憾&lt;br&gt;其他的感觉都还好&lt;br&gt;不同的人会有不同的选择&lt;br&gt;也会走不同的路&lt;br&gt;但我相信&lt;br&gt;我们还会再相遇&lt;br
-    
-    </summary>
-    
-    
-      <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
     <title>如何绘制好iPhone上的1像素</title>
     <link href="http://yoursite.com/2019/04/02/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%A5%BDiPhone%E4%B8%8A%E7%9A%841%E5%83%8F%E7%B4%A0/"/>
     <id>http://yoursite.com/2019/04/02/如何绘制好iPhone上的1像素/</id>
@@ -1311,6 +1290,130 @@ end
     
     
       <category term="脚本" scheme="http://yoursite.com/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个优雅的水波动画</title>
+    <link href="http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/"/>
+    <id>http://yoursite.com/2017/08/11/一个优雅的水波动画/</id>
+    <published>2017-08-11T02:51:04.000Z</published>
+    <updated>2018-12-29T03:11:38.892Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
+<p>如何实现一个如下图的动画呢？</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif" alt="20170811-1"></p>
+<p>下面我们就来一步步的实现它。<a id="more"></a></p>
+<h3 id="动画拆解"><a href="#动画拆解" class="headerlink" title="动画拆解"></a>动画拆解</h3><p>做一个复杂的东西的时候，我们需要将它拆解成若干个容易实现的细节，之后在将这些细节有序的累加起来就可以实现我们最初的复杂的结构，没准当你完成的时候自己都会发出It’s amazing的感叹。</p>
+<p>来看这个动画，我们发现有两个主要元素，一个是晃动水波线，一个是由于水深造成的颜色渐变。那我们得到了第一个容易实现的细节点：</p>
+<p>1.水深的颜色渐变</p>
+<p>晃动的水波线对我们来说似乎并不是一个简单的元素，那我们再来拆解，或许你注意到了这是一个正弦曲线的水平移动，只是这个正弦曲线稍微有点特殊，加入了一些浮动波峰和波谷的参数。那么我们得到了第二个细节点：</p>
+<p>2.水波正弦曲线</p>
+<p>同时也确定了第三个细节点：</p>
+<p>3.正弦曲线模拟波浪参数方式</p>
+<p>然后我们还有一个工作要做，就是以上元素以何种方式组织起来，这也是第四个点：</p>
+<p>4.以上元素的组织方式</p>
+<h3 id="动画实现"><a href="#动画实现" class="headerlink" title="动画实现"></a>动画实现</h3><p>要实现这个动画的话我们先要来谈谈第4点，因为你不能将你分解的元素有效的组织起来的话我们的动画就不能实现。其实在动画拆解的时候，我们心里就要对第4点心中有数了，这是一个慢慢积累经验的过程，当然我们可以参考别人。</p>
+<p>针对于第4点，我们的实现方式是用第2点和第3点实现的曲线设置成一个mask，去遮罩一个颜色有渐变的矩形区域（第1点），这样就得到了我们想要的波浪。想要波浪动起来，我们让波浪曲线随着时间发生变化即可。要做成效果当中的三条波浪，只需要将这些元素放置3份即可，只是设置参数不同罢了。</p>
+<p>下面我们来分别实现上面拆解的细节点：</p>
+<p>针对第1点，我们采用<code>CAGradientLayer</code>来实现，你不仅设置它从某个颜色渐变到另外一个颜色，而且还可以设置它的渐变方向等等。下面几行代码就可以实现我们想要的效果。</p>
+<pre><code>_firstGradientLayer = [CAGradientLayer layer];
+_firstGradientLayer.frame = CGRectMake(0, sc_screenSize.height-(FirstWaveCenterHeight*BEI6+FirstWaveAmplitude*BEI6), sc_screenSize.width, FirstWaveCenterHeight*BEI6+FirstWaveAmplitude*BEI6);
+[_firstGradientLayer setColors:[NSArray arrayWithObjects:(id)[[UIColor colorWithRed:122.0f/255.0f green:95.0f/255.0f blue:233.0f/255.0f alpha:1] CGColor],(id)[[UIColor colorWithRed:70.0f/255.0f green:221.0f/255.0f blue:220.0f/255.0f alpha:1] CGColor], nil]];
+[_firstGradientLayer setStartPoint:CGPointMake(0, 0)];
+[_firstGradientLayer setEndPoint:CGPointMake(0, 1)];
+[self.view.layer addSublayer:_firstGradientLayer];
+</code></pre><p>效果如下：</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-2.png" alt="20170811-2"></p>
+<p>对于第2点，就要用到我们高中的知识了，对于屏幕上的每一个x值，计算出对应的y值，并将它们连接起来。其中<code>FirstWaveSpeed*BEI6*_firstWaveTime</code>是为了让波浪曲线随时间变化，产生向右平移运动的效果，<code>_firstVariable</code>这个属性是第3点当中要实现的更好的模拟波浪效果的参数，我们下面再进行介绍。</p>
+<pre><code>- (CGMutablePathRef)getFirstCurrentWavePath
+{
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, nil, 0, FirstWaveCenterHeight*BEI6);
+
+    float y = 0.0f;
+
+    for (float x = 0.0f; x &lt;=  sc_screenSize.width ; x++) {
+        // 正弦波浪公式
+        y = FirstWaveAmplitude*BEI6 + FirstWaveAmplitude*BEI6* sin(_firstWaveCircle*x-FirstWaveSpeed*BEI6*_firstWaveTime)*_firstVariable;
+        CGPathAddLineToPoint(path, nil, x, y);
+    }
+
+    CGPathAddLineToPoint(path, nil, sc_screenSize.width, sc_screenSize.height);
+    CGPathAddLineToPoint(path, nil, 0, sc_screenSize.height);
+    CGPathCloseSubpath(path);
+    return path;
+}
+</code></pre><p>下面我们来看3点，为了更好的模拟波浪的效果，我们需要一个曲线振幅的变化，我这里只做了简单的随时间在设定的范围内增大和变小的操作，如果想要更好的效果，可以添加更多参数来控制，当然这也需要一些物理学的知识。</p>
+<pre><code>-(void)animateFirstWave
+{
+    if (_firstIncrease) {
+        _firstVariable += 0.01;
+    }else{
+        _firstVariable -= 0.01;
+    }
+
+    if (_firstVariable&lt;=0.4) {
+        _firstIncrease = YES;
+    }
+
+    if (_firstVariable&gt;=0.8) {
+        _firstIncrease = NO;
+    }
+}
+</code></pre><p>以上基本元素都已经准备好了，那我们来做第4点，将上述元素整合起来。我们用<code>CAShapeLayer</code>来为第1点实现的渐变色提供提供遮罩。</p>
+<pre><code>_firstWaveLayer = [CAShapeLayer layer];
+_firstWaveLayer.fillColor = [UIColor whiteColor].CGColor;
+
+[_firstGradientLayer setMask:_firstWaveLayer];
+
+//当然别忘记把我们计算好的曲线给设置上去
+_firstWaveLayer.path = [self getFirstCurrentWavePath];
+</code></pre><p>这样我们就得到了一个静态的波浪</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-3.png" alt="20170811-3"></p>
+<p>想要波浪动起来，我们要为它加入上面提到的时间变量<code>_firstWaveTime</code>，一般情况下我们加入时间变量都会采用<code>NSTimer</code>来进行计时，但是此处我们使用<code>CADisplayLink</code>来进行定时操作。为什么使用<code>CADisplayLink</code>呢，因为<code>CADisplayLink</code>的调用频率是和屏幕的刷新频率一致的，这样的话不会出现<code>NSTimer</code>那种由于和屏幕刷新时间冲突造成的渲染滞后画面卡顿的现象。</p>
+<pre><code>- (void)initTimer
+{
+    _firstWaveDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(setWaveLayer)];
+    [self setWaveLayer];
+}
+
+- (void)setWaveLayer
+{
+    [self firstWaveTimeCount];
+    [self animateFirstWave];
+    _firstWaveLayer.path = [self getFirstCurrentWavePath];
+}
+
+//_firstCircleTime是波浪的一个时间周期，超过一个时间周期，重复上个周期的操作。
+//为了了方便设置波浪的方便设置设置波浪的的速度和周期引入的此参数。
+- (void)firstWaveTimeCount
+{
+    _firstWaveTime++;
+    _firstWaveTime = _firstWaveTime%_firstCircleTime;
+}
+</code></pre><p>这样我们就得到了第一个流动的波浪</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-4.gif" alt="20170811-4"></p>
+<p>下面只要在重复添加两条线就可以得到我们想要的效果了，不过，需要注意的是第三条波浪的颜色渐变是从左到右的哦，当然这是一个小问题。</p>
+<h3 id="动画调整"><a href="#动画调整" class="headerlink" title="动画调整"></a>动画调整</h3><p>大部分情况下，我们写出来的复杂动画都会和设计师想要的样子有一定差距，当然也不排除能拿到精准参数的情况，但毕竟让一个设计师告诉你正弦曲线的起始位置不太现实，这个时候我们需要把能控制这个动画的一些参数单独写出来，不要用写死的值，其他的参数依赖于这些值，由这些值计算出来。这样我们就可以方便的调整动画的显示了，甚至可以让设计师自己动手调整出想要的样子。</p>
+<pre><code>const static float FirstWaveCenterHeight = 162;
+const static float FirstWaveAmplitude = 20.0f;//振幅比例
+const static float FirstWaveNum = 1;//容纳曲线循环个数
+const static float FirstWaveSpeed = 0.05f;//波浪速度
+</code></pre><p>源码：<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="external">https://github.com/yangzq007/SHDemo</a>-&gt;水波动画</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。&lt;/p&gt;
+&lt;p&gt;如何实现一个如下图的动画呢？&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif&quot; alt=&quot;20170811-1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下面我们就来一步步的实现它。
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   

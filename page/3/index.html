@@ -252,105 +252,6 @@
             
               
                 
-                <a class="post-title-link" href="/2017/08/11/一个优雅的水波动画/" itemprop="url">
-                  一个优雅的水波动画
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-08-11T10:51:04+08:00" content="2017-08-11">
-              2017-08-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天整理文件的时候发现以前写的一个动画，感觉还不错，就和大家分享一下。</p>
-<p>如何实现一个如下图的动画呢？</p>
-<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170811-1.gif" alt="20170811-1"></p>
-<p>下面我们就来一步步的实现它。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/08/11/一个优雅的水波动画/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2017/07/31/iOS工程文件整理/" itemprop="url">
                   iOS工程文件整理
                 </a>
@@ -1278,6 +1179,122 @@ export LANG=en_US.UTF-8
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/29/终端翻墙/" itemprop="url">
+                  终端翻墙
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-29T14:45:05+08:00" content="2017-03-29">
+              2017-03-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>开发过程中有时候需要更新repo仓库和代码，但是GitHub上的仓库和代码的下载速度感人。</p>
+<p>翻墙倒是可以解决这个问题，但是终端默认不走翻墙代理，这个时候就需要我们做一些配置了。</p>
+<p>我们可以终端当中输入以下命令使终端的请求走相应的代理</p>
+<pre><code>//设置http和https请求代理
+export http_proxy=http://127.0.0.1:8118
+export https_proxy=http://127.0.0.1:8118
+
+//sock5协议请使用
+export http_proxy=socks5://127.0.0.1:1080
+export https_proxy=socks5://127.0.0.1:1080
+
+//移除配置
+unset http_proxy
+unset https_proxy
+</code></pre><p>我们拉取的时候有的时候可能会用到ssh，我们可以这样配置</p>
+<pre><code>//设置所有协议代理
+export ALL_PROXY=socks5://127.0.0.1:1080
+
+//移除配置
+unset ALL_PROXY
+</code></pre><p>当前这些配置只对当前终端有效<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/03/29/终端翻墙/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1323,7 +1340,7 @@ export LANG=en_US.UTF-8
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

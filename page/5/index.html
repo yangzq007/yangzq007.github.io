@@ -252,108 +252,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/H5与原生交互的两种方式/" itemprop="url">
-                  H5与原生交互的两种方式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T11:11:47+08:00" content="2016-07-29">
-              2016-07-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。</p>
-<p>H5和iOS原生交互现在主流的有两种方式：</p>
-<ol>
-<li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
-<li>通过JavaScriptCore来实现</li>
-</ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/H5与原生交互的两种方式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/21/从Octopress迁移到Hexo/" itemprop="url">
                   从Octopress迁移到Hexo
                 </a>
@@ -1213,6 +1111,104 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/15/Xcode更新或者重新安装导致插件无效问题的解决方案/" itemprop="url">
+                  Xcode更新或者重新安装导致插件无效问题的解决方案
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-15T17:40:41+08:00" content="2016-01-15">
+              2016-01-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>该博文内容来源于网络，原链接:<a href="http://www.cnblogs.com/zhanglinfeng/p/4962452.html" target="_blank" rel="external">http://www.cnblogs.com/zhanglinfeng/p/4962452.html</a></p>
+<p>Xcode升级后打开Xcode会提示load bundle或Skip bundle，一般我们选择load budle，Xcode插件依然有效，选择Skip bundle，Xcode插件会失效。有人想装两个版本的Xcode，后装的那个也会出现插件失效的情况，而且重装插件也没用。</p>
+<h3 id="Xcode插件失效原因"><a href="#Xcode插件失效原因" class="headerlink" title="Xcode插件失效原因"></a>Xcode插件失效原因</h3><p>并不是升级或重装后原本的插件被删掉了，其实插件还在这个目录~/Library/Application Support/Developer/Shared/Xcode/Plug-ins 。之所以插件失效，是因为每个插件只供特定UUID的Xcode使用，更新后uuid改变，于是便不能正常使用。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/15/Xcode更新或者重新安装导致插件无效问题的解决方案/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1258,7 +1254,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
