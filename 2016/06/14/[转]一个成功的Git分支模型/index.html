@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="版本管理,Git" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="版本管理,Git">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -93,6 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/14/[转]一个成功的Git分支模型/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="最近在做代码从SVN往Git的迁移，在使用Git的过程中看到这篇文章，感觉非常不错，分享给大家。 原链接：http://blog.jobbole.com/81196/在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-1.jpg">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-2.jpg">
 <meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-3.jpg">
@@ -160,7 +161,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -187,7 +188,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -197,7 +198,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -207,7 +208,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -217,7 +218,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -302,8 +303,8 @@
 
       
         <p>最近在做代码从SVN往Git的迁移，在使用Git的过程中看到这篇文章，感觉非常不错，分享给大家。</p>
-<p>原链接：<a href="http://blog.jobbole.com/81196/" target="_blank" rel="external">http://blog.jobbole.com/81196/</a><br><br>在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。<br><a id="more"></a><br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-1.jpg" alt="20160614-1"><br><br>这篇文章围绕着Git做为我们所有的源代码版本控制工具而展开的。<br></p>
-<h3 id="为什么是Git"><a href="#为什么是Git" class="headerlink" title="为什么是Git"></a>为什么是Git</h3><p>为了深入探讨git和集中式源码版本控制系统的利弊，参见这些文章<a href="http://www.whygitisbetterthanx.com/" target="_blank" rel="external">[1]</a><a href="https://git.wiki.kernel.org/index.php/GitSvnComparsion" target="_blank" rel="external">[2]</a>。这方面有太多的激烈争论。作为一个开发者，相比其他工具，当前我更喜欢Git。Git的确改变了开发者关于合并与分支的思考方式。在那些经典的CVS/Subversion管理工具的世界中，合并/分支被认为是有些吓人的(“当心合并冲突，它们咬你!”)，而且偶尔你得做些操作解决一些问题。<br><br>但是使用Git，这些操作都变得极度简单，这些操作被认为是你日常工作流程核心部分之一。例如，在<a href="http://svnbook.red-bean.com/" target="_blank" rel="external">CVS/Subversion</a>这本书中，分支与合并在很后的章节中才被第一次讨论(针对高级用户)。但是在每一本Git书籍中，在第三章就讲到了(基础部分)。<br><br>由于它的简单性和操作命令的重复性，分支与合并操作变得不再可怕。版本控制工具被认为在分支/合并方面提供操作便利性比什么都重要<br><br>关于工具本身，已经讨论的足够多了，下面针对开发模型进行展开。我将要介绍的这个模型不会比任何一套流程内容多，每个团队成员都必须遵守，这样便于管理软件开发过程。<br></p>
+<p>原链接：<a href="http://blog.jobbole.com/81196/" target="_blank" rel="noopener">http://blog.jobbole.com/81196/</a><br><br>在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。<br><a id="more"></a><br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-1.jpg" alt="20160614-1"><br><br>这篇文章围绕着Git做为我们所有的源代码版本控制工具而展开的。<br></p>
+<h3 id="为什么是Git"><a href="#为什么是Git" class="headerlink" title="为什么是Git"></a>为什么是Git</h3><p>为了深入探讨git和集中式源码版本控制系统的利弊，参见这些文章<a href="http://www.whygitisbetterthanx.com/" target="_blank" rel="noopener">[1]</a><a href="https://git.wiki.kernel.org/index.php/GitSvnComparsion" target="_blank" rel="noopener">[2]</a>。这方面有太多的激烈争论。作为一个开发者，相比其他工具，当前我更喜欢Git。Git的确改变了开发者关于合并与分支的思考方式。在那些经典的CVS/Subversion管理工具的世界中，合并/分支被认为是有些吓人的(“当心合并冲突，它们咬你!”)，而且偶尔你得做些操作解决一些问题。<br><br>但是使用Git，这些操作都变得极度简单，这些操作被认为是你日常工作流程核心部分之一。例如，在<a href="http://svnbook.red-bean.com/" target="_blank" rel="noopener">CVS/Subversion</a>这本书中，分支与合并在很后的章节中才被第一次讨论(针对高级用户)。但是在每一本Git书籍中，在第三章就讲到了(基础部分)。<br><br>由于它的简单性和操作命令的重复性，分支与合并操作变得不再可怕。版本控制工具被认为在分支/合并方面提供操作便利性比什么都重要<br><br>关于工具本身，已经讨论的足够多了，下面针对开发模型进行展开。我将要介绍的这个模型不会比任何一套流程内容多，每个团队成员都必须遵守，这样便于管理软件开发过程。<br></p>
 <h3 id="既分散又集中"><a href="#既分散又集中" class="headerlink" title="既分散又集中"></a>既分散又集中</h3><p>我们使用的，且与这个分支模型配合的非常好的库，他有一个“真正”的中央仓库。注意，这个库只是被认为是中央仓库(因为Git是一个分布式的版本控制工具，在技术层面没有所谓的中央仓库)。我们将会为这个仓库起名为origin，因为所有的Git用户对这个名字都比较熟悉。<br><br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-2.jpg" alt="20160614-2"><br><br>每个开发者从origin拉取和推送代码。除了集中式的推送拉取关系，每个开发者也有可能从别的开发者处拉取代码，形成自己的团队。例如当与两个或者更多的人开发一个大的特性时，或者在将代码推送到origin之前，这种代码管理模式可能有用。在上图中，存在Alice和Bob，Alice和David，Clair 和David三个子团队<br><br>技术上而言，这只不过意味着Alice定义了一个远程Git仓库，起名为bob，实际上指向Bob的版本库，反之亦然(Bob定义了一个远程Git仓库，起名为alice，实际上指向Alice的版本库)。<br></p>
 <h3 id="主分支"><a href="#主分支" class="headerlink" title="主分支"></a>主分支</h3><p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20160614-3.jpg" alt="20160614-3"><br><br>老实说，我们讨论的开发模型受到了当前已存在模型的很大启发。集中式的版本库有两个永久存在的主分支：</p>
 <ul>
@@ -387,7 +388,7 @@ Merge made by recursive.
 </code></pre><p>这里可能会有一些异常情况，当一个release分支存在时，hotfix 分支需要合并到release 分支，而不是develop分支。当release分支的使命完成后，合并回release分支的bugfix代码最终也会被合并到develop分支。(当develop分支急需解决这些bug，而等不到release分支的结束，你可以安全的将这些bugfix代码合并到develop分支，这样做也是可以的)。<br><br>最后删除这些临时分支</p>
 <pre><code>$ git branch -d hotfix-1.2.1
 Deleted branch hotfix-1.2.1 (was abbe5d6).
-</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个分支模型其实没有什么震撼人心的新东西，这篇文章开始的那个“最大图片”已经证明了他在我们工程项目中的巨大作用。它会形成一种优雅的理想模型，而且很容易理解，该模型也允许团队成员形成一个关于分支和版本发布过程的相同理念。<br><br>这里有提供一个高质量的分支模型图的PDF版本。去吧，把它挂在墙上随时快速参考。<a href="http://nvie.com/files/Git-branching-model.pdf" target="_blank" rel="external">PDF</a><br><br>更新：任何需要他的人,这里有一个主图的<a href="http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip" target="_blank" rel="external">gitflow-model.src.key</a>文件<br><br>如果想和我取得联系，在推特上<a href="https://twitter.com/nvie" target="_blank" rel="external">@nvie</a></p>
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个分支模型其实没有什么震撼人心的新东西，这篇文章开始的那个“最大图片”已经证明了他在我们工程项目中的巨大作用。它会形成一种优雅的理想模型，而且很容易理解，该模型也允许团队成员形成一个关于分支和版本发布过程的相同理念。<br><br>这里有提供一个高质量的分支模型图的PDF版本。去吧，把它挂在墙上随时快速参考。<a href="http://nvie.com/files/Git-branching-model.pdf" target="_blank" rel="noopener">PDF</a><br><br>更新：任何需要他的人,这里有一个主图的<a href="http://github.com/downloads/nvie/gitflow/Git-branching-model-src.key.zip" target="_blank" rel="noopener">gitflow-model.src.key</a>文件<br><br>如果想和我取得联系，在推特上<a href="https://twitter.com/nvie" target="_blank" rel="noopener">@nvie</a></p>
 
       
     </div>
@@ -478,7 +479,7 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -489,16 +490,14 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -580,7 +579,7 @@ Deleted branch hotfix-1.2.1 (was abbe5d6).
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

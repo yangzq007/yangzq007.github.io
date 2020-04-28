@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="哈希算法,盐" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="哈希算法,盐">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -93,6 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/03/15/给你的哈希算法加点“盐”/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。 但是黑客可以通过彩虹表反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是sha1(message+salt)这个样子。 注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-15T07:05:45.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="给你的哈希算法加点“盐”">
@@ -153,7 +154,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -180,7 +181,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -190,7 +191,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -200,7 +201,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -210,7 +211,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -295,7 +296,7 @@
 
       
         <p>我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。</p>
-<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="external">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
+<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="noopener">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
 <p>注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。</p>
 <p>Hmac算法（Keyed-Hashing for Message Authentication）是一个将盐加入哈希计算的标准算法，它会在计算过程中将salt混入计算过程中，而且它针对所有的哈希算法都通用，相比较我们自己的实现更标准也更安全。<a id="more"></a></p>
 <p>系统也为我们提供了相关API，我们仍以sha1算法为例，不加盐的调用如下：</p>
@@ -421,7 +422,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -432,16 +433,14 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -523,7 +522,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -90,6 +90,7 @@
 <meta property="og:title" content="那片树海">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那片树海">
 
@@ -150,7 +151,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -177,7 +178,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -187,7 +188,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -197,7 +198,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -207,7 +208,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -230,6 +231,111 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/" itemprop="url">
+                  Xcode 10 library not found for -lstdc++.6
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-10-10T17:31:30+08:00" content="2018-10-10">
+              2018-10-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近升级了Xcode 10，发现编译的时候报如下错误，在Xcode 9上正常：</p>
+<pre><code>library not found for -lstdc++.6
+</code></pre><p>这个是因为iOS 12废弃了libstdc++，也删除了相关的库，改为使用libc++替代</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>将缺失的库拷贝到原来对应的目录下，使Xcode能够引用</p>
+<p>将相应的库拷贝到如下四个目录当中，才能保证模拟器和真机都能用，缺少哪个库拷贝哪个就行，不用全部拷贝</p>
+<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/
+</code></pre><p>文件下载：<a href="https://github.com/yangzq007/Resources/tree/master/libstdc" target="_blank" rel="noopener">libstdc++</a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>如果拷贝进去之后重启Xcode编译还是报这个错误，建议在TARGETS-&gt;Build Phases-&gt;Link Binary With Libraries当中把当前依赖添加进去</p>
+<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>这种方法虽然可以暂时解决问题，但最好还是升级下相关库，使用新的库和API。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -523,7 +629,7 @@
 <p>3.清空Build Settings-&gt;Deployment-&gt;Installation Directory选项的内容</p>
 <p>这里我需要指出的是如果你是升级了CocoaPods之后出现的这种情况，而且CocoaPods的版本大于1.3.1并且小于1.5.2，那么也有可能是CocoaPods的脚本错误造成的，所以可以尝试下</p>
 <p>4.将CocoaPods降级至1.3.1或者升级为大于等于1.5.2的版本</p>
-<p>另外苹果官方有个文档，虽然比较旧，也可以参考下<br><a href="https://developer.apple.com/library/content/technotes/tn2215/_index.html" target="_blank" rel="external">https://developer.apple.com/library/content/technotes/tn2215/_index.html</a></p>
+<p>另外苹果官方有个文档，虽然比较旧，也可以参考下<br><a href="https://developer.apple.com/library/content/technotes/tn2215/_index.html" target="_blank" rel="noopener">https://developer.apple.com/library/content/technotes/tn2215/_index.html</a></p>
 
           
         
@@ -718,7 +824,7 @@ install! &apos;cocoapods&apos;, :deterministic_uuids =&gt; false
         
           
             <p>之前一直觉得博客的主题在显示比较多的文字和代码的时候略显凌乱，而且不太方便阅读，所以就把博客主题替换成了NexT。NexT在文字排版上比较清晰，而且界面元素也不多，可以使自己把更多的关注点放在内容上。</p>
-<p>NexT主题地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a></p>
+<p>NexT主题地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></p>
 <h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>1.NexT有4个scheme，每个scheme对应一个不同的布局，可以在<code>_config.yml</code>当中设置</p>
 <pre><code># ---------------------------------------------------------------
 # Scheme Settings
@@ -836,7 +942,7 @@ npm start
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -1171,110 +1277,6 @@ end
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/09/12/一行命令搞定工程图片浏览查找/" itemprop="url">
-                  一行命令搞定工程图片浏览查找
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-09-12T14:26:59+08:00" content="2017-09-12">
-              2017-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在项目开发过程中随着项目的逐渐增大，项目当中的图片资源会越来越多，而且有些时候因为命名不规范和人员的变动等原因会造成项目当中重复的图片资源越来越多，而且Xcode查看图片的方式也不集中，查找起来也不方便，这种情况下我们往往会更倾向于添加一个新的图片资源，从而更加剧了图片资源重复的问题。</p>
-<p>为了解决这个问题，我们打算来写一个脚本，把工程当中图片数据扫描一遍，然后用html集中显示出来，这样就方便我们来查找了。</p>
-<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>我们基本上需要解决以下3个问题</p>
-<ol>
-<li>工程资源文件扫描脚本的编写</li>
-<li>html展示页面的编写</li>
-<li>html页面和扫描脚本的数据交互</li>
-</ol>
-<p>1和2两点查阅相关资料就可以比较容易解决，主要是第3点，一般情况下浏览器是不提供操作文件的接口的，网上说的<code>ActiveXObject</code>也只是IE浏览器提供。这个地方我们采用了一个比较特殊的方式，就是将脚本扫描得到的数据直接利用脚本的文件操作写成一个js文件，虽然浏览器不能操作文件，但是可以直接读取js文件，这样就比较好的解决了脚本和html交互的问题。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/09/12/一行命令搞定工程图片浏览查找/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1311,16 +1313,14 @@ end
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1391,7 +1391,7 @@ end
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

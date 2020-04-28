@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -90,6 +90,7 @@
 <meta property="og:title" content="那片树海">
 <meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那片树海">
 
@@ -150,7 +151,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -177,7 +178,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -187,7 +188,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -197,7 +198,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -207,7 +208,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -230,6 +231,103 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/22/教你获取图片的尺寸和文件大小/" itemprop="url">
+                  教你获取图片的尺寸和文件大小
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T18:26:00+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>有些时候我们会有这样的一些需求：需要获得一张图片的具体尺寸和所占的存储空间，这张图片可能来自网络、本地，也可能是在内存当中的UIImage对象。</p>
+<p>基本思路：图片文件的本质是一些二进制数据，他们按照一定的规则存储在磁盘或内存当中，我们只需要在相应的位置取出我们需要的数据即可。不同格式的图片存储方式不同，数据所在的位置也不同，所幸的是前人已经帮我们做好了封装，我们只需要调用相关API即可。针对图片文件的大小，我们还可以通过计算数据的长度的方式来计算。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/22/教你获取图片的尺寸和文件大小/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -301,7 +399,7 @@
 <li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
 <li>通过JavaScriptCore来实现</li>
 </ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。
+<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="noopener">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/29/H5与原生交互的两种方式/#more" rel="contents">
               阅读全文 &raquo;
@@ -309,7 +407,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -413,7 +511,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -605,7 +703,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -693,7 +791,7 @@
 
       
         
-          <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="external">Git模型点击这里</a>）<br>
+          <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="noopener">Git模型点击这里</a>）<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/06/15/SVN迁移到Git/#more" rel="contents">
               阅读全文 &raquo;
@@ -701,7 +799,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -790,7 +888,7 @@
       
         
           <p>最近在做代码从SVN往Git的迁移，在使用Git的过程中看到这篇文章，感觉非常不错，分享给大家。</p>
-<p>原链接：<a href="http://blog.jobbole.com/81196/" target="_blank" rel="external">http://blog.jobbole.com/81196/</a><br><br>在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。<br>
+<p>原链接：<a href="http://blog.jobbole.com/81196/" target="_blank" rel="noopener">http://blog.jobbole.com/81196/</a><br><br>在这篇文章中介绍的开发模型在大约一年前已经在我的私有项目和工作引入的，而且已经被证明是非常成功的。我想写一些关于这个模型的东西已经好一段时间了，但是一直苦于没有时间，不过现在可以了。我不想探讨任何项目细节，只讨论分支策略和发布管理。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/06/14/[转]一个成功的Git分支模型/#more" rel="contents">
               阅读全文 &raquo;
@@ -798,7 +896,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -894,7 +992,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -995,7 +1093,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -1117,102 +1215,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/29/16.02春节后苹果证书无效问题解决方案/" itemprop="url">
-                  16.02春节后苹果证书无效问题解决方案
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-29T14:58:44+08:00" content="2016-02-29">
-              2016-02-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>2016年2月春节假期后相信不少iOS开发者都碰到了一个比较奇怪的问题——开发证书无效。虽然苹果的开发证书经常会以这种或那种奇怪的理由无效，但这次的问题比较特殊。笔者也遇到了这个问题，在这里做下记录，顺便和大家分享下自己的理解，如有错误和遗漏，还望大家指出。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/02/29/16.02春节后苹果证书无效问题解决方案/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1249,16 +1251,14 @@
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1329,7 +1329,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

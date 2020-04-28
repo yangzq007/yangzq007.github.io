@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/04/28/macOS-10.15.4%E4%B8%8BSketch%E7%AD%89%E4%B8%89%E6%96%B9%E8%BD%AF%E4%BB%B6%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/</loc>
+    
+    <lastmod>2020-04-28T06:06:33.202Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2020-04-21T06:24:18.235Z</lastmod>
@@ -184,6 +191,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/2016/10/24/iOS%E6%BB%9A%E5%8A%A8%E8%A7%86%E5%9B%BE%E4%B8%8B%E5%8E%8B%E5%85%A8%E8%A7%A3%E6%9E%90/</loc>
+    
+    <lastmod>2018-12-29T03:11:38.892Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/08/11/%E4%B8%80%E4%B8%AA%E4%BC%98%E9%9B%85%E7%9A%84%E6%B0%B4%E6%B3%A2%E5%8A%A8%E7%94%BB/</loc>
     
     <lastmod>2018-12-29T03:11:38.892Z</lastmod>
@@ -198,14 +212,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/10/24/iOS%E6%BB%9A%E5%8A%A8%E8%A7%86%E5%9B%BE%E4%B8%8B%E5%8E%8B%E5%85%A8%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2018-12-29T03:11:38.892Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/06/20/%E6%96%87%E6%A1%A3%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7docsify/</loc>
+    <loc>http://yoursite.com/2017/07/31/iOS%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/</loc>
     
     <lastmod>2018-12-29T03:11:38.891Z</lastmod>
     
@@ -219,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/07/31/iOS%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86/</loc>
+    <loc>http://yoursite.com/2017/06/20/%E6%96%87%E6%A1%A3%E7%BD%91%E7%AB%99%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7docsify/</loc>
     
     <lastmod>2018-12-29T03:11:38.891Z</lastmod>
     

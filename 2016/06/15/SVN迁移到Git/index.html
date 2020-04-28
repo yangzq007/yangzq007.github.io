@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS,Git,SVN,迁移" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="iOS,Git,SVN,迁移">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -93,6 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/06/15/SVN迁移到Git/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，Git模型点击这里）">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-04T07:07:21.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVN迁移到Git">
@@ -153,7 +154,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -180,7 +181,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -190,7 +191,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -200,7 +201,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -210,7 +211,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -294,13 +295,13 @@
       
 
       
-        <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="external">Git模型点击这里</a>）<br><a id="more"></a><br>下面我们来介绍迁移过程，整个过程大致分为两步：</p>
+        <p>SVN迁移到Git，其实坑还是蛮多的。不过相比较SVN来说，Git还是有挺多优势的，踩这些坑还是值得的。（Tips：阅读本篇博客最好了解下版本管理的一些基本概念和模型，<a href="http://yangzq007.github.io/blog/2016/06/14/zhuan-%5B%3F%5D-ge-cheng-gong-de-gitfen-zhi-mo-xing/" target="_blank" rel="noopener">Git模型点击这里</a>）<br><a id="more"></a><br>下面我们来介绍迁移过程，整个过程大致分为两步：</p>
 <ol>
 <li>搭建新的版本管理模型</li>
 <li>旧代码和提交信息的迁移</li>
 </ol>
 <h3 id="搭建新的版本管理模型"><a href="#搭建新的版本管理模型" class="headerlink" title="搭建新的版本管理模型"></a>搭建新的版本管理模型</h3><p>因为SVN和Git的版本管理模型不同，而且可能一部分公司在使用SVN的过程中模型也不是很规范，所以需要重新搭建Git模型，如果之前在SVN上的使用的比较规范且模型和Git类似，可以直接在第二步（旧代码和提交信息的迁移）上迁移出来的仓库上开发。<br><br>我们需要做的操作如下：<br><br>1.在GitLab上建立一个新的代码仓库，并clone远程仓库到本地，文件夹名称为XXX<br><br>2.将需要迁移的最新版本的SVN代码（此处是工程的最新版本的代码，并不是SVN上对应仓库的全部代码）更新下来，并复制到XXX文件下<br><br>3.将XXX文件下的代码提交，并推送到Git远程仓库，然后按照之前的Git模型管理即可</p>
-<p>以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a>、<a href="http://www.smartsvn.com/" target="_blank" rel="external">SmartSVN</a>等神器。<br><br>在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。<br></p>
+<p>以上就是搭建新的版本管理模型的过程，实际上就是将最新的版本的代码按照新模型托管到Git服务器上，熟悉基本的Git和SVN操作就能实现，网上相关的介绍也挺多，这里就不再做详细描述了。另外我们还有<a href="https://www.sourcetreeapp.com/" target="_blank" rel="noopener">SourceTree</a>、<a href="http://www.smartsvn.com/" target="_blank" rel="noopener">SmartSVN</a>等神器。<br><br>在代码上传过程中如果遇到因为单个文件过大造成的上传失败的问题时，采用SSH方式上传即可。<br></p>
 <h3 id="旧代码和提交信息的迁移"><a href="#旧代码和提交信息的迁移" class="headerlink" title="旧代码和提交信息的迁移"></a>旧代码和提交信息的迁移</h3><p>下面我们着重介绍旧代码和旧的提交信息的迁移，因为这部分只是用作对历史提交的记录，因此需要新建一个仓库用来存储，而且后续也不在此仓库上开发。<br></p>
 <h4 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h4><p>假设想要将SVN项目检出到myGit文件夹下<br><br>1.在要迁移的文件夹下添加SVN用户到Git用的映射文件，文件名为：userinfo.txt.</p>
 <p>文件内容为：（[SVN上的名字] = [Git上的名字] &lt;[Git上的email]&gt;，下面第一行必需）</p>
@@ -345,7 +346,7 @@ sudo rm -rf &lt;filePath&gt;  删除文件目录
 <p>c.输入命令<code>cat ~/.ssh/id_rsa.pub</code>查看Key值</p>
 <p>d.在GitLab/GitHub等Web服务页面用户SSH设置那里把相应Key设置进去</p>
 <p>e.愉快的使用SSH Key方式使用Git<br></p>
-<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#97;&#x64;&#109;&#x69;&#110;&#x40;&#x79;&#111;&#x75;&#x72;&#x64;&#111;&#x6d;&#97;&#x69;&#110;&#x2e;&#99;&#x6f;&#x6d;&#x5c;">&#97;&#x64;&#109;&#x69;&#110;&#x40;&#x79;&#111;&#x75;&#x72;&#x64;&#111;&#x6d;&#97;&#x69;&#110;&#x2e;&#99;&#x6f;&#x6d;&#x5c;</a>配置即<br><br>2.添加远程服务器地址时添加错误</p>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><p>1.提示Author: VisualSVN Server not defined in userinfo.txt file错误<br><br>解决方法：在userinfo.txt添加VisualSVN Server = Visual SVN Server\&lt;<a href="mailto:admin@yourdomain.com" target="_blank" rel="noopener">admin@yourdomain.com</a>>配置即<br><br>2.添加远程服务器地址时添加错误</p>
 <pre><code>git remote -v 查看当前绑定的远程地址
 git remote remove &lt;repo&gt; 移除绑定的远程仓库
 git remote set-url --delete origin http://git.showjoy.net/showjoyios/tashow.git 移除仓库绑定的远程地址（origin只有一个绑定的远程地址时不可移除，必须添加一个新的才能移除）
@@ -441,7 +442,7 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -452,16 +453,14 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -543,7 +542,7 @@ git remote set-url --add origin git@git.showjoy.net:showjoyios/tashow.git 添加
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

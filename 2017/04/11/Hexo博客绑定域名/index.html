@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="域名,Hexo,博客" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="域名,Hexo,博客">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -93,6 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/11/Hexo博客绑定域名/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="我们通过CNAME的方式来绑定我们购买的域名 操作步骤1.在hexo目录下的source文件夹中创建一个文件CNAME CNAME文件不要有后缀，建议使用touch CNAME命令创建 2.将你的域名写到CNAME文件当中 尽量不要有空格换行等冗余内容 3.重新生成部署你的博客 sudo hexo clean &amp;amp;&amp;amp; hexo generate &amp;amp;&amp;amp; hexo dep">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-02-13T08:11:32.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客绑定域名">
@@ -153,7 +154,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -180,7 +181,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -190,7 +191,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -200,7 +201,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -210,7 +211,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -352,7 +353,7 @@
 </table>
 <p>添加完以上规则你就可以用购买的域名访问博客了（解析服务器需要更新数据，可能存在几分钟的延迟，并不是立即生效的）</p>
 <h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><h4 id="记录类型"><a href="#记录类型" class="headerlink" title="记录类型"></a>记录类型</h4><p>A记录：将域名指向一个ipv4地址<br>CNAME记录：将域名指向另一个域名<br>AAAA记录：将域名指向一个ipv6地址<br>MX记录：将域名指向邮件服务器地址</p>
-<h4 id="主机记录（域名前缀）"><a href="#主机记录（域名前缀）" class="headerlink" title="主机记录（域名前缀）"></a>主机记录（域名前缀）</h4><p>以aliyun.com为例<br>www：解析后的域名为www.aliyun.com。<br>@：直接解析主域名 aliyun.com。<br>*：泛解析，匹配其他所有域名 *.aliyun.com。<br>mail：将域名解析为mail.aliyun.com，通常用于解析邮箱服务器。<br>二级域名：如：abc.aliyun.com，填写abc。<br>手机网站：如：m.aliyun.com，填写m。<br>显性URL：不支持泛解析（泛解析：将所有子域名解析到同一地址）</p>
+<h4 id="主机记录（域名前缀）"><a href="#主机记录（域名前缀）" class="headerlink" title="主机记录（域名前缀）"></a>主机记录（域名前缀）</h4><p>以aliyun.com为例<br>www：解析后的域名为<a href="http://www.aliyun.com。" target="_blank" rel="noopener">www.aliyun.com。</a><br>@：直接解析主域名 aliyun.com。<br>*：泛解析，匹配其他所有域名 *.aliyun.com。<br>mail：将域名解析为mail.aliyun.com，通常用于解析邮箱服务器。<br>二级域名：如：abc.aliyun.com，填写abc。<br>手机网站：如：m.aliyun.com，填写m。<br>显性URL：不支持泛解析（泛解析：将所有子域名解析到同一地址）</p>
 <h4 id="解析线路"><a href="#解析线路" class="headerlink" title="解析线路"></a>解析线路</h4><p>如果有特殊需求可以根据请求来的线路重定向到不同的服务器上</p>
 <h4 id="记录值"><a href="#记录值" class="headerlink" title="记录值"></a>记录值</h4><p>你要重定向到的地址或者域名</p>
 
@@ -443,7 +444,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -454,16 +455,14 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -545,7 +544,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

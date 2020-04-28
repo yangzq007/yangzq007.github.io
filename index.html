@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -90,6 +90,7 @@
 <meta property="og:title" content="那片树海">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="那片树海">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那片树海">
 
@@ -150,7 +151,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -177,7 +178,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -187,7 +188,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -197,7 +198,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -207,7 +208,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -230,6 +231,103 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/04/28/macOS-10.15.4下Sketch等三方软件无法打开/" itemprop="url">
+                  macOS 10.15.4下Sketch等三方软件无法打开
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-04-28T16:07:44+08:00" content="2020-04-28">
+              2020-04-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>电脑更新macOS Catalina 10.15.4之后，原来安装的Sketch、CleanMyMac等第三方软件打不开了，直接崩溃</p>
+<p>解决方案：打开终端，执行如下命令</p>
+<pre><code>xattr -cr /Applications/xxx.app
+codesign --force --deep --sign - /Applications/xxx.app
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -298,8 +396,8 @@
           
             <p>最近在新的团队中各个团队的不同的代码风格对协作造成了较大的影响，然后就想除了人工方式能不能用工具的方式来使大家的代码风格统一，于是就写了YCode这个工具集。</p>
 <p>YCode目前只提供代码段功能，后续会加入代码模板功能，如果大家有什么想法或者想要的功能，也可以给我提issue或者发邮件，我会慢慢完善的。如果你觉得YCode确实对你的工作有所帮助，能点个star或者推荐给其他人就更好了，多谢大家。</p>
-<p><a href="https://github.com/yangzq007/YCode" target="_blank" rel="external">YCode地址</a><br><a href="https://github.com/yangzq007/CodeSnippets" target="_blank" rel="external">代码段仓库地址</a></p>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><h4 id="Xcode代码段"><a href="#Xcode代码段" class="headerlink" title="Xcode代码段"></a>Xcode代码段</h4><p>安装之后就可以使用已经写好的代码段了，比如你在Xcode当中输入<code>yLazyUILabel</code>，就可以得到现成的一整段代码，具体提供的片段可以在<a href="https://github.com/yangzq007/CodeSnippets" target="_blank" rel="external">代码段仓库地址</a>或者Xcode当中查看。</p>
+<p><a href="https://github.com/yangzq007/YCode" target="_blank" rel="noopener">YCode地址</a><br><a href="https://github.com/yangzq007/CodeSnippets" target="_blank" rel="noopener">代码段仓库地址</a></p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><h4 id="Xcode代码段"><a href="#Xcode代码段" class="headerlink" title="Xcode代码段"></a>Xcode代码段</h4><p>安装之后就可以使用已经写好的代码段了，比如你在Xcode当中输入<code>yLazyUILabel</code>，就可以得到现成的一整段代码，具体提供的片段可以在<a href="https://github.com/yangzq007/CodeSnippets" target="_blank" rel="noopener">代码段仓库地址</a>或者Xcode当中查看。</p>
 
           
         
@@ -492,7 +590,7 @@
       
         
           
-            <p>最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="external">这里</a>。</p>
+            <p>最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="noopener">这里</a>。</p>
 <h3 id="为什么变成了22和22-33"><a href="#为什么变成了22和22-33" class="headerlink" title="为什么变成了22和22.33"></a>为什么变成了22和22.33</h3><table>
 <thead>
 <tr>
@@ -637,7 +735,7 @@
           </div>
         
       
-    </div>
+    </li></ol></div>
 
     <div>
       
@@ -726,7 +824,7 @@
       
         
           <p>我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。</p>
-<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="external">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
+<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="noopener">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
 <p>注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。</p>
 <p>Hmac算法（Keyed-Hashing for Message Authentication）是一个将盐加入哈希计算的标准算法，它会在计算过程中将salt混入计算过程中，而且它针对所有的哈希算法都通用，相比较我们自己的实现更标准也更安全。
           <div class="post-more-link text-center">
@@ -736,7 +834,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -932,7 +1030,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -1029,7 +1127,7 @@
           </div>
         
       
-    </div>
+    </p></div>
 
     <div>
       
@@ -1159,111 +1257,6 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/10/10/Xcode10-library-not-found-for--lstdc++.6/" itemprop="url">
-                  Xcode 10 library not found for -lstdc++.6
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-10-10T17:31:30+08:00" content="2018-10-10">
-              2018-10-10
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近升级了Xcode 10，发现编译的时候报如下错误，在Xcode 9上正常：</p>
-<pre><code>library not found for -lstdc++.6
-</code></pre><p>这个是因为iOS 12废弃了libstdc++，也删除了相关的库，改为使用libc++替代</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>将缺失的库拷贝到原来对应的目录下，使Xcode能够引用</p>
-<p>将相应的库拷贝到如下四个目录当中，才能保证模拟器和真机都能用，缺少哪个库拷贝哪个就行，不用全部拷贝</p>
-<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/
-/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/
-/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/
-</code></pre><p>文件下载：<a href="https://github.com/yangzq007/Resources/tree/master/libstdc" target="_blank" rel="external">libstdc++</a></p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>如果拷贝进去之后重启Xcode编译还是报这个错误，建议在TARGETS-&gt;Build Phases-&gt;Link Binary With Libraries当中把当前依赖添加进去</p>
-<h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>这种方法虽然可以暂时解决问题，但最好还是升级下相关库，使用新的库和API。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1300,16 +1293,14 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1380,7 +1371,7 @@ cp -a /Users/yzq/a/* /Users/yzq/b
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>

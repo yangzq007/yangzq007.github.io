@@ -6,15 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS,H5,Hybird" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+  <meta name="keywords" content="iOS,H5,Hybird">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -93,6 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/29/H5与原生交互的两种方式/index.html">
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="之前做过一些H5和iOS原生交互的相关工作，在这里做下总结。 H5和iOS原生交互现在主流的有两种方式：  通过Webview拦截url请求和Webview的执行js方法来实现 通过JavaScriptCore来实现  目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为WebViewJavascriptBridge这个框架，它是采用第一种方">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-12-29T03:12:15.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H5与原生交互的两种方式">
@@ -153,7 +154,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">那片树海</span>
       <span class="logo-line-after"><i></i></span>
@@ -180,7 +181,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -190,7 +191,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -200,7 +201,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -210,7 +211,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -300,7 +301,7 @@
 <li>通过Webview拦截url请求和Webview的执行js方法来实现</li>
 <li>通过JavaScriptCore来实现</li>
 </ol>
-<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。<a id="more"></a></p>
+<p>目前用的比较多的方式是第一种，一方面是因为JavaScriptCore是iOS7之后才出现的，另一方面也因为<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="noopener">WebViewJavascriptBridge</a>这个框架，它是采用第一种方式实现的，而且封装的也比较好。<a id="more"></a></p>
 <h3 id="拦截请求方式"><a href="#拦截请求方式" class="headerlink" title="拦截请求方式"></a>拦截请求方式</h3><p><strong>原生调用H5</strong></p>
 <p>原生调用H5比较简单，直接调用UIWebView（WKWebView同理）当中的</p>
 <pre><code>- (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
@@ -309,7 +310,7 @@
 </code></pre><p><strong>H5调用原生</strong></p>
 <p>H5调用原生通过在UIWebView（WKWebView同理）的</p>
 <pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-</code></pre><p>方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>）</p>
+</code></pre><p>方法中拦截请求的url，通过url携带的信息调用相关原生方法。（实例代码来源：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="noopener">WebViewJavascriptBridge</a>）</p>
 <pre><code>- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (webView != _webView) { return YES; }
     NSURL *url = [request URL];
@@ -331,7 +332,7 @@
     }
 }
 </code></pre><p>以上代码通过<code>isCorrectProcotocolScheme:</code>、<code>isBridgeLoadedURL:</code>和<code>isQueueMessageURL:</code>三个方法对拦截的url进行判断需要执行哪个原生的方法。</p>
-<p>一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>则是将需要获取的数据放到js对象当中，让原生通过<code>[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]</code>调用js去取到数据。</p>
+<p>一些H5和原生的交互的比较简单的使用将参数拼在url中，在url拦截时将url截取获得相关参数。而<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="noopener">WebViewJavascriptBridge</a>则是将需要获取的数据放到js对象当中，让原生通过<code>[self _evaluateJavascript:[_base webViewJavascriptFetchQueyCommand]]</code>调用js去取到数据。</p>
 <h3 id="JavaScriptCore方式"><a href="#JavaScriptCore方式" class="headerlink" title="JavaScriptCore方式"></a>JavaScriptCore方式</h3><p>JavaScriptCore是iOS7之后添加的库，这个库使H5和原生的交互变得比较简单。</p>
 <p><strong>原生调用H5</strong></p>
 <pre><code>JSContext *context = [self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];
@@ -498,7 +499,7 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -509,16 +510,14 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="树海" />
+          <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="树海">
           <p class="site-author-name" itemprop="name">树海</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -600,7 +599,7 @@ NSString *jsStr3=@&quot;testJS.testOnetwo(&apos;参数A&apos;,&apos;参数B&apos
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
