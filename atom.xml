@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-28T06:06:33.202Z</updated>
+  <updated>2020-05-06T07:07:47.011Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>切换各种源</title>
+    <link href="http://yoursite.com/2020/04/28/%E5%88%87%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90/"/>
+    <id>http://yoursite.com/2020/04/28/切换各种源/</id>
+    <published>2020-04-28T09:41:43.000Z</published>
+    <updated>2020-05-06T07:07:47.011Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。</p><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><pre><code>替换brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.git替换homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git重置brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://github.com/Homebrew/brew.git重置homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://github.com/Homebrew/homebrew-core.git</code></pre><h3 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h3><p>gem</p><pre><code>//查看源gem sources -l//添加源gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org///移除源gem sources --remove https://rubygems.org/</code></pre><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>nvm</p><pre><code>//切换源-临时设置源export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/nodenvm install node//切换源-将源作为参数传递进去NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node nvm install 4.2//切换源-将源变量添加到bash当中（zsh同理）echo -e &quot;\nexport NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc</code></pre><p>npm</p><pre><code>//查看源npm config -g get registry//切换源npm config -g set registry https://registry.npm.taobao.org</code></pre><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Ubuntu下载镜像<br><a href="http://mirrors.aliyun.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.aliyun.com/ubuntu-releases/</a></p><p>其他OS镜像，可自行查阅阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p><h3 id="镜像站"><a href="#镜像站" class="headerlink" title="镜像站"></a>镜像站</h3><p>阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。&lt;/p&gt;
+&lt;h3 id=&quot;Homebrew&quot;&gt;&lt;a href=&quot;#Homebrew&quot; class
+      
+    
+    </summary>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>macOS 10.15.4下Sketch等三方软件无法打开</title>
@@ -94,16 +118,39 @@
     <link href="http://yoursite.com/2019/04/02/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%A5%BDiPhone%E4%B8%8A%E7%9A%841%E5%83%8F%E7%B4%A0/"/>
     <id>http://yoursite.com/2019/04/02/如何绘制好iPhone上的1像素/</id>
     <published>2019-04-02T07:51:24.000Z</published>
-    <updated>2019-04-02T08:10:04.909Z</updated>
+    <updated>2020-05-06T07:03:53.930Z</updated>
     
-    <content type="html"><![CDATA[<p>最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="noopener">这里</a>。</p><h3 id="为什么变成了22和22-33"><a href="#为什么变成了22和22-33" class="headerlink" title="为什么变成了22和22.33"></a>为什么变成了22和22.33</h3><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">iPhone 8</th><th style="text-align:center">iPhone X</th></tr></thead><tbody><tr><td style="text-align:center">UIKit Size</td><td style="text-align:center">375*667</td><td style="text-align:center">375*812</td></tr><tr><td style="text-align:center">分辨率</td><td style="text-align:center">750*1334</td><td style="text-align:center">1125*2436</td></tr><tr><td style="text-align:center">UIKit Scale factor</td><td style="text-align:center">2</td><td style="text-align:center">3</td></tr></tbody></table><p>由上面的表格我们可以看出，iPhone 8和iPhone X在UIKit Size的宽度上并没有什么不同，不同的点在于由分辨率导致的倍率上，iPhone 8是2，iPhone X是3。那也就是说在iPhone 8上，UIKit Size上横向的1代表着屏幕上横向的2个像素，反过来说就是，在iPhone 8上，1个像素对应的数值为0.5，也就是说iPhone 8上最小的绘制单位是0.5，那么同理，在iPhone X上最小的绘制单位是0.33。</p><p>iOS系统的针对像素的绘制采用四舍五入的方式，比如说22.1999…的小数位0.1999，在iPhone 8上相对于1个像素的基础数值为<code>0.1999/0.5=0.3998</code>，<code>0.3998&lt;0.5</code>，丢弃，故实际显示的数值为22。在iPhone X上0.1999相对于一个像素的基础数值为<code>0.1999/0.33=0.60575756</code>，<code>0.60575756&gt;0.5</code>，补充为1个像素，故在实际显示的数值为22.33，正是因为这个机制导致的微小差异使视图在不同的机型上显示出了差异。</p><h3 id="为什么是约束"><a href="#为什么是约束" class="headerlink" title="为什么是约束"></a>为什么是约束</h3><p>细心的同学可能发现，如果我直接使用frame进行布局，并不会有这样的异常，为什么在使用约束的时候会出现？</p><p>这是因为frame是你直接计算好后对应到屏幕上的，在有数值丢弃的位置刚好有相应的数值补充，这样就维持了一个平衡，导致总体占用的像素数不变。</p><p>约束采用的是先确定父视图的展示frame，然后子视图再根据父视图的frame和约束去计算自身要展示的frame，这里要注意的是父视图frame当中补充或者丢弃的部分在子视图或者其他同级的视图当中并没有对应的数值补充，这样就导致了这四舍五入引入的微小差距保留了下来，进而可能导致视图异常。</p><h3 id="如何绘制好1像素"><a href="#如何绘制好1像素" class="headerlink" title="如何绘制好1像素"></a>如何绘制好1像素</h3><ol><li>综合考虑的情况下尽量使用frame布局</li><li>2倍屏幕的1像素是0.5，3倍的屏幕是0.33，建议做区分</li><li>针对文中提到的偏差问题，建议视情况丢弃部分小数位</li></ol><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>部分计算为了方便省去了靠后的小数位，不影响计算结果。</p>]]></content>
+    <content type="html"><![CDATA[<p>最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看<a href="https://github.com/yangzq007/SHDemo" target="_blank" rel="noopener">这里</a>。</p><h3 id="为什么变成了22和22-33"><a href="#为什么变成了22和22-33" class="headerlink" title="为什么变成了22和22.33"></a>为什么变成了22和22.33</h3><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">iPhone 8</th><th style="text-align:center">iPhone X</th></tr></thead><tbody><tr><td style="text-align:center">UIKit Size</td><td style="text-align:center">375*667</td><td style="text-align:center">375*812</td></tr><tr><td style="text-align:center">分辨率</td><td style="text-align:center">750*1334</td><td style="text-align:center">1125*2436</td></tr><tr><td style="text-align:center">UIKit Scale factor</td><td style="text-align:center">2</td><td style="text-align:center">3</td></tr></tbody></table><a id="more"></a><p>由上面的表格我们可以看出，iPhone 8和iPhone X在UIKit Size的宽度上并没有什么不同，不同的点在于由分辨率导致的倍率上，iPhone 8是2，iPhone X是3。那也就是说在iPhone 8上，UIKit Size上横向的1代表着屏幕上横向的2个像素，反过来说就是，在iPhone 8上，1个像素对应的数值为0.5，也就是说iPhone 8上最小的绘制单位是0.5，那么同理，在iPhone X上最小的绘制单位是0.33。</p><p>iOS系统的针对像素的绘制采用四舍五入的方式，比如说22.1999…的小数位0.1999，在iPhone 8上相对于1个像素的基础数值为<code>0.1999/0.5=0.3998</code>，<code>0.3998&lt;0.5</code>，丢弃，故实际显示的数值为22。在iPhone X上0.1999相对于一个像素的基础数值为<code>0.1999/0.33=0.60575756</code>，<code>0.60575756&gt;0.5</code>，补充为1个像素，故在实际显示的数值为22.33，正是因为这个机制导致的微小差异使视图在不同的机型上显示出了差异。</p><h3 id="为什么是约束"><a href="#为什么是约束" class="headerlink" title="为什么是约束"></a>为什么是约束</h3><p>细心的同学可能发现，如果我直接使用frame进行布局，并不会有这样的异常，为什么在使用约束的时候会出现？</p><p>这是因为frame是你直接计算好后对应到屏幕上的，在有数值丢弃的位置刚好有相应的数值补充，这样就维持了一个平衡，导致总体占用的像素数不变。</p><p>约束采用的是先确定父视图的展示frame，然后子视图再根据父视图的frame和约束去计算自身要展示的frame，这里要注意的是父视图frame当中补充或者丢弃的部分在子视图或者其他同级的视图当中并没有对应的数值补充，这样就导致了这四舍五入引入的微小差距保留了下来，进而可能导致视图异常。</p><h3 id="如何绘制好1像素"><a href="#如何绘制好1像素" class="headerlink" title="如何绘制好1像素"></a>如何绘制好1像素</h3><ol><li>综合考虑的情况下尽量使用frame布局</li><li>2倍屏幕的1像素是0.5，3倍的屏幕是0.33，建议做区分</li><li>针对文中提到的偏差问题，建议视情况丢弃部分小数位</li></ol><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>部分计算为了方便省去了靠后的小数位，不影响计算结果。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionV
-      
+      &lt;p&gt;最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看&lt;a href=&quot;https://github.com/yangzq007/SHDemo&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;为什么变成了22和22-33&quot;&gt;&lt;a href=&quot;#为什么变成了22和22-33&quot; class=&quot;headerlink&quot; title=&quot;为什么变成了22和22.33&quot;&gt;&lt;/a&gt;为什么变成了22和22.33&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;iPhone 8&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;iPhone X&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;UIKit Size&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;375*667&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;375*812&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;分辨率&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;750*1334&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;1125*2436&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;UIKit Scale factor&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;2&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
     
     </summary>
     
@@ -495,51 +542,6 @@ npm start
     
     
       <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode9的一些问题</title>
-    <link href="http://yoursite.com/2017/10/10/Xcode9%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2017/10/10/Xcode9的一些问题/</id>
-    <published>2017-10-10T09:55:37.000Z</published>
-    <updated>2018-12-29T03:11:38.892Z</updated>
-    
-    <content type="html"><![CDATA[<p>Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p><h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP图标不见了</p><p>用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码</p><pre><code>post_install do |installer|    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;    text = File.read(copy_pods_resources_path)    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }end//如果有多个TARGETS，遍历执行即可post_install do |installer|  installer.aggregate_targets.each do |target|    copy_pods_resources_path = &quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&quot;    string_to_replace = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot;&apos;    assets_compile_with_app_icon_arguments = &apos;--compile &quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&quot; --app-icon &quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&quot; --output-partial-info-plist &quot;${BUILD_DIR}/assetcatalog_generated_info.plist&quot;&apos;    text = File.read(copy_pods_resources_path)    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)    File.open(copy_pods_resources_path, &quot;w&quot;) {|file| file.puts new_contents }  endend</code></pre><a id="more"></a><p>2.替换或者新添加文件时工程找不到文件</p><p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是Xcode9没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources当中手动添加进去即可</p><p>3.打包导出（Export）失败</p><p>表现为点击Xcode的导出（Export）时提示<code>The data couldn’t be read because it isn’t in the correct format.</code>或者使用Jenkins等用脚本打包提示如下错误：</p><pre><code>2017-10-20 11:42:44.254 xcodebuild[6983:599869] [MT] IDEDistribution: Step failed: &lt;IDEDistributionSigningAssetsStep: 0x7fa541fd34a0&gt;: Error Domain=IDEDistributionSigningAssetStepErrorDomain Code=0 &quot;Locating signing assets failed.&quot; UserInfo={NSLocalizedDescription=Locating signing assets failed.,IDEDistributionSigningAssetStepUnderlyingErrors=(    &quot;Error Domain=IDEProvisioningErrorDomain Code=9 \&quot;\&quot;PrePublish.app\&quot; requires a provisioning profile with the Push Notifications feature.\&quot; UserInfo={NSLocalizedDescription=\&quot;PrePublish.app\&quot; requires a provisioning profile with the Push Notifications feature., NSLocalizedRecoverySuggestion=Add a profile to the \&quot;provisioningProfiles\&quot; dictionary in your Export Options property list.}&quot;)}</code></pre><p>原因是Xcode9帮你添加了一个<code>Code Signing Style</code>的配置字段，该字段需要和<code>Automatically manage signing</code>对应，使用<code>Automatically manage signing</code>时该字段的值需要为<code>Automatic</code>，不使用<code>Automatically manage signing</code>时该字段的值需要为<code>Manual</code>，上述错误就是因为配置不对应导致的，修改对应即可。</p><h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p><p>部分经典主题在Theme列表看不到，只需要点击theme列表下面的“+”号即可添加，具体位置为Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧Theme-&gt;“+”</p><p>2.移除模拟器边框</p><p>取消勾选Simulator-&gt;Window-&gt;Show Device Bezels</p><p>3.单击跳转方法定义</p><p>Xcode9给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-1.png" alt="20171011-1"></p><p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p><p>如果还是习惯原来的“cmd+单击”的方式，也可以在Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code中将选项修改为Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-3.png" alt="20171011-3"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Xcode9的正式版也使用了一段时间了，bug还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。&lt;/p&gt;
-&lt;h3 id=&quot;BUG&quot;&gt;&lt;a href=&quot;#BUG&quot; class=&quot;headerlink&quot; title=&quot;BUG&quot;&gt;&lt;/a&gt;BUG&lt;/h3&gt;&lt;p&gt;1.APP图标不见了&lt;/p&gt;
-&lt;p&gt;用Xcode9跑起来工程之后发现应用图标不见了，这个是因为CocoaPods的资源脚本有点问题，在Xcode9上资源位置异常，工程引用不到，解决方案是在Podfile添加如下hook代码&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;post_install do |installer|
-    copy_pods_resources_path = &amp;quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&amp;quot;
-    string_to_replace = &amp;apos;--compile &amp;quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&amp;quot;&amp;apos;
-    assets_compile_with_app_icon_arguments = &amp;apos;--compile &amp;quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&amp;quot; --app-icon &amp;quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&amp;quot; --output-partial-info-plist &amp;quot;${BUILD_DIR}/assetcatalog_generated_info.plist&amp;quot;&amp;apos;
-    text = File.read(copy_pods_resources_path)
-    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
-    File.open(copy_pods_resources_path, &amp;quot;w&amp;quot;) {|file| file.puts new_contents }
-end
-
-//如果有多个TARGETS，遍历执行即可
-post_install do |installer|
-  installer.aggregate_targets.each do |target|
-    copy_pods_resources_path = &amp;quot;Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh&amp;quot;
-    string_to_replace = &amp;apos;--compile &amp;quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&amp;quot;&amp;apos;
-    assets_compile_with_app_icon_arguments = &amp;apos;--compile &amp;quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}&amp;quot; --app-icon &amp;quot;${ASSETCATALOG_COMPILER_APPICON_NAME}&amp;quot; --output-partial-info-plist &amp;quot;${BUILD_DIR}/assetcatalog_generated_info.plist&amp;quot;&amp;apos;
-    text = File.read(copy_pods_resources_path)
-    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
-    File.open(copy_pods_resources_path, &amp;quot;w&amp;quot;) {|file| file.puts new_contents }
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
     
   </entry>
   

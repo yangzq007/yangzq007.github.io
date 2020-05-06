@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看这里。 为什么变成了22和22.33    iPhone 8 iPhone">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-02T08:10:04.909Z">
+<meta property="og:updated_time" content="2020-05-06T07:03:53.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何绘制好iPhone上的1像素">
 <meta name="twitter:description" content="最近在开发过程中遇到了一个问题，就是当我用22.1999…的约束（请注意这里是约束）设置一个CollectionView的左右边距时，在iPhone 8和iPhone X上绘制出来的左边分别为22和22.33，这微小的数值差距，导致了本该显示4个元素的CollectionView在iPhone X上只显示了3个，问题实例看这里。 为什么变成了22和22.33    iPhone 8 iPhone">
@@ -322,6 +322,7 @@
 </tr>
 </tbody>
 </table>
+<a id="more"></a>
 <p>由上面的表格我们可以看出，iPhone 8和iPhone X在UIKit Size的宽度上并没有什么不同，不同的点在于由分辨率导致的倍率上，iPhone 8是2，iPhone X是3。那也就是说在iPhone 8上，UIKit Size上横向的1代表着屏幕上横向的2个像素，反过来说就是，在iPhone 8上，1个像素对应的数值为0.5，也就是说iPhone 8上最小的绘制单位是0.5，那么同理，在iPhone X上最小的绘制单位是0.33。</p>
 <p>iOS系统的针对像素的绘制采用四舍五入的方式，比如说22.1999…的小数位0.1999，在iPhone 8上相对于1个像素的基础数值为<code>0.1999/0.5=0.3998</code>，<code>0.3998&lt;0.5</code>，丢弃，故实际显示的数值为22。在iPhone X上0.1999相对于一个像素的基础数值为<code>0.1999/0.33=0.60575756</code>，<code>0.60575756&gt;0.5</code>，补充为1个像素，故在实际显示的数值为22.33，正是因为这个机制导致的微小差异使视图在不同的机型上显示出了差异。</p>
 <h3 id="为什么是约束"><a href="#为什么是约束" class="headerlink" title="为什么是约束"></a>为什么是约束</h3><p>细心的同学可能发现，如果我直接使用frame进行布局，并不会有这样的异常，为什么在使用约束的时候会出现？</p>
@@ -439,7 +440,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

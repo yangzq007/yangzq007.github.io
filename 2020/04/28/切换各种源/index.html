@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Xcode,插件">
+  <meta name="keywords" content="切换源,镜像">
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="该博文内容来源于网络，原链接:http://www.cnblogs.com/zhanglinfeng/p/4962452.html Xcode升级后打开Xcode会提示load bundle或Skip bundle，一般我们选择load budle，Xcode插件依然有效，选择Skip bundle，Xcode插件会失效。有人想装两个版本的Xcode，后装的那个也会出现插件失效的情况，而且重装插件">
-<meta name="keywords" content="Xcode,插件">
+<meta name="description" content="我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。 Homebrew替换brew.git: cd &amp;quot;$(brew --repo)&amp;quot; git remote set-url origin https://mirrors.ustc.edu.cn/brew.g">
+<meta name="keywords" content="切换源,镜像">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode更新或者重新安装导致插件无效问题的解决方案">
-<meta property="og:url" content="http://yoursite.com/2016/01/15/Xcode更新或者重新安装导致插件无效问题的解决方案/index.html">
+<meta property="og:title" content="切换各种源">
+<meta property="og:url" content="http://yoursite.com/2020/04/28/切换各种源/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="该博文内容来源于网络，原链接:http://www.cnblogs.com/zhanglinfeng/p/4962452.html Xcode升级后打开Xcode会提示load bundle或Skip bundle，一般我们选择load budle，Xcode插件依然有效，选择Skip bundle，Xcode插件会失效。有人想装两个版本的Xcode，后装的那个也会出现插件失效的情况，而且重装插件">
+<meta property="og:description" content="我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。 Homebrew替换brew.git: cd &amp;quot;$(brew --repo)&amp;quot; git remote set-url origin https://mirrors.ustc.edu.cn/brew.g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-04T07:08:18.099Z">
+<meta property="og:updated_time" content="2020-05-06T07:07:47.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode更新或者重新安装导致插件无效问题的解决方案">
-<meta name="twitter:description" content="该博文内容来源于网络，原链接:http://www.cnblogs.com/zhanglinfeng/p/4962452.html Xcode升级后打开Xcode会提示load bundle或Skip bundle，一般我们选择load budle，Xcode插件依然有效，选择Skip bundle，Xcode插件会失效。有人想装两个版本的Xcode，后装的那个也会出现插件失效的情况，而且重装插件">
+<meta name="twitter:title" content="切换各种源">
+<meta name="twitter:description" content="我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。 Homebrew替换brew.git: cd &amp;quot;$(brew --repo)&amp;quot; git remote set-url origin https://mirrors.ustc.edu.cn/brew.g">
 
 
 
@@ -115,7 +115,7 @@
   };
 </script>
 
-  <title> Xcode更新或者重新安装导致插件无效问题的解决方案 | 那片树海 </title>
+  <title> 切换各种源 | 那片树海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +255,7 @@
             
             
               
-                Xcode更新或者重新安装导致插件无效问题的解决方案
+                切换各种源
               
             
           </h1>
@@ -267,8 +267,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-15T17:40:41+08:00" content="2016-01-15">
-              2016-01-15
+            <time itemprop="dateCreated" datetime="2020-04-28T17:41:43+08:00" content="2020-04-28">
+              2020-04-28
             </time>
           </span>
 
@@ -295,18 +295,51 @@
       
 
       
-        <p>该博文内容来源于网络，原链接:<a href="http://www.cnblogs.com/zhanglinfeng/p/4962452.html" target="_blank" rel="noopener">http://www.cnblogs.com/zhanglinfeng/p/4962452.html</a></p>
-<p>Xcode升级后打开Xcode会提示load bundle或Skip bundle，一般我们选择load budle，Xcode插件依然有效，选择Skip bundle，Xcode插件会失效。有人想装两个版本的Xcode，后装的那个也会出现插件失效的情况，而且重装插件也没用。</p>
-<h3 id="Xcode插件失效原因"><a href="#Xcode插件失效原因" class="headerlink" title="Xcode插件失效原因"></a>Xcode插件失效原因</h3><p>并不是升级或重装后原本的插件被删掉了，其实插件还在这个目录~/Library/Application Support/Developer/Shared/Xcode/Plug-ins 。之所以插件失效，是因为每个插件只供特定UUID的Xcode使用，更新后uuid改变，于是便不能正常使用。</p>
-<a id="more"></a>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="1-查看当前Xcode的uuid"><a href="#1-查看当前Xcode的uuid" class="headerlink" title="1.查看当前Xcode的uuid"></a>1.查看当前Xcode的uuid</h4><p>在终端执行defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID，会得到一串 UUID 码。可能你的Xcode不是你安装的，而是直接拷贝别人安装好的Xcode到你的应用程序中，那么这个命令得不到Xcode的uuid，会出现”The domain/default pair of (/Application/Xcode.app/Contents/info, DVTPlugInCompatibilityUUID) does not exist”的错误</p>
-<p>另外一种办法也能得到Xcode的uuid，在应用程序中找到Xcode，右键选择显示包内容，找到Info.plist文件打开找到DVTPlugInCompatibilityUUID对应的值就是我们要的uuid</p>
-<h4 id="2-修改插件的uuid为当前Xcode的uuid"><a href="#2-修改插件的uuid为当前Xcode的uuid" class="headerlink" title="2.修改插件的uuid为当前Xcode的uuid"></a>2.修改插件的uuid为当前Xcode的uuid</h4><p>找到这个目录~/Library/Application Support/Developer/Shared/Xcode/Plug-ins，找到对应的插件，右键显示包内容，找到Info.plist文件打开找到DVTPlugInCompatibilityUUIDs的项目，添加一个Item，Value的值为之前Xcode的UUID，保存。</p>
-<h4 id="3-重启-Xcode"><a href="#3-重启-Xcode" class="headerlink" title="3.重启 Xcode"></a>3.重启 Xcode</h4><p>重启 Xcode 之后会提示”Load bundle”、 “Skip Bundle”，这里必须选择”Load bundle”，不然插件无法使用。如果又不小心点了Skip Bundle，那就删掉你刚才在插件plist文件里添加的那行Item，然后重启Xcode，然后再重新刚才的那几步。至此问题已经完美解决。那么有人会问：如果很多个插件都失效，不想一个一个的改，有没有快速的方法，有，请看下一步。</p>
-<h3 id="批量更新插件的-DVTPlugInCompatibilityUUID-的命令"><a href="#批量更新插件的-DVTPlugInCompatibilityUUID-的命令" class="headerlink" title="批量更新插件的 DVTPlugInCompatibilityUUID 的命令"></a>批量更新插件的 DVTPlugInCompatibilityUUID 的命令</h3><p>在终端不能用命令defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID得到uuid的，此方法不适用。批量修改命令为</p>
-<pre><code>find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add `defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID`
-</code></pre><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>1.建议使用批量命令的方式来解决，简单暴力</p>
-<p>2.针对于安装两个版本的开发者来说，可以根据其原理将第二个Xcode的UUID手动添加到插件的info.plist当中(未验证)</p>
+        <p>我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。</p>
+<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><pre><code>替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+
+重置brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://github.com/Homebrew/brew.git
+
+重置homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+</code></pre><h3 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h3><p>gem</p>
+<pre><code>//查看源
+gem sources -l
+
+//添加源
+gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+
+//移除源
+gem sources --remove https://rubygems.org/
+</code></pre><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>nvm</p>
+<pre><code>//切换源-临时设置源
+export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+nvm install node
+
+//切换源-将源作为参数传递进去
+NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node nvm install 4.2
+
+//切换源-将源变量添加到bash当中（zsh同理）
+echo -e &quot;\nexport NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre><p>npm</p>
+<pre><code>//查看源
+npm config -g get registry
+
+//切换源
+npm config -g set registry https://registry.npm.taobao.org
+</code></pre><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Ubuntu下载镜像<br><a href="http://mirrors.aliyun.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.aliyun.com/ubuntu-releases/</a></p>
+<p>其他OS镜像，可自行查阅阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p>
+<h3 id="镜像站"><a href="#镜像站" class="headerlink" title="镜像站"></a>镜像站</h3><p>阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p>
 
       
     </div>
@@ -328,9 +361,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-            <a href="/tags/Xcode/" rel="tag">#Xcode</a>
+            <a href="/tags/工具/" rel="tag">#工具</a>
           
         </div>
       
@@ -339,17 +370,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/05/Https浅析与实现（iOS）/" rel="next" title="Https浅析与实现（iOS）">
-                <i class="fa fa-chevron-left"></i> Https浅析与实现（iOS）
+              <a href="/2020/04/28/macOS-10.15.4下Sketch等三方软件无法打开/" rel="next" title="macOS 10.15.4下Sketch等三方软件无法打开">
+                <i class="fa fa-chevron-left"></i> macOS 10.15.4下Sketch等三方软件无法打开
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/29/16.02春节后苹果证书无效问题解决方案/" rel="prev" title="16.02春节后苹果证书无效问题解决方案">
-                16.02春节后苹果证书无效问题解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -481,7 +508,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode插件失效原因"><span class="nav-number">1.</span> <span class="nav-text">Xcode插件失效原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看当前Xcode的uuid"><span class="nav-number">2.1.</span> <span class="nav-text">1.查看当前Xcode的uuid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改插件的uuid为当前Xcode的uuid"><span class="nav-number">2.2.</span> <span class="nav-text">2.修改插件的uuid为当前Xcode的uuid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-重启-Xcode"><span class="nav-number">2.3.</span> <span class="nav-text">3.重启 Xcode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量更新插件的-DVTPlugInCompatibilityUUID-的命令"><span class="nav-number">3.</span> <span class="nav-text">批量更新插件的 DVTPlugInCompatibilityUUID 的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebrew"><span class="nav-number">1.</span> <span class="nav-text">Homebrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ruby"><span class="nav-number">2.</span> <span class="nav-text">Ruby</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node"><span class="nav-number">3.</span> <span class="nav-text">Node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">4.</span> <span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像站"><span class="nav-number">5.</span> <span class="nav-text">镜像站</span></a></li></ol></div>
             
           </div>
         </section>

@@ -253,6 +253,104 @@
             
               
                 
+                <a class="post-title-link" href="/2016/02/29/一个优化程序效率的调试小技巧/" itemprop="url">
+                  一个优化程序效率的调试小技巧
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-29T16:41:22+08:00" content="2016-02-29">
+              2016-02-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>笔者最近在做一个相机相册自定义的组件，功能是全部开发出来了，但是效率比较低，满满的无奈啊。哎，慢慢优化吧。</p>
+<p>说到优化，以前笔者都是凭借个人的经验判断代码当中哪一部分执行效率低，哪一部分耗时长，没有什么具体的方法，有时候也没办法定位到具体的某一行或者某一处代码。虽说问题解决了，但总是觉得好像还是少点什么，怎么查看某段代码的具体执行时间呢？于是我上网查了一下，发现了一个不错的方法，现在推荐给大家。</p>
+<pre><code>#define TICK   NSDate *startTime = [NSDate date];
+#define TOCK   NSLog(@&quot;Time: %f&quot;, -[startTime timeIntervalSinceNow]);
+</code></pre><p>定义这样的两个宏，在你需要调试的代码块的首尾分别加上这两个宏，执行程序，你就可以查看该段代码的执行耗时了。另外还可以添加多个TOCK，也是挺方便的。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/02/29/16.02春节后苹果证书无效问题解决方案/" itemprop="url">
                   16.02春节后苹果证书无效问题解决方案
                 </a>
@@ -662,7 +760,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

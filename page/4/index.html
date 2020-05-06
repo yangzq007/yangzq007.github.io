@@ -253,6 +253,109 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/11/Hexo博客绑定域名/" itemprop="url">
+                  Hexo博客绑定域名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-11T15:07:02+08:00" content="2017-04-11">
+              2017-04-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>我们通过CNAME的方式来绑定我们购买的域名</p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><p>1.在hexo目录下的source文件夹中创建一个文件CNAME</p>
+<p>CNAME文件不要有后缀，建议使用<code>touch CNAME</code>命令创建</p>
+<p>2.将你的域名写到CNAME文件当中</p>
+<p>尽量不要有空格换行等冗余内容</p>
+<p>3.重新生成部署你的博客</p>
+<pre><code>sudo hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+</code></pre><p>如上操作完成之后，你访问对应的github.io或者coding.me的地址时就会重定向到你购买的域名
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/04/11/Hexo博客绑定域名/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/" itemprop="url">
                   从Signal 10 Bus Error聊聊assign和weak
                 </a>
@@ -1168,108 +1271,6 @@ unset ALL_PROXY
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/24/iOS滚动视图下压全解析/" itemprop="url">
-                  iOS滚动视图下压上移全解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-24T17:15:03+08:00" content="2016-10-24">
-              2016-10-24
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。</p>
-<h3 id="影响视图偏移的属性"><a href="#影响视图偏移的属性" class="headerlink" title="影响视图偏移的属性"></a>影响视图偏移的属性</h3><p><strong>translucent(UINavigationBar)</strong></p>
-<p>导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。</p>
-<p><strong>automaticallyAdjustsScrollViewInsets(UIViewController)</strong></p>
-<p>该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容</p>
-<p><strong>extendedLayoutIncludesOpaqueBars(UIViewController)</strong></p>
-<p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/24/iOS滚动视图下压全解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </p></div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1313,7 +1314,7 @@ unset ALL_PROXY
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -253,6 +253,108 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/24/iOS滚动视图下压全解析/" itemprop="url">
+                  iOS滚动视图下压上移全解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-24T17:15:03+08:00" content="2016-10-24">
+              2016-10-24
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近在项目开发过程中遇到了iOS8下UITableView莫名向上或向下偏移64个像素的问题，有经验的人就会知道这是iOS7之后导航栏默认透明造成的，然而不仅仅是这样，下面我们就来一起探讨下这个问题。</p>
+<h3 id="影响视图偏移的属性"><a href="#影响视图偏移的属性" class="headerlink" title="影响视图偏移的属性"></a>影响视图偏移的属性</h3><p><strong>translucent(UINavigationBar)</strong></p>
+<p>导航栏的是否透明，iOS7之后默认为YES，当translucent为YES（导航栏透明）时，滚动视图位置正常，当translucent为NO（导航栏不透明）时，滚动视图位置下移64个像素。</p>
+<p><strong>automaticallyAdjustsScrollViewInsets(UIViewController)</strong></p>
+<p>该属性仅在translucent为YES时有效，意为是否自动调整滚动视图内容偏移，默认是YES，当automaticallyAdjustsScrollViewInsets为YES时自动将滚动视图内容下压64个像素，当automaticallyAdjustsScrollViewInsets为NO时则不下压滚动视图内容</p>
+<p><strong>extendedLayoutIncludesOpaqueBars(UIViewController)</strong></p>
+<p>该属性仅在translucent为NO时有效，意为在不透明导航栏情况下扩展布局，默认是NO，当extendedLayoutIncludesOpaqueBars为YES时，滚动视图忽略不透明导航栏，滚动视图位置正常，滚动视图内容下移64个像素，当extendedLayoutIncludesOpaqueBars为NO时，滚动视图不忽略导航栏的不透明，滚动视图位置下移64个像素，滚动视图内容正常（如果忽略背景的话，滚动视图内容的位置是一样的，但是实际上布局是不一样的，需注意）
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/24/iOS滚动视图下压全解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </p></div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/22/教你获取图片的尺寸和文件大小/" itemprop="url">
                   教你获取图片的尺寸和文件大小
                 </a>
@@ -1117,104 +1219,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/29/一个优化程序效率的调试小技巧/" itemprop="url">
-                  一个优化程序效率的调试小技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-29T16:41:22+08:00" content="2016-02-29">
-              2016-02-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>笔者最近在做一个相机相册自定义的组件，功能是全部开发出来了，但是效率比较低，满满的无奈啊。哎，慢慢优化吧。</p>
-<p>说到优化，以前笔者都是凭借个人的经验判断代码当中哪一部分执行效率低，哪一部分耗时长，没有什么具体的方法，有时候也没办法定位到具体的某一行或者某一处代码。虽说问题解决了，但总是觉得好像还是少点什么，怎么查看某段代码的具体执行时间呢？于是我上网查了一下，发现了一个不错的方法，现在推荐给大家。</p>
-<pre><code>#define TICK   NSDate *startTime = [NSDate date];
-#define TOCK   NSLog(@&quot;Time: %f&quot;, -[startTime timeIntervalSinceNow]);
-</code></pre><p>定义这样的两个宏，在你需要调试的代码块的首尾分别加上这两个宏，执行程序，你就可以查看该段代码的执行耗时了。另外还可以添加多个TOCK，也是挺方便的。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1258,7 +1262,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
