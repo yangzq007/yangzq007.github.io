@@ -835,11 +835,12 @@ unset ALL_PROXY
 <p>使用SourceTree的同学可能会发现SourceTree追踪的远端分支越来越多，许多已经删除的分支也还在，即使从origin拉取也不行。</p>
 <p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170206-3.png?imageView2/2/h/500/interlace/0/q/100" alt="20170206-1"></p>
 <p>虽然这些不影响正常的使用，但想快速的找到一个分支还是有点麻烦的，于是我们决定清除它们。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<h3 id="解决方法1"><a href="#解决方法1" class="headerlink" title="解决方法1"></a>解决方法1</h3><ol>
 <li>进入对应目录下，使用<code>git remote show origin</code>命令查看本地仓库追踪远程仓库的状态<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20170206-2.png" alt="20170206-2"></li>
 <li>使用<code>git remote prune origin</code>清除所有失效的远程分支或根据提示删除特定失效分支</li>
 <li>重启SourceTree即可。</li>
 </ol>
+<h3 id="解决方法2"><a href="#解决方法2" class="headerlink" title="解决方法2"></a>解决方法2</h3><p>点击SourceTree操作界面上的“抓取”按钮，并在弹出的弹框上勾选“删掉在所有远端都已经不存在的跟踪（tracking）分支”，点击“确定”即可</p>
 
           
         
@@ -1324,7 +1325,7 @@ unset ALL_PROXY
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
