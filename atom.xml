@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-06T07:07:47.011Z</updated>
+  <updated>2021-10-11T09:12:59.510Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,21 +17,61 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Swift混编踩坑指南</title>
+    <link href="http://yoursite.com/2021/09/02/Swift%E6%B7%B7%E7%BC%96%E8%B8%A9%E5%9D%91%E6%8C%87%E5%8D%97/"/>
+    <id>http://yoursite.com/2021/09/02/Swift混编踩坑指南/</id>
+    <published>2021-09-02T12:41:33.000Z</published>
+    <updated>2021-10-11T09:12:59.510Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。</p><h2 id="Swift调用OC"><a href="#Swift调用OC" class="headerlink" title="Swift调用OC"></a>Swift调用OC</h2><p>在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量</p><pre><code>////  Use this file to import your target&apos;s public headers that you would like to expose to Swift.//#import &quot;SHOCUtil.h&quot;#import &quot;SHTest.h&quot;</code></pre><a id="more"></a><h2 id="OC调用Swift"><a href="#OC调用Swift" class="headerlink" title="OC调用Swift"></a>OC调用Swift</h2><p>在Swift代码中，给需要暴露给OC的类、方法和属性添加@objc修饰符，Swift的类需要继承自NSObject</p><pre><code>import UIKitclass SHSwiftUtil: NSObject {    @objc static let startupText = &quot;SHSwiftUtil startupText&quot;;    @objc class func startup() {        print(&quot;SHSwiftUtil class startup&quot;);    }    @objc func startup() {        print(&quot;SHSwiftUtil instance startup&quot;);    }}</code></pre><p>需要先在Target-&gt;Build Settings-&gt;Product Module Name当中设置值{A}，最好是跟Target同名，然后在OC代码中导入头文件#import “{A}-Swift.h”即可调用Swift当中暴露的类、方法和属性。</p><pre><code>#import &quot;SHOCUtil.h&quot;#import &quot;SHDemo-Swift.h&quot;@implementation SHOCUtil+ (void)startup{    NSLog(@&quot;SHOCUtil class startup&quot;);    [SHSwiftUtil startup];    NSLog(@&quot;%@&quot;,SHSwiftUtil.startupText);}- (void)startup{    NSLog(@&quot;SHOCUtil instance startup&quot;);    [[[SHSwiftUtil alloc] init] startup];}@end</code></pre><h2 id="在Pod库中混编"><a href="#在Pod库中混编" class="headerlink" title="在Pod库中混编"></a>在Pod库中混编</h2><p>CocoaPods帮我们做了相应工作，我们只需要引入相应的文件即可</p><h2 id="OC工程支持Swift建议"><a href="#OC工程支持Swift建议" class="headerlink" title="OC工程支持Swift建议"></a>OC工程支持Swift建议</h2><p>在Podfile中使用use_modular_headers!选项替代不写或者use_frameworks!选项。针对OC工程当中可能有比较多不规范的头文件导入（在需要使用#import &lt;&gt;的地方使用#import “”导入头文件）的情况，此种方式可以兼容不会报错。</p><h2 id="重复定义类、方法、属性的问题"><a href="#重复定义类、方法、属性的问题" class="headerlink" title="重复定义类、方法、属性的问题"></a>重复定义类、方法、属性的问题</h2><p>在使用use_modular_headers!选项时，某些情况下会提示重复定义的问题，但是工程当中只有一份代码，这是因为底层OC代码使用的是#import “”引用头文件，在提供给多个不同的Swift库时，被导入了不同的Module，而且作为该Module的一部分，此时编译器认为有多份代码存在。解决方案就是找到重复定义的文件，使其以#import &lt;&gt;的引用方式暴露给Swift即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。&lt;/p&gt;
+&lt;h2 id=&quot;Swift调用OC&quot;&gt;&lt;a href=&quot;#Swift调用OC&quot; class=&quot;headerlink&quot; title=&quot;Swift调用OC&quot;&gt;&lt;/a&gt;Swift调用OC&lt;/h2&gt;&lt;p&gt;在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//
+//  Use this file to import your target&amp;apos;s public headers that you would like to expose to Swift.
+//
+
+#import &amp;quot;SHOCUtil.h&amp;quot;
+#import &amp;quot;SHTest.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>切换各种源</title>
     <link href="http://yoursite.com/2020/04/28/%E5%88%87%E6%8D%A2%E5%90%84%E7%A7%8D%E6%BA%90/"/>
     <id>http://yoursite.com/2020/04/28/切换各种源/</id>
     <published>2020-04-28T09:41:43.000Z</published>
-    <updated>2020-05-06T07:07:47.011Z</updated>
+    <updated>2021-10-11T09:11:07.694Z</updated>
     
-    <content type="html"><![CDATA[<p>我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。</p><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><pre><code>替换brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.git替换homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git重置brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://github.com/Homebrew/brew.git重置homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://github.com/Homebrew/homebrew-core.git</code></pre><h3 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h3><p>gem</p><pre><code>//查看源gem sources -l//添加源gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org///移除源gem sources --remove https://rubygems.org/</code></pre><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>nvm</p><pre><code>//切换源-临时设置源export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/nodenvm install node//切换源-将源作为参数传递进去NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node nvm install 4.2//切换源-将源变量添加到bash当中（zsh同理）echo -e &quot;\nexport NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc</code></pre><p>npm</p><pre><code>//查看源npm config -g get registry//切换源npm config -g set registry https://registry.npm.taobao.org</code></pre><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Ubuntu下载镜像<br><a href="http://mirrors.aliyun.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.aliyun.com/ubuntu-releases/</a></p><p>其他OS镜像，可自行查阅阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p><h3 id="镜像站"><a href="#镜像站" class="headerlink" title="镜像站"></a>镜像站</h3><p>阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p>]]></content>
+    <content type="html"><![CDATA[<p>我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。</p><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><pre><code>替换brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://mirrors.ustc.edu.cn/brew.git替换homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git重置brew.git:cd &quot;$(brew --repo)&quot;git remote set-url origin https://github.com/Homebrew/brew.git重置homebrew-core.git:cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;git remote set-url origin https://github.com/Homebrew/homebrew-core.git</code></pre><a id="more"></a><h3 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h3><p>gem</p><pre><code>//查看源gem sources -l//添加源gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org///移除源gem sources --remove https://rubygems.org/</code></pre><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>nvm</p><pre><code>//切换源-临时设置源export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/nodenvm install node//切换源-将源作为参数传递进去NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node nvm install 4.2//切换源-将源变量添加到bash当中（zsh同理）echo -e &quot;\nexport NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc</code></pre><p>npm</p><pre><code>//查看源npm config -g get registry//切换源npm config -g set registry https://registry.npm.taobao.org</code></pre><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Ubuntu下载镜像<br><a href="http://mirrors.aliyun.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.aliyun.com/ubuntu-releases/</a></p><p>其他OS镜像，可自行查阅阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p><h3 id="镜像站"><a href="#镜像站" class="headerlink" title="镜像站"></a>镜像站</h3><p>阿里云官方镜像站<br><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/</a></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。&lt;/p&gt;
-&lt;h3 id=&quot;Homebrew&quot;&gt;&lt;a href=&quot;#Homebrew&quot; class
-      
+      &lt;p&gt;我们在使用一些工具的时候因为他们的服务或者资源托管在国外的服务器上，会导致我们请求或者下载的速度非常慢，这是一种非常不好的体验，切换相关镜像源使用国内的服务可以极大改善这种情况。&lt;/p&gt;
+&lt;h3 id=&quot;Homebrew&quot;&gt;&lt;a href=&quot;#Homebrew&quot; class=&quot;headerlink&quot; title=&quot;Homebrew&quot;&gt;&lt;/a&gt;Homebrew&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;替换brew.git:
+cd &amp;quot;$(brew --repo)&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+
+替换homebrew-core.git:
+cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+
+重置brew.git:
+cd &amp;quot;$(brew --repo)&amp;quot;
+git remote set-url origin https://github.com/Homebrew/brew.git
+
+重置homebrew-core.git:
+cd &amp;quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&amp;quot;
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -522,26 +562,6 @@ npm start
     
     
       <category term="杂谈" scheme="http://yoursite.com/tags/%E6%9D%82%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MobX绑定过程和其中的一些坑的总结</title>
-    <link href="http://yoursite.com/2017/10/19/MobX%E7%BB%91%E5%AE%9A%E8%BF%87%E7%A8%8B%E5%92%8C%E5%85%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91%E7%9A%84%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2017/10/19/MobX绑定过程和其中的一些坑的总结/</id>
-    <published>2017-10-19T07:03:15.000Z</published>
-    <updated>2018-12-29T03:11:38.892Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171019-1.png" alt="20171019-1"></p><a id="more"></a><p>开发过程中使用Mobx极大的方便了我们，但是在使用过程中还是会或多或少地遇到一些问题导致绑定失败，下面我们来一起探讨下Mobx的绑定过程，以方便我们来更好的使用它。</p><blockquote><p>MobX 会对在追踪函数执行过程中读取现存的可观察属性做出反应。</p></blockquote><p>MobX的官方文档将MobX的绑定及相应过程总结为这么一句话，并标出了“读取”、“追踪函数”和“过程”三个关键字。</p><h3 id="Mobx会收集哪些地方的绑定"><a href="#Mobx会收集哪些地方的绑定" class="headerlink" title="Mobx会收集哪些地方的绑定"></a>Mobx会收集哪些地方的绑定</h3><blockquote><p>“追踪函数” 是 <code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法和 <code>when</code>、<code>reaction</code> 和 <code>autorun</code> 的第一个入参函数。</p></blockquote><p>文档说明的也比较清楚，会对文件当中的<code>@computed</code>修饰的方法、<code>render()</code>方法、<code>when</code>方法的第一个入参函数、<code>reaction</code>方法的第一个入参函数、<code>autorun</code>方法的第一个入参函数这些地方收集，MobX会在页面加载执行前扫描所有的文件，收集这些地方的绑定。</p><p>以下调用和赋值<code>this.store.listA</code>的地方，MobX都会去收集绑定，其它的地方则不会去收集。</p><pre><code>//数据绑定文件import { computed, observable } from &apos;mobx&apos;;class IndexStore {    @observable listA = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;];    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];    @computed get dataA() {        return this.listA;    }}//Index视图文件import { observer } from &apos;mobx-react/native&apos;;import IndexStore from &apos;indexStore&apos;;@observerclass Index extends Component {    constructor() {        super();        this.store = new IndexStore();        when(            () =&gt; this.store.listA.length == 0,            () =&gt; console.log(&quot;listA none&quot;)        );    }    const autorun1 = autorun(() =&gt; {        console.log(this.store.listA);    })    const reaction2 = reaction(        () =&gt; this.store.listA,        listA =&gt; console.log(listA.join(&quot;, &quot;))    )    render() {        return (            &lt;MainItem dataSource={this.store.listA}            renderHeader={                () =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;            } /&gt;        )    }}</code></pre><h3 id="MobX会收集哪些绑定"><a href="#MobX会收集哪些绑定" class="headerlink" title="MobX会收集哪些绑定"></a>MobX会收集哪些绑定</h3><blockquote><p>“过程(during)” 意味着只追踪那些在函数执行时被读取的 <code>observable</code> 。这些值是否由追踪函数直接或间接使用并不重要。</p></blockquote><p>这句话解释了MobX收集哪些绑定，是那些在函数执行时被读取的<code>observable</code>，例如上面实例代码<code>&lt;MainItem dataSource={this.store.listA}/&gt;</code>中的<code>this.store.listA</code>，它在<code>render()</code>函数执行时被调用，用于作为<code>MainItem</code>的数据源，所以这个绑定就被收集到了，<code>render()</code>函数和<code>listA</code>之间就建立了联系，当<code>listA</code>发生变化时，<code>render()</code>函数就会被调用，界面也就从新渲染刷新了。同理，上面的一些log也会调用，会在控制台输出相应信息。</p><p>需要注意的是上面实例代码中的<code>renderHeader={() =&gt; &lt;Item data={this.store.listB}&gt;&lt;/Item&gt;}</code>当中的<code>this.store.listB</code>并不会被收集到，为什么呢？因为<code>renderHeader</code>作为一个属性传入<code>MainItem</code>，<code>renderHeader</code>当中的<code>this.store.listB</code>并没有在<code>Index</code>的<code>render()</code>去使用，而是在<code>Item</code>当中使用了它，所以<code>Index</code>的<code>render()</code>并没有与<code>listB</code>之间建立连接，当<code>listB</code>发生变化就不会调用<code>Index</code>的<code>render()</code>，界面也就不会重新渲染刷新。</p><p>我们想在修改<code>listB</code>时让界面刷新作出相应，我们该怎么办呢？我们需要在<code>Item</code>当中添加<code>@observer</code>去捕获这个绑定，因为<code>listB</code>在<code>Item</code>的<code>render()</code>当中进行了调用，所以正确的写法如下：</p><pre><code>//Index视图文件render() {    return (        &lt;MainItem dataSource={this.store.listA}             renderHeader={                   () =&gt; &lt;Item data={this.store}&gt;&lt;/Item&gt;         } /&gt;    )}//Item视图文件import { observer } from &apos;mobx-react/native&apos;;@observerclass Item extends Component {    constructor() {        super();    }    render() {        return (            &lt;Text&gt;{this.props.data.listB[0]}&lt;/Text&gt;        )    }}</code></pre><p>Tips：当我们修改<code>listB</code>时，<code>Item</code>就会重新调用其<code>render()</code>函数重新渲染，我们重新渲染<code>Item</code>比重新渲染整个<code>Index</code>所消耗的资源会更少，虽然MobX已经有机制帮我们减少不必要的渲染，但是这样还是会消耗更少的资源，所以官方推荐我们绑定粒度越细越好。</p><p>细心的同学可能会注意到为什么<code>Item</code>的<code>data</code>当中是<code>this.store</code>而不是我们认为的<code>this.store.listB</code>，是写错了吗，并不是，这恰恰是正确的写法，下面我们就来讨论下这个问题。</p><h3 id="MobX绑定了什么"><a href="#MobX绑定了什么" class="headerlink" title="MobX绑定了什么"></a>MobX绑定了什么</h3><blockquote><p>“读取” 是对象属性的间接引用，可以用过 <code>.</code> (例如 <code>user.name</code>) 或者 <code>[]</code> (例如 <code>user[&#39;name&#39;]</code>) 的形式完成。</p></blockquote><p>这句话解释了MobX绑定了什么，它绑定的是可观察对象的引用，例如上面提到的<code>listA</code>，MobX并不是将<code>listA</code>的内容<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>与<code>render()</code>函数绑定，而是将<code>listA</code>变量对<code>[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]</code>的引用与<code>render()</code>函数绑定绑定，所以只有当<code>listA</code>对值的引用发生变化时，<code>render()</code>函数才会调用。（也可以理解为c/c++当中的指针的概念，<code>render()</code>函数是与<code>listA</code>变量的指针值绑定）</p><p>所以针对上面的<code>listA</code>，你只修改数组的内容，render()函数是不会调用的，界面也是不会刷新的。下面这种写法，界面并不会刷新：</p><pre><code>//数据绑定文件modifyListA1() {    this.listA[0] = &quot;4&quot;;}//此处只是数组[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]的内容发生了变化，listA的引用却没有发生变化</code></pre><p>正确的写法</p><pre><code>//数据绑定文件modifyListA2() {    this.listA = [&quot;4&quot;,&quot;2&quot;,&quot;3&quot;];}//此处listA被赋值了一个新数组[&quot;4&quot;,&quot;2&quot;,&quot;3&quot;]，listA的引用发生了变化</code></pre><p>我们再回到<code>listB</code>的问题上，如果我们是<code>&lt;Item data={this.store.listB}&gt;&lt;/Item&gt;</code>这种写法，我们相当于把<code>[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</code>这个值传递给了<code>Item</code>当中的<code>data</code>，通过<code>data</code>对数组的操作，并未出现<code>listB</code>的引用，也就无法建立绑定。而我们将整个<code>store</code>传递过去，<code>data</code>就被赋值了<code>store</code>的内容，当<code>data</code>引用<code>listB</code>时，也就出现了<code>listB</code>的引用，这样绑定才建立了起来。</p><p>所以针对子组件，需要将被观察属性的父级传递过去，这样才能在子组件中出现被观察属性的引用，才能建立绑定。</p><h3 id="MobX绑定过程"><a href="#MobX绑定过程" class="headerlink" title="MobX绑定过程"></a>MobX绑定过程</h3><p>了解了以上三个概念，MobX的绑定过程就比较清晰了。MobX在代码编译时/代码执行之前扫描代码中的<code>computed</code> 表达式、<code>observer</code> 组件的 <code>render()</code> 方法等地方，将这些方法中出现的直接调用的观察属性的引用和这些方法绑定起来，这就是MobX的绑定过程。绑定完成之后，当这些引用发生变化时，相应的绑定方法就调用，界面就会刷新重新渲染或者相应的逻辑就会执行。</p><h3 id="observable和-observable"><a href="#observable和-observable" class="headerlink" title="observable和@observable"></a>observable和@observable</h3><p>上面我们<code>modifyListA1</code>提到的修改并不会触发绑定的界面刷新操作，需要我们使用<code>modifyListA2</code>当中的修改方式，给<code>listA</code>提供一个新数组，改变它的引用值。那有没有方法可以让<code>listA</code>只修改一个值（如<code>modifyListA1</code>当中的操作）就触发界面的刷新呢，答案是肯定的，我们只需要将<code>listA</code>初始的赋值方式改成如下方式即可：</p><pre><code>//数据绑定文件import { computed, observable } from &apos;mobx&apos;;class IndexStore {    listA = observable([&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]);    @observable listB = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;];    @computed get dataA() {        return this.listA;    }}</code></pre><p>为什么这种方式就可以呢？因为<code>observable</code>默认情况下会递归应用，相比较<code>@observable</code>细粒度的观察，只监测<code>listA</code>的引用，<code>observable</code>则会递归这些观察，将<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用都作为监测对象，这样<code>listA[0]</code>、<code>listA[1]</code>、<code>listA[2]</code>的引用就和<code>render()</code>函数建立起了绑定，当<code>listA[0]</code>被赋值，引用发生变化时，<code>render()</code>也就被调用了，界面也就刷新了。</p><p>如果需要一个数据源的内部数据发生变化引起相应操作，我们可以使用<code>observable</code>，然而<code>observable</code>也有它的弊端，它会建立起来比较多的冗余绑定，也会使后续的维护变得复杂，总体上我们推荐使用<code>@observable</code>这样细粒度的控制，它会使我们的项目更加清晰便于维护，同时也会大大的降低那些莫名其妙的bug的概率。</p><h3 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a>了解更多</h3><p>详情参考官方文档</p><p><a href="http://cn.mobx.js.org/best/react.html" target="_blank" rel="noopener">MobX 会对什么作出反应?</a></p><p><a href="http://cn.mobx.js.org/best/pitfalls.html" target="_blank" rel="noopener">常见陷阱与最佳实践</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171019-1.png&quot; alt=&quot;20171019-1&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
