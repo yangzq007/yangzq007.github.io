@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 //">
+<meta name="description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 12">
 <meta name="keywords" content="Swift,混编">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift混编踩坑指南">
 <meta property="og:url" content="http://yoursite.com/2021/09/02/Swift混编踩坑指南/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 //">
+<meta property="og:description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-01-28T08:03:33.320Z">
+<meta property="og:updated_time" content="2022-04-07T08:09:49.849Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift混编踩坑指南">
-<meta name="twitter:description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 //">
+<meta name="twitter:description" content="第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。 Swift调用OC在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量 12">
 
 
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-28T16:03:33+08:00">
-                2022-01-28
+              <time title="更新于" itemprop="dateModified" datetime="2022-04-07T16:09:49+08:00">
+                2022-04-07
               </time>
             
           </span>
@@ -378,50 +378,13 @@
       
         <p>第一次在OC工程当中添加Swift文件或者在Swift工程当中添加OC文件时，Xcode会提示你创建一个名称为{projectname}-Bridging-Header.h的文件，点击Create Bridging Header创建。</p>
 <h2 id="Swift调用OC"><a href="#Swift调用OC" class="headerlink" title="Swift调用OC"></a>Swift调用OC</h2><p>在{projectname}-Bridging-Header.h导入需要调用的OC代码的头文件，即可在Swift代码中直接引用对应的类和变量</p>
-<pre><code>//
-//  Use this file to import your target&apos;s public headers that you would like to expose to Swift.
-//
-
-#import &quot;SHOCUtil.h&quot;
-#import &quot;SHTest.h&quot;
-</code></pre><a id="more"></a>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Use this file to import your target's public headers that you would like to expose to Swift.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#import <span class="meta-string">"SHOCUtil.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"SHTest.h"</span></span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h2 id="OC调用Swift"><a href="#OC调用Swift" class="headerlink" title="OC调用Swift"></a>OC调用Swift</h2><p>在Swift代码中，给需要暴露给OC的类、方法和属性添加@objc修饰符，Swift的类需要继承自NSObject</p>
-<pre><code>import UIKit
-
-class SHSwiftUtil: NSObject {
-
-    @objc static let startupText = &quot;SHSwiftUtil startupText&quot;;
-
-
-    @objc class func startup() {
-        print(&quot;SHSwiftUtil class startup&quot;);
-    }
-
-    @objc func startup() {
-        print(&quot;SHSwiftUtil instance startup&quot;);
-    }
-}
-</code></pre><p>需要先在Target-&gt;Build Settings-&gt;Product Module Name当中设置值{A}，最好是跟Target同名，然后在OC代码中导入头文件#import “{A}-Swift.h”即可调用Swift当中暴露的类、方法和属性。</p>
-<pre><code>#import &quot;SHOCUtil.h&quot;
-#import &quot;SHDemo-Swift.h&quot;
-
-@implementation SHOCUtil
-
-+ (void)startup
-{
-    NSLog(@&quot;SHOCUtil class startup&quot;);
-    [SHSwiftUtil startup];
-    NSLog(@&quot;%@&quot;,SHSwiftUtil.startupText);
-}
-
-- (void)startup
-{
-    NSLog(@&quot;SHOCUtil instance startup&quot;);
-    [[[SHSwiftUtil alloc] init] startup];
-}
-
-@end
-</code></pre><h2 id="在Pod库中混编"><a href="#在Pod库中混编" class="headerlink" title="在Pod库中混编"></a>在Pod库中混编</h2><p>CocoaPods帮我们做了相应工作，我们只需要引入相应的文件即可</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SHSwiftUtil</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span> <span class="keyword">static</span> <span class="keyword">let</span> startupText = <span class="string">"SHSwiftUtil startupText"</span>;</span><br><span class="line">	</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">startup</span>() </span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"SHSwiftUtil class startup"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">startup</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"SHSwiftUtil instance startup"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要先在Target-&gt;Build Settings-&gt;Product Module Name当中设置值{A}，最好是跟Target同名，然后在OC代码中导入头文件#import “{A}-Swift.h”即可调用Swift当中暴露的类、方法和属性。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"SHOCUtil.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"SHDemo-Swift.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SHOCUtil</span></span></span><br><span class="line">	</span><br><span class="line">+ (<span class="keyword">void</span>)startup</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"SHOCUtil class startup"</span>);</span><br><span class="line">    [SHSwiftUtil startup];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,SHSwiftUtil.startupText);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">void</span>)startup</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"SHOCUtil instance startup"</span>);</span><br><span class="line">    [[[SHSwiftUtil alloc] init] startup];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="在Pod库中混编"><a href="#在Pod库中混编" class="headerlink" title="在Pod库中混编"></a>在Pod库中混编</h2><p>CocoaPods帮我们做了相应工作，我们只需要引入相应的文件即可</p>
 <h2 id="OC工程支持Swift建议"><a href="#OC工程支持Swift建议" class="headerlink" title="OC工程支持Swift建议"></a>OC工程支持Swift建议</h2><p>在Podfile中使用use_modular_headers!选项替代不写或者use_frameworks!选项。针对OC工程当中可能有比较多不规范的头文件导入（在需要使用#import &lt;&gt;的地方使用#import “”导入头文件）的情况，此种方式可以兼容不会报错。</p>
 <h2 id="重复定义类、方法、属性的问题"><a href="#重复定义类、方法、属性的问题" class="headerlink" title="重复定义类、方法、属性的问题"></a>重复定义类、方法、属性的问题</h2><p>在使用use_modular_headers!选项时，某些情况下会提示重复定义的问题，但是工程当中只有一份代码，这是因为底层OC代码使用的是#import “”引用头文件，在提供给多个不同的Swift库时，被导入了不同的Module，而且作为该Module的一部分，此时编译器认为有多份代码存在。解决方案就是找到重复定义的文件，使其以#import &lt;&gt;的引用方式暴露给Swift即可。</p>
 
@@ -463,6 +426,10 @@ class SHSwiftUtil: NSObject {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/24/Jenkins使用指南/" rel="prev" title="Jenkins使用指南">
+                Jenkins使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +508,7 @@ class SHSwiftUtil: NSObject {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -563,7 +530,7 @@ class SHSwiftUtil: NSObject {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
