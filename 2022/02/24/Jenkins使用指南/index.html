@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="那片树海">
 <meta property="og:description" content="Jenkins官方文档：https://www.jenkins.io/doc/ 安装、启动和更新1234567891011121314#安装最新LTS版本（LTS：Long-term support，长期支持）brew install jenkins-lts#安装特定的LTS版本brew install jenkins-lts@YOUR_VERSION#启动Jenkins服务brew servic">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-04-07T08:06:11.104Z">
+<meta property="og:updated_time" content="2022-04-07T08:18:42.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins使用指南">
 <meta name="twitter:description" content="Jenkins官方文档：https://www.jenkins.io/doc/ 安装、启动和更新1234567891011121314#安装最新LTS版本（LTS：Long-term support，长期支持）brew install jenkins-lts#安装特定的LTS版本brew install jenkins-lts@YOUR_VERSION#启动Jenkins服务brew servic">
@@ -320,7 +320,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-04-07T16:06:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-04-07T16:18:42+08:00">
                 2022-04-07
               </time>
             
@@ -377,21 +377,21 @@
 
       
         <p>Jenkins官方文档：<a href="https://www.jenkins.io/doc/" target="_blank" rel="noopener">https://www.jenkins.io/doc/</a></p>
-<h3 id="安装、启动和更新"><a href="#安装、启动和更新" class="headerlink" title="安装、启动和更新"></a>安装、启动和更新</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装最新LTS版本（LTS：Long-term support，长期支持）</span></span><br><span class="line">brew install jenkins-lts</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装特定的LTS版本</span></span><br><span class="line">brew install jenkins-lts@YOUR_VERSION</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动Jenkins服务</span></span><br><span class="line">brew services start jenkins-lts</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启服务</span></span><br><span class="line">brew services restart jenkins-lts</span><br><span class="line"></span><br><span class="line"><span class="comment">#更新版本</span></span><br><span class="line">brew upgrade jenkins-lts</span><br></pre></td></tr></table></figure>
+<h2 id="安装、启动和更新"><a href="#安装、启动和更新" class="headerlink" title="安装、启动和更新"></a>安装、启动和更新</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#安装最新LTS版本（LTS：Long-term support，长期支持）</span><br><span class="line">brew install jenkins-lts</span><br><span class="line"></span><br><span class="line">#安装特定的LTS版本</span><br><span class="line">brew install jenkins-lts@YOUR_VERSION</span><br><span class="line"></span><br><span class="line">#启动Jenkins服务</span><br><span class="line">brew services start jenkins-lts</span><br><span class="line"></span><br><span class="line">#重启服务</span><br><span class="line">brew services restart jenkins-lts</span><br><span class="line"></span><br><span class="line">#更新版本</span><br><span class="line">brew upgrade jenkins-lts</span><br></pre></td></tr></table></figure>
 <p>启动服务之后，可以用浏览器打开<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>，然后根据提示完成安装即可。</p>
-<h3 id="局域网内无法通过ip访问的问题"><a href="#局域网内无法通过ip访问的问题" class="headerlink" title="局域网内无法通过ip访问的问题"></a>局域网内无法通过ip访问的问题</h3><p>使用homebrew安装Jenkins之后会将httpListenAddress默认设置为127.0.0.1，导致只能本机通过localhost访问，局域网内其他机器无法通过ip访问。要修复此问题，需要将如下文件当中的httpListenAddress配置修改为本机ip或者0.0.0.0，然后重启Jenkins即可。</p>
+<h2 id="局域网内无法通过ip访问的问题"><a href="#局域网内无法通过ip访问的问题" class="headerlink" title="局域网内无法通过ip访问的问题"></a>局域网内无法通过ip访问的问题</h2><p>使用homebrew安装Jenkins之后会将httpListenAddress默认设置为127.0.0.1，导致只能本机通过localhost访问，局域网内其他机器无法通过ip访问。要修复此问题，需要将如下文件当中的httpListenAddress配置修改为本机ip或者0.0.0.0，然后重启Jenkins即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 注：如果你安装的是非LTS版本，则文件名为homebrew.mxcl.jenkins.plist</span><br><span class="line">～/Library/LaunchAgents/homebrew.mxcl.jenkins-lts.plist</span><br><span class="line">/usr/local/opt/jenkins/homebrew.mxcl.jenkins-lts.plist</span><br></pre></td></tr></table></figure>
-<h3 id="强制删除插件"><a href="#强制删除插件" class="headerlink" title="强制删除插件"></a>强制删除插件</h3><p>在某些情况下，安装插件异常，插件既不能正常安装，也不能通过Jenkins提供的页面操作删除，此时可以到Jenkins存储插件的目录，将文件删除重启即可。</p>
+<h2 id="强制删除插件"><a href="#强制删除插件" class="headerlink" title="强制删除插件"></a>强制删除插件</h2><p>在某些情况下，安装插件异常，插件既不能正常安装，也不能通过Jenkins提供的页面操作删除，此时可以到Jenkins存储插件的目录，将文件删除重启即可。</p>
 <p>插件目录：<code>~/.jenkins/plugins</code></p>
 <p>注：需同时删除插件文件夹和.jpi文件</p>
-<h3 id="远程触发"><a href="#远程触发" class="headerlink" title="远程触发"></a>远程触发</h3><p>GitLab场景推荐使用<code>构建触发器 -&gt; Build when a change is pushed to GitLab</code>触发器（此触发器需要Jenkins的GitLab插件，默认安装，如果没有，请手动安装），该远程触发器可以获取到GitLab触发仓库传递过来的参数，包含仓库地址，分支，tag，推送人等信息，很实用，参数详情可以参考<a href="https://plugins.jenkins.io/gitlab-plugin/" target="_blank" rel="noopener">gitlab-plugin</a>中的Defined variables部分。</p>
+<h2 id="远程触发"><a href="#远程触发" class="headerlink" title="远程触发"></a>远程触发</h2><p>GitLab场景推荐使用<code>构建触发器 -&gt; Build when a change is pushed to GitLab</code>触发器（此触发器需要Jenkins的GitLab插件，默认安装，如果没有，请手动安装），该远程触发器可以获取到GitLab触发仓库传递过来的参数，包含仓库地址，分支，tag，推送人等信息，很实用，参数详情可以参考<a href="https://plugins.jenkins.io/gitlab-plugin/" target="_blank" rel="noopener">gitlab-plugin</a>中的Defined variables部分。</p>
 <p>远程调用或者脚本触发场景推荐使用<code>构建触发器 -&gt; 触发远程构建</code>，使用此触发器，需要设置一个token，拼在webhook url上即可。如下是一个curl调用范例.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl JENKINS_URL/job/app/job/user-release/build?token=sh123</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl JENKINS_URL/job/app/job/user-release/build?token=sh123</span><br></pre></td></tr></table></figure>
 <p>如果需要传递参数，请使用如下方式，使用使用参数时，需要将参数配置在<code>参数化构建过程</code>当中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl JENKINS_URL/job/app/job/user-release/buildWithParameters?token=sh123&amp;username=yzq</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl JENKINS_URL/job/app/job/user-release/buildWithParameters?token=sh123&amp;username=yzq</span><br></pre></td></tr></table></figure>
 <p><code>构建触发器 -&gt; Generic Webhook Trigger</code>用作不传递参数的普通触发器也是一个选择，但是此触发器的参数支持较弱，仅支持form方式的参数提交，不太方便扩展，不太推荐。</p>
-<h3 id="远程触发403或404报错，提示权限问题"><a href="#远程触发403或404报错，提示权限问题" class="headerlink" title="远程触发403或404报错，提示权限问题"></a>远程触发403或404报错，提示权限问题</h3><p>此问题是远程触发鉴权失败导致，需要在触发链接上添加身份信息，此处需要Jenkins用户的用户ID和Token。用户ID为登录的用户名，Token可以在Dashboard-&gt;用户列表-&gt;某个用户-&gt;设置-&gt;API Token处生成，生成后仅展示一次，注意保存。获取到用户ID和Token之后按照如下方式调用即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://userId:token@myjenkins.com/job/app/job/user-release/build?token=sh123</span><br></pre></td></tr></table></figure>
+<h2 id="远程触发403或404报错，提示权限问题"><a href="#远程触发403或404报错，提示权限问题" class="headerlink" title="远程触发403或404报错，提示权限问题"></a>远程触发403或404报错，提示权限问题</h2><p>此问题是远程触发鉴权失败导致，需要在触发链接上添加身份信息，此处需要Jenkins用户的用户ID和Token。用户ID为登录的用户名，Token可以在Dashboard-&gt;用户列表-&gt;某个用户-&gt;设置-&gt;API Token处生成，生成后仅展示一次，注意保存。获取到用户ID和Token之后按照如下方式调用即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://userId:token@myjenkins.com/job/app/job/user-release/build?token=sh123</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -586,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装、启动和更新"><span class="nav-number">1.</span> <span class="nav-text">安装、启动和更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局域网内无法通过ip访问的问题"><span class="nav-number">2.</span> <span class="nav-text">局域网内无法通过ip访问的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制删除插件"><span class="nav-number">3.</span> <span class="nav-text">强制删除插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程触发"><span class="nav-number">4.</span> <span class="nav-text">远程触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程触发403或404报错，提示权限问题"><span class="nav-number">5.</span> <span class="nav-text">远程触发403或404报错，提示权限问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装、启动和更新"><span class="nav-number">1.</span> <span class="nav-text">安装、启动和更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局域网内无法通过ip访问的问题"><span class="nav-number">2.</span> <span class="nav-text">局域网内无法通过ip访问的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制删除插件"><span class="nav-number">3.</span> <span class="nav-text">强制删除插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程触发"><span class="nav-number">4.</span> <span class="nav-text">远程触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程触发403或404报错，提示权限问题"><span class="nav-number">5.</span> <span class="nav-text">远程触发403或404报错，提示权限问题</span></a></li></ol></div>
             
 
           </div>
