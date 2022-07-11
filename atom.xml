@@ -43,6 +43,31 @@
   </entry>
   
   <entry>
+    <title>fastlane移除苹果两步验证</title>
+    <link href="http://yoursite.com/2022/03/11/fastlane%E7%A7%BB%E9%99%A4%E8%8B%B9%E6%9E%9C%E4%B8%A4%E6%AD%A5%E9%AA%8C%E8%AF%81/"/>
+    <id>http://yoursite.com/2022/03/11/fastlane移除苹果两步验证/</id>
+    <published>2022-03-11T03:44:05.000Z</published>
+    <updated>2022-07-11T07:04:26.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。</p><p>参考文档：<a href="http://docs.fastlane.tools/getting-started/ios/authentication/" target="_blank" rel="noopener">http://docs.fastlane.tools/getting-started/ios/authentication/</a></p><h2 id="使用应用特殊密码"><a href="#使用应用特殊密码" class="headerlink" title="使用应用特殊密码"></a>使用应用特殊密码</h2><p>点击链接<a href="appleid.apple.com/account/manage">appleid.apple.com/account/manage</a>进入AppleID管理页面，点击App专用密码，然后生成。（此密码仅展示一次，请注意保存）</p><p>将专用密码配置在fastlane的环境变量当中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV[&quot;FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&quot;] = &quot;xxxx-xxxx-xxxx-xxxx&quot;</span><br></pre></td></tr></table></figure></p><p>此种方式仅支持<code>upload_to_app_store</code>、<code>upload_to_testflight</code>等上传二进制动作，其他的与App Store Connect交互的动作不支持。</p><h2 id="使用App-Store-Connect-API-key（推荐）"><a href="#使用App-Store-Connect-API-key（推荐）" class="headerlink" title="使用App Store Connect API key（推荐）"></a>使用App Store Connect API key（推荐）</h2><p>点击<a href="https://appstoreconnect.apple.com/access/api" target="_blank" rel="noopener">https://appstoreconnect.apple.com/access/api</a>进入App Store Connect用户与访问下面的Keys页面，生成一个API key（请确保自己有权限使用这个功能，如果看不到这个tab，也可以让账号持有者帮你创建），获得<code>key_id</code>，<code>issuer_id</code>并下载API Key的p8文件（此文件仅能下载一次，请注意保存）</p><p>在调用动作之前，向Apple请求获得api_key，并使用即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  api_key = app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  pilot(api_key: api_key)</span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>本人更推荐自动将api_key自动写入上下文的这种写法，fastlane的标准动作都会去上下文当中取api_key，写法上更方便一点</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  # Automatically loads Actions.lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]</span><br><span class="line">  pilot</span><br><span class="line">end</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane
+      
+    
+    </summary>
+    
+      <category term="技术文章" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+      <category term="持续集成" scheme="http://yoursite.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Jenkins使用指南</title>
     <link href="http://yoursite.com/2022/02/24/Jenkins%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
     <id>http://yoursite.com/2022/02/24/Jenkins使用指南/</id>
@@ -539,30 +564,6 @@ cp -a /Users/yzq/a/* /Users/yzq/b
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
       <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>主题替换为NexT</title>
-    <link href="http://yoursite.com/2018/04/04/%E4%B8%BB%E9%A2%98%E6%9B%BF%E6%8D%A2%E4%B8%BANexT/"/>
-    <id>http://yoursite.com/2018/04/04/主题替换为NexT/</id>
-    <published>2018-04-04T08:28:10.000Z</published>
-    <updated>2018-04-08T02:40:59.992Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前一直觉得博客的主题在显示比较多的文字和代码的时候略显凌乱，而且不太方便阅读，所以就把博客主题替换成了NexT。NexT在文字排版上比较清晰，而且界面元素也不多，可以使自己把更多的关注点放在内容上。</p><p>NexT主题地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></p><h3 id="多说两句"><a href="#多说两句" class="headerlink" title="多说两句"></a>多说两句</h3><p>1.NexT有4个scheme，每个scheme对应一个不同的布局，可以在<code>_config.yml</code>当中设置</p><pre><code># ---------------------------------------------------------------# Scheme Settings# ---------------------------------------------------------------# Schemesscheme: Muse# scheme: Mist#scheme: Pisces</code></pre><p>2.大于5.0.1小于6.0.0版本的NexT在<code>sudo hexo generate</code>时速度会特别慢，不知道是不是个例，在使用的时候注意一下</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;之前一直觉得博客的主题在显示比较多的文字和代码的时候略显凌乱，而且不太方便阅读，所以就把博客主题替换成了NexT。NexT在文字排版上比较清晰，而且界面元素也不多，可以使自己把更多的关注点放在内容上。&lt;/p&gt;
-&lt;p&gt;NexT主题地址：&lt;a href=&quot;https://git
-      
-    
-    </summary>
-    
-    
-      <category term="博客历程" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E5%8E%86%E7%A8%8B/"/>
     
   </entry>
   

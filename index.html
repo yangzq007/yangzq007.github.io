@@ -437,6 +437,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/11/fastlane移除苹果两步验证/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/11/fastlane移除苹果两步验证/" itemprop="url">fastlane移除苹果两步验证</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-11T11:44:05+08:00">
+                2022-03-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-07-11T15:04:26+08:00">
+                2022-07-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术文章/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。</p>
+<p>参考文档：<a href="http://docs.fastlane.tools/getting-started/ios/authentication/" target="_blank" rel="noopener">http://docs.fastlane.tools/getting-started/ios/authentication/</a></p>
+<h2 id="使用应用特殊密码"><a href="#使用应用特殊密码" class="headerlink" title="使用应用特殊密码"></a>使用应用特殊密码</h2><p>点击链接<a href="appleid.apple.com/account/manage">appleid.apple.com/account/manage</a>进入AppleID管理页面，点击App专用密码，然后生成。（此密码仅展示一次，请注意保存）</p>
+<p>将专用密码配置在fastlane的环境变量当中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV[&quot;FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&quot;] = &quot;xxxx-xxxx-xxxx-xxxx&quot;</span><br></pre></td></tr></table></figure></p>
+<p>此种方式仅支持<code>upload_to_app_store</code>、<code>upload_to_testflight</code>等上传二进制动作，其他的与App Store Connect交互的动作不支持。</p>
+<h2 id="使用App-Store-Connect-API-key（推荐）"><a href="#使用App-Store-Connect-API-key（推荐）" class="headerlink" title="使用App Store Connect API key（推荐）"></a>使用App Store Connect API key（推荐）</h2><p>点击<a href="https://appstoreconnect.apple.com/access/api" target="_blank" rel="noopener">https://appstoreconnect.apple.com/access/api</a>进入App Store Connect用户与访问下面的Keys页面，生成一个API key（请确保自己有权限使用这个功能，如果看不到这个tab，也可以让账号持有者帮你创建），获得<code>key_id</code>，<code>issuer_id</code>并下载API Key的p8文件（此文件仅能下载一次，请注意保存）</p>
+<p>在调用动作之前，向Apple请求获得api_key，并使用即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  api_key = app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  pilot(api_key: api_key)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>本人更推荐自动将api_key自动写入上下文的这种写法，fastlane的标准动作都会去上下文当中取api_key，写法上更方便一点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  # Automatically loads Actions.lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]</span><br><span class="line">  pilot</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/24/Jenkins使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1616,145 +1778,6 @@ codesign --force --deep --sign - /Applications/xxx.app
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/给你的哈希算法加点“盐”/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="树海">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="那片树海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/15/给你的哈希算法加点“盐”/" itemprop="url">给你的哈希算法加点“盐”</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T11:12:48+08:00">
-                2019-03-15
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-15T15:05:45+08:00">
-                2019-03-15
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>我们在平常的开发过程中为了保证信息的完整性以及安全性，我们通常都会对信息进行哈希计算签名，然后比对签名信息。</p>
-<p>但是黑客可以通过<a href="https://baike.baidu.com/item/%E5%BD%A9%E8%99%B9%E8%A1%A8" target="_blank" rel="noopener">彩虹表</a>反推原始输入，为了增加黑客的破解难度，我们会对原始输入做一些处理，通常的做法是加入另外一个输入（也就是盐）混淆，以sha1为例，大概是<code>sha1(message+salt)</code>这个样子。</p>
-<p>注：message+salt并不是表示字符串拼接，是表示经过特定的计算或者字符组合。</p>
-<p>Hmac算法（Keyed-Hashing for Message Authentication）是一个将盐加入哈希计算的标准算法，它会在计算过程中将salt混入计算过程中，而且它针对所有的哈希算法都通用，相比较我们自己的实现更标准也更安全。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/给你的哈希算法加点“盐”/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1807,7 +1830,7 @@ codesign --force --deep --sign - /Applications/xxx.app
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

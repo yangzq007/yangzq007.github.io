@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="脚本,Shell,图片压缩,tinypng">
+  <meta name="keywords" content="fastlane,苹果两步验证">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。 在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。 TinyPng&amp;amp;Shell我们先来介绍我们今天的主角TinyPng，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩">
-<meta name="keywords" content="脚本,Shell,图片压缩,tinypng">
+<meta name="description" content="苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。 参考文档：http://docs.fastlane.tools/getting-started/i">
+<meta name="keywords" content="fastlane,苹果两步验证">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Shell脚本批量压缩图片">
-<meta property="og:url" content="http://yoursite.com/2017/02/08/使用Shell脚本批量压缩图片/index.html">
+<meta property="og:title" content="fastlane移除苹果两步验证">
+<meta property="og:url" content="http://yoursite.com/2022/03/11/fastlane移除苹果两步验证/index.html">
 <meta property="og:site_name" content="那片树海">
-<meta property="og:description" content="在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。 在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。 TinyPng&amp;amp;Shell我们先来介绍我们今天的主角TinyPng，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩">
+<meta property="og:description" content="苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。 参考文档：http://docs.fastlane.tools/getting-started/i">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-04T07:05:03.786Z">
+<meta property="og:updated_time" content="2022-07-11T07:04:26.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Shell脚本批量压缩图片">
-<meta name="twitter:description" content="在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。 在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。 TinyPng&amp;amp;Shell我们先来介绍我们今天的主角TinyPng，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩">
+<meta name="twitter:title" content="fastlane移除苹果两步验证">
+<meta name="twitter:description" content="苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。 参考文档：http://docs.fastlane.tools/getting-started/i">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/08/使用Shell脚本批量压缩图片/">
+  <link rel="canonical" href="http://yoursite.com/2022/03/11/fastlane移除苹果两步验证/">
 
 
 
 
 
-  <title>使用Shell脚本批量压缩图片 | 那片树海</title>
+  <title>fastlane移除苹果两步验证 | 那片树海</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/08/使用Shell脚本批量压缩图片/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/11/fastlane移除苹果两步验证/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="树海">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用Shell脚本批量压缩图片</h1>
+          <h1 class="post-title" itemprop="name headline">fastlane移除苹果两步验证</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-08T17:00:03+08:00">
-                2017-02-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-11T11:44:05+08:00">
+                2022-03-11
               </time>
             
 
@@ -320,12 +320,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-04-04T15:05:03+08:00">
-                2018-04-04
+              <time title="更新于" itemprop="dateModified" datetime="2022-07-11T15:04:26+08:00">
+                2022-07-11
               </time>
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术文章/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -354,101 +376,16 @@
       
 
       
-        <p>在开发过程中我们为了减小安装包的体积，我们一般会把工程当中的图片资源文件进行压缩。</p>
-<p>在添加图片的时候进行压缩是一个好习惯，但是对于工程当中的大量图片进行压缩替换是一个不小的工作量，而且还有可能不小心弄错，像这种大批量的重复性工作就需要写脚本来帮助我们完成了。</p>
-<h3 id="TinyPng-amp-Shell"><a href="#TinyPng-amp-Shell" class="headerlink" title="TinyPng&amp;Shell"></a>TinyPng&amp;Shell</h3><p>我们先来介绍我们今天的主角<a href="https://tinypng.com/" target="_blank" rel="noopener">TinyPng</a>，我相信许多开发人员都知道这个网站，TinyPng凭借着优秀的压缩效率和压缩质量备受好评。同时它也提供了相应的API供我们使用，这也是为什么要使用它的原因。</p>
-<p>不过TinyPng也有一个限制，单个账号每月最多压缩500张次图片，想要提高相应压缩数量需要付费，这也对脚本的批量压缩造成了一些限制，后面会做相应介绍。</p>
-<p>shell脚本就不过多的进行介绍了，网上的教程有很多，本文只会针对比较特殊的地方进行介绍。</p>
-<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>基本思路是从给定的文件夹下进行遍历查找，如果是图片，进行压缩，将压缩之后的图片下载进行替换，如果是文件夹的话则进入该文件夹下进行更深一层的遍历查找压缩。具体的可以查看脚本，代码如下：<br><a id="more"></a></p>
-<pre><code>#!/bin/bash
-
-dir=&lt;#directory#&gt;
-
-apikey=&lt;#apikey#&gt;
-
-pngindex=0
-
-#获取上传文件返回的数据当中的url
-parse_json()
-{
-    value=`echo $1 | sed &apos;s/.*&quot;url&quot;:&quot;\(.*\)&quot;}}/\1/g&apos;`
-    echo $value
-}
-
-compress_file()
-{
-    for file in `ls $1`; do
-        #如果是普通文件
-        if [ -f &quot;$1/$file&quot; ]; then
-            if [ ${file##*.} == &quot;png&quot; ] || [ ${file##*.} == &quot;PNG&quot; ] || [ ${file##*.} == &quot;jpg&quot; ]; then
-                echo &quot;压缩文件$1/$file&quot;
-
-                s=$(curl https://api.tinify.com/shrink \
-                     --user api:${apikey} \
-                     --data-binary &quot;@$1/$file&quot;)
-
-                url=$(parse_json $s) 
-
-                #如果url不为空下载
-                if [ -n &quot;$url&quot; ]; then
-                    length=$(curl $url \
-                         --user api:${apikey} \
-                         --output &quot;$1/$file&quot;)
-                else
-                    echo &quot;$s1/$file压缩失败&quot;
-                fi
-            fi
-        #如果是文件夹
-        else
-            compress_file &quot;$1/$file&quot;
-        fi
-    done
-}
-
-check_filenumber()
-{
-    for file in `ls $1`; do
-        #如果是普通文件
-        if [ -f &quot;$1/$file&quot; ]; then
-            if [ ${file##*.} == &quot;png&quot; ] || [ ${file##*.} == &quot;PNG&quot; ] || [ ${file##*.} == &quot;jpg&quot; ]; then
-                pngindex=`expr $pngindex + 1`
-            fi
-        #如果是文件夹
-        else
-            check_filenumber &quot;$1/$file&quot;
-        fi
-    done
-}
-
-main()
-{
-    echo &quot;请输入以下选项：&quot;
-    echo &quot;0:查看当前文件夹下的png图片个数&quot;
-    echo &quot;1:执行压缩操作&quot;
-
-    read item
-    if [ $item == 0 ]; then
-        check_filenumber $dir
-        echo &quot;图片数:$pngindex&quot;;
-    elif [ $item == 1 ]; then
-        compress_file $dir;
-    fi
-}
-
-main
-</code></pre><p><code>&lt;#directory#&gt;</code>替换成需要压缩的路径<code>&lt;#apikey#&gt;</code>替换成TinyPng上申请的key即可</p>
-<p>可以看到为了避免文件夹下图片数量超过500，我先写了一个查看该文件夹下图片数量的方法，这样不想付费的用户可以使用多个账号对工程下面的图片数量不超过500进行分次压缩即可。</p>
-<p>如果单个文件夹下图片超过500，建议先拆成多个小于500的文件夹进行处理。当然付费提升数量或者改造脚本也是一个不错的选择。</p>
-<h3 id="一些说明"><a href="#一些说明" class="headerlink" title="一些说明"></a>一些说明</h3><p>1.运行脚本之前最好执行一下chmod +x &lt;#ScriptFile#&gt;命令，赋予脚本文件执行权限</p>
-<p>2.shell函数一般把最后一行执行的结果作为函数的结果返回，所以<code>parse_json</code>方法最后一行的<code>echo $value</code>是将value的值返回（控制台并不输出value）。shell当中也可以使用return返回结果，但return只能返回0/1这样的整数，有一定的限制。</p>
-<p>3.<code>|</code>在shell当中用来连接两个命令，并将第一个命令执行的结果作为参数传递给后面的命令</p>
-<p>4.sed是流编辑器命令，用来处理获取到的文本，此处的作用是将上传返回数据当中的压缩后的图片的地址筛选出来。</p>
-<p>5.<code>sed &#39;s/&lt;#value1#&gt;/&lt;#value2#&gt;/g&#39;`</code>是匹配相应正则的value1用value2替换，/g表示全部替换，没有的时候只替换第一个匹配的</p>
-<p>6.<code>sed &#39;s/.*&quot;url&quot;:&quot;\(.*\)&quot;}}/\1/g&#39;`</code>当中的\1是将()当中标记为1并返回，这样value就可以接收到sed命令的处理结果。</p>
-<p>7.curl是一个命令行下文件传输工具，这里不过多介绍。</p>
-<p>8.之前因为不熟悉curl命令，将–dump-header &lt;#路径#&gt;添加在curl命令后，造成在<code>compress_file</code>方法当中输出s的值是正常的json数值，而在<code>parse_json</code>方法当中接收到却是网络请求头的第一行HTTP 1.1，遇到这个问题的同学注意下。</p>
-<p>9.脚本文件戳<a href="https://github.com/yangzq007/mytinypng" target="_blank" rel="noopener">这里</a></p>
-
+        <p>苹果的AppleID现在都开启了两步验证，在登录新设备或者进行一些操作时都需要提供二次验证的验证码（已登录设备、绑定手机号、绑定邮箱接收），这个功能提高了AppleID的安全性，但也给自动化打包带来了一些困扰，我们的打包过程会被中断，下面就简单介绍两种可以在fastlane中移除苹果两步验证的方案。</p>
+<p>参考文档：<a href="http://docs.fastlane.tools/getting-started/ios/authentication/" target="_blank" rel="noopener">http://docs.fastlane.tools/getting-started/ios/authentication/</a></p>
+<h2 id="使用应用特殊密码"><a href="#使用应用特殊密码" class="headerlink" title="使用应用特殊密码"></a>使用应用特殊密码</h2><p>点击链接<a href="appleid.apple.com/account/manage">appleid.apple.com/account/manage</a>进入AppleID管理页面，点击App专用密码，然后生成。（此密码仅展示一次，请注意保存）</p>
+<p>将专用密码配置在fastlane的环境变量当中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV[&quot;FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD&quot;] = &quot;xxxx-xxxx-xxxx-xxxx&quot;</span><br></pre></td></tr></table></figure></p>
+<p>此种方式仅支持<code>upload_to_app_store</code>、<code>upload_to_testflight</code>等上传二进制动作，其他的与App Store Connect交互的动作不支持。</p>
+<h2 id="使用App-Store-Connect-API-key（推荐）"><a href="#使用App-Store-Connect-API-key（推荐）" class="headerlink" title="使用App Store Connect API key（推荐）"></a>使用App Store Connect API key（推荐）</h2><p>点击<a href="https://appstoreconnect.apple.com/access/api" target="_blank" rel="noopener">https://appstoreconnect.apple.com/access/api</a>进入App Store Connect用户与访问下面的Keys页面，生成一个API key（请确保自己有权限使用这个功能，如果看不到这个tab，也可以让账号持有者帮你创建），获得<code>key_id</code>，<code>issuer_id</code>并下载API Key的p8文件（此文件仅能下载一次，请注意保存）</p>
+<p>在调用动作之前，向Apple请求获得api_key，并使用即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  api_key = app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  pilot(api_key: api_key)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>本人更推荐自动将api_key自动写入上下文的这种写法，fastlane的标准动作都会去上下文当中取api_key，写法上更方便一点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lane :release do</span><br><span class="line">  app_store_connect_api_key(</span><br><span class="line">    key_id: &quot;D383SF739&quot;,</span><br><span class="line">    issuer_id: &quot;6053b7fe-68a8-4acb-89be-165aa6465141&quot;,</span><br><span class="line">    key_filepath: &quot;./AuthKey_D383SF739.p8&quot;,</span><br><span class="line">    duration: 1200, # optional (maximum 1200)</span><br><span class="line">    in_house: false # optional but may be required if using match/sigh</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  # Automatically loads Actions.lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]</span><br><span class="line">  pilot</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -465,9 +402,7 @@ main
       
         <div class="post-tags">
           
-            <a href="/tags/脚本/" rel="tag"># 脚本</a>
-          
-            <a href="/tags/Shell/" rel="tag"># Shell</a>
+            <a href="/tags/持续集成/" rel="tag"># 持续集成</a>
           
         </div>
       
@@ -480,8 +415,8 @@ main
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/08/JSPatch的一些坑/" rel="next" title="JSPatch的一些坑">
-                <i class="fa fa-chevron-left"></i> JSPatch的一些坑
+              <a href="/2022/02/24/Jenkins使用指南/" rel="next" title="Jenkins使用指南">
+                <i class="fa fa-chevron-left"></i> Jenkins使用指南
               </a>
             
           </div>
@@ -490,8 +425,8 @@ main
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/29/终端翻墙/" rel="prev" title="终端翻墙">
-                终端翻墙 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/07/04/一行命令执行系列任务/" rel="prev" title="一行命令执行系列任务">
+                一行命令执行系列任务 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -649,7 +584,7 @@ main
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TinyPng-amp-Shell"><span class="nav-number">1.</span> <span class="nav-text">TinyPng&amp;Shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路"><span class="nav-number">2.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些说明"><span class="nav-number">3.</span> <span class="nav-text">一些说明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用应用特殊密码"><span class="nav-number">1.</span> <span class="nav-text">使用应用特殊密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用App-Store-Connect-API-key（推荐）"><span class="nav-number">2.</span> <span class="nav-text">使用App Store Connect API key（推荐）</span></a></li></ol></div>
             
 
           </div>
