@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,Xcode," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Xcode9 的正式版也使用了一段时间了，bug 还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。 BUG1.APP 图标不见了 用 Xcode9 跑起来工程之后发现应用图标不见了，这个是因为 CocoaPods 的资源脚本有点问题，在 Xcode9 上资源位置异常，工程引用不到，解决方案是在 Podfile 添加如下 hook 代码">
+<meta name="keywords" content="iOS,Xcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode9的一些问题">
+<meta property="og:url" content="https://yangzq007.com/2017/10/10/Xcode9的一些问题/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="Xcode9 的正式版也使用了一段时间了，bug 还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。 BUG1.APP 图标不见了 用 Xcode9 跑起来工程之后发现应用图标不见了，这个是因为 CocoaPods 的资源脚本有点问题，在 Xcode9 上资源位置异常，工程引用不到，解决方案是在 Podfile 添加如下 hook 代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-1.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-3.png">
+<meta property="og:updated_time" content="2026-05-11T12:17:32.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xcode9的一些问题">
+<meta name="twitter:description" content="Xcode9 的正式版也使用了一段时间了，bug 还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。 BUG1.APP 图标不见了 用 Xcode9 跑起来工程之后发现应用图标不见了，这个是因为 CocoaPods 的资源脚本有点问题，在 Xcode9 上资源位置异常，工程引用不到，解决方案是在 Podfile 添加如下 hook 代码">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangzq007.com/2017/10/10/Xcode9的一些问题/"/>
+
+
+
+
+
+  <title>Xcode9的一些问题 | 那片树海</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">那片树海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用心做一件工艺品</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2017/10/10/Xcode9的一些问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Xcode9的一些问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-10T21:30:00+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:17:32+08:00">
+                2026-05-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Xcode9 的正式版也使用了一段时间了，bug 还是有点多的，总感觉好像是赶工出来的版本，刚开始用的时候还是有点痛苦的，下面就把这些点列出来，大家可以参考一下。</p>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><p>1.APP 图标不见了</p>
+<p>用 Xcode9 跑起来工程之后发现应用图标不见了，这个是因为 CocoaPods 的资源脚本有点问题，在 Xcode9 上资源位置异常，工程引用不到，解决方案是在 Podfile 添加如下 hook 代码</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">post_install <span class="keyword">do</span> <span class="params">|installer|</span></span><br><span class="line">    copy_pods_resources_path = <span class="string">"Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh"</span></span><br><span class="line">    string_to_replace = <span class="string">'--compile "$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;"'</span></span><br><span class="line">    assets_compile_with_app_icon_arguments = <span class="string">'--compile "$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;" --app-icon "$&#123;ASSETCATALOG_COMPILER_APPICON_NAME&#125;" --output-partial-info-plist "$&#123;BUILD_DIR&#125;/assetcatalog_generated_info.plist"'</span></span><br><span class="line">    text = File.read(copy_pods_resources_path)</span><br><span class="line">    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)</span><br><span class="line">    File.open(copy_pods_resources_path, <span class="string">"w"</span>) &#123;<span class="params">|file|</span> file.puts new_contents &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果有多个TARGETS，遍历执行即可</span></span><br><span class="line">post_install <span class="keyword">do</span> <span class="params">|installer|</span></span><br><span class="line">  installer.aggregate_targets.each <span class="keyword">do</span> <span class="params">|target|</span></span><br><span class="line">    copy_pods_resources_path = <span class="string">"Pods/Target Support Files/Pods-[工程名]/Pods-[工程名]-resources.sh"</span></span><br><span class="line">    string_to_replace = <span class="string">'--compile "$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;"'</span></span><br><span class="line">    assets_compile_with_app_icon_arguments = <span class="string">'--compile "$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;UNLOCALIZED_RESOURCES_FOLDER_PATH&#125;" --app-icon "$&#123;ASSETCATALOG_COMPILER_APPICON_NAME&#125;" --output-partial-info-plist "$&#123;BUILD_DIR&#125;/assetcatalog_generated_info.plist"'</span></span><br><span class="line">    text = File.read(copy_pods_resources_path)</span><br><span class="line">    new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)</span><br><span class="line">    File.open(copy_pods_resources_path, <span class="string">"w"</span>) &#123;<span class="params">|file|</span> file.puts new_contents &#125;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>2.替换或者新添加文件时工程找不到文件</p>
+<p>具体表现为报错<code>symbol(s) not found for architecture x86_64</code>，这个是 Xcode9 没有在我们添加文件时将相关文件添加到编译配置当中，只需要在工程-&gt;TARGETS-&gt;Build Phases-&gt;Compile Sources 当中手动添加进去即可</p>
+<p>3.打包导出（Export）失败</p>
+<p>表现为点击 Xcode 的导出（Export）时提示<code>The data couldn’t be read because it isn’t in the correct format</code>.或者使用 Jenkins 等用脚本打包提示如下错误：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2017-10-20 11:42:44.254 xcodebuild[6983:599869] [MT] IDEDistribution: Step failed: &lt;IDEDistributionSigningAssetsStep: 0x7fa541fd34a0&gt;: Error Domain=IDEDistributionSigningAssetStepErrorDomain Code=0 <span class="string">"Locating signing assets failed."</span> UserInfo=&#123;NSLocalizedDescription=Locating signing assets failed.,</span><br><span class="line">IDEDistributionSigningAssetStepUnderlyingErrors=(</span><br><span class="line">    <span class="string">"Error Domain=IDEProvisioningErrorDomain Code=9 \"\"PrePublish.app\" requires a provisioning profile with the Push Notifications feature.\" UserInfo=&#123;NSLocalizedDescription=\"PrePublish.app\" requires a provisioning profile with the Push Notifications feature., NSLocalizedRecoverySuggestion=Add a profile to the \"provisioningProfiles\" dictionary in your Export Options property list.&#125;"</span></span><br><span class="line">)&#125;</span><br></pre></td></tr></table></figure>
+<p>原因是 Xcode9 帮你添加了一个<code>Code Signing Style</code>的配置字段，该字段需要和<code>Automatically manage signing</code>对应，使用<code>Automatically manage signing</code>时该字段的值需要为<code>Automatic</code>，不使用<code>Automatically manage signing</code>时该字段的值需要为<code>Manual</code>，上述错误就是因为配置不对应导致的，修改对应即可。</p>
+<h3 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h3><p>1.主题</p>
+<p>部分经典主题在 Theme 列表看不到，只需要点击 theme 列表下面的“+”号即可添加，具体位置为 Xcode-&gt;Preferences-&gt;Fonts &amp; Colors-&gt;左侧 Theme-&gt;“+”</p>
+<p>2.移除模拟器边框</p>
+<p>取消勾选 Simulator-&gt;Window-&gt;Show Device Bezels</p>
+<p>3.单击跳转方法定义</p>
+<p>Xcode9 给“cmd+单击”添加了一个菜单选项，可以提供更多操作，如下：<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-1.png" alt="20171011-1"></p>
+<p>如果我们想直接跳转到方法定义，我们可以直接“cmd+鼠标右键”，触摸板是“cmd+双指轻击”</p>
+<p>如果还是习惯原来的“cmd+单击”的方式，也可以在 Xcode-&gt;Preferences-&gt;Navigation-&gt;Command-click on Code 中将选项修改为 Jumps To Definition，这样“cmd+单击”就是直接跳转到代码定义了。<br><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20171011-3.png" alt="20171011-3"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Xcode/" rel="tag"># Xcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/12/一行命令搞定工程图片浏览查找/" rel="next" title="一行命令搞定工程图片浏览查找">
+                <i class="fa fa-chevron-left"></i> 一行命令搞定工程图片浏览查找
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/19/MobX绑定过程和其中的一些坑的总结/" rel="prev" title="MobX绑定过程和其中的一些坑的总结">
+                MobX绑定过程和其中的一些坑的总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/default_avatar.jpg"
+                alt="树海" />
+            
+              <p class="site-author-name" itemprop="name">树海</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BUG"><span class="nav-number">1.</span> <span class="nav-text">BUG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易用性"><span class="nav-number">2.</span> <span class="nav-text">易用性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

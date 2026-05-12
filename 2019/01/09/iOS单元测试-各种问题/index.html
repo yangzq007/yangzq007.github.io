@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="编写用例时注意1.用例只针对 SDK 对外开放的入口 2.注意异常情况和边界值 3.注意用例之间的依赖情况 单测用例如何按照顺序执行测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample 理论上单元测试不应该控制用例的执行顺序，每个 case 都能够单独执行，">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS单元测试-各种问题">
+<meta property="og:url" content="https://yangzq007.com/2019/01/09/iOS单元测试-各种问题/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="编写用例时注意1.用例只针对 SDK 对外开放的入口 2.注意异常情况和边界值 3.注意用例之间的依赖情况 单测用例如何按照顺序执行测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample 理论上单元测试不应该控制用例的执行顺序，每个 case 都能够单独执行，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2026-05-11T12:13:02.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS单元测试-各种问题">
+<meta name="twitter:description" content="编写用例时注意1.用例只针对 SDK 对外开放的入口 2.注意异常情况和边界值 3.注意用例之间的依赖情况 单测用例如何按照顺序执行测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &amp;gt; - (void)test002Example &amp;gt; - (void)testExample 理论上单元测试不应该控制用例的执行顺序，每个 case 都能够单独执行，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangzq007.com/2019/01/09/iOS单元测试-各种问题/"/>
+
+
+
+
+
+  <title>iOS单元测试-各种问题 | 那片树海</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">那片树海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用心做一件工艺品</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2019/01/09/iOS单元测试-各种问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS单元测试-各种问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T21:31:00+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:13:02+08:00">
+                2026-05-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="编写用例时注意"><a href="#编写用例时注意" class="headerlink" title="编写用例时注意"></a>编写用例时注意</h3><p>1.用例只针对 SDK 对外开放的入口</p>
+<p>2.注意异常情况和边界值</p>
+<p>3.注意用例之间的依赖情况</p>
+<h3 id="单测用例如何按照顺序执行"><a href="#单测用例如何按照顺序执行" class="headerlink" title="单测用例如何按照顺序执行"></a>单测用例如何按照顺序执行</h3><p>测试函数的执行顺序与测试的字符大小有关系，如- (void)test001Example &gt; - (void)test002Example &gt; - (void)testExample</p>
+<p>理论上单元测试不应该控制用例的执行顺序，每个 case 都能够单独执行，但是针对某些特殊的情况，可以适当使用一次此特性。</p>
+<a id="more"></a>
+<h3 id="用例依赖的情况如何处理"><a href="#用例依赖的情况如何处理" class="headerlink" title="用例依赖的情况如何处理"></a>用例依赖的情况如何处理</h3><p>当你的用例需要按照顺序执行就说明你的用例存在依赖，针对这种情况就需要进行拆分，放到不同的组（测试文件）当中来执行，比如说存在 a，b，c 三个用例，b 和 c 都依赖于 a，那么比较合理的做法就是将 a 提到另外一个文件当中进行测试，b 和 c 放到另外一个文件中，在 b 和 c 的文件中将 a 放入 setUp 方法用作 b、c 执行的前提，这样就能比较好的进行测试，也减少了大量的冗余代码。</p>
+<h3 id="multiple-calls-made-to-XCTestExpectation-fulfill"><a href="#multiple-calls-made-to-XCTestExpectation-fulfill" class="headerlink" title="multiple calls made to -[XCTestExpectation fulfill]"></a>multiple calls made to -[XCTestExpectation fulfill]</h3><p>出现这种情况是因为写在回调当中的 XCTestExpectation 被多次调用导致的，解决这个错误，网上目前有以下三种解决方案，可以根据自己的情况进行选择：</p>
+<p>1.使用 __weak 修饰 XCTestExpectation。</p>
+<p><code>[expectation fulfill]</code> 执行一次后方法执行完毕，局部变量 expectation 被释放，当回调再次调起时，expectation 已被释放置 nil，执行 <code>fulfill</code> 不会报错。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    __<span class="keyword">weak</span> <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line"></span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span> waitForExpectationsWithTimeout:<span class="keyword">self</span>.timeout handler:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是该种方法存在一个问题，就是当有多个 XCTestExpectation 时，靠前的 expectation 执行 fulfill 时，该方法并不一定结束，导致再次调用 fulfill 报错，如下当 noticeExpectation 所在的回调被第二次调用时，expectation 可能并未 fulfill，变回导致 noticeExpectation 多次 fulfill 报错。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    __<span class="keyword">weak</span> <span class="built_in">XCTestExpectation</span> *noticeExpectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录通知返回"</span>];</span><br><span class="line">    [SHUserCenter registerNotice:SHUCenterNoticeTypeLoginSuccess handle:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">    <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">    [noticeExpectation fulfill];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">    __<span class="keyword">weak</span> <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span> waitForExpectations:@[noticeExpectation,expectation] timeout:<span class="keyword">self</span>.timeout];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.使用 __block 修饰 XCTestExpectation 并在 fulfill 之后置为 nil</p>
+<p>当 XCTestExpectation 对象执行过 fulfill 之后被置为了 nil，再次调用 fulfill 则不会报错。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    __block <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line"></span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">        expectation = <span class="literal">nil</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span> waitForExpectationsWithTimeout:<span class="keyword">self</span>.timeout handler:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法在大部分情况可以可以解决问题，有种特殊的情况我们后面再讨论</p>
+<p>3.移除回调的多次调用逻辑。</p>
+<p>查找并移除回调多次调用的逻辑是从根本上解决这种问题的方法，但是某些业务场景下我们可能是需要回调多次调用的，针对这种情况，我们就可以采用第二种方法来解决问题。</p>
+<h3 id="超时之后-fulfill-错误无法上报"><a href="#超时之后-fulfill-错误无法上报" class="headerlink" title="超时之后 fulfill 错误无法上报"></a>超时之后 fulfill 错误无法上报</h3><p>这种错误是因为等待 XCTestExpectation 超时测试方法执行完毕后，回调调用（比如网络不好超时的情况），而且返回了一个错误的结果，在回调当中的断言失败却无法上报错误导致的崩溃，错误信息大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Terminating app due to uncaught exception &apos;NSInternalInconsistencyException&apos;,</span><br><span class="line">reason: &apos;Unable to report test assertion failure &apos;((data) != nil)</span><br><span class="line">failed: throwing &quot;Unable to report test assertion failure &apos;((data) != nil) failed&apos; from /Users/yzq/Documents/Component/CHLUserCenter/Example/Tests/CHLUserCenterNoDataTests.m:31 because it was raised inside test case -[CHLUserCenterNoDataTests test001] which has no associated XCTestRun object.</span><br><span class="line">This may happen when test cases are constructed and invoked independently of standard XCTest infrastructure, or when the test has already finished.&quot;</span><br><span class="line">&apos; from /Users/yzq/Documents/Component/CHLUserCenter/Example/Tests/CHLUserCenterNoDataTests.m:31 because it was raised inside test case -[CHLUserCenterNoDataTests test001] which has no associated XCTestRun object.</span><br><span class="line">This may happen when test cases are constructed and invoked independently of standard XCTest infrastructure, or when the test has already finished.&apos;</span><br></pre></td></tr></table></figure>
+<p>这种错误在上面提到的使用 __block 的情况下也不能幸免，解决方案就是使用一个 __block 修饰的变量，将回调当中要获取的值取出来，然后再外层进行数据判断，这样就不会导致断言在回调当中崩溃了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    __block <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line">    __block <span class="built_in">NSDictionary</span> *returnData = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        returnData = data;</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">        expectation = <span class="literal">nil</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span> waitForExpectationsWithTimeout:<span class="keyword">self</span>.timeout handler:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">XCTAssertNotNil</span>([returnData objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Assertion-failure-in-XCTestExpectation-fulfill"><a href="#Assertion-failure-in-XCTestExpectation-fulfill" class="headerlink" title="Assertion failure in -[XCTestExpectation fulfill]"></a>Assertion failure in -[XCTestExpectation fulfill]</h3><p>这个错误是当有多个 XCTestExpectation 时使用 <code>waitForExpectations:timeout:</code> 等待 Expectation 导致，导致错误的具体原因目前还不是很明确，有了解具体原因的同学可以告诉我下。</p>
+<p>针对这个问题，我们可以使用 <code>waitForExpectationsWithTimeout:handler:</code> 来等待 Expectation，这样就不会报错了。</p>
+<h3 id="attempt-to-insert-nil-object-from-objects-0"><a href="#attempt-to-insert-nil-object-from-objects-0" class="headerlink" title="attempt to insert nil object from objects[0]"></a>attempt to insert nil object from objects[0]</h3><p>这个错误是因为我们在前面使用 __block 修饰 XCTestExpectation 并置为 nil 操作的解决方案时同时使用了 <code>waitForExpectations:timeout:</code> 来等待 Expectation，向数组中插入了 nil。</p>
+<p>这个问题的解决方案同上，使用 <code>waitForExpectationsWithTimeout:handler:</code> 来替换即可。所以针对大多数啊情况推荐使用 <code>waitForExpectationsWithTimeout:handler:</code> 来等待 XCTestExpectation。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/09/iOS单元测试-代码实现/" rel="next" title="iOS单元测试-代码实现">
+                <i class="fa fa-chevron-left"></i> iOS单元测试-代码实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/28/2018年个人总结/" rel="prev" title="2018年个人总结">
+                2018年个人总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/default_avatar.jpg"
+                alt="树海" />
+            
+              <p class="site-author-name" itemprop="name">树海</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写用例时注意"><span class="nav-number">1.</span> <span class="nav-text">编写用例时注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单测用例如何按照顺序执行"><span class="nav-number">2.</span> <span class="nav-text">单测用例如何按照顺序执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用例依赖的情况如何处理"><span class="nav-number">3.</span> <span class="nav-text">用例依赖的情况如何处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multiple-calls-made-to-XCTestExpectation-fulfill"><span class="nav-number">4.</span> <span class="nav-text">multiple calls made to -[XCTestExpectation fulfill]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时之后-fulfill-错误无法上报"><span class="nav-number">5.</span> <span class="nav-text">超时之后 fulfill 错误无法上报</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Assertion-failure-in-XCTestExpectation-fulfill"><span class="nav-number">6.</span> <span class="nav-text">Assertion failure in -[XCTestExpectation fulfill]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attempt-to-insert-nil-object-from-objects-0"><span class="nav-number">7.</span> <span class="nav-text">attempt to insert nil object from objects[0]</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

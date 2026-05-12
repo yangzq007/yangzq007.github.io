@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="曾经我以为 iOS 最牛叉的错误是 EXC_BAD_ACCESS，直到我遇到了 Signal 10 was raised. SIGBUS …… 这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下 Bus errorBus error 即总线错误，以下是中文维基百科的定义  存储器区块错误（英语：Segmentation fault，经常被缩写为 segfaul">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Signal 10 Bus Error聊聊assign和weak">
+<meta property="og:url" content="https://yangzq007.com/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="曾经我以为 iOS 最牛叉的错误是 EXC_BAD_ACCESS，直到我遇到了 Signal 10 was raised. SIGBUS …… 这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下 Bus errorBus error 即总线错误，以下是中文维基百科的定义  存储器区块错误（英语：Segmentation fault，经常被缩写为 segfaul">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2026-05-11T12:23:29.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从Signal 10 Bus Error聊聊assign和weak">
+<meta name="twitter:description" content="曾经我以为 iOS 最牛叉的错误是 EXC_BAD_ACCESS，直到我遇到了 Signal 10 was raised. SIGBUS …… 这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下 Bus errorBus error 即总线错误，以下是中文维基百科的定义  存储器区块错误（英语：Segmentation fault，经常被缩写为 segfaul">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangzq007.com/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/"/>
+
+
+
+
+
+  <title>从Signal 10 Bus Error聊聊assign和weak | 那片树海</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">那片树海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用心做一件工艺品</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2017/04/07/从Signal-10-Bus-Error聊聊assign和weak/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从Signal 10 Bus Error聊聊assign和weak</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-07T21:30:00+08:00">
+                2017-04-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:23:29+08:00">
+                2026-05-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>曾经我以为 iOS 最牛叉的错误是 EXC_BAD_ACCESS，直到我遇到了 Signal 10 was raised. SIGBUS ……</p>
+<p>这个错误出现的几率其实蛮低的，但是会造成闪退，所以还是不容忽视的。下面我们就来一起看一下</p>
+<h3 id="Bus-error"><a href="#Bus-error" class="headerlink" title="Bus error"></a>Bus error</h3><p>Bus error 即总线错误，以下是<a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="noopener">中文维基百科的定义</a></p>
+<blockquote>
+<p>存储器区块错误（英语：Segmentation fault，经常被缩写为 segfault），又译为记忆段错误，也称为总线错误（bus error），或总线错误、访问权限冲突（access violation），是一种程序错误。</p>
+<p>它会出现在当程序企图访问 CPU 无法定址的存储器区块时。当错误发生时，硬件会通知操作系统，产生了存储器访问权限冲突的状况。</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Bus_error" target="_blank" rel="noopener">英文维基百科的释义</a>相对详细一些，也介绍了造成这种错误的原因</p>
+<blockquote>
+<p>On POSIX-compliant platforms, bus errors usually result in the SIGBUS signal being sent to the process that caused the error. SIGBUS can also be caused by any general device fault that the computer detects, though a bus error rarely means that the computer hardware is physically broken—it is normally caused by a bug in a program’s source code.Bus errors may also be raised for certain other paging errors; see below.</p>
+<p>There are at least three main causes of bus errors:</p>
+<ul>
+<li>Non-existent address</li>
+<li>Unaligned access</li>
+<li>Paging errors</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<p>上面这段话的大致意思是说在类 POSIX 平台，Bus errors 通常是因为 SIGBUS 信号被发送到当前线程导致错误。SIGBUS 也可以由一些硬件设备错误导致，但是这个几率极低，因此一般都是我们编码错误导致的。Bus errors 也可以由特定的分页错误导致。下面是三种主要的导致 Bus errors 的原因，即</p>
+<ul>
+<li>Non-existent address（访问不存在的内存地址）</li>
+<li>Unaligned access（访问未对齐的内存地址）</li>
+<li>Paging errors（分页错误）</li>
+</ul>
+<p>看了上面的解释，我们就意识到这是一个内存访问错误了。</p>
+<h3 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h3><p>因为这个错误的出现几率不是很高，debug 了挺长时间也没有进展，直到我看到了某个 delegate 的修饰符是 assign。作为 mrc 时代走过来的 iOS 开发者刚开始对此感觉并没有什么异样，但是后来发现问题就出在这里，需要将 delegate 的修饰符修改为 weak。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//不安全的写法</span><br><span class="line">@property (assign, nonatomic) id&lt;VinScanDelegate&gt; delegate;</span><br><span class="line"></span><br><span class="line">//安全的写法</span><br><span class="line">@property (weak, nonatomic) id&lt;VinScanDelegate&gt; delegate;</span><br></pre></td></tr></table></figure>
+<p>但是为什么呢？我们来看下 assgin 和 weak 的区别</p>
+<h3 id="assgin-amp-weak"><a href="#assgin-amp-weak" class="headerlink" title="assgin&amp;weak"></a>assgin&amp;weak</h3><p>在 arc 中，assign 和 weak 非常类似，但是他们还是有一些细微的区别的</p>
+<p>weak 会在所指向的对象释放消失之后自动置为 nil，这样就会避免野指针导致的 crash，也就不会导致上面所提到的内存错误了</p>
+<blockquote>
+<p>“The main difference between weak and assign is that the with weak, once the object being pointed to is no longer valid, the pointer is nilled out. Assigning the pointer the value nil avoids many crashes as messages sent to nil are essentially no-ops”</p>
+</blockquote>
+<p>有人写了一个小 demo 来验证这个问题，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line">@property (nonatomic,weak) id weakPoint;</span><br><span class="line">@property (nonatomic,assign) id assignPoint;</span><br><span class="line">@property (nonatomic,strong) id strongPoint;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">  [super viewDidLoad];</span><br><span class="line">  self.strongPoint = [NSDate date];</span><br><span class="line">  NSLog(@&quot;strong 属性：%@&quot;,self.strongPoint);</span><br><span class="line">  self.weakPoint = self.strongPoint;</span><br><span class="line">  self.assignPoint = self.strongPoint;</span><br><span class="line">  self.strongPoint = nil;</span><br><span class="line">  NSLog(@&quot;weak 属性：%@&quot;,self.weakPoint);</span><br><span class="line">  //NSLog(@&quot;assign 属性：%@&quot;,self.assignPoint);</span><br><span class="line">  &#125;</span><br><span class="line">  @end</span><br><span class="line"></span><br><span class="line">//当程序中的注释被打开时，运行程序有可能会崩溃（有时候不崩溃，你可能需要多运行几次）</span><br><span class="line">//这是因为当 assign 指针所指向的内存被释放（释放并不等于抹除，只是引用计数为 0），不会自动赋值 nil ，</span><br><span class="line">//这样再引用 self.assignPoint 就会导致野指针操作</span><br><span class="line">//如果这个操作发生时内存还没有改变内容，依旧可以输出正确的结果</span><br><span class="line">//而如果发生时内存内容被改变了，就会 crash。</span><br></pre></td></tr></table></figure>
+<p>所以，在 arc 情况下，指针类型最好使用 strong 或者 weak 来修饰，基本类型和结构体用 assign，委托要用 weak 来修饰。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/29/终端翻墙/" rel="next" title="终端翻墙">
+                <i class="fa fa-chevron-left"></i> 终端翻墙
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/11/Hexo博客绑定域名/" rel="prev" title="Hexo博客绑定域名">
+                Hexo博客绑定域名 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/default_avatar.jpg"
+                alt="树海" />
+            
+              <p class="site-author-name" itemprop="name">树海</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bus-error"><span class="nav-number">1.</span> <span class="nav-text">Bus error</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误解决"><span class="nav-number">2.</span> <span class="nav-text">错误解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assgin-amp-weak"><span class="nav-number">3.</span> <span class="nav-text">assgin&amp;weak</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

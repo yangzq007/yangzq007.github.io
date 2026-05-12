@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="iOS 的单元测试代码我们使用 Xcode 自带的 XCTest，XCTest 可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的 Target（已经有的可以略过这一步）">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS单元测试-代码实现">
+<meta property="og:url" content="https://yangzq007.com/2019/01/09/iOS单元测试-代码实现/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="iOS 的单元测试代码我们使用 Xcode 自带的 XCTest，XCTest 可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的 Target（已经有的可以略过这一步）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-4.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png">
+<meta property="og:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png">
+<meta property="og:updated_time" content="2026-05-11T12:13:40.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS单元测试-代码实现">
+<meta name="twitter:description" content="iOS 的单元测试代码我们使用 Xcode 自带的 XCTest，XCTest 可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。 逻辑测试1.为工程添加一个单元测试的 Target（已经有的可以略过这一步）">
+<meta name="twitter:image" content="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangzq007.com/2019/01/09/iOS单元测试-代码实现/"/>
+
+
+
+
+
+  <title>iOS单元测试-代码实现 | 那片树海</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">那片树海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用心做一件工艺品</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2019/01/09/iOS单元测试-代码实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS单元测试-代码实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-09T21:30:00+08:00">
+                2019-01-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:13:40+08:00">
+                2026-05-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>iOS 的单元测试代码我们使用 Xcode 自带的 XCTest，XCTest 可以从逻辑和性能两个方向进行测试，下面我们来一起看下如何实现。</p>
+<h3 id="逻辑测试"><a href="#逻辑测试" class="headerlink" title="逻辑测试"></a>逻辑测试</h3><p>1.为工程添加一个单元测试的 Target（已经有的可以略过这一步）</p>
+<a id="more"></a>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-1.png" alt="20190109-1"></p>
+<p>2.为单元测试 Target 添加测试文件</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-2.png" alt="20190109-2"></p>
+<p>3.编写测试逻辑</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//每个用例方法执行前会执行的方法，为用例准备环境</span></span><br><span class="line">- (<span class="keyword">void</span>)setUp &#123;</span><br><span class="line">    <span class="comment">// Put setup code here. This method is called before the invocation of each test method in the class.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每个用例方法执行后会执行的方法，对环境进行清洁或者重置</span></span><br><span class="line">- (<span class="keyword">void</span>)tearDown &#123;</span><br><span class="line">    <span class="comment">// Put teardown code here. This method is called after the invocation of each test method in the class.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以test开头的方法是一个可执行的测试用例方法，我们通过这些方法来跑不同的用例</span></span><br><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="comment">// This is an example of a functional test case.</span></span><br><span class="line">    <span class="comment">// Use XCTAssert and related functions to verify your tests produce the correct results.</span></span><br><span class="line">    <span class="built_in">NSInteger</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">NSInteger</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">NSInteger</span> k = i + j;</span><br><span class="line">    <span class="built_in">XCTAssertEqual</span>(k, <span class="number">2</span>, <span class="string">@"k的值应该等于2"</span>);</span><br><span class="line">    <span class="comment">//使用XCTAssert断言来判断执行的结果是否通过</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.执行单元测试</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-3.png" alt="20190109-3"></p>
+<p>5.查看测试结果</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-4.png" alt="20190109-4"></p>
+<h3 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h3><p>针对异步执行的代码我们需要这样写</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUp &#123;</span><br><span class="line">    <span class="comment">//超时时间，单位为秒</span></span><br><span class="line">    <span class="keyword">self</span>.timeout = <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)tearDown &#123;</span><br><span class="line">    <span class="comment">// Put teardown code here. This method is called after the invocation of each test method in the class.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line"></span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">    &#125;];</span><br><span class="line">    <span class="comment">//waitForExpectationsWithTimeout:handler:方法会阻塞当前测试线程，直到所有的XCTestExpectation fulfill</span></span><br><span class="line">    [<span class="keyword">self</span> waitForExpectationsWithTimeout:<span class="keyword">self</span>.timeout handler:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外 waitForExpectations:timeout:方法可以等待多个特定的 XCTestExpectation</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUp &#123;</span><br><span class="line">    <span class="comment">//超时时间，单位为秒</span></span><br><span class="line">    <span class="keyword">self</span>.timeout = <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)tearDown &#123;</span><br><span class="line">    <span class="comment">// Put teardown code here. This method is called after the invocation of each test method in the class.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *username = <span class="string">@"shuhai"</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *password = <span class="string">@"123"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">XCTestExpectation</span> *noticeExpectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录通知返回"</span>];</span><br><span class="line">    [SHUserCenter registerNotice:SHUCenterNoticeTypeLoginSuccess handle:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">    <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">    [noticeExpectation fulfill];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">XCTestExpectation</span> *expectation = [<span class="keyword">self</span> expectationWithDescription:<span class="string">@"登录请求返回"</span>];</span><br><span class="line">    [SHUserCenter loginWithUserName: username password: password callback:^(<span class="built_in">NSDictionary</span> *data) &#123;</span><br><span class="line">        <span class="built_in">XCTAssertNotNil</span>([data objectForKey:<span class="string">@"data"</span>],<span class="string">@"返回结果不能为nil"</span>);</span><br><span class="line">        [expectation fulfill];</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span> waitForExpectations:@[noticeExpectation,expectation] timeout:<span class="keyword">self</span>.timeout];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>笔者推荐使用 waitForExpectationsWithTimeout:handler:方法。</p>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>需要了解一段代码执行了多长时间，可以采用如下方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testPerformanceExample &#123;</span><br><span class="line">    <span class="comment">// This is an example of a performance test case.</span></span><br><span class="line">    [<span class="keyword">self</span> measureBlock:^&#123;</span><br><span class="line">        <span class="comment">// Put the code you want to measure the time of here.</span></span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法 <code>measureBlock</code> 在执行时会执行 10 次，并且在执行完时会告诉你执行 10 次的时间。第一次执行 <code>testPerformanceExample</code> 完时会提示你输入一个该方法执行时间的参考值（baseline）作为参考。同时你也可以点击数字查看每次具体执行的结果，如下图：</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-7.png" alt="20190109-7"></p>
+<h3 id="查看单测覆盖率"><a href="#查看单测覆盖率" class="headerlink" title="查看单测覆盖率"></a>查看单测覆盖率</h3><p>首先在 Edit scheme -&gt; Test -&gt; Options 下勾选 Code Coverage</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-5.png" alt="20190109-5"></p>
+<p>然后运行一次单元测试，在 report navigator 上选择刚刚单测的 Coverage 选项，就可以看到单元测试覆盖率了</p>
+<p><img src="https://shuhai-1258408332.cos.ap-chengdu.myqcloud.com/20190109-6.png" alt="20190109-6"></p>
+<h3 id="常用的-XCTAssert-断言"><a href="#常用的-XCTAssert-断言" class="headerlink" title="常用的 XCTAssert 断言"></a>常用的 XCTAssert 断言</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">XCTFail</span>(...)    强制失败断言</span><br><span class="line"><span class="built_in">XCTAssertNil</span>(expression, ...)        为<span class="literal">nil</span>时通过</span><br><span class="line"><span class="built_in">XCTAssertNotNil</span>(expression, ...)    不为<span class="literal">nil</span>时通过</span><br><span class="line"><span class="built_in">XCTAssertTrue</span>(expression, ...)    为<span class="literal">true</span>时通过</span><br><span class="line"><span class="built_in">XCTAssertFalse</span>(expression, ...)    为<span class="literal">false</span>时通过</span><br><span class="line"><span class="built_in">XCTAssertEqualObjects</span>(expression1, expression2, ...)    两个对象相等时通过</span><br><span class="line"><span class="built_in">XCTAssertNotEqualObjects</span>(expression1, expression2, ...)    两个对象不相等时通过</span><br><span class="line"><span class="built_in">XCTAssertEqual</span>(expression1, expression2, ...)        相等时通过</span><br><span class="line"><span class="built_in">XCTAssertNotEqual</span>(expression1, expression2, ...)    不相等时通过</span><br><span class="line"></span><br><span class="line">更多的可以查看系统<span class="built_in">XCTestAssertions</span>.h文件当中的注释</span><br></pre></td></tr></table></figure>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>在编写单元测试时如果遇到问题可以参考 <a href="http://yangzq007.com/2019/01/09/iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95-%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98/">iOS 单元测试-各种问题</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/15/记一次cp错误/" rel="next" title="记一次cp错误">
+                <i class="fa fa-chevron-left"></i> 记一次cp错误
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/09/iOS单元测试-各种问题/" rel="prev" title="iOS单元测试-各种问题">
+                iOS单元测试-各种问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/default_avatar.jpg"
+                alt="树海" />
+            
+              <p class="site-author-name" itemprop="name">树海</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑测试"><span class="nav-number">1.</span> <span class="nav-text">逻辑测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步测试"><span class="nav-number">2.</span> <span class="nav-text">异步测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能测试"><span class="nav-number">3.</span> <span class="nav-text">性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看单测覆盖率"><span class="nav-number">4.</span> <span class="nav-text">查看单测覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的-XCTAssert-断言"><span class="nav-number">5.</span> <span class="nav-text">常用的 XCTAssert 断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
