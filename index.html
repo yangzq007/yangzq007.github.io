@@ -272,6 +272,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2025/11/14/核心网页指标-INP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2025/11/14/核心网页指标-INP/" itemprop="url">核心网页指标-INP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-11-14T21:30:00+08:00">
+                2025-11-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-15T20:47:51+08:00">
+                2026-05-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术文章/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="什么是-INP"><a href="#什么是-INP" class="headerlink" title="什么是 INP"></a>什么是 INP</h3><p>今天听组内同学分享，了解到一个前端概念 INP（Interaction to Next Paint），它用来衡量互动性，为了提供良好的用户体验，网页的 INP 应不超过 200 毫秒。</p>
+<p>INP 指标通过观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间，评估网页对用户互动的总体响应情况。最终 INP 值是观测到的最长互动时间，离群值会被忽略。</p>
+<h3 id="常见的-INP-优化手段"><a href="#常见的-INP-优化手段" class="headerlink" title="常见的 INP 优化手段"></a>常见的 INP 优化手段</h3><p>INP 的通常优化手段是将大任务拆解成小任务，然后通过 setTimeout 调用，保障用户输入的响应。比如一个 200ms 的任务，将它拆分成 4 个 50ms 的任务来执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原来的重任务</span></span><br><span class="line">doHeavyWork();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拆小之后</span></span><br><span class="line">setTimeout(task1, <span class="number">0</span>);</span><br><span class="line">setTimeout(task2, <span class="number">0</span>);</span><br><span class="line">setTimeout(task3, <span class="number">0</span>);</span><br><span class="line">setTimeout(task4, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><p>到这里移动端的同学是不是突然有些疑问</p>
+<ol>
+<li>JavaScript 是单线程的，拆分成小任务，并不能缩短整体的执行时间，这个优化有用吗</li>
+<li>每个任务 50ms，它执行完成之后，下一个任务又会被执行，这中间的间隙能响应用户的操作吗</li>
+<li>两个任务中间的窗口期这么短，会有用户命中吗</li>
+</ol>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题 1"></a>问题 1</h4><p>JavaScript 引擎是单线程，拆分成小任务，并不能缩短时长，甚至因为调度的问题，执行时长还会增加，但这类优化的目标不是“加速”，而是让用户的操作在执行任务的间隙能更快被响应。</p>
+<h4 id="问题-2"><a href="#问题-2" class="headerlink" title="问题 2"></a>问题 2</h4><p>JavaScript 的 Event Loop 循环，执行完任务会执行其他的，这时候可以执行用户的操作，如果这个用户的操作耗时也比较长，整体 Loop 的执行也会加长，导致下一个 50ms 的任务更靠后执行</p>
+<h4 id="问题-3"><a href="#问题-3" class="headerlink" title="问题 3"></a>问题 3</h4><p>会的，在这 50ms 执行期间，用户的操作仍能被接收，但是不会被处理，而是延后处理，所以这个优化会保证用户的操作尽快响应，减少卡顿感。</p>
+<p>对于在第一个 50ms 用户做的操作，</p>
+<ul>
+<li>假如没有优化，要到 200ms 之后才会执行</li>
+<li>假如进行了优化，会在第一个 50ms 任务执行完成后执行，因为这个时候进入了下一个 Event Loop 周期，可以处理积压的用户操作了</li>
+</ul>
+<h4 id="新的问题-4-为什么使用定时器就可以保证每个任务之间有间隔"><a href="#新的问题-4-为什么使用定时器就可以保证每个任务之间有间隔" class="headerlink" title="新的问题 4 - 为什么使用定时器就可以保证每个任务之间有间隔"></a>新的问题 4 - 为什么使用定时器就可以保证每个任务之间有间隔</h4><p>因为浏览器的定时器是一个单独的线程，setTimeout(task1, 0) 的任务并不会立即执行，而是把任务放入宏任务队列，等主线程空闲时才取出来执行。</p>
+<p>浏览器规定，同一宏任务结束后，主线程会先处理 微任务队列（Promise、MutationObserver），再去处理下一个宏任务（下一个 setTimeout）。所以即使设置 0ms，也会有一个事件循环的调度间隙，因为主线程在任务之间会检查是否有用户事件或渲染需要处理。</p>
+<h4 id="新的问题-5-一次性加进去了-4-个定时任务，不会一次性全部取出执行吗"><a href="#新的问题-5-一次性加进去了-4-个定时任务，不会一次性全部取出执行吗" class="headerlink" title="新的问题 5 - 一次性加进去了 4 个定时任务，不会一次性全部取出执行吗"></a>新的问题 5 - 一次性加进去了 4 个定时任务，不会一次性全部取出执行吗</h4><p>setTimeout 任务是宏任务，每次事件循环只取一个宏任务执行，即使宏任务队列里有 4 个 setTimeout，也不会一次性全部执行。事件循环每次只取队列头部的一个任务执行。</p>
+<p>task1 执行完后，浏览器会：</p>
+<ul>
+<li>处理微任务队列（Promise.then 等）</li>
+<li>更新渲染（如果需要）</li>
+<li>处理用户事件（点击/输入）</li>
+<li>然后才执行 task2，依次类推</li>
+</ul>
+<h3 id="扩展-浏览器的其他线程"><a href="#扩展-浏览器的其他线程" class="headerlink" title="扩展 - 浏览器的其他线程"></a>扩展 - 浏览器的其他线程</h3><ul>
+<li>主线程：执行 JS、解析 HTML、构建 DOM 树、计算样式、布局、绘制。几乎所有前端逻辑都在这里执行。</li>
+<li>合成线程：负责将多个图层合成，决定哪些区域需要重绘。加速滚动与动画渲染，使页面更流畅。</li>
+<li>Worker 线程：运行在后台的 JS 线程，处理计算密集或网络请求任务，不阻塞主线程。</li>
+<li>定时器线程：负责 setTimeout / setInterval 的计时实现。</li>
+<li>事件线：管理用户输入事件（鼠标、键盘、触摸），并将其派发给主线程。</li>
+<li>动画线程: 用于协调 requestAnimationFrame 与浏览器渲染节奏。</li>
+</ul>
+<h3 id="扩展-和移动端的区别"><a href="#扩展-和移动端的区别" class="headerlink" title="扩展 - 和移动端的区别"></a>扩展 - 和移动端的区别</h3><ul>
+<li>移动端是利用多线程，把耗时操作丢到其他线程处理，保证主线程的流畅度</li>
+<li>前端也有类似的操作，如使用 Web Worker</li>
+</ul>
+<h3 id="扩展-为什么是-50ms"><a href="#扩展-为什么是-50ms" class="headerlink" title="扩展 - 为什么是 50ms"></a>扩展 - 为什么是 50ms</h3><p>这个数字并不是固定标准，而是经验值，因为浏览器通常以 60 帧每秒（16.7ms 每帧）刷新，如果一个任务执行时间太长，就会阻塞渲染导致掉帧，将任务控制在 50ms 以内，能有效保证交互和动画的流畅性。</p>
+<h3 id="扩展-其他优化手段"><a href="#扩展-其他优化手段" class="headerlink" title="扩展 - 其他优化手段"></a>扩展 - 其他优化手段</h3><p>除了拆分任务外，INP 也还有其他的一些优化手段，比如说把复杂耗时的计算丢到 Web Worker 当中去处理，这是一个单独的线程，不会阻塞 JavaScript 引擎线程。</p>
+<p>其他还有一些更细节的优化，大家也可以自己去搜索，此处就不再赘述了。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://developers.google.com/search/blog/2023/05/introducing-inp?hl=zh-cn" target="_blank" rel="noopener">https://developers.google.com/search/blog/2023/05/introducing-inp?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/vitals?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/vitals?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/inp?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/inp?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/optimize-inp?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/optimize-inp?hl=zh-cn</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2022/07/04/一行命令执行系列任务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1624,150 +1827,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2019/03/15/CocoaPods的AppIcon错误/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="树海">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="那片树海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/15/CocoaPods的AppIcon错误/" itemprop="url">CocoaPods的AppIcon错误</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T21:31:00+08:00">
-                2019-03-15
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:10:16+08:00">
-                2026-05-11
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>不知道大家在 <code>pod sepc lint</code> 或者 <code>pod repo push</code> 验证或者推自己的 podspec 时有没有遇到这个错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;</span><br></pre></td></tr></table></figure>
-<p>当初我使用的还是 1.4.0 的版本，要使用一个新特性，更新到了 1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在 1.5.x 和 1.6.x 的版本中都没有解决，现在有 1.7.0 的 beta 版了，不知道这个问题修复没有，等 release 版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
-<ol>
-<li>拿到 podspec 文件强推到 podspec 仓库</li>
-<li>注掉 CocoaPods 校验逻辑</li>
-<li>在你的 pod 当中添加一个冗余的 Images.xcassets</li>
-<li>不同版本的 CocoaPods 配合使用</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/CocoaPods的AppIcon错误/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1822,7 +1881,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="那片树海" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="什么是 INP今天听组内同学分享，了解到一个前端概念 INP（Interaction to Next Paint），它用来衡量互动性，为了提供良好的用户体验，网页的 INP 应不超过 200 毫秒。 INP 指标通过观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间，评估网页对用户互动的总体响应情况。最终 INP 值是观测到的最长互动时间，离群值会被忽略。 常见的 INP 优化手段IN">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="核心网页指标-INP">
+<meta property="og:url" content="https://yangzq007.com/2025/11/14/核心网页指标-INP/index.html">
+<meta property="og:site_name" content="那片树海">
+<meta property="og:description" content="什么是 INP今天听组内同学分享，了解到一个前端概念 INP（Interaction to Next Paint），它用来衡量互动性，为了提供良好的用户体验，网页的 INP 应不超过 200 毫秒。 INP 指标通过观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间，评估网页对用户互动的总体响应情况。最终 INP 值是观测到的最长互动时间，离群值会被忽略。 常见的 INP 优化手段IN">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2026-05-15T12:47:51.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="核心网页指标-INP">
+<meta name="twitter:description" content="什么是 INP今天听组内同学分享，了解到一个前端概念 INP（Interaction to Next Paint），它用来衡量互动性，为了提供良好的用户体验，网页的 INP 应不超过 200 毫秒。 INP 指标通过观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间，评估网页对用户互动的总体响应情况。最终 INP 值是观测到的最长互动时间，离群值会被忽略。 常见的 INP 优化手段IN">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangzq007.com/2025/11/14/核心网页指标-INP/"/>
+
+
+
+
+
+  <title>核心网页指标-INP | 那片树海</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2451986a00fc182d15a459654eb683d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">那片树海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用心做一件工艺品</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2025/11/14/核心网页指标-INP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">核心网页指标-INP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-11-14T21:30:00+08:00">
+                2025-11-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-15T20:47:51+08:00">
+                2026-05-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术文章/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="什么是-INP"><a href="#什么是-INP" class="headerlink" title="什么是 INP"></a>什么是 INP</h3><p>今天听组内同学分享，了解到一个前端概念 INP（Interaction to Next Paint），它用来衡量互动性，为了提供良好的用户体验，网页的 INP 应不超过 200 毫秒。</p>
+<p>INP 指标通过观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间，评估网页对用户互动的总体响应情况。最终 INP 值是观测到的最长互动时间，离群值会被忽略。</p>
+<h3 id="常见的-INP-优化手段"><a href="#常见的-INP-优化手段" class="headerlink" title="常见的 INP 优化手段"></a>常见的 INP 优化手段</h3><p>INP 的通常优化手段是将大任务拆解成小任务，然后通过 setTimeout 调用，保障用户输入的响应。比如一个 200ms 的任务，将它拆分成 4 个 50ms 的任务来执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原来的重任务</span></span><br><span class="line">doHeavyWork();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拆小之后</span></span><br><span class="line">setTimeout(task1, <span class="number">0</span>);</span><br><span class="line">setTimeout(task2, <span class="number">0</span>);</span><br><span class="line">setTimeout(task3, <span class="number">0</span>);</span><br><span class="line">setTimeout(task4, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><p>到这里移动端的同学是不是突然有些疑问</p>
+<ol>
+<li>JavaScript 是单线程的，拆分成小任务，并不能缩短整体的执行时间，这个优化有用吗</li>
+<li>每个任务 50ms，它执行完成之后，下一个任务又会被执行，这中间的间隙能响应用户的操作吗</li>
+<li>两个任务中间的窗口期这么短，会有用户命中吗</li>
+</ol>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题 1"></a>问题 1</h4><p>JavaScript 引擎是单线程，拆分成小任务，并不能缩短时长，甚至因为调度的问题，执行时长还会增加，但这类优化的目标不是“加速”，而是让用户的操作在执行任务的间隙能更快被响应。</p>
+<h4 id="问题-2"><a href="#问题-2" class="headerlink" title="问题 2"></a>问题 2</h4><p>JavaScript 的 Event Loop 循环，执行完任务会执行其他的，这时候可以执行用户的操作，如果这个用户的操作耗时也比较长，整体 Loop 的执行也会加长，导致下一个 50ms 的任务更靠后执行</p>
+<h4 id="问题-3"><a href="#问题-3" class="headerlink" title="问题 3"></a>问题 3</h4><p>会的，在这 50ms 执行期间，用户的操作仍能被接收，但是不会被处理，而是延后处理，所以这个优化会保证用户的操作尽快响应，减少卡顿感。</p>
+<p>对于在第一个 50ms 用户做的操作，</p>
+<ul>
+<li>假如没有优化，要到 200ms 之后才会执行</li>
+<li>假如进行了优化，会在第一个 50ms 任务执行完成后执行，因为这个时候进入了下一个 Event Loop 周期，可以处理积压的用户操作了</li>
+</ul>
+<h4 id="新的问题-4-为什么使用定时器就可以保证每个任务之间有间隔"><a href="#新的问题-4-为什么使用定时器就可以保证每个任务之间有间隔" class="headerlink" title="新的问题 4 - 为什么使用定时器就可以保证每个任务之间有间隔"></a>新的问题 4 - 为什么使用定时器就可以保证每个任务之间有间隔</h4><p>因为浏览器的定时器是一个单独的线程，setTimeout(task1, 0) 的任务并不会立即执行，而是把任务放入宏任务队列，等主线程空闲时才取出来执行。</p>
+<p>浏览器规定，同一宏任务结束后，主线程会先处理 微任务队列（Promise、MutationObserver），再去处理下一个宏任务（下一个 setTimeout）。所以即使设置 0ms，也会有一个事件循环的调度间隙，因为主线程在任务之间会检查是否有用户事件或渲染需要处理。</p>
+<h4 id="新的问题-5-一次性加进去了-4-个定时任务，不会一次性全部取出执行吗"><a href="#新的问题-5-一次性加进去了-4-个定时任务，不会一次性全部取出执行吗" class="headerlink" title="新的问题 5 - 一次性加进去了 4 个定时任务，不会一次性全部取出执行吗"></a>新的问题 5 - 一次性加进去了 4 个定时任务，不会一次性全部取出执行吗</h4><p>setTimeout 任务是宏任务，每次事件循环只取一个宏任务执行，即使宏任务队列里有 4 个 setTimeout，也不会一次性全部执行。事件循环每次只取队列头部的一个任务执行。</p>
+<p>task1 执行完后，浏览器会：</p>
+<ul>
+<li>处理微任务队列（Promise.then 等）</li>
+<li>更新渲染（如果需要）</li>
+<li>处理用户事件（点击/输入）</li>
+<li>然后才执行 task2，依次类推</li>
+</ul>
+<h3 id="扩展-浏览器的其他线程"><a href="#扩展-浏览器的其他线程" class="headerlink" title="扩展 - 浏览器的其他线程"></a>扩展 - 浏览器的其他线程</h3><ul>
+<li>主线程：执行 JS、解析 HTML、构建 DOM 树、计算样式、布局、绘制。几乎所有前端逻辑都在这里执行。</li>
+<li>合成线程：负责将多个图层合成，决定哪些区域需要重绘。加速滚动与动画渲染，使页面更流畅。</li>
+<li>Worker 线程：运行在后台的 JS 线程，处理计算密集或网络请求任务，不阻塞主线程。</li>
+<li>定时器线程：负责 setTimeout / setInterval 的计时实现。</li>
+<li>事件线：管理用户输入事件（鼠标、键盘、触摸），并将其派发给主线程。</li>
+<li>动画线程: 用于协调 requestAnimationFrame 与浏览器渲染节奏。</li>
+</ul>
+<h3 id="扩展-和移动端的区别"><a href="#扩展-和移动端的区别" class="headerlink" title="扩展 - 和移动端的区别"></a>扩展 - 和移动端的区别</h3><ul>
+<li>移动端是利用多线程，把耗时操作丢到其他线程处理，保证主线程的流畅度</li>
+<li>前端也有类似的操作，如使用 Web Worker</li>
+</ul>
+<h3 id="扩展-为什么是-50ms"><a href="#扩展-为什么是-50ms" class="headerlink" title="扩展 - 为什么是 50ms"></a>扩展 - 为什么是 50ms</h3><p>这个数字并不是固定标准，而是经验值，因为浏览器通常以 60 帧每秒（16.7ms 每帧）刷新，如果一个任务执行时间太长，就会阻塞渲染导致掉帧，将任务控制在 50ms 以内，能有效保证交互和动画的流畅性。</p>
+<h3 id="扩展-其他优化手段"><a href="#扩展-其他优化手段" class="headerlink" title="扩展 - 其他优化手段"></a>扩展 - 其他优化手段</h3><p>除了拆分任务外，INP 也还有其他的一些优化手段，比如说把复杂耗时的计算丢到 Web Worker 当中去处理，这是一个单独的线程，不会阻塞 JavaScript 引擎线程。</p>
+<p>其他还有一些更细节的优化，大家也可以自己去搜索，此处就不再赘述了。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://developers.google.com/search/blog/2023/05/introducing-inp?hl=zh-cn" target="_blank" rel="noopener">https://developers.google.com/search/blog/2023/05/introducing-inp?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/vitals?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/vitals?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/inp?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/inp?hl=zh-cn</a></li>
+<li><a href="https://web.dev/articles/optimize-inp?hl=zh-cn" target="_blank" rel="noopener">https://web.dev/articles/optimize-inp?hl=zh-cn</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/04/一行命令执行系列任务/" rel="next" title="一行命令执行系列任务">
+                <i class="fa fa-chevron-left"></i> 一行命令执行系列任务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/default_avatar.jpg"
+                alt="树海" />
+            
+              <p class="site-author-name" itemprop="name">树海</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangzq007" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/5203766440?is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-INP"><span class="nav-number">1.</span> <span class="nav-text">什么是 INP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的-INP-优化手段"><span class="nav-number">2.</span> <span class="nav-text">常见的 INP 优化手段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#疑问"><span class="nav-number">3.</span> <span class="nav-text">疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答"><span class="nav-number">4.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-1"><span class="nav-number">4.1.</span> <span class="nav-text">问题 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-2"><span class="nav-number">4.2.</span> <span class="nav-text">问题 2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-3"><span class="nav-number">4.3.</span> <span class="nav-text">问题 3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新的问题-4-为什么使用定时器就可以保证每个任务之间有间隔"><span class="nav-number">4.4.</span> <span class="nav-text">新的问题 4 - 为什么使用定时器就可以保证每个任务之间有间隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新的问题-5-一次性加进去了-4-个定时任务，不会一次性全部取出执行吗"><span class="nav-number">4.5.</span> <span class="nav-text">新的问题 5 - 一次性加进去了 4 个定时任务，不会一次性全部取出执行吗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展-浏览器的其他线程"><span class="nav-number">5.</span> <span class="nav-text">扩展 - 浏览器的其他线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展-和移动端的区别"><span class="nav-number">6.</span> <span class="nav-text">扩展 - 和移动端的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展-为什么是-50ms"><span class="nav-number">7.</span> <span class="nav-text">扩展 - 为什么是 50ms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展-其他优化手段"><span class="nav-number">8.</span> <span class="nav-text">扩展 - 其他优化手段</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">树海</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

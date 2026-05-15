@@ -272,6 +272,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2019/03/15/CocoaPods的AppIcon错误/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="树海">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="那片树海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/CocoaPods的AppIcon错误/" itemprop="url">CocoaPods的AppIcon错误</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T21:31:00+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T20:10:16+08:00">
+                2026-05-11
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>不知道大家在 <code>pod sepc lint</code> 或者 <code>pod repo push</code> 验证或者推自己的 podspec 时有没有遇到这个错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: None of the input catalogs contained a matching stickers icon set or app icon set named &quot;AppIcon&quot;</span><br></pre></td></tr></table></figure>
+<p>当初我使用的还是 1.4.0 的版本，要使用一个新特性，更新到了 1.5.x，结果报了上面的错误，本来以为会在后面的版本当中修复，结果在 1.5.x 和 1.6.x 的版本中都没有解决，现在有 1.7.0 的 beta 版了，不知道这个问题修复没有，等 release 版本发布之后去看下。那我们要怎么度过这段艰难的时期呢，大致有以下几种方案：</p>
+<ol>
+<li>拿到 podspec 文件强推到 podspec 仓库</li>
+<li>注掉 CocoaPods 校验逻辑</li>
+<li>在你的 pod 当中添加一个冗余的 Images.xcassets</li>
+<li>不同版本的 CocoaPods 配合使用</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/15/CocoaPods的AppIcon错误/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2019/03/15/给你的哈希算法加点“盐”/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1510,143 +1654,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangzq007.com/2018/05/28/CocoaPods重复生成UUID的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="树海">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="那片树海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/28/CocoaPods重复生成UUID的问题/" itemprop="url">CocoaPods重复生成UUID的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T21:30:00+08:00">
-                2018-05-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2026-05-11T15:23:35+08:00">
-                2026-05-11
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近使用 CocoaPods 在 <code>pod install</code> 或者 <code>pod update</code> 时会出现 <code>[!] [Xcodeproj] Generated duplicate UUIDs:</code> 的错误，大段的 warning 占满整个终端。</p>
-<p>解决方案：</p>
-<p>终端执行如下命令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> COCOAPODS_DISABLE_DETERMINISTIC_UUIDS=YES</span><br></pre></td></tr></table></figure>
-<p>后续 CocoaPods 已经把该配置移入到 Podfile 当中，执行上面命令无效的可以在 Podfile 当中添加如下配置即可：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议放在文件开始或者 source 之后</span></span><br><span class="line">install! <span class="string">'cocoapods'</span>, <span class="symbol">:deterministic_uuids</span> =&gt; <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1701,7 +1708,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
